@@ -29,14 +29,14 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
           </View>
         </View>
 
-              <View style={styles.separator} lightColor="#000" darkColor="#0d1f14" />
+              <View style={styles.separator} lightColor="#000" darkColor="#111111" />
         <ScrollView>
           <View style={{ marginTop: 90}}>
             <Text style={styles.subTitle}>Who's playing?</Text>
             <NameInput navigation={navigation}/>
           </View>
         </ScrollView>
-        <View style={styles.separator} lightColor="#000" darkColor="#0d1f14" />
+        <View style={styles.separator} lightColor="#000" darkColor="#111111" />
         {/* <View style={styles.buttonContainer}>
         <Button title="Let's Get Drunk!" onPress={() => navigation.navigate('TabTwo')}/>
       </View> */}

@@ -17,7 +17,7 @@ export default function TabTwoScreen({ navigation }: RootTabScreenProps<'TabTwo'
       ))}
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       {/* <EditScreenInfo path="/screens/GamesScreen.tsx" /> */}
-      <Button title="Start Game" onPress={() => navigation.navigate('TabOne')}/>
+      <Button title="Start Game One" onPress={() => navigation.navigate('GameOne')}/>
       {/* <Button title="Getting into it" onPress={() => navigation.navigate('TabOne')}/>
       <Button title="Getting Crazy" onPress={() => navigation.navigate('TabOne')}/>
       <Button title="Getting Flirty" onPress={() => navigation.navigate('TabOne')}/>
