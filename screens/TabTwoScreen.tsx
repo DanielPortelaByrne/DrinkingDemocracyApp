@@ -4,6 +4,7 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import { getNames } from '../components/nameStore';
+import React from 'react';
 
 
 export default function TabTwoScreen({ navigation }: RootTabScreenProps<'TabTwo'>) {
@@ -15,9 +16,9 @@ export default function TabTwoScreen({ navigation }: RootTabScreenProps<'TabTwo'
       {names.map((name, index) => (
         <Text key={index}>{name}</Text>
       ))}
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <View style={styles.separator} lightColor="#eee" darkColor="#111111" />
       {/* <EditScreenInfo path="/screens/GamesScreen.tsx" /> */}
-      <Button title="Start Game One" onPress={() => navigation.navigate('GameOne')}/>
+      <Button title="Start Game One" onPress={() => navigation.navigate('GameOne')} color="#ed1e26"/>
       {/* <Button title="Getting into it" onPress={() => navigation.navigate('TabOne')}/>
       <Button title="Getting Crazy" onPress={() => navigation.navigate('TabOne')}/>
       <Button title="Getting Flirty" onPress={() => navigation.navigate('TabOne')}/>

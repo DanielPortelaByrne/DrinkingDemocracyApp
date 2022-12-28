@@ -3,11 +3,9 @@
     "name": "drinkingdemocracy",
     "slug": "drinkingdemocracy",
     "version": "1.0.0",
-    "orientation": "portrait",
     "icon": "./assets/images/logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
-    "permissions": ["screenOrientation"],
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, Button, TextInput, StyleSheet, Image } from 'react-native';
+import { ScrollView, Button, TextInput, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 // import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
@@ -12,18 +12,18 @@ import * as Font from 'expo-font';
 
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
-  Font.loadAsync({
-    'custom-font': require('../assets/fonts/RamaSlabHeavy.ttf'),
-  });
+  // Font.loadAsync({
+  //   'custom-font': require('../assets/fonts/RamaSlabHeavy.ttf'),
+  // });
   return (
     // <ScrollView>
       <View style={styles.container}>
-        <View style={{ marginTop: 100, marginBottom: 10, flexDirection: 'row'}}>
+        <View style={{ marginTop: 80, marginBottom: 10, flexDirection: 'row'}}>
           <Image
             style={styles.image}
             source={require('../assets/images/logo.png')}
           />
-          <View style={{ marginLeft: 15 , marginTop: 35}}>
+          <View style={{ marginLeft: 15 , marginTop: 25}}>
             <Text style={styles.largerTitle}>Drinking</Text>
             <Text style={styles.title}>Democracy</Text>
           </View>
@@ -31,16 +31,20 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 
               <View style={styles.separator} lightColor="#000" darkColor="#111111" />
         <ScrollView>
-          <View style={{ marginTop: 90}}>
+          <View style={{ marginTop: 80}}>
             <Text style={styles.subTitle}>Who's playing?</Text>
             <NameInput navigation={navigation}/>
           </View>
         </ScrollView>
-        <View style={styles.separator} lightColor="#000" darkColor="#111111" />
+        {/* <View style={styles.separator} lightColor="#000" darkColor="#111111" /> */}
         {/* <View style={styles.buttonContainer}>
         <Button title="Let's Get Drunk!" onPress={() => navigation.navigate('TabTwo')}/>
       </View> */}
         {/* <EditScreenInfo path="/screens/TabOneScreen.tsx" /> */}
+        <Image
+          source={require('../assets/images/transparent_logo.png')}
+          style={styles.bottomImage}
+        />
       </View>
     // </ScrollView>
   );
@@ -60,6 +64,11 @@ const NameInput: React.FC<RootTabScreenProps<'TabOne'>>= ({ navigation }) => {
   const handleAddName = () => {
     setNames([...names, '']);
   }
+  const handleRemoveName = () => {
+    if (names.length > 1) {
+      setNames(names.slice(0, -1));
+    }
+  }
 
   return (
     <View style={{ marginTop: 10, marginBottom: 10}}>
@@ -74,12 +83,21 @@ const NameInput: React.FC<RootTabScreenProps<'TabOne'>>= ({ navigation }) => {
           />
         </View> 
       ))}
-      <View style={{ marginTop: 5, marginBottom: 5 }}>
-        <Button
-          title="+"
-          onPress={handleAddName}
-          color="#ed1e26"
-        />
+       <View style={{ marginTop: 5, marginBottom: 5, flexDirection: 'row' }}>
+        {names.length > 1 && (
+          <TouchableOpacity
+              style={{ ...styles.button, width: '25%' , marginRight: 5}}
+              onPress={handleRemoveName}
+          >
+            <Text style={{ textAlign: 'center' , lineHeight: 25}}>-</Text>
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity
+            style={{ ...styles.button, width: '25%' }}
+            onPress={handleAddName}
+        >
+        <Text style={{ textAlign: 'center' , lineHeight: 25}}>+</Text>
+        </TouchableOpacity>
       </View>
       <View style={{ marginTop: 20, marginBottom: 5, width: 250, alignItems: 'center', justifyContent: 'center'}}>
         <Button
@@ -104,12 +122,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: 'bold',
-    fontFamily: 'RamaSlabMW01-Heavy'
+    // fontFamily: 'RamaSlabMW01-Heavy'
   },
   largerTitle: {
     fontSize: 30,
     fontWeight: 'bold',
-    fontFamily: 'RamaSlabMW01-Heavy'
+    // fontFamily: 'RamaSlabMW01-Heavy'
   },
   subTitle: {
     textAlign: 'center', 
@@ -123,16 +141,25 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   image: {
-    marginTop: 20,
+    marginTop: 10,
     width: 100,
     height: 100
   },
-  buttonContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+  button: {
+    backgroundColor: "#ed1e26",
+    height: 25,
   },
   textInput: {
     backgroundColor: 'white',
     width: 250,
+  },
+  bottomImage: {
+    position: 'absolute',
+    bottom: -50,
+    left: 0,
+    right: 0,
+    width: '100%',
+    height: '33%',
+    zIndex: -1,
   },
 });
