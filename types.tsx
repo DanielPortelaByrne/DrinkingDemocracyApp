@@ -18,6 +18,8 @@ export type RootStackParamList = {
   TabOne: undefined;
   TabTwo: undefined;
   GameOne: undefined;
+  PersonalisedGame: undefined;
+  GameOver: undefined;
   Modal: undefined;
   NotFound: undefined;
 };
@@ -31,14 +33,11 @@ export type RootTabParamList = {
   TabOne: undefined;
   TabTwo: undefined;
   GameOne: undefined;
+  PersonalisedGame: undefined;
+  GameOver: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
   BottomTabScreenProps<RootTabParamList, Screen>,
   NativeStackScreenProps<RootStackParamList>
 >;
-
-export type Prompt = {
-  id: number;
-  text: string;
-};

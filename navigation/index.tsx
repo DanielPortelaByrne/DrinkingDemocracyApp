@@ -15,8 +15,10 @@ import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
 import GameOneScreen from '../screens/GameOneScreen';
+import PersonalisedGameScreen from '../screens/PersonalisedGameScreen';
+import GameOverScreen from '../screens/GameOverScreen';
+import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
@@ -42,6 +44,8 @@ function RootNavigator() {
       <Stack.Screen name="TabOne" component={TabOneScreen} options={{ headerShown: false }} />
       <Stack.Screen name="TabTwo" component={TabTwoScreen} options={{ headerShown: false }} />
       <Stack.Screen name="GameOne" component={GameOneScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="PersonalisedGame" component={PersonalisedGameScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="GameOver" component={GameOverScreen} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />

@@ -24,10 +24,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#e85258"
-      }
+      },
+      "package": "com.danielportelabyrne.drinkingdemocracy"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "06a6ae2b-445d-422b-955b-ab769aaacac4"
+      }
     }
   }
 }

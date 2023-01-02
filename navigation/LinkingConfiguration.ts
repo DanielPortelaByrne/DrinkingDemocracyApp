@@ -30,6 +30,16 @@ const linking: LinkingOptions<RootStackParamList> = {
               GameOneScreen: 'three',
             },
           },
+          PersonalisedGame: {
+            screens: {
+              PersonalisedGameScreen: 'four',
+            },
+          },
+          GameOver: {
+            screens: {
+              GameOverScreen: 'five',
+            },
+          },
         },
       },
       Modal: 'modal',
