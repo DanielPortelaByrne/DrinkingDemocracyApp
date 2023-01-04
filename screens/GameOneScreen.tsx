@@ -5,8 +5,9 @@ import {
   StyleSheet,
   Dimensions,
   Alert,
+  ToastAndroid,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { Text } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
@@ -158,18 +159,17 @@ export default function GameOneScreen({
   const [randomPrompt, setRandomPrompt] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("#fff"); // Add a state to store the background color
   const [shouldNavigate] = useState(false);
-  const [currentPrompt, setCurrentPrompt] = useState("");
-  const [previousPrompt, setPreviousPrompt] = useState("");
-  const [previousName, setPreviousName] = useState("");
-  const [currentName, setCurrentName] = useState("");
-  const [previousBackgroundColor, setPreviousBackgroundColor] =
-    useState<string>("");
+  const [previousPrompts, setPreviousPrompts] = useState<
+    { name: string; prompt: string; color: string }[]
+  >([]);
+
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [isPlayerOverlayVisible, setIsPlayerOverlayVisible] = useState(false);
   const [isEditVisible, setIsEditVisible] = useState(false);
   const [newRule, setNewRule] = useState("");
   const [isQuitOverlayVisible, setIsQuitOverlayVisible] = useState(false);
   const [newPlayerName, setNewPlayerName] = useState("");
+  const arrayIndex = useRef(0);
 
   const displayRandomPromptAndName = async () => {
     // Retrieve the prompts from async storage
@@ -177,29 +177,17 @@ export default function GameOneScreen({
 
     // Check if there are any prompts left to display
     if (prompts.length > 0) {
-      console.log(prompts.length);
+      // console.log(prompts.length);
       // Pick a random prompt from the list
       const index = Math.floor(Math.random() * prompts.length);
       const prompt = prompts[index];
 
-      // Update the previous prompt, name and colour
-      setPreviousBackgroundColor(backgroundColor);
-      setPreviousPrompt(randomPrompt);
-      setPreviousName(currentName);
+      // Pick a random name from the list
+      const nameIndex = Math.floor(Math.random() * names.length);
+      const name = names[nameIndex];
 
-      // Check if the prompt starts with "play" or if we should display a name with the prompt
-      if (prompt.text.startsWith("play") || Math.random() > 0.5) {
-        // Pick a random name from the list
-        const nameIndex = Math.floor(Math.random() * names.length);
-        const name = names[nameIndex];
-
-        // Update the random name text
-        setRandomName(name);
-        setCurrentName(name);
-      } else {
-        // If the prompt doesn't start with "play" or if we decide not to display a name, set the random name to an empty string
-        setRandomName("");
-      }
+      // Update the random name text
+      setRandomName(name);
       // Generate a random color
       const colors = [
         "#FFC300",
@@ -230,6 +218,31 @@ export default function GameOneScreen({
 
       // Update the random prompt text
       setRandomPrompt(prompt.text);
+
+      // Add the current name, prompt, and color to the previousPrompts array as an object
+      setPreviousPrompts([
+        ...previousPrompts,
+        {
+          name: name,
+          prompt: prompt.text,
+          color: color,
+        },
+      ]);
+      arrayIndex.current = previousPrompts.length;
+      console.log("Setting index to: ", arrayIndex.current);
+      // console.log(
+      //   "Name: " +
+      //     randomName +
+      //     " Prompt: " +
+      //     randomPrompt +
+      //     " Colour: " +
+      //     backgroundColor
+      // );
+
+      for (const [index, prompt] of previousPrompts.entries()) {
+        console.log(index, prompt.name, prompt.prompt, prompt.color);
+      }
+      console.log(" ");
     } else {
       // If there are no prompts left to display, navigate back to the TabTwoScreen
       navigation.navigate("GameOver");
@@ -246,16 +259,34 @@ export default function GameOneScreen({
         setIsEditVisible(false);
         if (locationX < screenWidth / 2) {
           // Tap on the left side of the screen
-          setRandomName(previousName);
-          setRandomPrompt(previousPrompt);
-          setBackgroundColor(previousBackgroundColor);
+          console.log("index: ", arrayIndex.current);
+          if (arrayIndex.current > 0) {
+            console.log("Reaching left tap conditional");
+            // If there are any previous prompts, go back to the last one
+            const lastPrompt = previousPrompts[arrayIndex.current - 1];
+            // console.log("Last prompt in array: ", lastPrompt);
+            setRandomName(lastPrompt.name);
+            setRandomPrompt(lastPrompt.prompt);
+            setBackgroundColor(lastPrompt.color);
+            arrayIndex.current--;
+            console.log("Decrementing index to: ", arrayIndex);
+          } else {
+            console.log("You're at the first card!");
+            ToastAndroid.show("You're at the first card!", ToastAndroid.SHORT);
+          }
         } else {
-          // Tap on the right side of the screen
-          displayRandomPromptAndName();
-          setCurrentName(previousName);
-          setCurrentPrompt(previousPrompt);
-          console.log("Name: " + previousName);
-          console.log("Prompt: " + previousPrompt);
+          if (arrayIndex.current == previousPrompts.length - 1) {
+            console.log("You're at the last card!");
+            // Tap on the right side of the screen
+            displayRandomPromptAndName();
+          } else {
+            const nextPrompt = previousPrompts[arrayIndex.current + 1];
+            setRandomName(nextPrompt.name);
+            setRandomPrompt(nextPrompt.prompt);
+            setBackgroundColor(nextPrompt.color);
+            arrayIndex.current++;
+            console.log("Incrementing index to: ", arrayIndex);
+          }
           if (shouldNavigate) {
             navigation.navigate("GameOver");
           }
