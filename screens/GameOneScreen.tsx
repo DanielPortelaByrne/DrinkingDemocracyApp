@@ -19,90 +19,119 @@ import { MaterialIcons } from "@expo/vector-icons";
 const prompts = [
   {
     text: "take 3 sips if you have ever been to a different country, otherwise give them out",
+    category: "CHALLENGE",
   },
   {
     text: "down your drink if you have a tattoo, otherwise give it out",
+    category: "🙊 SEE, 🙊 DO",
   },
   {
     text: "take 2 sips if you have ever ridden a rollercoaster, otherwise give them out",
+    category: "GET IT DOWN YA",
   },
   {
     text: "down your drink if you have ever bungee jumped, otherwise give it out",
+    category: "CHALLENGE",
   },
   {
     text: "give out 3 sips if you have ever been in a car accident, otherwise take them",
+    category: "RULE",
   },
   {
     text: "take 4 sips if you have a phobia, otherwise give them out",
+    category: "GET IT DOWN YA",
   },
   {
     text: "down your drink if you have ever gone skydiving, otherwise give it out",
+    category: "CHALLENGE",
   },
   {
     text: "give out 2 sips if you have ever broken a bone, otherwise take them",
+    category: "RULE",
   },
   {
     text: "take 5 sips if you have a fear of public speaking, otherwise give them out",
+    category: "GET IT DOWN YA",
   },
   {
     text: "down your drink if you have ever played a sport at a professional level, otherwise give it out",
+    category: "RULE",
   },
   {
     text: "take 2 sips if you are Irish, otherwise give them out",
+    category: "RULE",
   },
   {
     text: "take 2 sips if you are Polish, otherwise give them out",
+    category: "🙊 SEE, 🙊 DO",
   },
   {
     text: "take 2 sips if you are American, otherwise give them out",
+    category: "RULE",
   },
   {
     text: "take 2 sips if you are Romanian, otherwise give them out",
+    category: "🙊 SEE, 🙊 DO",
   },
   {
     text: "take 2 sips if you are mixed background, otherwise give them out",
+    category: "🙊 SEE, 🙊 DO",
   },
   {
     text: "take 2 sips if you are in your early 20s, otherwise give them out",
+    category: "RULE",
   },
   {
     text: "take 2 sips if you love formula one, otherwise give them out",
+    category: "🙊 SEE, 🙊 DO",
   },
   {
     text: "take 2 sips if you spend money excessively, otherwise give them out",
+    category: "RULE",
   },
   {
     text: "take 3 sips if you have a job in finance, otherwise give them out",
+    category: "🙊 SEE, 🙊 DO",
   },
   {
     text: "take 3 sips if you have a job in tech, otherwise give them out",
+    category: "RULE",
   },
   {
     text: "take 3 sips if you have a job in healthcare, otherwise give them out",
+    category: "🙊 SEE, 🙊 DO",
   },
   {
     text: "take 3 sips if you have a job in education, otherwise give them out",
+    category: "RULE",
   },
   {
     text: "take 3 sips if you have a job in the legal field, otherwise give them out",
+    category: "🙊 SEE, 🙊 DO",
   },
   {
     text: "give out 3 sips if you have a job in the retail industry, otherwise take them",
+    category: "RULE",
   },
   {
     text: "give out 3 sips if you have a job in the hospitality industry, otherwise take them",
+    category: "RULE",
   },
   {
     text: "give out 3 sips if you have a job in the creative industry, otherwise take them",
+    category: "RULE",
   },
   {
     text: "play never have i ever: players take turns saying something they have never done, and anyone who has done it must take a drink",
+    category: "RULE",
   },
   {
     text: 'play cheers to the governor: players take turns counting up from 1, but must say "cheers to the governor" instead of "3". If someone messes up or hesitates, they must take a drink',
+    category: "CHALLENGE",
   },
   {
     text: "play quarters: players take turns trying to bounce a quarter off a table and into a cup. If they make it, they choose someone to drink. If they miss, they must drink",
+    category: "CHALLENGE",
   },
 ];
 
@@ -157,10 +186,11 @@ export default function GameOneScreen({
   // Display a random prompt from the list of prompts
   const [randomName, setRandomName] = useState("");
   const [randomPrompt, setRandomPrompt] = useState("");
+  const [randomCategory, setRandomCategory] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("#fff"); // Add a state to store the background color
   const [shouldNavigate] = useState(false);
   const [previousPrompts, setPreviousPrompts] = useState<
-    { name: string; prompt: string; color: string }[]
+    { name: string; prompt: string; color: string; category: string }[]
   >([]);
 
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
@@ -181,6 +211,8 @@ export default function GameOneScreen({
       // Pick a random prompt from the list
       const index = Math.floor(Math.random() * prompts.length);
       const prompt = prompts[index];
+      // Save the category of the prompt
+      const { category } = prompt;
 
       // Pick a random name from the list
       const nameIndex = Math.floor(Math.random() * names.length);
@@ -218,6 +250,7 @@ export default function GameOneScreen({
 
       // Update the random prompt text
       setRandomPrompt(prompt.text);
+      setRandomCategory(category);
 
       // Add the current name, prompt, and color to the previousPrompts array as an object
       setPreviousPrompts([
@@ -226,6 +259,7 @@ export default function GameOneScreen({
           name: name,
           prompt: prompt.text,
           color: color,
+          category: category, // add the category field
         },
       ]);
       arrayIndex.current = previousPrompts.length;
@@ -240,7 +274,13 @@ export default function GameOneScreen({
       // );
 
       for (const [index, prompt] of previousPrompts.entries()) {
-        console.log(index, prompt.name, prompt.prompt, prompt.color);
+        console.log(
+          index,
+          prompt.name,
+          prompt.prompt,
+          prompt.color,
+          prompt.category
+        );
       }
       console.log(" ");
     } else {
@@ -250,46 +290,59 @@ export default function GameOneScreen({
   };
   return (
     <TouchableOpacity
+      activeOpacity={0.9} // set activeOpacity to 1
       style={[styles.container, { backgroundColor }]}
       onPress={(event) => {
         const { locationX } = event.nativeEvent;
         const screenWidth = Dimensions.get("window").width;
-        setIsOverlayVisible(false);
-        setIsPlayerOverlayVisible(false);
-        setIsEditVisible(false);
-        if (locationX < screenWidth / 2) {
-          // Tap on the left side of the screen
-          console.log("index: ", arrayIndex.current);
-          if (arrayIndex.current > 0) {
-            console.log("Reaching left tap conditional");
-            // If there are any previous prompts, go back to the last one
-            const lastPrompt = previousPrompts[arrayIndex.current - 1];
-            // console.log("Last prompt in array: ", lastPrompt);
-            setRandomName(lastPrompt.name);
-            setRandomPrompt(lastPrompt.prompt);
-            setBackgroundColor(lastPrompt.color);
-            arrayIndex.current--;
-            console.log("Decrementing index to: ", arrayIndex);
+        if (!isEditVisible && !isOverlayVisible && !isPlayerOverlayVisible) {
+          // Check which side of the screen the user tapped on
+          const side = locationX < screenWidth / 2 ? "left" : "right";
+
+          // Check if the user tapped on the left side of the screen
+          if (side === "left") {
+            // Tap on the left side of the screen
+            console.log("index: ", arrayIndex.current);
+            if (arrayIndex.current > 0) {
+              console.log("Reaching left tap conditional");
+              // If there are any previous prompts, go back to the last one
+              const lastPrompt = previousPrompts[arrayIndex.current - 1];
+              // console.log("Last prompt in array: ", lastPrompt);
+              setRandomName(lastPrompt.name);
+              setRandomPrompt(lastPrompt.prompt);
+              setRandomCategory(lastPrompt.category);
+              setBackgroundColor(lastPrompt.color);
+              arrayIndex.current--;
+              console.log("Decrementing index to: ", arrayIndex);
+            } else {
+              console.log("You're at the first card!");
+              ToastAndroid.show(
+                "You're at the first card!",
+                ToastAndroid.SHORT
+              );
+            }
           } else {
-            console.log("You're at the first card!");
-            ToastAndroid.show("You're at the first card!", ToastAndroid.SHORT);
+            if (arrayIndex.current == previousPrompts.length - 1) {
+              console.log("You're at the last card!");
+              // Tap on the right side of the screen
+              displayRandomPromptAndName();
+            } else {
+              const nextPrompt = previousPrompts[arrayIndex.current + 1];
+              setRandomName(nextPrompt.name);
+              setRandomPrompt(nextPrompt.prompt);
+              setRandomCategory(nextPrompt.category);
+              setBackgroundColor(nextPrompt.color);
+              arrayIndex.current++;
+              console.log("Incrementing index to: ", arrayIndex);
+            }
+            if (shouldNavigate) {
+              navigation.navigate("GameOver");
+            }
           }
         } else {
-          if (arrayIndex.current == previousPrompts.length - 1) {
-            console.log("You're at the last card!");
-            // Tap on the right side of the screen
-            displayRandomPromptAndName();
-          } else {
-            const nextPrompt = previousPrompts[arrayIndex.current + 1];
-            setRandomName(nextPrompt.name);
-            setRandomPrompt(nextPrompt.prompt);
-            setBackgroundColor(nextPrompt.color);
-            arrayIndex.current++;
-            console.log("Incrementing index to: ", arrayIndex);
-          }
-          if (shouldNavigate) {
-            navigation.navigate("GameOver");
-          }
+          setIsOverlayVisible(false);
+          setIsPlayerOverlayVisible(false);
+          setIsEditVisible(false);
         }
       }}
     >
@@ -313,17 +366,17 @@ export default function GameOneScreen({
                 style={styles.submitButton}
                 onPress={() => {
                   // Add the new rule to the prompts array and store it in async storage
-                  prompts.push({ text: newRule });
+                  prompts.push({ text: newRule, category: "RULE" });
                   AsyncStorage.setItem("prompts", JSON.stringify(prompts));
                   // Reset the new rule input and close the overlay
                   setNewRule("");
                   // Display a message to the user to confirm that the new rule has been added
-                  Alert.alert("Success", "The new rule has been added");
+                  ToastAndroid.show("Rule added!", ToastAndroid.SHORT);
                   setIsOverlayVisible(false);
                   setIsEditVisible(false);
                 }}
               >
-                <Text style={styles.submitButtonText}>Submit</Text>
+                <Text style={styles.submitButtonText}>Add Rule</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -350,12 +403,12 @@ export default function GameOneScreen({
                   // Reset the new player name input and close the overlay
                   setNewPlayerName("");
                   // Display a message to the user to confirm that the new player has been added
-                  Alert.alert("Success", "The new player has been added");
+                  ToastAndroid.show("Player added!", ToastAndroid.SHORT);
                   setIsPlayerOverlayVisible(false);
                   setIsEditVisible(false);
                 }}
               >
-                <Text style={styles.submitButtonText}>Submit</Text>
+                <Text style={styles.submitButtonText}>Add Player</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -396,6 +449,8 @@ export default function GameOneScreen({
         </TouchableOpacity>
       </View>
 
+      <Text style={styles.categoryText}>{randomCategory}</Text>
+
       <Text style={styles.gameText}>
         {randomName} {randomPrompt}
       </Text>
@@ -408,6 +463,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  categoryText: {
+    fontSize: 40,
+    fontWeight: "bold",
+    marginBottom: 20,
   },
   gameText: {
     fontSize: 30,
