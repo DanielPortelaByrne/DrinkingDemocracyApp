@@ -14,6 +14,7 @@ import { RootTabScreenProps } from "../types";
 import { getNames } from "../components/nameStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useFonts } from "expo-font";
 
 // Prompts to store in async storage
 const prompts = [
@@ -95,7 +96,7 @@ const prompts = [
   },
   {
     text: "take 3 sips if you have a job in tech, otherwise give them out",
-    category: "RULE",
+    category: " ",
   },
   {
     text: "take 3 sips if you have a job in healthcare, otherwise give them out",
@@ -123,7 +124,7 @@ const prompts = [
   },
   {
     text: "play never have i ever: players take turns saying something they have never done, and anyone who has done it must take a drink",
-    category: "RULE",
+    category: " ",
   },
   {
     text: 'play cheers to the governor: players take turns counting up from 1, but must say "cheers to the governor" instead of "3". If someone messes up or hesitates, they must take a drink',
@@ -173,6 +174,17 @@ const addPlayer = async (playerName: string) => {
 export default function GameOneScreen({
   navigation,
 }: RootTabScreenProps<"GameOne">) {
+  const [fontsLoaded] = useFonts({
+    Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
+    // AGENCYR: require("../assets/fonts/AGENCYB.TTF"),
+  });
+
+  useEffect(() => {
+    if (!fontsLoaded) {
+      return undefined;
+    }
+  });
+
   // Store the prompts in async storage when the component is mounted
   useEffect(() => {
     storePrompts();
@@ -212,7 +224,7 @@ export default function GameOneScreen({
       const index = Math.floor(Math.random() * prompts.length);
       const prompt = prompts[index];
       // Save the category of the prompt
-      const { category } = prompt;
+      const { category }: { category: keyof typeof categoryColors } = prompt;
 
       // Pick a random name from the list
       const nameIndex = Math.floor(Math.random() * names.length);
@@ -221,19 +233,15 @@ export default function GameOneScreen({
       // Update the random name text
       setRandomName(name);
       // Generate a random color
-      const colors = [
-        "#FFC300",
-        "#FF3D00",
-        "#000000",
-        "#BF360C",
-        "#B71C1C",
-        "#607D8B",
-        "#006064",
-        "#D32F2F",
-        "#4CAF50",
-      ]; // Add some colors to choose from
-      const colorIndex = Math.floor(Math.random() * colors.length);
-      const color = colors[colorIndex];
+      const colors = ["#d70057", "#8e0045", "#00ff9e", "#00badc", "#00428f"]; // Add some colors to choose from
+      const categoryColors = {
+        CHALLENGE: "#d70057",
+        RULE: "#8e0045",
+        "🙊 SEE, 🙊 DO": "#008e72",
+        "GET IT DOWN YA": "#00badc",
+        " ": "#00428f",
+      };
+      const color = categoryColors[category];
       // Update the background color
       setBackgroundColor(color);
 
@@ -449,9 +457,31 @@ export default function GameOneScreen({
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.categoryText}>{randomCategory}</Text>
+      {randomCategory !== " " && (
+        <Text
+          style={{
+            fontFamily: "Konstruktor",
+            fontSize: 60,
+            textAlign: "center",
+            marginBottom: 20,
+          }}
+        >
+          {randomCategory}
+        </Text>
+      )}
 
-      <Text style={styles.gameText}>
+      <Text
+        style={{
+          // fontFamily: "AGENCYR",
+          fontSize: 30,
+          textAlign: "center",
+          marginBottom: 10,
+          marginLeft: 30,
+          marginRight: 30,
+          // fontWeight: "bold",
+          // fontStyle: "italic",
+        }}
+      >
         {randomName} {randomPrompt}
       </Text>
     </TouchableOpacity>
@@ -463,11 +493,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-  },
-  categoryText: {
-    fontSize: 40,
-    fontWeight: "bold",
-    marginBottom: 20,
   },
   gameText: {
     fontSize: 30,

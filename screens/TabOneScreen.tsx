@@ -13,11 +13,19 @@ import {
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 import { updateNames, getNames } from "../components/nameStore";
-import * as Font from "expo-font";
+import { useFonts } from "expo-font";
 
 export default function TabOneScreen({
   navigation,
 }: RootTabScreenProps<"TabOne">) {
+  const [fontsLoaded] = useFonts({
+    Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
+  });
+
+  if (!fontsLoaded) {
+    return undefined;
+  }
+
   return (
     <View style={styles.container}>
       <Image
@@ -25,7 +33,16 @@ export default function TabOneScreen({
         source={require("../assets/images/title_logo.png")}
       />
       <ScrollView>
-        <Text style={styles.subTitle}>Who's playing?</Text>
+        {/* <Text style={[styles.subTitle]}>Who's playing?</Text> */}
+        <Text
+          style={{
+            fontFamily: "Konstruktor",
+            fontSize: 30,
+            textAlign: "center",
+          }}
+        >
+          Who's playing?
+        </Text>
         <NameInput navigation={navigation} />
       </ScrollView>
       <Image
@@ -86,14 +103,32 @@ const NameInput: React.FC<RootTabScreenProps<"TabOne">> = ({ navigation }) => {
             style={{ ...styles.button, width: "25%", marginRight: 5 }}
             onPress={handleRemoveName}
           >
-            <Text style={{ textAlign: "center", lineHeight: 25 }}>-</Text>
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 20,
+                textAlign: "center",
+                lineHeight: 27,
+              }}
+            >
+              -
+            </Text>
           </TouchableOpacity>
         )}
         <TouchableOpacity
           style={{ ...styles.button, width: "25%" }}
           onPress={handleAddName}
         >
-          <Text style={{ textAlign: "center", lineHeight: 25 }}>+</Text>
+          <Text
+            style={{
+              textAlign: "center",
+              lineHeight: 27,
+              fontWeight: "bold",
+              fontSize: 20,
+            }}
+          >
+            +
+          </Text>
         </TouchableOpacity>
       </View>
       <View
@@ -156,6 +191,7 @@ const styles = StyleSheet.create({
   textInput: {
     backgroundColor: "white",
     width: 250,
+    fontStyle: "italic",
   },
   bottomImage: {
     position: "absolute",
