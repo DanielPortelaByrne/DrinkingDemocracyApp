@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   ScrollView,
@@ -33,7 +33,6 @@ export default function TabOneScreen({
         source={require("../assets/images/title_logo.png")}
       />
       <ScrollView>
-        {/* <Text style={[styles.subTitle]}>Who's playing?</Text> */}
         <Text
           style={{
             fontFamily: "Konstruktor",
@@ -57,17 +56,11 @@ const NameInput: React.FC<RootTabScreenProps<"TabOne">> = ({ navigation }) => {
   const [names, setNames] = useState<string[]>([""]);
 
   const handleNameChange = (text: string, index: number) => {
-    // Trim the input text to remove any leading or trailing white spaces
-    const trimmedText = text.trim();
-
-    // Check if the input text is not empty
-    if (trimmedText) {
-      // If the input text is not empty, add it to the list of names
-      const newNames = [...names];
-      newNames[index] = trimmedText;
-      setNames(newNames);
-      updateNames(newNames); // update the names in the name store
-    }
+    // If the input text is not empty, add it to the list of names
+    const newNames = [...names];
+    newNames[index] = text;
+    setNames(newNames);
+    updateNames(newNames); // update the names in the name store
   };
 
   const handleAddName = () => {
@@ -182,7 +175,7 @@ const styles = StyleSheet.create({
   image: {
     width: 400,
     height: 400,
-    zIndex: -1,
+    zIndex: 1,
   },
   button: {
     backgroundColor: "#ed1e26",

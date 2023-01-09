@@ -6,6 +6,7 @@ import {
   Dimensions,
   Alert,
   ToastAndroid,
+  Animated,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -16,146 +17,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 
-// Prompts to store in async storage
-const prompts = [
-  {
-    text: "take 3 sips if you have ever been to a different country, otherwise give them out",
-    category: "CHALLENGE",
-  },
-  {
-    text: "down your drink if you have a tattoo, otherwise give it out",
-    category: "🙊 SEE, 🙊 DO",
-  },
-  {
-    text: "take 2 sips if you have ever ridden a rollercoaster, otherwise give them out",
-    category: "GET IT DOWN YA",
-  },
-  {
-    text: "down your drink if you have ever bungee jumped, otherwise give it out",
-    category: "CHALLENGE",
-  },
-  {
-    text: "give out 3 sips if you have ever been in a car accident, otherwise take them",
-    category: "RULE",
-  },
-  {
-    text: "take 4 sips if you have a phobia, otherwise give them out",
-    category: "GET IT DOWN YA",
-  },
-  {
-    text: "down your drink if you have ever gone skydiving, otherwise give it out",
-    category: "CHALLENGE",
-  },
-  {
-    text: "give out 2 sips if you have ever broken a bone, otherwise take them",
-    category: "RULE",
-  },
-  {
-    text: "take 5 sips if you have a fear of public speaking, otherwise give them out",
-    category: "GET IT DOWN YA",
-  },
-  {
-    text: "down your drink if you have ever played a sport at a professional level, otherwise give it out",
-    category: "RULE",
-  },
-  {
-    text: "take 2 sips if you are Irish, otherwise give them out",
-    category: "RULE",
-  },
-  {
-    text: "take 2 sips if you are Polish, otherwise give them out",
-    category: "🙊 SEE, 🙊 DO",
-  },
-  {
-    text: "take 2 sips if you are American, otherwise give them out",
-    category: "RULE",
-  },
-  {
-    text: "take 2 sips if you are Romanian, otherwise give them out",
-    category: "🙊 SEE, 🙊 DO",
-  },
-  {
-    text: "take 2 sips if you are mixed background, otherwise give them out",
-    category: "🙊 SEE, 🙊 DO",
-  },
-  {
-    text: "take 2 sips if you are in your early 20s, otherwise give them out",
-    category: "RULE",
-  },
-  {
-    text: "take 2 sips if you love formula one, otherwise give them out",
-    category: "🙊 SEE, 🙊 DO",
-  },
-  {
-    text: "take 2 sips if you spend money excessively, otherwise give them out",
-    category: "RULE",
-  },
-  {
-    text: "take 3 sips if you have a job in finance, otherwise give them out",
-    category: "🙊 SEE, 🙊 DO",
-  },
-  {
-    text: "take 3 sips if you have a job in tech, otherwise give them out",
-    category: " ",
-  },
-  {
-    text: "take 3 sips if you have a job in healthcare, otherwise give them out",
-    category: "🙊 SEE, 🙊 DO",
-  },
-  {
-    text: "take 3 sips if you have a job in education, otherwise give them out",
-    category: "RULE",
-  },
-  {
-    text: "take 3 sips if you have a job in the legal field, otherwise give them out",
-    category: "🙊 SEE, 🙊 DO",
-  },
-  {
-    text: "give out 3 sips if you have a job in the retail industry, otherwise take them",
-    category: "RULE",
-  },
-  {
-    text: "give out 3 sips if you have a job in the hospitality industry, otherwise take them",
-    category: "RULE",
-  },
-  {
-    text: "give out 3 sips if you have a job in the creative industry, otherwise take them",
-    category: "RULE",
-  },
-  {
-    text: "play never have i ever: players take turns saying something they have never done, and anyone who has done it must take a drink",
-    category: " ",
-  },
-  {
-    text: 'play cheers to the governor: players take turns counting up from 1, but must say "cheers to the governor" instead of "3". If someone messes up or hesitates, they must take a drink',
-    category: "CHALLENGE",
-  },
-  {
-    text: "play quarters: players take turns trying to bounce a quarter off a table and into a cup. If they make it, they choose someone to drink. If they miss, they must drink",
-    category: "CHALLENGE",
-  },
-];
-
-// Store the prompts in async storage
-const storePrompts = async () => {
-  try {
-    // Convert the prompts array to a JSON string
-    const promptsString = JSON.stringify(prompts);
-    // Save the prompts string in async storage
-    await AsyncStorage.setItem("prompts", promptsString);
-    // console.log("Stored prompts");
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 // Retrieve the prompts from async storage
 const retrievePrompts = async () => {
   try {
-    // Get the prompts string from async storage
-    const promptsString = await AsyncStorage.getItem("prompts");
-    // Convert the prompts string back to an array
-    return promptsString ? JSON.parse(promptsString) : [];
+    // Get the selected prompts string from async storage
+    const selectedPromptsString = await AsyncStorage.getItem("gamePrompts");
+    // Convert the selected prompts string back to an array
+    return selectedPromptsString ? JSON.parse(selectedPromptsString) : [];
   } catch (error) {
     console.error(error);
     return [];
@@ -185,12 +53,36 @@ export default function GameOneScreen({
     }
   });
 
+  // Initialize the shake animation value
+  const shakeAnim = new Animated.Value(0);
+
+  // Set up the shake animation
+  let shakeIteration = 0;
+  const shake = () => {
+    shakeAnim.setValue(0);
+    Animated.timing(shakeAnim, {
+      toValue: 1,
+      duration: 100,
+      useNativeDriver: true,
+    }).start(({ finished }) => {
+      if (finished) {
+        shakeIteration++;
+        if (shakeIteration < 1) {
+          shake();
+        } else {
+          shakeIteration = 0;
+          shakeAnim.setValue(0);
+        }
+      }
+    });
+  };
   // Store the prompts in async storage when the component is mounted
-  useEffect(() => {
-    storePrompts();
-  }, []);
+  // useEffect(() => {
+  //   storePrompts();
+  // }, []);
 
   useEffect(() => {
+    shake();
     displayRandomPromptAndName();
   }, []);
 
@@ -213,31 +105,41 @@ export default function GameOneScreen({
   const [newPlayerName, setNewPlayerName] = useState("");
   const arrayIndex = useRef(0);
 
+  useEffect(() => {
+    shake();
+  }, [randomName, randomPrompt]);
+
   const displayRandomPromptAndName = async () => {
     // Retrieve the prompts from async storage
-    const prompts = await retrievePrompts();
+    const selectedPrompts = await retrievePrompts();
+    // Start the shake animation
+    shake();
 
     // Check if there are any prompts left to display
-    if (prompts.length > 0) {
-      // console.log(prompts.length);
+    if (selectedPrompts.length > 0) {
+      console.log(selectedPrompts.length);
       // Pick a random prompt from the list
-      const index = Math.floor(Math.random() * prompts.length);
-      const prompt = prompts[index];
+      const index = Math.floor(Math.random() * selectedPrompts.length);
+      const prompt = selectedPrompts[index];
       // Save the category of the prompt
       const { category }: { category: keyof typeof categoryColors } = prompt;
 
       // Pick a random name from the list
       const nameIndex = Math.floor(Math.random() * names.length);
-      const name = names[nameIndex];
+      var name = names[nameIndex];
+
+      // Pick a random name from the list
+      const nameIndex2 = Math.floor(Math.random() * names.length);
+      var name2 = names[nameIndex2];
 
       // Update the random name text
       setRandomName(name);
+
       // Generate a random color
-      const colors = ["#d70057", "#8e0045", "#00ff9e", "#00badc", "#00428f"]; // Add some colors to choose from
       const categoryColors = {
         CHALLENGE: "#d70057",
         RULE: "#8e0045",
-        "🙊 SEE, 🙊 DO": "#008e72",
+        VIRUS: "#008e72",
         "GET IT DOWN YA": "#00badc",
         " ": "#00428f",
       };
@@ -246,15 +148,36 @@ export default function GameOneScreen({
       setBackgroundColor(color);
 
       // Remove the displayed prompt from the list
-      prompts.splice(index, 1);
+      selectedPrompts.splice(index, 1);
+
       // Store the updated list of prompts in async storage
-      await AsyncStorage.setItem("prompts", JSON.stringify(prompts));
+      await AsyncStorage.setItem(
+        "gamePrompts",
+        JSON.stringify(selectedPrompts)
+      );
 
       // Check if there are 5 prompts left to display
       // if (prompts.length === 5) {
       //   // Navigate back to the TabTwoScreen
       //   setShouldNavigate(true);
       // }
+      if (prompt.text.includes("[Name]")) {
+        // Replace the first occurrence of "[Name]" with the random name
+        prompt.text = prompt.text.replace("[Name]", name);
+        setRandomName("");
+        name = "";
+      }
+
+      if (prompt.text.includes("[Name]")) {
+        // Replace the second occurrence of "[Name]" with the second random name
+        prompt.text = prompt.text.replace("[Name]", name2);
+        setRandomName("");
+        name2 = "";
+      }
+
+      if (prompt.category.includes("GET IT DOWN YA")) {
+        name = "";
+      }
 
       // Update the random prompt text
       setRandomPrompt(prompt.text);
@@ -271,7 +194,7 @@ export default function GameOneScreen({
         },
       ]);
       arrayIndex.current = previousPrompts.length;
-      console.log("Setting index to: ", arrayIndex.current);
+      // console.log("Setting index to: ", arrayIndex.current);
       // console.log(
       //   "Name: " +
       //     randomName +
@@ -310,9 +233,9 @@ export default function GameOneScreen({
           // Check if the user tapped on the left side of the screen
           if (side === "left") {
             // Tap on the left side of the screen
-            console.log("index: ", arrayIndex.current);
+            // console.log("index: ", arrayIndex.current);
             if (arrayIndex.current > 0) {
-              console.log("Reaching left tap conditional");
+              // console.log("Reaching left tap conditional");
               // If there are any previous prompts, go back to the last one
               const lastPrompt = previousPrompts[arrayIndex.current - 1];
               // console.log("Last prompt in array: ", lastPrompt);
@@ -321,9 +244,9 @@ export default function GameOneScreen({
               setRandomCategory(lastPrompt.category);
               setBackgroundColor(lastPrompt.color);
               arrayIndex.current--;
-              console.log("Decrementing index to: ", arrayIndex);
+              // console.log("Decrementing index to: ", arrayIndex);
             } else {
-              console.log("You're at the first card!");
+              // console.log("You're at the first card!");
               ToastAndroid.show(
                 "You're at the first card!",
                 ToastAndroid.SHORT
@@ -331,7 +254,7 @@ export default function GameOneScreen({
             }
           } else {
             if (arrayIndex.current == previousPrompts.length - 1) {
-              console.log("You're at the last card!");
+              // console.log("You're at the last card!");
               // Tap on the right side of the screen
               displayRandomPromptAndName();
             } else {
@@ -341,7 +264,7 @@ export default function GameOneScreen({
               setRandomCategory(nextPrompt.category);
               setBackgroundColor(nextPrompt.color);
               arrayIndex.current++;
-              console.log("Incrementing index to: ", arrayIndex);
+              // console.log("Incrementing index to: ", arrayIndex);
             }
             if (shouldNavigate) {
               navigation.navigate("GameOver");
@@ -372,10 +295,21 @@ export default function GameOneScreen({
               />
               <TouchableOpacity
                 style={styles.submitButton}
-                onPress={() => {
+                onPress={async () => {
+                  // Retrieve the selected prompts from async storage
+                  const selectedPrompts = await AsyncStorage.getItem(
+                    "gamePrompts"
+                  );
+                  // Convert the selected prompts string back to an array
+                  const promptsArray = selectedPrompts
+                    ? JSON.parse(selectedPrompts)
+                    : [];
                   // Add the new rule to the prompts array and store it in async storage
-                  prompts.push({ text: newRule, category: "RULE" });
-                  AsyncStorage.setItem("prompts", JSON.stringify(prompts));
+                  promptsArray.push({ text: newRule, category: "RULE" });
+                  await AsyncStorage.setItem(
+                    "gamePrompts",
+                    JSON.stringify(promptsArray)
+                  );
                   // Reset the new rule input and close the overlay
                   setNewRule("");
                   // Display a message to the user to confirm that the new rule has been added
@@ -453,7 +387,7 @@ export default function GameOneScreen({
           style={styles.topRightButton}
           onPress={() => setIsEditVisible(!isEditVisible)}
         >
-          <MaterialIcons name="add" size={24} color="#fff" />
+          <MaterialIcons name="add" size={26} color="#fff" />
         </TouchableOpacity>
       </View>
 
@@ -461,6 +395,7 @@ export default function GameOneScreen({
         <Text
           style={{
             fontFamily: "Konstruktor",
+            color: "#fff",
             fontSize: 60,
             textAlign: "center",
             marginBottom: 20,
@@ -470,20 +405,29 @@ export default function GameOneScreen({
         </Text>
       )}
 
-      <Text
+      <Animated.Text
         style={{
           // fontFamily: "AGENCYR",
           fontSize: 30,
+          color: "#fff",
           textAlign: "center",
           marginBottom: 10,
           marginLeft: 30,
           marginRight: 30,
           // fontWeight: "bold",
           // fontStyle: "italic",
+          transform: [
+            {
+              translateX: shakeAnim.interpolate({
+                inputRange: [0, 0.5, 1],
+                outputRange: [0, 10, 0],
+              }),
+            },
+          ],
         }}
       >
         {randomName} {randomPrompt}
-      </Text>
+      </Animated.Text>
     </TouchableOpacity>
   );
 }
@@ -597,7 +541,7 @@ const styles = StyleSheet.create({
   topRightButton: {
     position: "absolute",
     right: 20, // or a fixed value like 20
-    top: 60,
+    top: 50,
   },
   closeButton: {
     alignItems: "center",

@@ -1,21 +1,57 @@
-import { Button, StyleSheet } from 'react-native';
+import { Button, StyleSheet, TouchableOpacity } from "react-native";
 
-import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
-import React from 'react';
+import { Text, View } from "../components/Themed";
+import { RootTabScreenProps } from "../types";
+import React, { useEffect } from "react";
+import { useFonts } from "expo-font";
 
+export default function GameOverScreen({
+  navigation,
+}: RootTabScreenProps<"GameOver">) {
+  const [fontsLoaded] = useFonts({
+    Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
+    // AGENCYR: require("../assets/fonts/AGENCYB.TTF"),
+  });
 
-export default function GameOverScreen({ navigation }: RootTabScreenProps<'GameOver'>) {
+  useEffect(() => {
+    if (!fontsLoaded) {
+      return undefined;
+    }
+  });
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Game Over</Text>
-      <Button
-          title="More Games"
-          onPress={() => {
-            navigation.navigate('TabTwo')
+      <Text
+        style={{
+          fontFamily: "Konstruktor",
+          fontSize: 60,
+          textAlign: "center",
+          marginBottom: 20,
+        }}
+      >
+        Game Over
+      </Text>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("TabTwo")}
+        style={{
+          backgroundColor: "#ed1e26",
+          padding: 20,
+          width: 200,
+          height: 80,
+        }}
+      >
+        <Text
+          style={{
+            color: "#111111",
+            fontSize: 20,
+            fontWeight: "bold",
+            textAlign: "center",
+            textAlignVertical: "center",
+            marginTop: 5,
           }}
-          color="#ed1e26"
-        />
+        >
+          More Games
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -23,12 +59,12 @@ export default function GameOverScreen({ navigation }: RootTabScreenProps<'GameO
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 50,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginVertical: 20,
   },
 });
