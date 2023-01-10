@@ -16,12 +16,13 @@ import { getNames } from "../components/nameStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
+// import { getGameMode } from "../components/gameModeStore";
 
 // Retrieve the prompts from async storage
-const retrievePrompts = async () => {
+const retrievePrompts = async (gameModeParam: string) => {
   try {
     // Get the selected prompts string from async storage
-    const selectedPromptsString = await AsyncStorage.getItem("gamePrompts");
+    const selectedPromptsString = await AsyncStorage.getItem(gameModeParam);
     // Convert the selected prompts string back to an array
     return selectedPromptsString ? JSON.parse(selectedPromptsString) : [];
   } catch (error) {
@@ -40,8 +41,11 @@ const addPlayer = async (playerName: string) => {
 };
 
 export default function GameOneScreen({
+  route,
   navigation,
 }: RootTabScreenProps<"GameOne">) {
+  const { gameMode } = route.params;
+  // console.log("Received parameter: ", gameMode);
   const [fontsLoaded] = useFonts({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
     // AGENCYR: require("../assets/fonts/AGENCYB.TTF"),
@@ -52,6 +56,9 @@ export default function GameOneScreen({
       return undefined;
     }
   });
+
+  // const gameMode = getGameMode(); // retrieve the game mode from the gameMode store
+  // console.log("Game mode: ", gameMode);
 
   // Initialize the shake animation value
   const shakeAnim = new Animated.Value(0);
@@ -104,6 +111,57 @@ export default function GameOneScreen({
   const [isQuitOverlayVisible, setIsQuitOverlayVisible] = useState(false);
   const [newPlayerName, setNewPlayerName] = useState("");
   const arrayIndex = useRef(0);
+  var index = 0;
+  var categoryColors = {};
+
+  switch (gameMode) {
+    case "prinkGamePrompts": {
+      // Generate a random color
+      categoryColors = {
+        CHALLENGE: "#fff62d",
+        RULE: "#69ff4f",
+        VIRUS: "#ff954d",
+        "GET IT DOWN YA": "#55ffb6",
+        " ": "#1dc0ff",
+      };
+      break;
+    }
+    case "crazyGamePrompts": {
+      // Generate a random color
+      categoryColors = {
+        CHALLENGE: "#edee41",
+        RULE: "#964cad",
+        VIRUS: "#fa563c",
+        "GET IT DOWN YA": "#2e2f48",
+        " ": "#162a30",
+      };
+      break;
+    }
+    case "flirtyGamePrompts": {
+      // Generate a random color
+      categoryColors = {
+        CHALLENGE: "#f95979",
+        RULE: "#d62a5e",
+        VIRUS: "#c90084",
+        "GET IT DOWN YA": "#ae0072",
+        " ": "#bd2841",
+        SEXY: "#45072f",
+      };
+      break;
+    }
+    default: {
+      // Generate a random color
+      categoryColors = {
+        CHALLENGE: "#d70057",
+        RULE: "#8e0045",
+        VIRUS: "#008e72",
+        "GET IT DOWN YA": "#00badc",
+        " ": "#00428f",
+        SEXY: "#008e72",
+      };
+      break;
+    }
+  }
 
   useEffect(() => {
     shake();
@@ -111,15 +169,16 @@ export default function GameOneScreen({
 
   const displayRandomPromptAndName = async () => {
     // Retrieve the prompts from async storage
-    const selectedPrompts = await retrievePrompts();
+    const selectedPrompts = await retrievePrompts(gameMode);
+    // const gameMode = await AsyncStorage.getItem("gameMode");
     // Start the shake animation
     shake();
 
     // Check if there are any prompts left to display
     if (selectedPrompts.length > 0) {
       console.log(selectedPrompts.length);
-      // Pick a random prompt from the list
-      const index = Math.floor(Math.random() * selectedPrompts.length);
+      // // Pick a random prompt from the list
+      // const index = Math.floor(Math.random() * selectedPrompts.length);
       const prompt = selectedPrompts[index];
       // Save the category of the prompt
       const { category }: { category: keyof typeof categoryColors } = prompt;
@@ -135,14 +194,6 @@ export default function GameOneScreen({
       // Update the random name text
       setRandomName(name);
 
-      // Generate a random color
-      const categoryColors = {
-        CHALLENGE: "#d70057",
-        RULE: "#8e0045",
-        VIRUS: "#008e72",
-        "GET IT DOWN YA": "#00badc",
-        " ": "#00428f",
-      };
       const color = categoryColors[category];
       // Update the background color
       setBackgroundColor(color);
@@ -151,10 +202,7 @@ export default function GameOneScreen({
       selectedPrompts.splice(index, 1);
 
       // Store the updated list of prompts in async storage
-      await AsyncStorage.setItem(
-        "gamePrompts",
-        JSON.stringify(selectedPrompts)
-      );
+      await AsyncStorage.setItem(gameMode, JSON.stringify(selectedPrompts));
 
       // Check if there are 5 prompts left to display
       // if (prompts.length === 5) {
@@ -204,16 +252,17 @@ export default function GameOneScreen({
       //     backgroundColor
       // );
 
-      for (const [index, prompt] of previousPrompts.entries()) {
-        console.log(
-          index,
-          prompt.name,
-          prompt.prompt,
-          prompt.color,
-          prompt.category
-        );
-      }
-      console.log(" ");
+      // for (const [index, prompt] of previousPrompts.entries()) {
+      //   console.log(
+      //     index,
+      //     prompt.name,
+      //     prompt.prompt,
+      //     prompt.color,
+      //     prompt.category
+      //   );
+      // }
+      // console.log(" ");
+      index++;
     } else {
       // If there are no prompts left to display, navigate back to the TabTwoScreen
       navigation.navigate("GameOver");
@@ -297,9 +346,7 @@ export default function GameOneScreen({
                 style={styles.submitButton}
                 onPress={async () => {
                   // Retrieve the selected prompts from async storage
-                  const selectedPrompts = await AsyncStorage.getItem(
-                    "gamePrompts"
-                  );
+                  const selectedPrompts = await AsyncStorage.getItem(gameMode);
                   // Convert the selected prompts string back to an array
                   const promptsArray = selectedPrompts
                     ? JSON.parse(selectedPrompts)
@@ -307,7 +354,7 @@ export default function GameOneScreen({
                   // Add the new rule to the prompts array and store it in async storage
                   promptsArray.push({ text: newRule, category: "RULE" });
                   await AsyncStorage.setItem(
-                    "gamePrompts",
+                    gameMode,
                     JSON.stringify(promptsArray)
                   );
                   // Reset the new rule input and close the overlay

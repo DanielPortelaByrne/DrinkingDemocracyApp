@@ -3,32 +3,78 @@ import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 import { getNames } from "../components/nameStore";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { prompts } from "../prompts";
+import { crazy } from "../crazy";
+import { flirty } from "../flirty";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 // import { useFocusEffect } from "react-navigation";
 // import "react-native-gesture-handler";
 
+// Store the prompts in async storage
+const storePrompts = async () => {
+  try {
+    // Convert the prompts array to a JSON string
+    const promptsString = JSON.stringify(prompts);
+    const crazyString = JSON.stringify(crazy);
+    const flirtyString = JSON.stringify(flirty);
+
+    // Save the prompts strings in async storage
+    await AsyncStorage.setItem("prompts", promptsString);
+    await AsyncStorage.setItem("crazy", crazyString);
+    await AsyncStorage.setItem("flirty", flirtyString);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const selectRandomPrompts = async () => {
-  console.log("Running random prompts");
+  // console.log("Running random prompts");
   // Retrieve the prompts from async storage
   const prompts = await retrievePrompts();
+  const crazy = await retrieveCrazy();
+  const flirty = await retrieveFlirty();
+  // console.log("Prompts list length: ", prompts.length);
+  // console.log("Crazy prompts list length: ", crazy.length);
+  // console.log("Flirty prompts list length: ", flirty.length);
 
   // Shuffle the prompts array
   prompts.sort(() => Math.random() - 0.5);
+  crazy.sort(() => Math.random() - 0.5);
+  flirty.sort(() => Math.random() - 0.5);
 
-  // Select the first 15 prompts from the shuffled array
-  const selectedPrompts = prompts.slice(0, 15);
+  // Select the first 25 prompts from the shuffled array
+  const selectedPrompts = prompts.slice(0, 25);
+  const selectedCrazyPrompts = crazy.slice(0, 25);
+  const selectedFlirtyPrompts = flirty.slice(0, 25);
 
   // Print the selected prompts to the console
-  console.log("Random prompts list length: ", selectedPrompts.length);
+  // console.log(
+  //   "Random: Normal, Crazy, Flirty prompts lists lengths: ",
+  //   selectedPrompts.length,
+  //   selectedCrazyPrompts.length,
+  //   selectedFlirtyPrompts.length
+  // );
   // console.log(selectedPrompts);
+  // console.log(selectedCrazyPrompts);
+  // console.log(selectedFlirtyPrompts);
 
-  // Store the selected prompts in async storage
-  await AsyncStorage.setItem("gamePrompts", JSON.stringify(selectedPrompts));
+  // Store the selected games prompts in async storage
+  await AsyncStorage.setItem(
+    "prinksGamePrompts",
+    JSON.stringify(selectedPrompts)
+  );
+  await AsyncStorage.setItem(
+    "crazyGamePrompts",
+    JSON.stringify(selectedCrazyPrompts)
+  );
+  await AsyncStorage.setItem(
+    "flirtyGamePrompts",
+    JSON.stringify(selectedFlirtyPrompts)
+  );
 };
 
 const retrievePrompts = async () => {
@@ -40,9 +86,42 @@ const retrievePrompts = async () => {
   return prompts;
 };
 
+const retrieveCrazy = async () => {
+  // Get the prompts from async storage
+  const crazyString = await AsyncStorage.getItem("crazy");
+  // Parse the string into an array of prompts
+  const crazy = crazyString ? JSON.parse(crazyString) : [];
+  // Return the array of prompts
+  return crazy;
+};
+
+const retrieveFlirty = async () => {
+  // Get the prompts from async storage
+  const flirtyString = await AsyncStorage.getItem("flirty");
+  // Parse the string into an array of prompts
+  const flirty = flirtyString ? JSON.parse(flirtyString) : [];
+  // Return the array of prompts
+  return flirty;
+};
+
 export default function TabTwoScreen({
   navigation,
 }: RootTabScreenProps<"TabTwo">) {
+  // const [gameMode, setGameMode] = useState<string>("");
+  // const storeGameMode = () => {
+  //   try {
+  //     console.log("Setting Game Mode to: ", gameMode);
+  //     // Save the prompts strings in async storage
+  //     AsyncStorage.setItem("gameMode", gameMode);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  // Store the prompts in async storage when the component is mounted
+  useEffect(() => {
+    storePrompts();
+  }, []);
+
   useFocusEffect(
     React.useCallback(() => {
       selectRandomPrompts();
@@ -118,7 +197,11 @@ export default function TabTwoScreen({
             source={require("../assets/images/prinks.png")}
           />
           <TouchableOpacity
-            onPress={() => navigation.navigate("GameOne")}
+            onPress={() => {
+              // setGameMode("prinks");
+              // storeGameMode();
+              navigation.navigate("GameOne", { gameMode: "prinksGamePrompts" });
+            }}
             style={{
               backgroundColor: "#ed1e26",
               padding: 20,
@@ -154,7 +237,11 @@ export default function TabTwoScreen({
             source={require("../assets/images/crazy.png")}
           />
           <TouchableOpacity
-            onPress={() => navigation.navigate("GameOne")}
+            onPress={() => {
+              // setGameMode("crazy");
+              // storeGameMode();
+              navigation.navigate("GameOne", { gameMode: "crazyGamePrompts" });
+            }}
             style={{
               backgroundColor: "#f3ce06",
               padding: 20,
@@ -190,7 +277,11 @@ export default function TabTwoScreen({
             source={require("../assets/images/flirty.png")}
           />
           <TouchableOpacity
-            onPress={() => navigation.navigate("GameOne")}
+            onPress={() => {
+              // setGameMode("flirty");
+              // storeGameMode();
+              navigation.navigate("GameOne", { gameMode: "flirtyGamePrompts" });
+            }}
             style={{
               backgroundColor: "#d70057",
               padding: 20,
