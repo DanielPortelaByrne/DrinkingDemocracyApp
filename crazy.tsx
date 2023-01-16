@@ -1,10 +1,6 @@
 // Prompts to store in async storage
 export const crazy = [
   {
-    text: "take 3 sips if you have ever been to a different country, otherwise give them out",
-    category: "SEXY",
-  },
-  {
     text: "down your drink if you have a tattoo, otherwise give it out",
     category: " ",
   },
@@ -118,10 +114,6 @@ export const crazy = [
     category: "RULE",
   },
   {
-    text: "take 3 sips if you have a job in the legal field, otherwise give them out",
-    category: "SEXY",
-  },
-  {
     text: "Famous Landmarks, the first to repeat themselves or can't think of any more must drink 4 times. [Name] you start",
     category: "CHALLENGE",
   },
@@ -189,18 +181,18 @@ export const crazy = [
     text: "Cities, the first to repeat themselves or can't think of any more must drink 5 times. [Name] you start",
     category: "CHALLENGE",
   },
-  {
-    text: "Everyone has to address [Name] as Master",
-    category: "VIRUS",
-  },
-  {
-    text: "[Name] is the impolite one! Keep your elbows on the table until told otherwise!",
-    category: "VIRUS",
-  },
-  {
-    text: "YOU SHALL NOT...TOUCH THE TABLE. Or take a 2 sip penalty",
-    category: "VIRUS",
-  },
+  // {
+  //   text: "Everyone has to address [Name] as Master",
+  //   category: "VIRUS",
+  // },
+  // {
+  //   text: "[Name] is the impolite one! Keep your elbows on the table until told otherwise!",
+  //   category: "VIRUS",
+  // },
+  // {
+  //   text: "YOU SHALL NOT...TOUCH THE TABLE. Or take a 2 sip penalty",
+  //   category: "VIRUS",
+  // },
   {
     text: "Ice Cream Flavors, the first to repeat themselves or can't think of any more must drink 2 times. [Name] you start",
     category: "CHALLENGE",
@@ -217,39 +209,38 @@ export const crazy = [
     text: "Everyone draw a cute little penis on the fridge except [Name], who'll decide which is cutest. Big winner will give out 3 sips!, [Name] you start",
     category: "CHALLENGE",
   },
-
-  {
-    text: "[Name] you must imitate [Name] until you're told otherwise!",
-    category: "VIRUS",
-  },
-  {
-    text: "[Name] is now forbidden to pronounce any vowel until further notice!",
-    category: "VIRUS",
-  },
-  {
-    text: "[Name] has to speak in a funny accent until told otherwise",
-    category: "VIRUS",
-  },
-  {
-    text: "Whenever [Name] speaks, everyone else has to do a silly dance",
-    category: "VIRUS",
-  },
-  {
-    text: "[Name] can only communicate through hand gestures until further notice",
-    category: "VIRUS",
-  },
-  {
-    text: "Every time [Name] speaks, everyone else has to do a shot",
-    category: "VIRUS",
-  },
-  {
-    text: "[Name] has to wear a funny hat for the rest of the game",
-    category: "VIRUS",
-  },
-  {
-    text: "[Name] has to sing every sentence until told otherwise",
-    category: "VIRUS",
-  },
+  // {
+  //   text: "[Name] you must imitate [Name] until you're told otherwise!",
+  //   category: "VIRUS",
+  // },
+  // {
+  //   text: "[Name] is now forbidden to pronounce any vowel until further notice!",
+  //   category: "VIRUS",
+  // },
+  // {
+  //   text: "[Name] has to speak in a funny accent until told otherwise",
+  //   category: "VIRUS",
+  // },
+  // {
+  //   text: "Whenever [Name] speaks, everyone else has to do a silly dance",
+  //   category: "VIRUS",
+  // },
+  // {
+  //   text: "[Name] can only communicate through hand gestures until further notice",
+  //   category: "VIRUS",
+  // },
+  // {
+  //   text: "Every time [Name] speaks, everyone else has to do a shot",
+  //   category: "VIRUS",
+  // },
+  // {
+  //   text: "[Name] has to wear a funny hat for the rest of the game",
+  //   category: "VIRUS",
+  // },
+  // {
+  //   text: "[Name] has to sing every sentence until told otherwise",
+  //   category: "VIRUS",
+  // },
   {
     text: "The last person to have eaten fast food must drink 3 times",
     category: " ",
@@ -282,18 +273,18 @@ export const crazy = [
     text: "The person with the most Instagram followers must drink 4 times",
     category: " ",
   },
-  {
-    text: "Whenever [Name] speaks, everyone else has to say 'meow' instead of responding",
-    category: "VIRUS",
-  },
-  {
-    text: "[Name] has to talk like a robot until further notice",
-    category: "VIRUS",
-  },
-  {
-    text: "[Name] has to speak in a British accent until told otherwise",
-    category: "VIRUS",
-  },
+  // {
+  //   text: "Whenever [Name] speaks, everyone else has to say 'meow' instead of responding",
+  //   category: "VIRUS",
+  // },
+  // {
+  //   text: "[Name] has to talk like a robot until further notice",
+  //   category: "VIRUS",
+  // },
+  // {
+  //   text: "[Name] has to speak in a British accent until told otherwise",
+  //   category: "VIRUS",
+  // },
   {
     text: "Those who use Twitter drink 4 times",
     category: " ",

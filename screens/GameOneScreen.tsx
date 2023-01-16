@@ -16,7 +16,8 @@ import { getNames } from "../components/nameStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
-// import { getGameMode } from "../components/gameModeStore";
+
+var virusEndIndex = 0;
 
 // Retrieve the prompts from async storage
 const retrievePrompts = async (gameModeParam: string) => {
@@ -45,10 +46,8 @@ export default function GameOneScreen({
   navigation,
 }: RootTabScreenProps<"GameOne">) {
   const { gameMode } = route.params;
-  // console.log("Received parameter: ", gameMode);
   const [fontsLoaded] = useFonts({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
-    // AGENCYR: require("../assets/fonts/AGENCYB.TTF"),
   });
 
   useEffect(() => {
@@ -56,9 +55,6 @@ export default function GameOneScreen({
       return undefined;
     }
   });
-
-  // const gameMode = getGameMode(); // retrieve the game mode from the gameMode store
-  // console.log("Game mode: ", gameMode);
 
   // Initialize the shake animation value
   const shakeAnim = new Animated.Value(0);
@@ -83,10 +79,6 @@ export default function GameOneScreen({
       }
     });
   };
-  // Store the prompts in async storage when the component is mounted
-  // useEffect(() => {
-  //   storePrompts();
-  // }, []);
 
   useEffect(() => {
     shake();
@@ -103,15 +95,22 @@ export default function GameOneScreen({
   const [previousPrompts, setPreviousPrompts] = useState<
     { name: string; prompt: string; color: string; category: string }[]
   >([]);
-
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [isPlayerOverlayVisible, setIsPlayerOverlayVisible] = useState(false);
   const [isEditVisible, setIsEditVisible] = useState(false);
   const [newRule, setNewRule] = useState("");
   const [isQuitOverlayVisible, setIsQuitOverlayVisible] = useState(false);
   const [newPlayerName, setNewPlayerName] = useState("");
+  const [virusName, setVirusName] = useState("");
+  const [virusName2, setVirusName2] = useState("");
+  const [virusPrompts, setVirusPrompts] = useState([]);
+  const [virusNames, setVirusNames] = useState<string[]>([]);
+  const [virusStartShown, setVirusStartShown] = useState(false);
+  // const [virusStartCount, setVirusStartCount] = useState(0);
   const arrayIndex = useRef(0);
   var index = 0;
+  var virusIndex = 0;
+  var virusStartCount = 0;
   var categoryColors = {};
 
   switch (gameMode) {
@@ -121,6 +120,7 @@ export default function GameOneScreen({
         CHALLENGE: "#fff62d",
         RULE: "#69ff4f",
         VIRUS: "#ff954d",
+        VIRUSEND: "#ff954d",
         "GET IT DOWN YA": "#55ffb6",
         " ": "#1dc0ff",
       };
@@ -132,6 +132,7 @@ export default function GameOneScreen({
         CHALLENGE: "#edee41",
         RULE: "#964cad",
         VIRUS: "#fa563c",
+        VIRUSEND: "#fa563c",
         "GET IT DOWN YA": "#2e2f48",
         " ": "#162a30",
       };
@@ -143,6 +144,7 @@ export default function GameOneScreen({
         CHALLENGE: "#f95979",
         RULE: "#d62a5e",
         VIRUS: "#c90084",
+        VIRUSEND: "#c90084",
         "GET IT DOWN YA": "#ae0072",
         " ": "#bd2841",
         SEXY: "#45072f",
@@ -155,6 +157,7 @@ export default function GameOneScreen({
         CHALLENGE: "#d70057",
         RULE: "#8e0045",
         VIRUS: "#008e72",
+        VIRUSEND: "#008e72",
         "GET IT DOWN YA": "#00badc",
         " ": "#00428f",
         SEXY: "#008e72",
@@ -170,16 +173,13 @@ export default function GameOneScreen({
   const displayRandomPromptAndName = async () => {
     // Retrieve the prompts from async storage
     const selectedPrompts = await retrievePrompts(gameMode);
-    // const gameMode = await AsyncStorage.getItem("gameMode");
     // Start the shake animation
     shake();
 
     // Check if there are any prompts left to display
     if (selectedPrompts.length > 0) {
-      console.log(selectedPrompts.length);
-      // // Pick a random prompt from the list
-      // const index = Math.floor(Math.random() * selectedPrompts.length);
       const prompt = selectedPrompts[index];
+
       // Save the category of the prompt
       const { category }: { category: keyof typeof categoryColors } = prompt;
 
@@ -191,12 +191,34 @@ export default function GameOneScreen({
       const nameIndex2 = Math.floor(Math.random() * names.length);
       var name2 = names[nameIndex2];
 
+      let currentVirusID = "";
+
+      // Check if the current prompt is a virus start
+      if (prompt.category === "VIRUS" && prompt.id.slice(-1) === "a") {
+        currentVirusID = prompt.id.slice(0, -1);
+        // console.log(prompt.id);
+        // console.log("Start virus: " + prompt.text);
+
+        // Check if the current virus end exists in the remaining selectedPrompts array
+        for (let i = index + 1; i < selectedPrompts.length; i++) {
+          // console.log("Looking for virus end");
+          if (selectedPrompts[i].id === currentVirusID + "b") {
+            // console.log(currentVirusID + "b");
+            // console.log("Found end virus: " + selectedPrompts[i].text);
+            // Update the "[Name]" with the corresponding virus name
+            selectedPrompts[i].text = selectedPrompts[i].text.replace(
+              "[Name]",
+              name
+            );
+            break;
+          }
+        }
+      }
+
       // Update the random name text
       setRandomName(name);
 
       const color = categoryColors[category];
-      // Update the background color
-      setBackgroundColor(color);
 
       // Remove the displayed prompt from the list
       selectedPrompts.splice(index, 1);
@@ -204,11 +226,6 @@ export default function GameOneScreen({
       // Store the updated list of prompts in async storage
       await AsyncStorage.setItem(gameMode, JSON.stringify(selectedPrompts));
 
-      // Check if there are 5 prompts left to display
-      // if (prompts.length === 5) {
-      //   // Navigate back to the TabTwoScreen
-      //   setShouldNavigate(true);
-      // }
       if (prompt.text.includes("[Name]")) {
         // Replace the first occurrence of "[Name]" with the random name
         prompt.text = prompt.text.replace("[Name]", name);
@@ -223,13 +240,26 @@ export default function GameOneScreen({
         name2 = "";
       }
 
-      if (prompt.category.includes("GET IT DOWN YA")) {
+      if (prompt.category === "GET IT DOWN YA") {
         name = "";
+      }
+
+      if (prompt.category === "VIRUS") {
+        console.log(
+          prompt.text + "[" + (arrayIndex.current.valueOf() + 1) + "]"
+        );
+      }
+      if (prompt.category === "VIRUSEND") {
+        console.log(
+          prompt.text + "[" + (arrayIndex.current.valueOf() + 1) + "]"
+        );
       }
 
       // Update the random prompt text
       setRandomPrompt(prompt.text);
       setRandomCategory(category);
+      // Update the background color
+      setBackgroundColor(color);
 
       // Add the current name, prompt, and color to the previousPrompts array as an object
       setPreviousPrompts([
@@ -242,26 +272,6 @@ export default function GameOneScreen({
         },
       ]);
       arrayIndex.current = previousPrompts.length;
-      // console.log("Setting index to: ", arrayIndex.current);
-      // console.log(
-      //   "Name: " +
-      //     randomName +
-      //     " Prompt: " +
-      //     randomPrompt +
-      //     " Colour: " +
-      //     backgroundColor
-      // );
-
-      // for (const [index, prompt] of previousPrompts.entries()) {
-      //   console.log(
-      //     index,
-      //     prompt.name,
-      //     prompt.prompt,
-      //     prompt.color,
-      //     prompt.category
-      //   );
-      // }
-      // console.log(" ");
       index++;
     } else {
       // If there are no prompts left to display, navigate back to the TabTwoScreen
@@ -351,8 +361,15 @@ export default function GameOneScreen({
                   const promptsArray = selectedPrompts
                     ? JSON.parse(selectedPrompts)
                     : [];
-                  // Add the new rule to the prompts array and store it in async storage
-                  promptsArray.push({ text: newRule, category: "RULE" });
+                  // Generate a random index between 0 and the length of the array
+                  const randomIndex = Math.floor(
+                    Math.random() * (promptsArray.length + 1)
+                  );
+                  // Use the splice method to insert the new rule at the random index
+                  promptsArray.splice(randomIndex, 0, {
+                    text: newRule,
+                    category: "RULE",
+                  });
                   await AsyncStorage.setItem(
                     gameMode,
                     JSON.stringify(promptsArray)
@@ -365,7 +382,7 @@ export default function GameOneScreen({
                   setIsEditVisible(false);
                 }}
               >
-                <Text style={styles.submitButtonText}>Add Rule</Text>
+                <Text style={styles.submitButtonText}>ADD RULE</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -397,7 +414,7 @@ export default function GameOneScreen({
                   setIsEditVisible(false);
                 }}
               >
-                <Text style={styles.submitButtonText}>Add Player</Text>
+                <Text style={styles.submitButtonText}>ADD PLAYER</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -473,7 +490,8 @@ export default function GameOneScreen({
           ],
         }}
       >
-        {randomName} {randomPrompt}
+        {/* {randomName}  */}
+        {randomPrompt}
       </Animated.Text>
     </TouchableOpacity>
   );
@@ -560,12 +578,13 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   submitButtonText: {
+    fontFamily: "Konstruktor",
     color: "#fff",
-    fontWeight: "bold",
     fontSize: 18,
   },
   veryBoldText: {
-    fontWeight: "bold",
+    fontFamily: "Konstruktor",
+    fontSize: 20,
   },
   topLeftButtonContainer: {
     position: "absolute",

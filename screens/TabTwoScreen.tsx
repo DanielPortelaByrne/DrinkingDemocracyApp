@@ -9,6 +9,8 @@ import { useFonts } from "expo-font";
 import { prompts } from "../prompts";
 import { crazy } from "../crazy";
 import { flirty } from "../flirty";
+import { virus } from "../virus";
+import { virusend } from "../virusend";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 // import { useFocusEffect } from "react-navigation";
@@ -21,11 +23,15 @@ const storePrompts = async () => {
     const promptsString = JSON.stringify(prompts);
     const crazyString = JSON.stringify(crazy);
     const flirtyString = JSON.stringify(flirty);
+    const virusString = JSON.stringify(virus);
+    const virusEndString = JSON.stringify(virusend);
 
     // Save the prompts strings in async storage
     await AsyncStorage.setItem("prompts", promptsString);
     await AsyncStorage.setItem("crazy", crazyString);
     await AsyncStorage.setItem("flirty", flirtyString);
+    await AsyncStorage.setItem("virus", virusString);
+    await AsyncStorage.setItem("virusend", virusEndString);
   } catch (error) {
     console.error(error);
   }
@@ -37,32 +43,97 @@ const selectRandomPrompts = async () => {
   const prompts = await retrievePrompts();
   const crazy = await retrieveCrazy();
   const flirty = await retrieveFlirty();
+  const virus = await retrieveVirus();
+  const virusend = await retrieveVirusEnd();
+  // console.log(virus);
   // console.log("Prompts list length: ", prompts.length);
   // console.log("Crazy prompts list length: ", crazy.length);
   // console.log("Flirty prompts list length: ", flirty.length);
+
+  const indices = [];
+  for (let i = 0; i < virus.length; i++) {
+    if (i % 2 === 0) {
+      indices.push(i);
+    }
+  }
+  indices.sort(() => Math.random() - 0.5);
+
+  const shuffledVirus = [];
+  const shuffledVirusEnd = [];
+  for (let i = 0; i < indices.length; i++) {
+    if (indices[i] + 1 < virus.length) {
+      shuffledVirus.push(virus[indices[i]]);
+      shuffledVirusEnd.push(virusend[indices[i]]);
+      shuffledVirus.push(virus[indices[i] + 1]);
+      shuffledVirusEnd.push(virusend[indices[i] + 1]);
+    }
+  }
+  // console.log(shuffledVirus);
 
   // Shuffle the prompts array
   prompts.sort(() => Math.random() - 0.5);
   crazy.sort(() => Math.random() - 0.5);
   flirty.sort(() => Math.random() - 0.5);
+  // virus.sort(() => Math.random() - 0.5);
 
   // Select the first 25 prompts from the shuffled array
-  const selectedPrompts = prompts.slice(0, 25);
-  const selectedCrazyPrompts = crazy.slice(0, 25);
-  const selectedFlirtyPrompts = flirty.slice(0, 25);
+  const selectedPrompts = prompts.slice(0, 50);
+  const selectedCrazyPrompts = crazy.slice(0, 50);
+  const selectedFlirtyPrompts = flirty.slice(0, 50);
+  const selectedVirusPrompts = shuffledVirus.slice(0, 6);
+  const selectedVirusEndPrompts = shuffledVirusEnd.slice(0, 6);
+  // console.log(selectedVirusPrompts);
+  // console.log(selectedVirusEndPrompts);
+  // Keep track of where virus prompts are inserted
+  let virusStartPositions = new Set();
+  let virusEndPositions = new Set();
+  // let virusPromptsOrder = [];
 
-  // Print the selected prompts to the console
+  for (let i = 0; i < selectedVirusPrompts.length; i++) {
+    const randomPosition = Math.floor(Math.random() * selectedPrompts.length);
+    selectedPrompts.splice(randomPosition, 0, selectedVirusPrompts[i]);
+    selectedCrazyPrompts.splice(randomPosition, 0, selectedVirusPrompts[i]);
+    selectedFlirtyPrompts.splice(randomPosition, 0, selectedVirusPrompts[i]);
+
+    const virusEndInsertionIndex =
+      5 +
+      Math.floor(
+        Math.random() * (selectedPrompts.length - (randomPosition + 1))
+      );
+    const virusEndPosition = randomPosition + virusEndInsertionIndex + 1;
+    selectedPrompts.splice(virusEndPosition, 0, selectedVirusEndPrompts[i]);
+    selectedCrazyPrompts.splice(
+      virusEndPosition,
+      0,
+      selectedVirusEndPrompts[i]
+    );
+    selectedFlirtyPrompts.splice(
+      virusEndPosition,
+      0,
+      selectedVirusEndPrompts[i]
+    );
+  }
+  // for (let i = 0; i < virusPromptsOrder.length; i++) {
+  //   console.log(`Index: ${i}, Value: ${virusPromptsOrder[i].prompt.text}`);
+  // }
   // console.log(
-  //   "Random: Normal, Crazy, Flirty prompts lists lengths: ",
-  //   selectedPrompts.length,
-  //   selectedCrazyPrompts.length,
-  //   selectedFlirtyPrompts.length
+  //   "Selected prompts length after addtions: " + selectedPrompts.length
   // );
-  // console.log(selectedPrompts);
-  // console.log(selectedCrazyPrompts);
-  // console.log(selectedFlirtyPrompts);
-
-  // Store the selected games prompts in async storage
+  // console.log("Virus start array postions: " + Array.from(virusStartPositions));
+  // console.log("Virus end array postions: " + Array.from(virusEndPositions));
+  // for (let i = 0; i < selectedPrompts.length; i++) {
+  //   console.log(`Index: ${i}, Value: ${selectedPrompts[i]}`);
+  // }
+  console.log(selectedPrompts);
+  // // Store the selected games prompts in async storage
+  // await AsyncStorage.setItem(
+  //   "virusGamePrompts",
+  //   JSON.stringify(selectedVirusPrompts)
+  // );
+  // await AsyncStorage.setItem(
+  //   "virusEndGamePrompts",
+  //   JSON.stringify(selectedVirusEndPrompts)
+  // );
   await AsyncStorage.setItem(
     "prinksGamePrompts",
     JSON.stringify(selectedPrompts)
@@ -75,6 +146,10 @@ const selectRandomPrompts = async () => {
     "flirtyGamePrompts",
     JSON.stringify(selectedFlirtyPrompts)
   );
+  // console.log(virusStartPositions);
+  // console.log(virusEndPositions);
+
+  return { virusStartPositions, virusEndPositions };
 };
 
 const retrievePrompts = async () => {
@@ -104,26 +179,46 @@ const retrieveFlirty = async () => {
   return flirty;
 };
 
+const retrieveVirus = async () => {
+  // Get the prompts from async storage
+  const virusString = await AsyncStorage.getItem("virus");
+  // Parse the string into an array of prompts
+  const virus = virusString ? JSON.parse(virusString) : [];
+  // Return the array of prompts
+  return virus;
+};
+
+const retrieveVirusEnd = async () => {
+  // Get the prompts from async storage
+  const virusEndString = await AsyncStorage.getItem("virusend");
+  // Parse the string into an array of prompts
+  const virusend = virusEndString ? JSON.parse(virusEndString) : [];
+  // Return the array of prompts
+  return virusend;
+};
+
 export default function TabTwoScreen({
   navigation,
 }: RootTabScreenProps<"TabTwo">) {
-  // const [gameMode, setGameMode] = useState<string>("");
-  // const storeGameMode = () => {
-  //   try {
-  //     console.log("Setting Game Mode to: ", gameMode);
-  //     // Save the prompts strings in async storage
-  //     AsyncStorage.setItem("gameMode", gameMode);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const [names, setNames] = useState(getNames());
+  // const [virusStartPositions, setVirusStartPositions] = useState([]);
+  // const [virusEndPositions, setVirusEndPositions] = useState([]);
+
+  // const { virusStartPositions, virusEndPositions } = selectRandomPrompts();
+
   // Store the prompts in async storage when the component is mounted
   useEffect(() => {
+    // selectRandomPrompts().then(({ virusStartPositions, virusEndPositions }) => {
+    //   setVirusStartPositions(() => virusStartPositions);
+    //   setVirusEndPositions(() => virusEndPositions);
+    // });
     storePrompts();
+    setNames(getNames());
   }, []);
 
   useFocusEffect(
     React.useCallback(() => {
+      setNames(getNames());
       selectRandomPrompts();
     }, [])
   );
@@ -136,16 +231,32 @@ export default function TabTwoScreen({
     return undefined;
   }
 
-  const names = getNames(); // retrieve the names from the name store
+  // // call the selectRandomPrompts function and use the returned values to set the state
+  // useEffect(() => {
+  //   selectRandomPrompts().then(({ virusStartPositions, virusEndPositions }) => {
+  //     virusStartPositions = virusStartPositions;
+  //     virusEndPositions = virusEndPositions;
+  //   });
+  // }, []);
+
+  // console.log(virusStartPositions);
+
+  // const names = getNames(); // retrieve the names from the name store
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={{ position: "absolute", top: 70, left: 30 }}
-        onPress={() => navigation.navigate("TabOne")}
+      <View style={{ position: "absolute", top: 70, left: 30 }}>
+        <TouchableOpacity onPress={() => navigation.navigate("TabOne")}>
+          <Ionicons name="home" size={32} color="#ed1e26" />
+        </TouchableOpacity>
+      </View>
+
+      <View
+        style={{
+          alignSelf: "center",
+          position: "absolute",
+          top: 60,
+        }}
       >
-        <Ionicons name="ios-home" size={32} color="red" />
-      </TouchableOpacity>
-      <View style={{ alignSelf: "center" }}>
         <Text
           style={{
             fontFamily: "Konstruktor",
@@ -153,34 +264,83 @@ export default function TabTwoScreen({
             textAlign: "center",
           }}
         >
-          Games
+          GAMES
         </Text>
       </View>
       <View
         style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
+          alignSelf: "center",
+          position: "absolute",
+          bottom: 50,
         }}
       >
-        <Text>
-          Players:
+        {/* <Text
+          style={{
+            fontFamily: "Konstruktor",
+            fontSize: 15,
+            textAlign: "center",
+            marginBottom: 5,
+          }}
+        >
+          Players
+        </Text> */}
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "center",
+            marginLeft: 15,
+            marginRight: 15,
+            // borderColor: "white",
+            // borderWidth: 2,
+            // backgroundColor: "#000000",
+          }}
+        >
           {names.map((name, index) => (
-            <Text key={index}>
-              {" "}
-              {name}
-              {index === names.length - 1 ? "" : ","}
-            </Text>
+            <View
+              style={{
+                flexDirection: "column",
+                alignItems: "center",
+                padding: 10,
+                justifyContent: "center",
+                // backgroundColor: "#000000",
+              }}
+              key={index}
+            >
+              <Ionicons name="person-circle" size={25} color="white" />
+              <View
+                style={{
+                  backgroundColor: "#000000",
+                  paddingBottom: 8,
+                  paddingLeft: 8,
+                  paddingRight: 8,
+                  paddingTop: 4,
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: "Konstruktor",
+                    color: "#ffff",
+                    textAlign: "center",
+                    fontSize: 15,
+                    // backgroundColor: "#000000",
+                  }}
+                >
+                  {name}
+                </Text>
+              </View>
+            </View>
           ))}
-        </Text>
+        </View>
       </View>
       <View
         style={{
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          marginTop: 200,
-          marginBottom: 200,
+          // marginTop: 100,
+          // marginBottom: 200,
         }}
       >
         <View
@@ -198,9 +358,11 @@ export default function TabTwoScreen({
           />
           <TouchableOpacity
             onPress={() => {
-              // setGameMode("prinks");
-              // storeGameMode();
-              navigation.navigate("GameOne", { gameMode: "prinksGamePrompts" });
+              navigation.navigate("GameOne", {
+                gameMode: "prinksGamePrompts",
+                // virusStartPositions,
+                // virusEndPositions,
+              });
             }}
             style={{
               backgroundColor: "#ed1e26",
@@ -211,9 +373,9 @@ export default function TabTwoScreen({
           >
             <Text
               style={{
+                fontFamily: "Konstruktor",
                 color: "#111111",
                 fontSize: 20,
-                fontWeight: "bold",
                 textAlign: "center",
                 textAlignVertical: "center",
                 marginTop: 5,
@@ -240,7 +402,11 @@ export default function TabTwoScreen({
             onPress={() => {
               // setGameMode("crazy");
               // storeGameMode();
-              navigation.navigate("GameOne", { gameMode: "crazyGamePrompts" });
+              navigation.navigate("GameOne", {
+                gameMode: "crazyGamePrompts",
+                // virusStartPositions,
+                // virusEndPositions,
+              });
             }}
             style={{
               backgroundColor: "#f3ce06",
@@ -253,7 +419,7 @@ export default function TabTwoScreen({
               style={{
                 color: "#111111",
                 fontSize: 20,
-                fontWeight: "bold",
+                fontFamily: "Konstruktor",
                 textAlign: "center",
                 textAlignVertical: "center",
                 marginTop: 5,
@@ -280,7 +446,11 @@ export default function TabTwoScreen({
             onPress={() => {
               // setGameMode("flirty");
               // storeGameMode();
-              navigation.navigate("GameOne", { gameMode: "flirtyGamePrompts" });
+              navigation.navigate("GameOne", {
+                gameMode: "flirtyGamePrompts",
+                // virusStartPositions,
+                // virusEndPositions,
+              });
             }}
             style={{
               backgroundColor: "#d70057",
@@ -293,7 +463,7 @@ export default function TabTwoScreen({
               style={{
                 color: "#111111",
                 fontSize: 20,
-                fontWeight: "bold",
+                fontFamily: "Konstruktor",
                 textAlign: "center",
                 textAlignVertical: "center",
                 marginTop: 5,
@@ -304,10 +474,6 @@ export default function TabTwoScreen({
           </TouchableOpacity>
         </View>
       </View>
-      {/* <Button title="AI Personalised Game" onPress={() => navigation.navigate('PersonalisedGame')} color="#ed1e26"/> */}
-      {/* <Button title="Getting Crazy" onPress={() => navigation.navigate('TabOne')}/>
-      <Button title="Getting Flirty" onPress={() => navigation.navigate('TabOne')}/>
-      <Button title="Versus Battles" onPress={() => navigation.navigate('TabOne')}/> */}
     </View>
   );
 }

@@ -43,7 +43,7 @@ export default function GameOverScreen({
           style={{
             color: "#111111",
             fontSize: 20,
-            fontWeight: "bold",
+            fontFamily: "Konstruktor",
             textAlign: "center",
             textAlignVertical: "center",
             marginTop: 5,

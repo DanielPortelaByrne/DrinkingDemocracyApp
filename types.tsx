@@ -20,7 +20,11 @@ export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   TabOne: undefined;
   TabTwo: undefined;
-  GameOne: { gameMode: string };
+  GameOne: {
+    gameMode: string;
+    // virusStartPositions: any[];
+    // virusEndPositions: any[];
+  };
   PersonalisedGame: undefined;
   GameOver: undefined;
   Modal: undefined;
