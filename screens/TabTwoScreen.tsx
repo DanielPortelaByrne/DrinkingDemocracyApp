@@ -208,12 +208,8 @@ export default function TabTwoScreen({
 
   // Store the prompts in async storage when the component is mounted
   useEffect(() => {
-    // selectRandomPrompts().then(({ virusStartPositions, virusEndPositions }) => {
-    //   setVirusStartPositions(() => virusStartPositions);
-    //   setVirusEndPositions(() => virusEndPositions);
-    // });
     storePrompts();
-    setNames(getNames());
+    // setNames(getNames());
   }, []);
 
   useFocusEffect(
@@ -366,7 +362,6 @@ export default function TabTwoScreen({
             }}
             style={{
               backgroundColor: "#ed1e26",
-              padding: 20,
               width: 200,
               height: 80,
             }}
@@ -377,8 +372,7 @@ export default function TabTwoScreen({
                 color: "#111111",
                 fontSize: 20,
                 textAlign: "center",
-                textAlignVertical: "center",
-                marginTop: 5,
+                lineHeight: 90,
               }}
             >
               Let's get prinking
@@ -410,19 +404,17 @@ export default function TabTwoScreen({
             }}
             style={{
               backgroundColor: "#f3ce06",
-              padding: 20,
               width: 200,
               height: 80,
             }}
           >
             <Text
               style={{
+                fontFamily: "Konstruktor",
                 color: "#111111",
                 fontSize: 20,
-                fontFamily: "Konstruktor",
                 textAlign: "center",
-                textAlignVertical: "center",
-                marginTop: 5,
+                lineHeight: 90,
               }}
             >
               Let's get crazy
@@ -454,19 +446,17 @@ export default function TabTwoScreen({
             }}
             style={{
               backgroundColor: "#d70057",
-              padding: 20,
               width: 200,
               height: 80,
             }}
           >
             <Text
               style={{
+                fontFamily: "Konstruktor",
                 color: "#111111",
                 fontSize: 20,
-                fontFamily: "Konstruktor",
                 textAlign: "center",
-                textAlignVertical: "center",
-                marginTop: 5,
+                lineHeight: 90,
               }}
             >
               Let's get flirty

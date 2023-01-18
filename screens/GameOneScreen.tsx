@@ -12,7 +12,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { Text } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
-import { getNames } from "../components/nameStore";
+import { getNames, updateNames } from "../components/nameStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
@@ -39,6 +39,8 @@ const addPlayer = async (playerName: string) => {
   names.push(playerName);
   // Update the name store with the new list of names
   await AsyncStorage.setItem("names", JSON.stringify(names));
+  const newNames = [...names];
+  updateNames(newNames); // update the names in the name store
 };
 
 export default function GameOneScreen({
@@ -348,7 +350,7 @@ export default function GameOneScreen({
             <View style={styles.overlay}>
               <TextInput
                 style={styles.textInput}
-                placeholder="Enter a new rule"
+                placeholder="Gráinne is a dryshite, drink 15 sips"
                 onChangeText={(text) => setNewRule(text)}
                 value={newRule}
               />
@@ -438,7 +440,7 @@ export default function GameOneScreen({
                   onPress: () => setIsQuitOverlayVisible(false),
                 },
               ],
-              { cancelable: false }
+              { cancelable: true }
             );
           }}
         >

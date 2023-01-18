@@ -5,5 +5,5 @@ export const updateNames = (newNames: string[]) => {
 };
 
 export const getNames = () => {
-  return names;
+  return names.length > 0 ? names : [""];
 };

@@ -15,6 +15,7 @@ import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 import { updateNames, getNames } from "../components/nameStore";
 import { useFonts } from "expo-font";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function TabOneScreen({
   navigation,
@@ -30,7 +31,13 @@ export default function TabOneScreen({
   }
 
   const NameInput: React.FC<RootTabScreenProps<"TabOne">> = () => {
-    const [names, setNames] = useState<string[]>([""]);
+    // const [names, setNames] = useState<string[]>([""]);
+    const [names, setNames] = useState(getNames());
+    useFocusEffect(
+      React.useCallback(() => {
+        setNames(getNames());
+      }, [])
+    );
 
     const handleNameChange = (text: string, index: number) => {
       // If the input text is not empty, add it to the list of names
@@ -38,6 +45,9 @@ export default function TabOneScreen({
       newNames[index] = text;
       setNames(newNames);
       updateNames(newNames); // update the names in the name store
+      if (scrollViewRef.current) {
+        scrollViewRef.current.scrollToEnd({ animated: true });
+      }
     };
 
     const handleAddName = () => {
@@ -58,7 +68,13 @@ export default function TabOneScreen({
     return (
       <View style={{ justifyContent: "center" }}>
         {names.map((name, index) => (
-          <View style={{ marginTop: 2.5, marginBottom: 2.5 }} key={index}>
+          <View
+            style={{
+              marginTop: 2.5,
+              marginBottom: 2.5,
+            }}
+            key={index}
+          >
             <TextInput
               placeholder={`Player ${index + 1}`}
               value={name}
@@ -68,6 +84,7 @@ export default function TabOneScreen({
             />
           </View>
         ))}
+
         <View style={{ marginTop: 5, flexDirection: "row" }}>
           {names.length > 1 && (
             <TouchableOpacity
@@ -117,7 +134,13 @@ export default function TabOneScreen({
 
       <ScrollView
         ref={scrollViewRef}
-        contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: "center",
+          paddingRight: "15%",
+          paddingLeft: "15%",
+        }}
       >
         <View style={{ justifyContent: "center" }}>
           <Text
@@ -134,23 +157,20 @@ export default function TabOneScreen({
           <NameInput navigation={navigation} />
         </View>
       </ScrollView>
-      <TouchableOpacity
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          bottom: -35,
-        }}
-        onPress={() => {
-          navigation.navigate("TabTwo");
-        }}
-      >
-        <View
+      <KeyboardAvoidingView behavior="position">
+        <TouchableOpacity
           style={{
+            alignItems: "center",
+            justifyContent: "center",
+            height: 50,
+            bottom: -35,
             borderColor: "#fdd006",
             borderWidth: 2,
-            padding: 10,
             borderRadius: 25,
             width: 170,
+          }}
+          onPress={() => {
+            navigation.navigate("TabTwo");
           }}
         >
           <Text
@@ -158,14 +178,14 @@ export default function TabOneScreen({
               fontFamily: "Konstruktor",
               color: "#fdd006",
               textAlign: "center",
-              // lineHeight: 27,
+              lineHeight: 50,
               fontSize: 20,
             }}
           >
             LET'S GET DRUNK
           </Text>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
       <Image
         source={require("../assets/images/transparent_logo_glow.png")}
         style={styles.bottomImage}
