@@ -1,13 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   KeyboardAvoidingView,
   ScrollView,
-  Button,
   TextInput,
   StyleSheet,
   Image,
   TouchableOpacity,
-  StatusBar,
+  ToastAndroid,
 } from "react-native";
 
 // import EditScreenInfo from '../components/EditScreenInfo';
@@ -32,6 +31,7 @@ export default function TabOneScreen({
 
   const NameInput: React.FC<RootTabScreenProps<"TabOne">> = () => {
     // const [names, setNames] = useState<string[]>([""]);
+
     const [names, setNames] = useState(getNames());
     useFocusEffect(
       React.useCallback(() => {
@@ -64,14 +64,19 @@ export default function TabOneScreen({
         updateNames(names.filter((_, index) => index !== names.length - 1)); // update the names in the name store
       }
     };
-
     return (
-      <View style={{ justifyContent: "center" }}>
+      <View
+        style={{
+          justifyContent: "center",
+          backgroundColor: "rgba(52, 52, 52, 0)",
+        }}
+      >
         {names.map((name, index) => (
           <View
             style={{
               marginTop: 2.5,
               marginBottom: 2.5,
+              backgroundColor: "rgba(52, 52, 52, 0)",
             }}
             key={index}
           >
@@ -85,7 +90,13 @@ export default function TabOneScreen({
           </View>
         ))}
 
-        <View style={{ marginTop: 5, flexDirection: "row" }}>
+        <View
+          style={{
+            marginTop: 5,
+            flexDirection: "row",
+            backgroundColor: "rgba(52, 52, 52, 0)",
+          }}
+        >
           {names.length > 1 && (
             <TouchableOpacity
               style={{ ...styles.button, width: "25%", marginRight: 5 }}
@@ -94,9 +105,9 @@ export default function TabOneScreen({
               <Text
                 style={{
                   fontWeight: "bold",
-                  fontSize: 20,
+                  fontSize: 18,
                   textAlign: "center",
-                  lineHeight: 27,
+                  // lineHeight: 25,
                 }}
               >
                 -
@@ -110,9 +121,9 @@ export default function TabOneScreen({
             <Text
               style={{
                 textAlign: "center",
-                lineHeight: 27,
+                // lineHeight: 25,
                 fontWeight: "bold",
-                fontSize: 20,
+                fontSize: 18,
               }}
             >
               +
@@ -131,6 +142,16 @@ export default function TabOneScreen({
       />
 
       {/* <StatusBar style="auto" /> */}
+      <Image
+        source={require("../assets/images/halo.png")}
+        style={{
+          width: "100%",
+          height: "40%",
+          position: "absolute",
+          top: "25%",
+          zIndex: -1,
+        }}
+      />
 
       <ScrollView
         ref={scrollViewRef}
@@ -142,50 +163,62 @@ export default function TabOneScreen({
           paddingLeft: "15%",
         }}
       >
-        <View style={{ justifyContent: "center" }}>
-          <Text
-            style={{
-              fontFamily: "Konstruktor",
-              fontSize: 20,
-              textAlign: "center",
-              marginTop: 25,
-              marginBottom: 10,
-            }}
-          >
-            WHO'S SESHING?
-          </Text>
-          <NameInput navigation={navigation} />
-        </View>
-      </ScrollView>
-      <KeyboardAvoidingView behavior="position">
-        <TouchableOpacity
+        <View
           style={{
-            alignItems: "center",
             justifyContent: "center",
-            height: 50,
-            bottom: -35,
-            borderColor: "#fdd006",
-            borderWidth: 2,
-            borderRadius: 25,
-            width: 170,
-          }}
-          onPress={() => {
-            navigation.navigate("TabTwo");
+            backgroundColor: "rgba(52, 52, 52, 0)",
           }}
         >
           <Text
             style={{
               fontFamily: "Konstruktor",
-              color: "#fdd006",
+              fontSize: 18,
               textAlign: "center",
-              lineHeight: 50,
-              fontSize: 20,
+              marginTop: 25,
+              marginBottom: 10,
+              backgroundColor: "rgba(52, 52, 52, 0)",
             }}
           >
-            LET'S GET DRUNK
+            WHO'S SESHING?
           </Text>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
+
+          <NameInput navigation={navigation} />
+        </View>
+      </ScrollView>
+      {/* <KeyboardAvoidingView behavior="position"> */}
+      <TouchableOpacity
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          height: "6%",
+          bottom: -45,
+          borderColor: "#ffff",
+          borderWidth: 2,
+          borderRadius: 25,
+          width: "45%",
+        }}
+        onPress={() => {
+          if (getNames().length > 1 && getNames()[0].length > 0) {
+            navigation.navigate("TabTwo");
+          } else {
+            ToastAndroid.show("Enter at least 2 names!", ToastAndroid.SHORT);
+          }
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: "Konstruktor",
+            color: "#ffff",
+            textAlign: "center",
+            // lineHeight: 50,
+            fontSize: 18,
+            padding: 10,
+          }}
+        >
+          LET'S GET DRUNK
+        </Text>
+      </TouchableOpacity>
+      {/* </KeyboardAvoidingView> */}
       <Image
         source={require("../assets/images/transparent_logo_glow.png")}
         style={styles.bottomImage}
@@ -201,13 +234,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   image: {
-    width: 350,
-    height: 250,
-    zIndex: -1,
+    width: "100%",
+    height: "25%",
   },
   button: {
     backgroundColor: "#ed1e26",
-    height: 25,
+    // height: "100%",
     borderRadius: 25,
   },
   textInput: {

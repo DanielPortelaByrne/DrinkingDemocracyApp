@@ -2,7 +2,7 @@
 export const prompts = [
   {
     text: "[Name] take 3 sips if you have ever been to a different country, otherwise give them out",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "[Name] down your drink if you have a tattoo, otherwise give it out",
@@ -10,7 +10,7 @@ export const prompts = [
   },
   {
     text: "Take 2 sips if you have ever ridden a rollercoaster, otherwise give them out",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Down your drink if you have ever bungee jumped",
@@ -18,11 +18,27 @@ export const prompts = [
   },
   {
     text: "[Name] give out 3 sips if you have ever been in a car accident, otherwise take them",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Take 4 sips if you have a phobia",
-    category: " ",
+    category: "RULE",
+  },
+  {
+    text: "Would you rather eat a live cockroach or be bald? Everyone vote at the same time, losing group drinks 2 times",
+    category: "VOTE",
+  },
+  {
+    text: "Around the room, name your ex relationships/hookups one at a time. The first person to run out of names, drink 3 times. [Name] you start",
+    category: "CHALLENGE",
+  },
+  {
+    text: "What rhymes with “itch”, first person to repeat themselves or can't think of anything drinks 5 times. [Name] you start",
+    category: "CHALLENGE",
+  },
+  {
+    text: "To spice things up, fireman or soldier? Vote at the same time, losing group drink 4 times",
+    category: "VOTE",
   },
   {
     text: "[Name] down your drink if you have ever gone skydiving, otherwise give it out",
@@ -30,22 +46,22 @@ export const prompts = [
   },
   {
     text: "[Name] give out 2 sips if you have ever broken a bone, otherwise take them",
-    category: " ",
+    category: "RULE",
   },
   {
-    text: "Bottoms up!: People with an S in their first name, let's down it all!",
+    text: "Bottoms up! People with an S in their first name, let's down it all!",
     category: "GET IT DOWN YA",
   },
   {
-    text: "Bottoms up!: People who prefer coffee over tea, let's down it all!",
+    text: "Bottoms up! People who prefer coffee over tea, let's down it all!",
     category: "GET IT DOWN YA",
   },
   {
-    text: "Bottoms up!: People who have been to a music festival, let's down it all!",
+    text: "Bottoms up! People who have been to a music festival, let's down it all!",
     category: "GET IT DOWN YA",
   },
   {
-    text: "Bottoms up!: People who prefer dogs over cats, let's down it all!",
+    text: "Bottoms up! People who prefer dogs over cats, let's down it all!",
     category: "GET IT DOWN YA",
   },
   {
@@ -57,15 +73,15 @@ export const prompts = [
     category: "GET IT DOWN YA",
   },
   {
-    text: "Bottoms up!: People who have a birthday this week, let's down it all!",
+    text: "Bottoms up! People who have a birthday this week, let's down it all!",
     category: "GET IT DOWN YA",
   },
   {
-    text: "Bottoms up!: People who are of Irish descent, let's down it all!",
+    text: "Bottoms up! People who are of Irish descent, let's down it all!",
     category: "GET IT DOWN YA",
   },
   {
-    text: "Bottoms up!: People who have watched all seasons of Game of Thrones, let's down it all!",
+    text: "Bottoms up! People who have watched all seasons of Game of Thrones, let's down it all!",
     category: "GET IT DOWN YA",
   },
   {
@@ -74,19 +90,19 @@ export const prompts = [
   },
   {
     text: "Take 2 sips if you are Polish",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Take 2 sips if you are American",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Take 2 sips if you are Romanian",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Take 2 sips if you are mixed background",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "[Name] take 2 sips if you are in your early 20s, otherwise give them out",
@@ -94,31 +110,31 @@ export const prompts = [
   },
   {
     text: "Take 2 sips if you love formula one",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "[Name] take 2 sips if you spend money excessively, otherwise give them out",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Take 3 sips if you have a job in finance",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Take 3 sips if you have a job in tech",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Take 3 sips if you have a job in healthcare",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Take 3 sips if you have a job in education",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Take 3 sips if you have a job in the legal field",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Famous Landmarks, the first to repeat themselves or can't think of any more must drink 4 times. [Name] you start",
@@ -129,19 +145,19 @@ export const prompts = [
     category: "CHALLENGE",
   },
   {
-    text: "Bottoms up!: People who can speak more than 3 languages, let's down it all!",
+    text: "Bottoms up! People who can speak more than 3 languages, let's down it all!",
     category: "GET IT DOWN YA",
   },
   {
-    text: "Bottoms up!: People who celebrate St. Patrick's Day, let's down it all!",
+    text: "Bottoms up! People who celebrate St. Patrick's Day, let's down it all!",
     category: "GET IT DOWN YA",
   },
   {
-    text: "Bottoms up!: People who have watched all seasons of The Office, let's down it all!",
+    text: "Bottoms up! People who have watched all seasons of The Office, let's down it all!",
     category: "GET IT DOWN YA",
   },
   {
-    text: "Bottoms up!: People who have a birthday in March, let's down it all!",
+    text: "Bottoms up! People who have a birthday in March, let's down it all!",
     category: "GET IT DOWN YA",
   },
   {
@@ -165,11 +181,7 @@ export const prompts = [
     category: "RULE",
   },
   {
-    text: "Play never have i ever: players take turns saying something they have never done, and anyone who has done it must take a drink, [Name] you start",
-    category: "CHALLENGE",
-  },
-  {
-    text: 'Play cheers to the governor: players take turns counting up from 1, but must say "cheers to the governor" instead of "3". If someone messes up or hesitates, they must take a drink. [Name] you start',
+    text: "Play never have I ever: players take turns saying something they have never done, and anyone who has done it must take a drink, [Name] you start",
     category: "CHALLENGE",
   },
   {
@@ -202,78 +214,78 @@ export const prompts = [
   },
   {
     text: "The last person to have eaten fast food must drink 3 times",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Those who prefer coffee over tea must drink 4 times",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "The person with the shortest hair must drink 2 times",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Drink 3 times if you've ever slept through your alarm",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "The person with the most siblings must drink 5 times",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Those who have never been to a music festival must drink 3 times",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Drink 2 times if you've ever lost a bet",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "The person with the most Instagram followers must drink 4 times",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Those who use Twitter drink 4 times",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Those who have never watched a full episode of Two Broke Girls, drink 2 times. Drink 1 more if you have watched a whole season.",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "3 sips to the last person to have opened a beer",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Cheese or meat? Vote at the same time, losers drink 2 times",
-    category: " ",
+    category: "VOTE",
   },
   {
     text: "The person with the most instagram followers, drink 2 times",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "[Name] give out 2 sips to a player bigger than you, if it's impossible, drink them",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "If you haven't taken a shower today drink 4 times!",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Those who didn't want to play Drinking Democracy drink 4 times. Such a shame",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "If you are a smoker drink 3 times",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Things with holes, first to run out of ideas drink 4 times, [Name] you start",
     category: "CHALLENGE",
   },
   {
-    text: "[Name] ask a question to the room at large. The first person to answer can give out 5 sips, [Name] you start",
+    text: "[Name] ask a question to the room at large. The first person to answer can give out 5 sips",
     category: "CHALLENGE",
   },
   {
@@ -281,23 +293,144 @@ export const prompts = [
     category: "CHALLENGE",
   },
   {
-    text: "[Name] say a letter. Everyone keeps adding a letter until a word is made, the person who makes the word drinks 2 times, [Name] you start",
+    text: "[Name] say a letter. Everyone keeps adding a letter until a word is made, the person who makes the word drinks 2 times",
     category: "CHALLENGE",
   },
   {
     text: "Drink 4 times if you are wearing a hat right now",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Drink 3 times if you have a tattoo",
-    category: " ",
-  },
-  {
-    text: "Drink 2 times if you've ever kissed someone of the same gender",
-    category: " ",
+    category: "RULE",
   },
   {
     text: "Drink 1 time if you've ever kissed someone while standing on one foot",
-    category: " ",
+    category: "RULE",
+  },
+  {
+    text: "[Name], give out 4 sips to a player thinner than you… If it's impossible, drink them",
+    category: "RULE",
+  },
+  {
+    text: "The player who dated the worst girl ever drinks 3 times",
+    category: "RULE",
+  },
+  {
+    text: "Everyone take as many sips as the amount of years you studied after secondary school",
+    category: "RULE",
+  },
+  {
+    text: "Everyone with the letter “a” in their first name drink 2 times",
+    category: "RULE",
+  },
+
+  {
+    text: "[Name], play the beginning of the last song you listened to on your phone. If the majority of the players don't like it, drink 3 times",
+    category: "RULE",
+  },
+  {
+    text: "The player with the biggest bill in their wallet can give out 5 sips",
+    category: "RULE",
+  },
+  {
+    text: "If you're single, give 4 sips to one person",
+    category: "RULE",
+  },
+  {
+    text: "Go around the room, make your ears wiggle. Those who can't, drink 2 times. [Name] you start.",
+    category: "RULE",
+  },
+  {
+    text: "[Name], if your phone is in your pocket drink 4 times. Otherwise give out 4 sips",
+    category: "RULE",
+  },
+  {
+    text: "People with Android phones, drink 2 times",
+    category: "RULE",
+  },
+  {
+    text: "Would you rather have a pet unicorn or a pet dragon? Vote now, losing group drinks 3 times",
+    category: "VOTE",
+  },
+  {
+    text: "Would you rather live in a castle or a treehouse? Vote now, losing group drinks 4 times",
+    category: "VOTE",
+  },
+  {
+    text: "Would you rather be able to fly or be invisible? Vote now, losing group drinks 2 times",
+    category: "VOTE",
+  },
+  {
+    text: "Would you rather live in the city or the countryside? Vote now, losing group drinks 3 times",
+    category: "VOTE",
+  },
+  {
+    text: "Would you rather have a million dollars or true love? Vote now, losing group drinks 4 times",
+    category: "VOTE",
+  },
+  {
+    text: "Would you rather live for a year in the past or the future? Vote now, losing group drinks 2 times",
+    category: "VOTE",
+  },
+  {
+    text: "Would you rather be able to speak any language fluently or be able to play any instrument? Vote now, losing group drinks 3 times",
+    category: "VOTE",
+  },
+  {
+    text: "Would you rather have a personal chef or a personal shopper? Vote now, losing group drinks 4 times",
+    category: "VOTE",
+  },
+  {
+    text: "Would you rather have super strength or super speed? Vote now, losing group drinks 2 times",
+    category: "VOTE",
+  },
+  {
+    text: "Would you rather have the ability to teleport or have a time machine? Vote now, losing group drinks 3 times",
+    category: "VOTE",
+  },
+  {
+    text: "The last person to have ridden a motorcycle must drink 3 times",
+    category: "RULE",
+  },
+  {
+    text: "Those who have ever ridden in a helicopter must drink 2 times",
+    category: "RULE",
+  },
+  {
+    text: "The last person to have been on a hike must drink 3 times",
+    category: "RULE",
+  },
+  {
+    text: "Those who have ever been on a camping trip must drink 2 times",
+    category: "RULE",
+  },
+  {
+    text: "The last person to have been on a boat must drink 3 times",
+    category: "RULE",
+  },
+  {
+    text: "Those who have ever been on a kayak must drink 2 times",
+    category: "RULE",
+  },
+  {
+    text: "The last person to have been on a fishing trip must drink 3 times",
+    category: "RULE",
+  },
+  {
+    text: "Those who have ever been on a bird watching trip must drink 2 times",
+    category: "RULE",
+  },
+  {
+    text: "The last person to have been on a hot air balloon ride must drink 3 times",
+    category: "RULE",
+  },
+  {
+    text: "Those who have ever been on a bus tour must drink 2 times",
+    category: "RULE",
+  },
+  {
+    text: "The last person to have been on a walking tour must drink 3 times",
+    category: "RULE",
   },
 ];

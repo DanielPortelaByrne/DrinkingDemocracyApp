@@ -13,6 +13,11 @@ import { virus } from "../virus";
 import { virusend } from "../virusend";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
+// import {
+//   BannerAd,
+//   BannerAdSize,
+//   TestIds,
+// } from "react-native-google-mobile-ads";
 // import { useFocusEffect } from "react-navigation";
 // import "react-native-gesture-handler";
 
@@ -256,18 +261,29 @@ export default function TabTwoScreen({
         <Text
           style={{
             fontFamily: "Konstruktor",
-            fontSize: 50,
+            fontSize: 48,
             textAlign: "center",
           }}
         >
           GAMES
         </Text>
       </View>
+      <Image
+        source={require("../assets/images/halo_red.png")}
+        style={{
+          width: "100%",
+          height: "40%",
+          position: "absolute",
+          bottom: -80,
+          zIndex: -1,
+        }}
+      />
       <View
         style={{
           alignSelf: "center",
           position: "absolute",
           bottom: 50,
+          backgroundColor: "rgba(52, 52, 52, 0)",
         }}
       >
         {/* <Text
@@ -288,11 +304,22 @@ export default function TabTwoScreen({
             justifyContent: "center",
             marginLeft: 15,
             marginRight: 15,
+            backgroundColor: "rgba(52, 52, 52, 0)",
             // borderColor: "white",
             // borderWidth: 2,
             // backgroundColor: "#000000",
           }}
         >
+          {/* <Image
+            source={require("../assets/images/halo_red.png")}
+            style={{
+              // width: "200%",
+              // height: "450%",
+              position: "absolute",
+              // bottom: -130,
+              zIndex: -1,
+            }}
+          /> */}
           {names.map((name, index) => (
             <View
               style={{
@@ -300,6 +327,8 @@ export default function TabTwoScreen({
                 alignItems: "center",
                 padding: 10,
                 justifyContent: "center",
+                zIndex: 2,
+                backgroundColor: "rgba(52, 52, 52, 0)",
                 // backgroundColor: "#000000",
               }}
               key={index}
@@ -307,11 +336,12 @@ export default function TabTwoScreen({
               <Ionicons name="person-circle" size={25} color="white" />
               <View
                 style={{
-                  backgroundColor: "#000000",
                   paddingBottom: 8,
                   paddingLeft: 8,
                   paddingRight: 8,
                   paddingTop: 4,
+                  zIndex: 2,
+                  // backgroundColor: "rgba(52, 52, 52, 0)",
                 }}
               >
                 <Text
@@ -319,8 +349,8 @@ export default function TabTwoScreen({
                     fontFamily: "Konstruktor",
                     color: "#ffff",
                     textAlign: "center",
-                    fontSize: 15,
-                    // backgroundColor: "#000000",
+                    fontSize: 13,
+                    zIndex: 2,
                   }}
                 >
                   {name}
@@ -345,11 +375,11 @@ export default function TabTwoScreen({
             alignItems: "center",
             justifyContent: "center",
             // marginTop: 260,
-            marginBottom: 25,
+            marginBottom: 10,
           }}
         >
           <Image
-            style={{ width: 80, height: 80, marginRight: 10 }}
+            style={{ width: "20%", height: "100%", marginRight: 10 }}
             source={require("../assets/images/prinks.png")}
           />
           <TouchableOpacity
@@ -362,17 +392,17 @@ export default function TabTwoScreen({
             }}
             style={{
               backgroundColor: "#ed1e26",
-              width: 200,
-              height: 80,
+              width: "55%",
+              height: "100%",
             }}
           >
             <Text
               style={{
                 fontFamily: "Konstruktor",
                 color: "#111111",
-                fontSize: 20,
+                fontSize: 18,
                 textAlign: "center",
-                lineHeight: 90,
+                lineHeight: 80,
               }}
             >
               Let's get prinking
@@ -385,11 +415,11 @@ export default function TabTwoScreen({
             alignItems: "center",
             justifyContent: "center",
             // marginTop: 260,
-            marginBottom: 25,
+            marginBottom: 10,
           }}
         >
           <Image
-            style={{ width: 80, height: 80, marginRight: 10 }}
+            style={{ width: "20%", height: "100%", marginRight: 10 }}
             source={require("../assets/images/crazy.png")}
           />
           <TouchableOpacity
@@ -404,17 +434,17 @@ export default function TabTwoScreen({
             }}
             style={{
               backgroundColor: "#f3ce06",
-              width: 200,
-              height: 80,
+              width: "55%",
+              height: "100%",
             }}
           >
             <Text
               style={{
                 fontFamily: "Konstruktor",
                 color: "#111111",
-                fontSize: 20,
+                fontSize: 18,
                 textAlign: "center",
-                lineHeight: 90,
+                lineHeight: 80,
               }}
             >
               Let's get crazy
@@ -431,7 +461,7 @@ export default function TabTwoScreen({
           }}
         >
           <Image
-            style={{ width: 80, height: 80, marginRight: 10 }}
+            style={{ width: "20%", height: "100%", marginRight: 10 }}
             source={require("../assets/images/flirty.png")}
           />
           <TouchableOpacity
@@ -446,22 +476,30 @@ export default function TabTwoScreen({
             }}
             style={{
               backgroundColor: "#d70057",
-              width: 200,
-              height: 80,
+              width: "55%",
+              height: "100%",
             }}
           >
             <Text
               style={{
                 fontFamily: "Konstruktor",
                 color: "#111111",
-                fontSize: 20,
+                fontSize: 18,
                 textAlign: "center",
-                lineHeight: 90,
+                lineHeight: 80,
+                // padding: 25,
               }}
             >
               Let's get flirty
             </Text>
           </TouchableOpacity>
+          {/* <BannerAd
+            unitId={TestIds.BANNER}
+            size={BannerAdSize.LARGE_BANNER}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+          /> */}
         </View>
       </View>
     </View>
@@ -475,7 +513,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    fontSize: 50,
+    fontSize: 48,
     fontWeight: "bold",
   },
   greeting: {

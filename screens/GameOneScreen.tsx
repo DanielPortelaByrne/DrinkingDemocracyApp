@@ -17,7 +17,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 
-var virusEndIndex = 0;
+// var VIRUS ENDIndex = 0;
 
 // Retrieve the prompts from async storage
 const retrievePrompts = async (gameModeParam: string) => {
@@ -103,16 +103,10 @@ export default function GameOneScreen({
   const [newRule, setNewRule] = useState("");
   const [isQuitOverlayVisible, setIsQuitOverlayVisible] = useState(false);
   const [newPlayerName, setNewPlayerName] = useState("");
-  const [virusName, setVirusName] = useState("");
-  const [virusName2, setVirusName2] = useState("");
-  const [virusPrompts, setVirusPrompts] = useState([]);
-  const [virusNames, setVirusNames] = useState<string[]>([]);
-  const [virusStartShown, setVirusStartShown] = useState(false);
-  // const [virusStartCount, setVirusStartCount] = useState(0);
+
   const arrayIndex = useRef(0);
   var index = 0;
-  var virusIndex = 0;
-  var virusStartCount = 0;
+
   var categoryColors = {};
 
   switch (gameMode) {
@@ -122,21 +116,23 @@ export default function GameOneScreen({
         CHALLENGE: "#fff62d",
         RULE: "#69ff4f",
         VIRUS: "#ff954d",
-        VIRUSEND: "#ff954d",
+        "VIRUS END": "#ff954d",
         "GET IT DOWN YA": "#55ffb6",
-        " ": "#1dc0ff",
+        QUIZ: "#1dc0ff",
+        VOTE: "#1dc0ff",
       };
       break;
     }
     case "crazyGamePrompts": {
       // Generate a random color
       categoryColors = {
-        CHALLENGE: "#edee41",
+        CHALLENGE: "#e39600",
         RULE: "#964cad",
         VIRUS: "#fa563c",
-        VIRUSEND: "#fa563c",
+        "VIRUS END": "#fa563c",
         "GET IT DOWN YA": "#2e2f48",
-        " ": "#162a30",
+        QUIZ: "#162a30",
+        VOTE: "#162a30",
       };
       break;
     }
@@ -146,9 +142,10 @@ export default function GameOneScreen({
         CHALLENGE: "#f95979",
         RULE: "#d62a5e",
         VIRUS: "#c90084",
-        VIRUSEND: "#c90084",
+        "VIRUS END": "#c90084",
         "GET IT DOWN YA": "#ae0072",
-        " ": "#bd2841",
+        QUIZ: "#bd2841",
+        VOTE: "#bd2841",
         SEXY: "#45072f",
       };
       break;
@@ -159,9 +156,10 @@ export default function GameOneScreen({
         CHALLENGE: "#d70057",
         RULE: "#8e0045",
         VIRUS: "#008e72",
-        VIRUSEND: "#008e72",
+        "VIRUS END": "#008e72",
         "GET IT DOWN YA": "#00badc",
-        " ": "#00428f",
+        QUIZ: "#00428f",
+        VOTE: "#00428f",
         SEXY: "#008e72",
       };
       break;
@@ -185,13 +183,48 @@ export default function GameOneScreen({
       // Save the category of the prompt
       const { category }: { category: keyof typeof categoryColors } = prompt;
 
-      // Pick a random name from the list
-      const nameIndex = Math.floor(Math.random() * names.length);
-      var name = names[nameIndex];
+      // // Pick a random name from the list
+      // var nameIndex = Math.floor(Math.random() * names.length);
+      // var name = names[nameIndex];
 
-      // Pick a random name from the list
-      const nameIndex2 = Math.floor(Math.random() * names.length);
-      var name2 = names[nameIndex2];
+      // // Pick a random name from the list
+      // var nameIndex2 = Math.floor(Math.random() * names.length);
+      // var name2 = names[nameIndex2];
+
+      // // Pick a random name from the list
+      // var nameIndex3 = Math.floor(Math.random() * names.length);
+      // var name3 = names[nameIndex3];
+
+      // Create an array to store the chosen name indexes
+      const chosenNameIndexes: number[] = [];
+
+      // Pick a random name from the list and check if it has already been chosen
+      let nameIndex = Math.floor(Math.random() * names.length);
+      while (chosenNameIndexes.includes(nameIndex)) {
+        nameIndex = Math.floor(Math.random() * names.length);
+      }
+      const name = names[nameIndex];
+      chosenNameIndexes.push(nameIndex);
+
+      // Pick a second random name from the list and check if it has already been chosen
+      let nameIndex2 = Math.floor(Math.random() * names.length);
+      while (chosenNameIndexes.includes(nameIndex2)) {
+        nameIndex2 = Math.floor(Math.random() * names.length);
+      }
+      const name2 = names[nameIndex2];
+      chosenNameIndexes.push(nameIndex2);
+
+      var name3 = null;
+
+      // Pick a third random name from the list and check if it has already been chosen
+      if (names.length >= 3) {
+        let nameIndex3 = Math.floor(Math.random() * names.length);
+        while (chosenNameIndexes.includes(nameIndex3)) {
+          nameIndex3 = Math.floor(Math.random() * names.length);
+        }
+        name3 = names[nameIndex3];
+        chosenNameIndexes.push(nameIndex3);
+      }
 
       let currentVirusID = "";
 
@@ -210,7 +243,9 @@ export default function GameOneScreen({
             // Update the "[Name]" with the corresponding virus name
             selectedPrompts[i].text = selectedPrompts[i].text.replace(
               "[Name]",
-              name
+              name,
+              "[Name2]",
+              name2
             );
             break;
           }
@@ -228,30 +263,61 @@ export default function GameOneScreen({
       // Store the updated list of prompts in async storage
       await AsyncStorage.setItem(gameMode, JSON.stringify(selectedPrompts));
 
-      if (prompt.text.includes("[Name]")) {
-        // Replace the first occurrence of "[Name]" with the random name
-        prompt.text = prompt.text.replace("[Name]", name);
-        setRandomName("");
-        name = "";
+      const namesToReplace = [
+        { search: "[Name]", replace: name },
+        { search: "[Name2]", replace: name2 },
+      ];
+
+      if (name3) {
+        namesToReplace.push({ search: "[Name3]", replace: name3 });
       }
 
-      if (prompt.text.includes("[Name]")) {
-        // Replace the second occurrence of "[Name]" with the second random name
-        prompt.text = prompt.text.replace("[Name]", name2);
-        setRandomName("");
-        name2 = "";
+      for (let i = 0; i < namesToReplace.length; i++) {
+        if (prompt.text.includes(namesToReplace[i].search)) {
+          prompt.text = prompt.text.replace(
+            namesToReplace[i].search,
+            namesToReplace[i].replace
+          );
+        }
       }
 
-      if (prompt.category === "GET IT DOWN YA") {
-        name = "";
-      }
+      // if (prompt.text.includes("[Name]")) {
+      //   // Replace the first occurrence of "[Name]" with the random name
+      //   prompt.text = prompt.text.replace("[Name]", name);
+      //   // setRandomName("");
+      //   // name = "";
+      // }
+      // if (prompt.text.includes("[Name]")) {
+      //   // Replace the second occurrence of "[Name]" with the same name
+      //   prompt.text = prompt.text.replace("[Name]", name);
+      //   // setRandomName("");
+      //   // name = "";
+      // }
+
+      // if (prompt.text.includes("[Name2]")) {
+      //   // Replace the second occurrence of "[Name]" with the second random name
+      //   prompt.text = prompt.text.replace("[Name2]", name2);
+      //   // setRandomName("");
+      //   // name2 = "";
+      // }
+
+      // if (prompt.text.includes("[Name3]")) {
+      //   // Replace the second occurrence of "[Name]" with the second random name
+      //   prompt.text = prompt.text.replace("[Name3]", name3);
+      //   // setRandomName("");
+      //   // name3 = "";
+      // }
+
+      // if (prompt.category === "GET IT DOWN YA") {
+      //   name = "";
+      // }
 
       if (prompt.category === "VIRUS") {
         console.log(
           prompt.text + "[" + (arrayIndex.current.valueOf() + 1) + "]"
         );
       }
-      if (prompt.category === "VIRUSEND") {
+      if (prompt.category === "VIRUS END") {
         console.log(
           prompt.text + "[" + (arrayIndex.current.valueOf() + 1) + "]"
         );
@@ -462,9 +528,10 @@ export default function GameOneScreen({
           style={{
             fontFamily: "Konstruktor",
             color: "#fff",
-            fontSize: 60,
+            fontSize: 45,
             textAlign: "center",
-            marginBottom: 20,
+            // marginBottom: 20,
+            padding: 20,
           }}
         >
           {randomCategory}
@@ -474,7 +541,7 @@ export default function GameOneScreen({
       <Animated.Text
         style={{
           // fontFamily: "AGENCYR",
-          fontSize: 30,
+          fontSize: 28,
           color: "#fff",
           textAlign: "center",
           marginBottom: 10,
@@ -506,7 +573,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   gameText: {
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: "bold",
     textAlign: "center",
     marginLeft: 20,
@@ -582,11 +649,11 @@ const styles = StyleSheet.create({
   submitButtonText: {
     fontFamily: "Konstruktor",
     color: "#fff",
-    fontSize: 18,
+    fontSize: 25,
   },
   veryBoldText: {
     fontFamily: "Konstruktor",
-    fontSize: 20,
+    fontSize: 17,
   },
   topLeftButtonContainer: {
     position: "absolute",
@@ -610,13 +677,5 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 20, // or a fixed value like 20
     top: 50,
-  },
-  closeButton: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  closeButtonText: {
-    fontSize: 20,
-    fontWeight: "bold",
   },
 });
