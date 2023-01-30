@@ -9,6 +9,7 @@ import {
   Animated,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
+import Toast from "react-native-root-toast";
 
 import { Text } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
@@ -374,10 +375,13 @@ export default function GameOneScreen({
               // console.log("Decrementing index to: ", arrayIndex);
             } else {
               // console.log("You're at the first card!");
-              ToastAndroid.show(
-                "You're at the first card!",
-                ToastAndroid.SHORT
-              );
+              // ToastAndroid.show(
+              //   "You're at the first card!",
+              //   ToastAndroid.SHORT
+              // );
+              Toast.show("You're at the first card!", {
+                duration: Toast.durations.SHORT,
+              });
             }
           } else {
             if (arrayIndex.current == previousPrompts.length - 1) {
@@ -445,7 +449,10 @@ export default function GameOneScreen({
                   // Reset the new rule input and close the overlay
                   setNewRule("");
                   // Display a message to the user to confirm that the new rule has been added
-                  ToastAndroid.show("Rule added!", ToastAndroid.SHORT);
+                  // ToastAndroid.show("Rule added!", ToastAndroid.SHORT);
+                  Toast.show("Rule added!", {
+                    duration: Toast.durations.SHORT,
+                  });
                   setIsOverlayVisible(false);
                   setIsEditVisible(false);
                 }}
@@ -477,7 +484,10 @@ export default function GameOneScreen({
                   // Reset the new player name input and close the overlay
                   setNewPlayerName("");
                   // Display a message to the user to confirm that the new player has been added
-                  ToastAndroid.show("Player added!", ToastAndroid.SHORT);
+                  // ToastAndroid.show("Player added!", ToastAndroid.SHORT);
+                  Toast.show("Player added!", {
+                    duration: Toast.durations.SHORT,
+                  });
                   setIsPlayerOverlayVisible(false);
                   setIsEditVisible(false);
                 }}
