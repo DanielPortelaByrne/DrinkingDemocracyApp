@@ -421,6 +421,7 @@ export default function GameOneScreen({
               <TextInput
                 style={styles.textInput}
                 placeholder="Gráinne is a dryshite, drink 15 sips"
+                placeholderTextColor="#ccc"
                 onChangeText={(text) => setNewRule(text)}
                 value={newRule}
               />
@@ -473,6 +474,7 @@ export default function GameOneScreen({
               <TextInput
                 style={styles.textInput}
                 placeholder="Enter the new player's name"
+                placeholderTextColor="#ccc"
                 onChangeText={(text) => setNewPlayerName(text)}
                 value={newPlayerName}
               />
@@ -660,10 +662,12 @@ const styles = StyleSheet.create({
     fontFamily: "Konstruktor",
     color: "#fff",
     fontSize: 25,
+    lineHeight: 40,
   },
   veryBoldText: {
     fontFamily: "Konstruktor",
     fontSize: 17,
+    lineHeight: 40,
   },
   topLeftButtonContainer: {
     position: "absolute",

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ToastAndroid,
 } from "react-native";
+import Toast from "react-native-root-toast";
 
 // import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from "../components/Themed";
@@ -82,6 +83,7 @@ export default function TabOneScreen({
           >
             <TextInput
               placeholder={`Player ${index + 1}`}
+              placeholderTextColor="#ccc"
               value={name}
               onChangeText={(text) => handleNameChange(text, index)}
               style={styles.textInput}
@@ -201,7 +203,10 @@ export default function TabOneScreen({
           if (getNames().length > 1 && getNames()[0].length > 0) {
             navigation.navigate("TabTwo");
           } else {
-            ToastAndroid.show("Enter at least 2 names!", ToastAndroid.SHORT);
+            // ToastAndroid.show("Enter at least 2 names!", ToastAndroid.SHORT);
+            Toast.show("Enter at least 2 names!", {
+              duration: Toast.durations.SHORT,
+            });
           }
         }}
       >
@@ -210,7 +215,7 @@ export default function TabOneScreen({
             fontFamily: "Konstruktor",
             color: "#ffff",
             textAlign: "center",
-            // lineHeight: 50,
+            lineHeight: 35,
             fontSize: 18,
             padding: 10,
           }}
@@ -245,8 +250,10 @@ const styles = StyleSheet.create({
   textInput: {
     backgroundColor: "white",
     width: 250,
+    height: 28,
     fontStyle: "bold",
     borderRadius: 25,
+    placeholderTextColor: "#00000",
   },
   bottomImage: {
     bottom: -60,
