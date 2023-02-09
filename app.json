@@ -2,7 +2,7 @@
   "expo": {
     "name": "Drinking Democracy",
     "slug": "drinkingdemocracy",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "icon": "./assets/images/logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
@@ -16,7 +16,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.danielportelabyrne.drinkingdemocracy"
     },
     "android": {
       "softwareKeyboardLayoutMode": "pan",
