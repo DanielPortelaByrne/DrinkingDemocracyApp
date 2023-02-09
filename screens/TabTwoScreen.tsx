@@ -510,6 +510,7 @@ export default function TabTwoScreen({
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
+            marginBottom: 10,
             // marginTop: 260,
             // marginBottom: 350,
           }}
@@ -545,6 +546,56 @@ export default function TabTwoScreen({
               }}
             >
               Let's get flirty
+            </Text>
+          </TouchableOpacity>
+          {/* <BannerAd
+            unitId={TestIds.BANNER}
+            size={BannerAdSize.LARGE_BANNER}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+          /> */}
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            // marginTop: 260,
+            // marginBottom: 350,
+          }}
+        >
+          {/* <Image
+            style={{ width: "20%", height: "100%", marginRight: 10 }}
+            source={require("../assets/images/flirty.png")}
+          /> */}
+          <TouchableOpacity
+            onPress={() => {
+              // setGameMode("flirty");
+              // storeGameMode();
+              navigation.navigate("Dev", {
+                gameMode: "flirtyGamePrompts",
+                // virusStartPositions,
+                // virusEndPositions,
+              });
+            }}
+            style={{
+              backgroundColor: "#000000",
+              width: "80%",
+              height: "100%",
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: "Konstruktor",
+                color: "#ffffff",
+                fontSize: 18,
+                textAlign: "center",
+                lineHeight: 80,
+                // padding: 25,
+              }}
+            >
+              Edit Prompts
             </Text>
           </TouchableOpacity>
           {/* <BannerAd

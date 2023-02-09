@@ -22,8 +22,9 @@ export type RootStackParamList = {
   TabTwo: undefined;
   GameOne: {
     gameMode: string;
-    // virusStartPositions: any[];
-    // virusEndPositions: any[];
+  };
+  Dev: {
+    gameMode: string;
   };
   PersonalisedGame: undefined;
   GameOver: undefined;
@@ -38,6 +39,7 @@ export type RootTabParamList = {
   TabOne: undefined;
   TabTwo: undefined;
   GameOne: { gameMode: string };
+  Dev: { gameMode: string };
   PersonalisedGame: undefined;
   GameOver: undefined;
 };

@@ -23,13 +23,13 @@ import GameOneScreen from "../screens/GameOneScreen";
 import PersonalisedGameScreen from "../screens/PersonalisedGameScreen";
 import GameOverScreen from "../screens/GameOverScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
+import DevScreen from "../screens/DevScreen";
 import {
   RootStackParamList,
   RootTabParamList,
   RootTabScreenProps,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
-import { StatusBar } from "expo-status-bar";
 
 interface TextWithDefaultProps extends Text {
   defaultProps?: { allowFontScaling?: boolean };
@@ -77,6 +77,11 @@ function RootNavigator() {
       <Stack.Screen
         name="GameOne"
         component={GameOneScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Dev"
+        component={DevScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
