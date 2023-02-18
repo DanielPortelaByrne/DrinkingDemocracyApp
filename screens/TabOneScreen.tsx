@@ -215,12 +215,12 @@ export default function TabOneScreen({
             fontFamily: "Konstruktor",
             color: "#ffff",
             textAlign: "center",
-            lineHeight: 35,
-            fontSize: 18,
+            lineHeight: 25,
+            fontSize: 15,
             padding: 10,
           }}
         >
-          LET'S GET DRUNK
+          LET'S GET STARTED
         </Text>
       </TouchableOpacity>
       {/* </KeyboardAvoidingView> */}
