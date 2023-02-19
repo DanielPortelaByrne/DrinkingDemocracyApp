@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Drinking Democracy",
-    "slug": "drinkingdemocracy",
+    "name": "Party Populist",
+    "slug": "partypopulist",
     "version": "1.0.0",
     "icon": "./assets/images/logo.png",
     "scheme": "myapp",
@@ -16,7 +16,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.danielportelabyrne.partypopulist"
     },
     "android": {
       "softwareKeyboardLayoutMode": "pan",
@@ -24,7 +25,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#131313"
       },
-      "package": "com.danielportelabyrne.drinkingdemocracy"
+      "package": "com.danielportelabyrne.partypopulist"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
