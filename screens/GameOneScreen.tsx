@@ -171,8 +171,45 @@ export default function GameOneScreen({
   }, [randomName, randomPrompt]);
 
   const displayRandomPromptAndName = async () => {
+    // check webapp to see if any new prompts added
+    try {
+      const response = await fetch("http://192.168.1.14:3001/api/prompts");
+      const data = await response.json();
+      const selectedPrompts = await AsyncStorage.getItem(gameMode);
+      // Convert the selected prompts string back to an array
+      const promptsArray = selectedPrompts ? JSON.parse(selectedPrompts) : [];
+      // Generate a random index between 0 and the length of the array
+      const randomIndex = Math.floor(Math.random() * (promptsArray.length + 1));
+
+      if (Object.keys(data).length !== 0) {
+        console.log(data);
+        // check if data object is not empty
+        // Use the splice method to insert the new rule at the random index
+        promptsArray.splice(randomIndex, 0, {
+          text: data.text,
+          category: data.category,
+        });
+        await AsyncStorage.setItem(gameMode, JSON.stringify(promptsArray));
+        console.log("Successfully fetched and stored data: " + data);
+      } else {
+        console.log("No new prompts from the web-app");
+      }
+    } catch (error) {
+      console.error(error);
+    }
     // Retrieve the prompts from async storage
     const selectedPrompts = await retrievePrompts(gameMode);
+    // fetch("http://192.168.1.14:3001/api/prompts", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(selectedPrompts),
+    // })
+    //   .then((response) => response.json())
+    //   .then((selectedPrompts) => console.log(selectedPrompts))
+    //   .catch((error) => console.error(error));
+
     // Start the shake animation
     shake();
 
@@ -182,18 +219,6 @@ export default function GameOneScreen({
 
       // Save the category of the prompt
       const { category }: { category: keyof typeof categoryColors } = prompt;
-
-      // // Pick a random name from the list
-      // var nameIndex = Math.floor(Math.random() * names.length);
-      // var name = names[nameIndex];
-
-      // // Pick a random name from the list
-      // var nameIndex2 = Math.floor(Math.random() * names.length);
-      // var name2 = names[nameIndex2];
-
-      // // Pick a random name from the list
-      // var nameIndex3 = Math.floor(Math.random() * names.length);
-      // var name3 = names[nameIndex3];
 
       // Create an array to store the chosen name indexes
       const chosenNameIndexes: number[] = [];
@@ -231,15 +256,11 @@ export default function GameOneScreen({
       // Check if the current prompt is a virus start
       if (prompt.category === "VIRUS" && prompt.id.slice(-1) === "a") {
         currentVirusID = prompt.id.slice(0, -1);
-        // console.log(prompt.id);
-        // console.log("Start virus: " + prompt.text);
 
         // Check if the current virus end exists in the remaining selectedPrompts array
         for (let i = index + 1; i < selectedPrompts.length; i++) {
           // console.log("Looking for virus end");
           if (selectedPrompts[i].id === currentVirusID + "b") {
-            // console.log(currentVirusID + "b");
-            // console.log("Found end virus: " + selectedPrompts[i].text);
             // Update the "[Name]" with the corresponding virus name
             selectedPrompts[i].text = selectedPrompts[i].text.replace(
               "[Name]",
@@ -280,37 +301,6 @@ export default function GameOneScreen({
           );
         }
       }
-
-      // if (prompt.text.includes("[Name]")) {
-      //   // Replace the first occurrence of "[Name]" with the random name
-      //   prompt.text = prompt.text.replace("[Name]", name);
-      //   // setRandomName("");
-      //   // name = "";
-      // }
-      // if (prompt.text.includes("[Name]")) {
-      //   // Replace the second occurrence of "[Name]" with the same name
-      //   prompt.text = prompt.text.replace("[Name]", name);
-      //   // setRandomName("");
-      //   // name = "";
-      // }
-
-      // if (prompt.text.includes("[Name2]")) {
-      //   // Replace the second occurrence of "[Name]" with the second random name
-      //   prompt.text = prompt.text.replace("[Name2]", name2);
-      //   // setRandomName("");
-      //   // name2 = "";
-      // }
-
-      // if (prompt.text.includes("[Name3]")) {
-      //   // Replace the second occurrence of "[Name]" with the second random name
-      //   prompt.text = prompt.text.replace("[Name3]", name3);
-      //   // setRandomName("");
-      //   // name3 = "";
-      // }
-
-      // if (prompt.category === "GET IT DOWN YA") {
-      //   name = "";
-      // }
 
       if (prompt.category === "VIRUS") {
         console.log(
