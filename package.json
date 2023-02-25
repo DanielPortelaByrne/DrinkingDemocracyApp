@@ -37,6 +37,7 @@
     "react-native": "0.70.5",
     "react-native-elements": "^3.4.3",
     "react-native-fs": "^2.20.0",
+    "react-native-google-mobile-ads": "^9.1.2",
     "react-native-hide-onkeyboard": "^0.1.6",
     "react-native-indicators": "^0.17.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",

@@ -13,11 +13,11 @@ import { virus } from "../virus";
 import { virusend } from "../virusend";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
-// import {
-//   BannerAd,
-//   BannerAdSize,
-//   TestIds,
-// } from "react-native-google-mobile-ads";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 // import { useFocusEffect } from "react-navigation";
 // import "react-native-gesture-handler";
 
@@ -286,16 +286,6 @@ export default function TabTwoScreen({
     return undefined;
   }
 
-  // // call the selectRandomPrompts function and use the returned values to set the state
-  // useEffect(() => {
-  //   selectRandomPrompts().then(({ virusStartPositions, virusEndPositions }) => {
-  //     virusStartPositions = virusStartPositions;
-  //     virusEndPositions = virusEndPositions;
-  //   });
-  // }, []);
-
-  // console.log(virusStartPositions);
-
   // const names = getNames(); // retrieve the names from the name store
   return (
     <View style={styles.container}>
@@ -304,7 +294,6 @@ export default function TabTwoScreen({
           <Ionicons name="home" size={32} color="#ed1e26" />
         </TouchableOpacity>
       </View>
-
       <View
         style={{
           alignSelf: "center",
@@ -322,6 +311,14 @@ export default function TabTwoScreen({
           GAMES
         </Text>
       </View>
+      // Display a banner
+      <BannerAd
+        unitId={TestIds.BANNER}
+        size={BannerAdSize.LARGE_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      />
       <Image
         source={require("../assets/images/halo_red.png")}
         style={{
