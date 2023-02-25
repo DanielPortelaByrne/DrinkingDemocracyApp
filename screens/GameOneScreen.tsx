@@ -17,8 +17,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 
-// var VIRUS ENDIndex = 0;
-
 // Retrieve the prompts from async storage
 const retrievePrompts = async (gameModeParam: string) => {
   try {
@@ -179,25 +177,10 @@ export default function GameOneScreen({
     // Check if there are any prompts left to display
     if (selectedPrompts.length > 0) {
       const prompt = selectedPrompts[index];
-
       // Save the category of the prompt
       const { category }: { category: keyof typeof categoryColors } = prompt;
-
-      // // Pick a random name from the list
-      // var nameIndex = Math.floor(Math.random() * names.length);
-      // var name = names[nameIndex];
-
-      // // Pick a random name from the list
-      // var nameIndex2 = Math.floor(Math.random() * names.length);
-      // var name2 = names[nameIndex2];
-
-      // // Pick a random name from the list
-      // var nameIndex3 = Math.floor(Math.random() * names.length);
-      // var name3 = names[nameIndex3];
-
       // Create an array to store the chosen name indexes
       const chosenNameIndexes: number[] = [];
-
       // Pick a random name from the list and check if it has already been chosen
       let nameIndex = Math.floor(Math.random() * names.length);
       while (chosenNameIndexes.includes(nameIndex)) {
@@ -231,15 +214,9 @@ export default function GameOneScreen({
       // Check if the current prompt is a virus start
       if (prompt.category === "VIRUS" && prompt.id.slice(-1) === "a") {
         currentVirusID = prompt.id.slice(0, -1);
-        // console.log(prompt.id);
-        // console.log("Start virus: " + prompt.text);
-
         // Check if the current virus end exists in the remaining selectedPrompts array
         for (let i = index + 1; i < selectedPrompts.length; i++) {
-          // console.log("Looking for virus end");
           if (selectedPrompts[i].id === currentVirusID + "b") {
-            // console.log(currentVirusID + "b");
-            // console.log("Found end virus: " + selectedPrompts[i].text);
             // Update the "[Name]" with the corresponding virus name
             selectedPrompts[i].text = selectedPrompts[i].text.replace(
               "[Name]",
@@ -280,37 +257,6 @@ export default function GameOneScreen({
           );
         }
       }
-
-      // if (prompt.text.includes("[Name]")) {
-      //   // Replace the first occurrence of "[Name]" with the random name
-      //   prompt.text = prompt.text.replace("[Name]", name);
-      //   // setRandomName("");
-      //   // name = "";
-      // }
-      // if (prompt.text.includes("[Name]")) {
-      //   // Replace the second occurrence of "[Name]" with the same name
-      //   prompt.text = prompt.text.replace("[Name]", name);
-      //   // setRandomName("");
-      //   // name = "";
-      // }
-
-      // if (prompt.text.includes("[Name2]")) {
-      //   // Replace the second occurrence of "[Name]" with the second random name
-      //   prompt.text = prompt.text.replace("[Name2]", name2);
-      //   // setRandomName("");
-      //   // name2 = "";
-      // }
-
-      // if (prompt.text.includes("[Name3]")) {
-      //   // Replace the second occurrence of "[Name]" with the second random name
-      //   prompt.text = prompt.text.replace("[Name3]", name3);
-      //   // setRandomName("");
-      //   // name3 = "";
-      // }
-
-      // if (prompt.category === "GET IT DOWN YA") {
-      //   name = "";
-      // }
 
       if (prompt.category === "VIRUS") {
         console.log(
@@ -360,9 +306,7 @@ export default function GameOneScreen({
           // Check if the user tapped on the left side of the screen
           if (side === "left") {
             // Tap on the left side of the screen
-            // console.log("index: ", arrayIndex.current);
             if (arrayIndex.current > 0) {
-              // console.log("Reaching left tap conditional");
               // If there are any previous prompts, go back to the last one
               const lastPrompt = previousPrompts[arrayIndex.current - 1];
               // console.log("Last prompt in array: ", lastPrompt);
@@ -371,9 +315,7 @@ export default function GameOneScreen({
               setRandomCategory(lastPrompt.category);
               setBackgroundColor(lastPrompt.color);
               arrayIndex.current--;
-              // console.log("Decrementing index to: ", arrayIndex);
             } else {
-              // console.log("You're at the first card!");
               ToastAndroid.show(
                 "You're at the first card!",
                 ToastAndroid.SHORT
@@ -381,7 +323,6 @@ export default function GameOneScreen({
             }
           } else {
             if (arrayIndex.current == previousPrompts.length - 1) {
-              // console.log("You're at the last card!");
               // Tap on the right side of the screen
               displayRandomPromptAndName();
             } else {
@@ -391,7 +332,6 @@ export default function GameOneScreen({
               setRandomCategory(nextPrompt.category);
               setBackgroundColor(nextPrompt.color);
               arrayIndex.current++;
-              // console.log("Incrementing index to: ", arrayIndex);
             }
             if (shouldNavigate) {
               navigation.navigate("GameOver");
@@ -559,7 +499,6 @@ export default function GameOneScreen({
           ],
         }}
       >
-        {/* {randomName}  */}
         {randomPrompt}
       </Animated.Text>
     </TouchableOpacity>

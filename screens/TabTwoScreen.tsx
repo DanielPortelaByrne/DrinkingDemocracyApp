@@ -33,7 +33,7 @@ const storePrompts = async () => {
       const data = await response.json();
       const promptsString = JSON.stringify(data);
       await AsyncStorage.setItem("prompts", promptsString);
-      console.log("Successfully fetched and stored data: " + promptsString);
+      // console.log("Successfully fetched and stored data: " + promptsString);
     } catch (error) {
       console.error(error);
       const promptsString = JSON.stringify(prompts);
@@ -46,7 +46,7 @@ const storePrompts = async () => {
       const data = await response.json();
       const crazyString = JSON.stringify(data);
       await AsyncStorage.setItem("crazy", crazyString);
-      console.log("Successfully fetched and stored data: " + crazyString);
+      // console.log("Successfully fetched and stored data: " + crazyString);
     } catch (error) {
       console.error(error);
       const crazyString = JSON.stringify(crazy);
@@ -59,7 +59,7 @@ const storePrompts = async () => {
       const data = await response.json();
       const flirtyString = JSON.stringify(data);
       await AsyncStorage.setItem("flirty", flirtyString);
-      console.log("Successfully fetched and stored data: " + flirtyString);
+      // console.log("Successfully fetched and stored data: " + flirtyString);
     } catch (error) {
       console.error(error);
       const flirtyString = JSON.stringify(flirty);
@@ -72,7 +72,7 @@ const storePrompts = async () => {
       const data = await response.json();
       const virusString = JSON.stringify(data);
       await AsyncStorage.setItem("virus", virusString);
-      console.log("Successfully fetched and stored data: " + virusString);
+      // console.log("Successfully fetched and stored data: " + virusString);
     } catch (error) {
       console.error(error);
       const virusString = JSON.stringify(virus);
@@ -85,7 +85,7 @@ const storePrompts = async () => {
       const data = await response.json();
       const virusEndString = JSON.stringify(data);
       await AsyncStorage.setItem("virusend", virusEndString);
-      console.log("Successfully fetched and stored data: " + virusEndString);
+      // console.log("Successfully fetched and stored data: " + virusEndString);
     } catch (error) {
       console.error(error);
       const virusEndString = JSON.stringify(virusend);
@@ -97,17 +97,11 @@ const storePrompts = async () => {
 };
 
 const selectRandomPrompts = async () => {
-  // console.log("Running random prompts");
-  // Retrieve the prompts from async storage
   const prompts = await retrievePrompts();
   const crazy = await retrieveCrazy();
   const flirty = await retrieveFlirty();
   const virus = await retrieveVirus();
   const virusend = await retrieveVirusEnd();
-  // console.log(virus);
-  // console.log("Prompts list length: ", prompts.length);
-  // console.log("Crazy prompts list length: ", crazy.length);
-  // console.log("Flirty prompts list length: ", flirty.length);
 
   const indices = [];
   for (let i = 0; i < virus.length; i++) {
@@ -127,13 +121,10 @@ const selectRandomPrompts = async () => {
       shuffledVirusEnd.push(virusend[indices[i] + 1]);
     }
   }
-  // console.log(shuffledVirus);
-
   // Shuffle the prompts array
   prompts.sort(() => Math.random() - 0.5);
   crazy.sort(() => Math.random() - 0.5);
   flirty.sort(() => Math.random() - 0.5);
-  // virus.sort(() => Math.random() - 0.5);
 
   // Select the first 25 prompts from the shuffled array
   const selectedPrompts = prompts.slice(0, 50);
@@ -141,12 +132,10 @@ const selectRandomPrompts = async () => {
   const selectedFlirtyPrompts = flirty.slice(0, 50);
   const selectedVirusPrompts = shuffledVirus.slice(0, 6);
   const selectedVirusEndPrompts = shuffledVirusEnd.slice(0, 6);
-  // console.log(selectedVirusPrompts);
-  // console.log(selectedVirusEndPrompts);
+
   // Keep track of where virus prompts are inserted
   let virusStartPositions = new Set();
   let virusEndPositions = new Set();
-  // let virusPromptsOrder = [];
 
   for (let i = 0; i < selectedVirusPrompts.length; i++) {
     const randomPosition = Math.floor(Math.random() * selectedPrompts.length);
@@ -172,27 +161,7 @@ const selectRandomPrompts = async () => {
       selectedVirusEndPrompts[i]
     );
   }
-  // for (let i = 0; i < virusPromptsOrder.length; i++) {
-  //   console.log(`Index: ${i}, Value: ${virusPromptsOrder[i].prompt.text}`);
-  // }
-  // console.log(
-  //   "Selected prompts length after addtions: " + selectedPrompts.length
-  // );
-  // console.log("Virus start array postions: " + Array.from(virusStartPositions));
-  // console.log("Virus end array postions: " + Array.from(virusEndPositions));
-  // for (let i = 0; i < selectedPrompts.length; i++) {
-  //   console.log(`Index: ${i}, Value: ${selectedPrompts[i]}`);
-  // }
-  console.log(selectedPrompts);
-  // // Store the selected games prompts in async storage
-  // await AsyncStorage.setItem(
-  //   "virusGamePrompts",
-  //   JSON.stringify(selectedVirusPrompts)
-  // );
-  // await AsyncStorage.setItem(
-  //   "virusEndGamePrompts",
-  //   JSON.stringify(selectedVirusEndPrompts)
-  // );
+  // console.log(selectedPrompts);
   await AsyncStorage.setItem(
     "prinksGamePrompts",
     JSON.stringify(selectedPrompts)
@@ -205,8 +174,6 @@ const selectRandomPrompts = async () => {
     "flirtyGamePrompts",
     JSON.stringify(selectedFlirtyPrompts)
   );
-  // console.log(virusStartPositions);
-  // console.log(virusEndPositions);
 
   return { virusStartPositions, virusEndPositions };
 };
@@ -260,10 +227,6 @@ export default function TabTwoScreen({
   navigation,
 }: RootTabScreenProps<"TabTwo">) {
   const [names, setNames] = useState(getNames());
-  // const [virusStartPositions, setVirusStartPositions] = useState([]);
-  // const [virusEndPositions, setVirusEndPositions] = useState([]);
-
-  // const { virusStartPositions, virusEndPositions } = selectRandomPrompts();
 
   // Store the prompts in async storage when the component is mounted
   useEffect(() => {
@@ -285,16 +248,6 @@ export default function TabTwoScreen({
   if (!fontsLoaded) {
     return undefined;
   }
-
-  // // call the selectRandomPrompts function and use the returned values to set the state
-  // useEffect(() => {
-  //   selectRandomPrompts().then(({ virusStartPositions, virusEndPositions }) => {
-  //     virusStartPositions = virusStartPositions;
-  //     virusEndPositions = virusEndPositions;
-  //   });
-  // }, []);
-
-  // console.log(virusStartPositions);
 
   // const names = getNames(); // retrieve the names from the name store
   return (
@@ -340,16 +293,6 @@ export default function TabTwoScreen({
           backgroundColor: "rgba(52, 52, 52, 0)",
         }}
       >
-        {/* <Text
-          style={{
-            fontFamily: "Konstruktor",
-            fontSize: 15,
-            textAlign: "center",
-            marginBottom: 5,
-          }}
-        >
-          Players
-        </Text> */}
         <View
           style={{
             flexDirection: "row",
@@ -364,16 +307,6 @@ export default function TabTwoScreen({
             // backgroundColor: "#000000",
           }}
         >
-          {/* <Image
-            source={require("../assets/images/halo_red.png")}
-            style={{
-              // width: "200%",
-              // height: "450%",
-              position: "absolute",
-              // bottom: -130,
-              zIndex: -1,
-            }}
-          /> */}
           {names.map((name, index) => (
             <View
               style={{
@@ -440,8 +373,6 @@ export default function TabTwoScreen({
             onPress={() => {
               navigation.navigate("GameOne", {
                 gameMode: "prinksGamePrompts",
-                // virusStartPositions,
-                // virusEndPositions,
               });
             }}
             style={{
@@ -478,12 +409,8 @@ export default function TabTwoScreen({
           />
           <TouchableOpacity
             onPress={() => {
-              // setGameMode("crazy");
-              // storeGameMode();
               navigation.navigate("GameOne", {
                 gameMode: "crazyGamePrompts",
-                // virusStartPositions,
-                // virusEndPositions,
               });
             }}
             style={{
@@ -510,6 +437,7 @@ export default function TabTwoScreen({
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
+            marginBottom: 10,
             // marginTop: 260,
             // marginBottom: 350,
           }}
@@ -520,12 +448,8 @@ export default function TabTwoScreen({
           />
           <TouchableOpacity
             onPress={() => {
-              // setGameMode("flirty");
-              // storeGameMode();
               navigation.navigate("GameOne", {
                 gameMode: "flirtyGamePrompts",
-                // virusStartPositions,
-                // virusEndPositions,
               });
             }}
             style={{
@@ -547,13 +471,39 @@ export default function TabTwoScreen({
               Let's get flirty
             </Text>
           </TouchableOpacity>
-          {/* <BannerAd
-            unitId={TestIds.BANNER}
-            size={BannerAdSize.LARGE_BANNER}
-            requestOptions={{
-              requestNonPersonalizedAdsOnly: true,
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            // marginTop: 260,
+            // marginBottom: 350,
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("PromptSubmit");
             }}
-          /> */}
+            style={{
+              backgroundColor: "#ffffff",
+              width: "77%",
+              height: "100%",
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: "Konstruktor",
+                color: "#111111",
+                fontSize: 10,
+                textAlign: "center",
+                lineHeight: 80,
+                // padding: 25,
+              }}
+            >
+              SUBMIT A PROMPT TO BE PERMENENTLY FEATURED IN THE APP
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
