@@ -285,6 +285,9 @@ export default function TabTwoScreen({
   if (!fontsLoaded) {
     return undefined;
   }
+  const adUnitId = __DEV__
+    ? TestIds.BANNER
+    : "ca-app-pub-2156240493940672/1342308153";
 
   // const names = getNames(); // retrieve the names from the name store
   return (
@@ -310,15 +313,17 @@ export default function TabTwoScreen({
         >
           GAMES
         </Text>
+        <View style={{ position: "absolute", top: 70, left: -90 }}>
+          <BannerAd
+            unitId={adUnitId}
+            size={BannerAdSize.LARGE_BANNER}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+          />
+        </View>
       </View>
-      // Display a banner
-      <BannerAd
-        unitId={TestIds.BANNER}
-        size={BannerAdSize.LARGE_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true,
-        }}
-      />
+
       <Image
         source={require("../assets/images/halo_red.png")}
         style={{
@@ -544,13 +549,6 @@ export default function TabTwoScreen({
               Let's get flirty
             </Text>
           </TouchableOpacity>
-          {/* <BannerAd
-            unitId={TestIds.BANNER}
-            size={BannerAdSize.LARGE_BANNER}
-            requestOptions={{
-              requestNonPersonalizedAdsOnly: true,
-            }}
-          /> */}
         </View>
       </View>
     </View>
