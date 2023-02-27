@@ -376,7 +376,7 @@ export default function TabTwoScreen({
               });
             }}
             style={{
-              backgroundColor: "#ed1e26",
+              backgroundColor: "#f3ce06",
               width: "55%",
               height: "100%",
             }}
@@ -414,7 +414,7 @@ export default function TabTwoScreen({
               });
             }}
             style={{
-              backgroundColor: "#f3ce06",
+              backgroundColor: "#ed1e26",
               width: "55%",
               height: "100%",
             }}
@@ -486,22 +486,24 @@ export default function TabTwoScreen({
               navigation.navigate("PromptSubmit");
             }}
             style={{
-              backgroundColor: "#ffffff",
+              backgroundColor: "rgba(52, 52, 52, 0)",
               width: "77%",
               height: "100%",
+              borderWidth: 5,
+              borderColor: "white",
             }}
           >
             <Text
               style={{
                 fontFamily: "Konstruktor",
-                color: "#111111",
-                fontSize: 10,
+                color: "#ffffff",
+                fontSize: 18,
                 textAlign: "center",
                 lineHeight: 80,
                 // padding: 25,
               }}
             >
-              SUBMIT A PROMPT TO BE PERMENENTLY FEATURED IN THE APP
+              SUBMIT A PROMPT
             </Text>
           </TouchableOpacity>
         </View>
