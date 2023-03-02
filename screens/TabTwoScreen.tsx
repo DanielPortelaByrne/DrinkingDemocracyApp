@@ -13,11 +13,11 @@ import { virus } from "../virus";
 import { virusend } from "../virusend";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
-// import {
-//   BannerAd,
-//   BannerAdSize,
-//   TestIds,
-// } from "react-native-google-mobile-ads";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 // import { useFocusEffect } from "react-navigation";
 // import "react-native-gesture-handler";
 
@@ -28,7 +28,7 @@ const storePrompts = async () => {
     // Save the prompts strings in async storage
     try {
       const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/prompts.json"
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/prompts.json"
       );
       const data = await response.json();
       const promptsString = JSON.stringify(data);
@@ -42,7 +42,7 @@ const storePrompts = async () => {
     }
     try {
       const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/crazy.json"
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/crazy.json"
       );
       const data = await response.json();
       const crazyString = JSON.stringify(data);
@@ -55,7 +55,7 @@ const storePrompts = async () => {
     }
     try {
       const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/flirty.json"
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/flirty.json"
       );
       const data = await response.json();
       const flirtyString = JSON.stringify(data);
@@ -68,7 +68,7 @@ const storePrompts = async () => {
     }
     try {
       const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/virus.json"
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/virus.json"
       );
       const data = await response.json();
       const virusString = JSON.stringify(data);
@@ -81,7 +81,7 @@ const storePrompts = async () => {
     }
     try {
       const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/virusend.json"
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/virusend.json"
       );
       const data = await response.json();
       const virusEndString = JSON.stringify(data);
@@ -249,6 +249,9 @@ export default function TabTwoScreen({
   if (!fontsLoaded) {
     return undefined;
   }
+  const adUnitId = __DEV__
+    ? TestIds.BANNER
+    : "ca-app-pub-2156240493940672/1342308153";
 
   // const names = getNames(); // retrieve the names from the name store
   return (
@@ -258,7 +261,6 @@ export default function TabTwoScreen({
           <Ionicons name="home" size={32} color="#ed1e26" />
         </TouchableOpacity>
       </View>
-
       <View
         style={{
           alignSelf: "center",
@@ -275,7 +277,17 @@ export default function TabTwoScreen({
         >
           GAMES
         </Text>
+        <View style={{ position: "absolute", top: 70, left: -90 }}>
+          <BannerAd
+            unitId={adUnitId}
+            size={BannerAdSize.LARGE_BANNER}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+          />
+        </View>
       </View>
+
       <Image
         source={require("../assets/images/halo_red.png")}
         style={{
