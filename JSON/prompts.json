@@ -1,18 +1,15 @@
 [
   {
     "text": "Take three sips if you have ever wanted to be an influencer.",
-    "category": "RULE",
-    "handle": "daniel.portelabyrne"
+    "category": "RULE"
   },
   {
     "text": "Take a sip if you are wearing odd socks.",
-    "category": "RULE",
-    "handle": "daniel.portelabyrne"
+    "category": "RULE"
   },
   {
     "text": "[Name], say the names of all other players. Take a sip for every wrong name. If you get them all right, give out three sips.",
-    "category": "CHALLENGE",
-    "handle": "daniel.portelabyrne"
+    "category": "CHALLENGE"
   },
   {
     "text": "Take two sips if you have ever deleted an Instagram post because it didn't get enough likes.",
@@ -21,8 +18,7 @@
   },
   {
     "text": "Take a sip if you have ever cried your makeup off.",
-    "category": "RULE",
-    "handle": "daniel.portelabyrne"
+    "category": "RULE"
   },
   {
     "text": "Take a sip if you have ever yelled at a receptionist, retail worker or waiter.",
