@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "Drinking Democracy",
+    "slug": "drinkingdemocracy",
+    "version": "1.0.2",
+    "icon": "./assets/images/logo.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#131313"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.danielportelabyrne.drinkingdemocracy"
+    },
+    "android": {
+      "softwareKeyboardLayoutMode": "pan",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#131313"
+      },
+      "versionCode": 3,
+      "package": "com.danielportelabyrne.drinkingdemocracy"
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "06a6ae2b-445d-422b-955b-ab769aaacac4"
+      }
+    }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-2156240493940672~3832740125"
+  }
+}
