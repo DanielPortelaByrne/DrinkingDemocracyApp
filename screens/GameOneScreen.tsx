@@ -89,11 +89,19 @@ export default function GameOneScreen({
   // Display a random prompt from the list of prompts
   const [randomName, setRandomName] = useState("");
   const [randomPrompt, setRandomPrompt] = useState("");
+  let handle = "";
+  const [promptHandle, setPromptHandle] = useState("");
   const [randomCategory, setRandomCategory] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("#fff"); // Add a state to store the background color
   const [shouldNavigate] = useState(false);
   const [previousPrompts, setPreviousPrompts] = useState<
-    { name: string; prompt: string; color: string; category: string }[]
+    {
+      name: string;
+      prompt: string;
+      color: string;
+      category: string;
+      handle: string;
+    }[]
   >([]);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [isPlayerOverlayVisible, setIsPlayerOverlayVisible] = useState(false);
@@ -274,6 +282,16 @@ export default function GameOneScreen({
       setRandomCategory(category);
       // Update the background color
       setBackgroundColor(color);
+      //if there's a handle to credit, update handle
+      // console.log(prompt.handle);
+      setPromptHandle(handle);
+      console.log("Before" + promptHandle);
+      if (prompt.hasOwnProperty("handle")) {
+        console.log("handle found");
+        handle = prompt.handle;
+        setPromptHandle(handle);
+        console.log(promptHandle);
+      }
 
       // Add the current name, prompt, and color to the previousPrompts array as an object
       setPreviousPrompts([
@@ -283,6 +301,7 @@ export default function GameOneScreen({
           prompt: prompt.text,
           color: color,
           category: category, // add the category field
+          handle: handle,
         },
       ]);
       arrayIndex.current = previousPrompts.length;
@@ -314,6 +333,7 @@ export default function GameOneScreen({
               setRandomPrompt(lastPrompt.prompt);
               setRandomCategory(lastPrompt.category);
               setBackgroundColor(lastPrompt.color);
+              setPromptHandle(lastPrompt.handle);
               arrayIndex.current--;
             } else {
               ToastAndroid.show(
@@ -331,6 +351,7 @@ export default function GameOneScreen({
               setRandomPrompt(nextPrompt.prompt);
               setRandomCategory(nextPrompt.category);
               setBackgroundColor(nextPrompt.color);
+              setPromptHandle(nextPrompt.handle);
               arrayIndex.current++;
             }
             if (shouldNavigate) {
@@ -501,6 +522,28 @@ export default function GameOneScreen({
       >
         {randomPrompt}
       </Animated.Text>
+      {promptHandle && (
+        <Animated.Text
+          style={{
+            fontSize: 14,
+            color: "#fff",
+            fontWeight: "bold",
+            fontStyle: "italic",
+            bottom: 50,
+            position: "absolute",
+            transform: [
+              {
+                translateX: shakeAnim.interpolate({
+                  inputRange: [0, 0.5, 1],
+                  outputRange: [0, 10, 0],
+                }),
+              },
+            ],
+          }}
+        >
+          Submitted by @{promptHandle}
+        </Animated.Text>
+      )}
     </TouchableOpacity>
   );
 }

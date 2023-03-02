@@ -33,9 +33,10 @@ const storePrompts = async () => {
       const data = await response.json();
       const promptsString = JSON.stringify(data);
       await AsyncStorage.setItem("prompts", promptsString);
-      // console.log("Successfully fetched and stored data: " + promptsString);
+      console.log("Successfully fetched and stored data: " + promptsString);
     } catch (error) {
       console.error(error);
+      console.log("prinks");
       const promptsString = JSON.stringify(prompts);
       await AsyncStorage.setItem("prompts", promptsString);
     }
