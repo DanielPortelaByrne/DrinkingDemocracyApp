@@ -28,7 +28,7 @@ const storePrompts = async () => {
     // Save the prompts strings in async storage
     try {
       const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/prompts.json"
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/prompts.json"
       );
       const data = await response.json();
       const promptsString = JSON.stringify(data);
@@ -42,7 +42,7 @@ const storePrompts = async () => {
     }
     try {
       const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/crazy.json"
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/crazy.json"
       );
       const data = await response.json();
       const crazyString = JSON.stringify(data);
@@ -55,7 +55,7 @@ const storePrompts = async () => {
     }
     try {
       const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/flirty.json"
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/flirty.json"
       );
       const data = await response.json();
       const flirtyString = JSON.stringify(data);
@@ -68,7 +68,7 @@ const storePrompts = async () => {
     }
     try {
       const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/virus.json"
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/virus.json"
       );
       const data = await response.json();
       const virusString = JSON.stringify(data);
@@ -81,7 +81,7 @@ const storePrompts = async () => {
     }
     try {
       const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/virusend.json"
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/virusend.json"
       );
       const data = await response.json();
       const virusEndString = JSON.stringify(data);
