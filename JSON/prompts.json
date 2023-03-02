@@ -5,7 +5,8 @@
   },
   {
     "text": "Take a sip if you are wearing odd socks.",
-    "category": "RULE"
+    "category": "RULE",
+    "handle": "john.keegan"
   },
   {
     "text": "[Name], say the names of all other players. Take a sip for every wrong name. If you get them all right, give out three sips.",
@@ -85,7 +86,8 @@
   },
   {
     "text": "[Name] give out 3 sips if you have ever been in a car accident, otherwise take them",
-    "category": "RULE"
+    "category": "RULE",
+    "handle": "thomas.reilly"
   },
   {
     "text": "Take 4 sips if you have a phobia",
@@ -137,7 +139,8 @@
   },
   {
     "text": "Down your drink if you have ever played a sport at a professional level",
-    "category": "GET IT DOWN YA"
+    "category": "GET IT DOWN YA",
+    "handle": "conor.knowles"
   },
   {
     "text": "Bottoms up! People who have a birthday this week, let's down it all!",
