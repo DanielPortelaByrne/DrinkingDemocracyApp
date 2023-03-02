@@ -80,11 +80,11 @@ export default function PromptSubmitScreen({
 
   return (
     <View style={styles.container}>
-      <Image
+      {/* <Image
         style={styles.image}
         source={require("../assets/images/title_logo.png")}
-      />
-      <View style={{ position: "absolute", top: 70, left: 30 }}>
+      /> */}
+      <View style={{ position: "absolute", top: "10%", left: "8%" }}>
         <TouchableOpacity onPress={() => navigation.navigate("TabTwo")}>
           <Ionicons name="arrow-undo-sharp" size={32} color="#ffffff" />
         </TouchableOpacity>
@@ -92,8 +92,8 @@ export default function PromptSubmitScreen({
       <View
         style={{
           position: "absolute",
-          top: 70,
-          right: 30,
+          top: "10%",
+          right: "8%",
           backgroundColor: "rgba(52, 52, 52, 0)",
         }}
       >
@@ -114,57 +114,59 @@ export default function PromptSubmitScreen({
           onPress={(event) => setIsOverlayVisible(false)}
         >
           <View style={styles.overlayView}>
-            <Text
-              style={{
-                fontFamily: "Konstruktor",
-                fontSize: 15,
-                margin: 15,
-                marginLeft: 20,
-                marginRight: 20,
-                backgroundColor: "rgba(52, 52, 52, 0)",
-              }}
-            >
-              - BE IN WITH A CHANCE OF HAVING YOUR CUSTOM PROMPT FEATURED
-              PERMANENTLY IN THE GAME
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Konstruktor",
-                fontSize: 15,
-                margin: 15,
-                marginLeft: 20,
-                marginRight: 20,
-                backgroundColor: "rgba(52, 52, 52, 0)",
-              }}
-            >
-              - TYPE "NAME" IF YOU WANT TO RANDOMISE YOUR NAME INPUT, AND
-              "NAME2" IF YOU WANT TO ADD A SECOND RANDOM NAME
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Konstruktor",
-                fontSize: 15,
-                margin: 15,
-                marginLeft: 20,
-                marginRight: 20,
-                backgroundColor: "rgba(52, 52, 52, 0)",
-              }}
-            >
-              - E.G. "NAME HAS TO WHISPER TO NAME2 FOR THE REST OF THE GAME"
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Konstruktor",
-                fontSize: 15,
-                margin: 15,
-                marginLeft: 20,
-                marginRight: 20,
-                backgroundColor: "rgba(52, 52, 52, 0)",
-              }}
-            >
-              - ADD YOUR SOCIAL MEDIA HANDLE AND PLATFORM TO BE CREDITED ON THE
-              APP (OPTIONAL)
-            </Text>
+            <View style={styles.innerView}>
+              <Text
+                style={{
+                  fontFamily: "Konstruktor",
+                  fontSize: 15,
+                  margin: 15,
+                  marginLeft: 20,
+                  marginRight: 20,
+                  backgroundColor: "rgba(52, 52, 52, 0)",
+                }}
+              >
+                - BE IN WITH A CHANCE OF HAVING YOUR CUSTOM PROMPT FEATURED
+                PERMANENTLY IN THE GAME
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "Konstruktor",
+                  fontSize: 15,
+                  margin: 15,
+                  marginLeft: 20,
+                  marginRight: 20,
+                  backgroundColor: "rgba(52, 52, 52, 0)",
+                }}
+              >
+                - TYPE "NAME" IF YOU WANT TO RANDOMISE YOUR NAME INPUT, AND
+                "NAME2" IF YOU WANT TO ADD A SECOND RANDOM NAME
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "Konstruktor",
+                  fontSize: 15,
+                  margin: 15,
+                  marginLeft: 20,
+                  marginRight: 20,
+                  backgroundColor: "rgba(52, 52, 52, 0)",
+                }}
+              >
+                - E.G. "NAME HAS TO WHISPER TO NAME2 FOR THE REST OF THE GAME"
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "Konstruktor",
+                  fontSize: 15,
+                  margin: 15,
+                  marginLeft: 20,
+                  marginRight: 20,
+                  backgroundColor: "rgba(52, 52, 52, 0)",
+                }}
+              >
+                - ADD YOUR SOCIAL MEDIA HANDLE AND PLATFORM TO BE CREDITED ON
+                THE APP (OPTIONAL)
+              </Text>
+            </View>
           </View>
         </TouchableOpacity>
       )}
@@ -182,7 +184,6 @@ export default function PromptSubmitScreen({
 
       <View
         style={{
-          top: -80,
           justifyContent: "center",
           backgroundColor: "rgba(52, 52, 52, 0)",
         }}
@@ -335,12 +336,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  image: {
-    top: -100,
-    width: "100%",
-    height: "25%",
-    zIndex: -5,
-  },
+  // image: {
+  //   width: "80%",
+  //   height: "25%",
+  //   marginBottom: 80,
+  // },
   button: {
     backgroundColor: "#ed1e26",
   },
@@ -352,6 +352,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     position: "absolute",
+    alignItems: "center",
     top: 0,
     left: 0,
     right: 0,
@@ -361,10 +362,15 @@ const styles = StyleSheet.create({
   },
   overlayView: {
     top: "30%",
-    left: 20,
     justifyContent: "center",
-    height: 325,
-    width: 350,
+    height: "40%",
+    width: "90%",
+    backgroundColor: "rgba(0,0,0,1)",
+    zIndex: 10,
+    // borderWidth: 1,
+    // borderColor: "white",
+  },
+  innerView: {
     backgroundColor: "rgba(0,0,0,1)",
     zIndex: 10,
     borderWidth: 1,
