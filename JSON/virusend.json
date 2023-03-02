@@ -148,5 +148,15 @@
     "text": "Everyone can speak in their own voice again",
     "category": "VIRUS END",
     "id": "30b"
+  },
+    {
+    "text": "[Name], you can stop drinking every time the person to your right does, cop on.",
+    "category": "VIRUSEND",
+    "id": "31b"
+  },
+  {
+    "text": "[Name] and [Name2], you can have your birth names back now.",
+    "category": "VIRUSEND",
+    "id": "32b"
   }
 ]
