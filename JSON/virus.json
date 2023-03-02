@@ -149,4 +149,14 @@
     "category": "VIRUS",
     "id": "30a"
   }
+  {
+    "text": "[Name], you must drink every time the person to your right does.",
+    "category": "VIRUS",
+    "id": "31a"
+  },
+  {
+    "text": "[Name] and [Name2], the group will call you two by nicknames from now on. Get creative with them!",
+    "category": "VIRUS",
+    "id": "32a"
+  }
 ]
