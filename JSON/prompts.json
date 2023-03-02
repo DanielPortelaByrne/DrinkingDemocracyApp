@@ -77,8 +77,7 @@
   },
   {
     "text": "Take 2 sips if you have ever ridden a rollercoaster, otherwise give them out",
-    "category": "RULE",
-    "handle": "daniel.portela.byrne"
+    "category": "RULE"
   },
   {
     "text": "Down your drink if you have ever bungee jumped",
@@ -210,8 +209,7 @@
   },
   {
     "text": "Types of Fruit, the first to repeat themselves or can't think of any more must drink 3 times. [Name] you start",
-    "category": "CHALLENGE",
-    "handle": "john.keegan"
+    "category": "CHALLENGE"
   },
   {
     "text": "Bottoms up! People who can speak more than 3 languages, let's down it all!",
