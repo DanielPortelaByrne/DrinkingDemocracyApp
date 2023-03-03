@@ -458,7 +458,8 @@
   },
   {
     "text": "The last person to have been on a fishing trip must drink 3 times",
-    "category": "RULE"
+    "category": "RULE",
+    "handle": "liam_mccarthy27",
   },
   {
     "text": "Those who have ever been on a bird watching trip must drink 2 times",
