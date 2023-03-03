@@ -8,7 +8,7 @@
     "category": "RULE"
   },
   {
-    "text": "Down your drink if you have ever bungee jumped",
+    "text": "Down your drink if you have ever bungee jumped, you absolute thrill-seeker",
     "category": "GET IT DOWN YA"
   },
   {
@@ -16,12 +16,12 @@
     "category": "RULE"
   },
   {
-    "text": "Take 4 sips if you have a phobia, otherwise give them out",
+    "text": "Take 2 sips if you have a phobia, otherwise give them out",
     "category": "RULE"
   },
   {
-    "text": "Down your drink if you have ever gone skydiving",
-    "category": "GET IT DOWN YA"
+    "text": "Take 2 sips if you have ever gone skydiving",
+    "category": "RULE"
   },
   {
     "text": "Would you rather eat a live cockroach or be bald? Everyone vote at the same time, losing group drinks 2 times",
@@ -80,8 +80,9 @@
     "category": "RULE"
   },
   {
-    "text": "Say the alphabet backwards. Drink every time you mess up or take too long.",
-    "category": "RULE"
+    "text": "[Name] say the alphabet backwards. Drink every time you mess up or take too long.",
+    "category": "CHALLENGE",
+    "handle": "aoife.doyle1"
   },
   {
     "text": "If you've ever blacked out, your next sips go to the person to your left. Take it easy tonight, yeah?",
@@ -101,7 +102,7 @@
   },
   {
     "text": "[Name], play the beginning of the last song you listened to on your phone. If the majority of the players don't like it, drink 3 times",
-    "category": "RULE"
+    "category": "CHALLENGE"
   },
   {
     "text": "[Name], pinch someone's arse. 5 sips in case of refusal",
@@ -112,11 +113,11 @@
     "category": "RULE"
   },
   {
-    "text": "If you're single, give 4 sips to one person",
+    "text": "If you're single, give 2 sips to one person",
     "category": "RULE"
   },
   {
-    "text": "[Name], drink 5 times if you've ever kissed someone you found disgusting. Otherwise give out 3 sips",
+    "text": "[Name], drink 2 times if you've ever kissed someone you found disgusting. Otherwise give out 2 sips",
     "category": "RULE"
   },
   {
