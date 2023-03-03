@@ -4,7 +4,7 @@
     "category": "RULE"
   },
   {
-    "text": "Take a sip if you are wearing odd socks.",
+    "text": "Take a sip if you are wearing odd socks 🧦",
     "category": "RULE",
     "handle": "john.keegan"
   },
@@ -45,7 +45,7 @@
     "category": "RULE"
   },
   {
-    "text": "[Name], do three push-ups or take three sips.",
+    "text": "[Name], do three push-ups or take 3 sips.",
     "category": "CHALLENGE"
   },
   {
@@ -90,7 +90,7 @@
     "handle": "thomas.reilly"
   },
   {
-    "text": "Take 4 sips if you have a phobia",
+    "text": "Take 3 sips if you have a phobia 😱",
     "category": "RULE"
   },
   {
@@ -98,11 +98,11 @@
     "category": "VOTE"
   },
   {
-    "text": "Around the room, name your ex relationships/hookups one at a time. The first person to run out of names, drink 3 times. [Name] you start",
+    "text": "Around the room, name your ex relationships/hookups one at a time. The first person to run out of names, drink 2 times. [Name] you start",
     "category": "CHALLENGE"
   },
   {
-    "text": "What rhymes with “itch”, first person to repeat themselves or can't think of anything drinks 5 times. [Name] you start",
+    "text": "What rhymes with “itch”, first person to repeat themselves or can't think of anything drinks 3 times. [Name] you start",
     "category": "CHALLENGE"
   },
   {
@@ -114,20 +114,20 @@
     "category": "GET IT DOWN YA"
   },
   {
-    "text": "[Name] give out 2 sips if you have ever broken a bone, otherwise take them",
+    "text": "[Name] give out 2 sips if you have ever broken a bone 🦴, otherwise take them",
     "category": "RULE"
   },
   {
-    "text": "Bottoms up! People with an S in their first name, let's down it all!",
+    "text": "People with an S in their first name, take 1 sip",
     "category": "GET IT DOWN YA"
   },
   {
-    "text": "Bottoms up! People who prefer coffee over tea, let's down it all!",
-    "category": "GET IT DOWN YA"
+    "text": "People who prefer coffee over tea, take 2 sips",
+    "category": "RULE"
   },
   {
-    "text": "Bottoms up! People who have been to a music festival, let's down it all!",
-    "category": "GET IT DOWN YA"
+    "text": "People who have been to a music festival, take 3 sips",
+    "category": "RULE"
   },
   {
     "text": "Bottoms up! People who prefer dogs over cats, let's down it all!",
