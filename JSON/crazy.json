@@ -36,7 +36,7 @@
     "category": "CHALLENGE"
   },
   {
-    "text": "To spice things up, fireman or soldier? Vote at the same time, losing group drink 4 times",
+    "text": "To spice things up, fireman or soldier? Vote at the same time, losing group drink 3 times",
     "category": "VOTE"
   },
   {
@@ -44,7 +44,7 @@
     "category": "RULE"
   },
   {
-    "text": "[Name], give out 4 sips to a player thinner than you… If it's impossible, drink them",
+    "text": "[Name], give out 3 sips to a player thinner than you… If it's impossible, drink them",
     "category": "RULE"
   },
   {
@@ -52,7 +52,7 @@
     "category": "RULE"
   },
   {
-    "text": "The player who dated the worst girl ever drinks 3 times",
+    "text": "The player who dated the worst girl ever drinks 1 time",
     "category": "RULE"
   },
     {
@@ -60,11 +60,11 @@
     "category": "RULE"
   },
   {
-    "text": "Take 3 sips if you have ever committed a crime.",
+    "text": "Take 2 sips if you have ever committed a crime, scumbag.",
     "category": "RULE"
   },
   {
-    "text": "Take a sip if you have ever yelled at a receptionist, retail worker or waiter.",
+    "text": "Take a sip if you have ever yelled at a receptionist, retail worker or waiter. Absolute Karen.🙄",
     "category": "RULE"
   },
   {
@@ -72,7 +72,7 @@
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you have ever tried an illegal substance.",
+    "text": "Take 2 sips if you have ever tried an illegal substance. 💉",
     "category": "RULE"
   },
   {
@@ -105,11 +105,11 @@
     "category": "CHALLENGE"
   },
   {
-    "text": "[Name], pinch someone's arse. 5 sips in case of refusal",
+    "text": "[Name], pinch someone's arse. 4 sips in case of refusal 🍑",
     "category": "RULE"
   },
   {
-    "text": "The player with the biggest bill in their wallet can give out 5 sips",
+    "text": "The player with the biggest bill in their wallet can give out 3 sips, baller 🤑",
     "category": "RULE"
   },
   {
@@ -125,7 +125,7 @@
     "category": "RULE"
   },
   {
-    "text": "[Name], if your phone is in your pocket drink 4 times. Otherwise give out 4 sips",
+    "text": "[Name], if your phone is in your pocket drink 2 times. Otherwise give out 2 sips",
     "category": "RULE"
   },
   {
@@ -133,20 +133,20 @@
     "category": "RULE"
   },
   {
-    "text": "Bottoms up! People with an S in their first name, let's down it all!",
-    "category": "GET IT DOWN YA"
+    "text": "People with an S in their first name, take 2 sips",
+    "category": "RULE"
   },
   {
-    "text": "Bottoms up! People who prefer coffee over tea, let's down it all!",
-    "category": "GET IT DOWN YA"
+    "text": "People who prefer coffee over tea, take 1 sip",
+    "category": "RULE"
   },
   {
-    "text": "Bottoms up! People who have been to a music festival, let's down it all!",
-    "category": "GET IT DOWN YA"
+    "text": "People who have been to a music festival, take 2 sips. Any yokes going? ❄️",
+    "category": "RULE"
   },
   {
-    "text": "Bottoms up! People who prefer dogs over cats, let's down it all!",
-    "category": "GET IT DOWN YA"
+    "text": "People who prefer dogs over cats, take 2 sips 🐈🐕",
+    "category": "RULE"
   },
   {
     "text": "[Name] take 5 sips if you have a fear of public speaking, otherwise give them out",
