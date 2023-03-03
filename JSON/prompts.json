@@ -159,15 +159,15 @@
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you are Polish",
+    "text": "Take 2 sips if you are Polish, kocham tą grę!",
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you are American",
+    "text": "Take 2 sips if you are American you yank, no cap 🏈",
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you are Romanian",
+    "text": "Take 2 sips if you are Romanian, imi place jocul asta!",
     "category": "RULE"
   },
   {
@@ -179,7 +179,7 @@
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you love formula one",
+    "text": "Take 2 sips if you love formula one 🏎️",
     "category": "RULE"
   },
   {
@@ -187,23 +187,23 @@
     "category": "RULE"
   },
   {
-    "text": "Take 3 sips if you have a job in finance",
+    "text": "Take 2 sips if you have a job in finance 🪙",
     "category": "RULE"
   },
   {
-    "text": "Take 3 sips if you have a job in tech",
+    "text": "Take 2 sips if you have a job in tech, nerd 👨‍💻",
     "category": "RULE"
   },
   {
-    "text": "Take 3 sips if you have a job in healthcare",
+    "text": "Take 2 sips if you have a job in healthcare 👨‍⚕️",
     "category": "RULE"
   },
   {
-    "text": "Take 3 sips if you have a job in education",
+    "text": "Take 3 sips if you have a job in education 👩‍🏫",
     "category": "RULE"
   },
   {
-    "text": "Take 3 sips if you have a job in the legal field",
+    "text": "Take 1 sip if you have a job in the legal field ⚖️",
     "category": "RULE"
   },
   {
@@ -255,11 +255,7 @@
     "category": "CHALLENGE"
   },
   {
-    "text": "Play quarters: players take turns trying to bounce a quarter off a table and into a cup. If they make it, they choose someone to drink. If they miss, they must drink. [Name] you start",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "Musical Artists, the first to repeat themselves or can't think of any more must drink 4 times. [Name] you start",
+    "text": "Musical Artists 🎸, the first to repeat themselves or can't think of any more must drink 4 times. [Name] you start",
     "category": "CHALLENGE"
   },
   {
@@ -271,11 +267,11 @@
     "category": "CHALLENGE"
   },
   {
-    "text": "Ice Cream Flavors, the first to repeat themselves or can't think of any more must drink 2 times. [Name] you start",
+    "text": "Ice Cream Flavors 🍨, the first to repeat themselves or can't think of any more must drink 2 times. [Name] you start",
     "category": "CHALLENGE"
   },
   {
-    "text": "Hurling teams, the first to repeat themselves or can't think of anything drink 2 times. [Name] you start",
+    "text": "Hurling teams 🏑, the first to repeat themselves or can't think of anything drink 2 times. [Name] you start",
     "category": "CHALLENGE"
   },
   {
@@ -283,7 +279,7 @@
     "category": "CHALLENGE"
   },
   {
-    "text": "The last person to have eaten fast food must drink 3 times",
+    "text": "The last person to have eaten fast food must drink 2 times 🍔",
     "category": "RULE"
   },
   {
@@ -375,10 +371,6 @@
     "category": "RULE"
   },
   {
-    "text": "Drink 1 time if you've ever kissed someone while standing on one foot",
-    "category": "RULE"
-  },
-  {
     "text": "[Name], give out 4 sips to a player thinner than you… If it's impossible, drink them",
     "category": "RULE"
   },
@@ -459,7 +451,7 @@
     "category": "VOTE"
   },
   {
-    "text": "The last person to have ridden a motorcycle must drink 3 times",
+    "text": "The last person to have ridden a motorcycle must drink 3 times, vroom vroom 🏍️",
     "category": "RULE"
   },
   {
@@ -467,7 +459,7 @@
     "category": "RULE"
   },
   {
-    "text": "The last person to have been on a hike must drink 3 times",
+    "text": "The last person to have been on a hike must drink 2 times",
     "category": "RULE"
   },
   {
@@ -475,7 +467,7 @@
     "category": "RULE"
   },
   {
-    "text": "The last person to have been on a boat must drink 3 times",
+    "text": "The last person to have been on a boat must drink 1 time",
     "category": "RULE"
   },
   {
@@ -487,11 +479,11 @@
     "category": "RULE"
   },
   {
-    "text": "Those who have ever been on a bird watching trip must drink 2 times",
+    "text": "Those who have ever been on a bird watching trip must drink 2 times 🐦",
     "category": "RULE"
   },
   {
-    "text": "The last person to have been on a hot air balloon ride must drink 3 times",
+    "text": "The last person to have been on a hot air balloon ride must drink 2 times",
     "category": "RULE"
   },
   {
@@ -499,7 +491,7 @@
     "category": "RULE"
   },
   {
-    "text": "The last person to have been on a walking tour must drink 3 times",
+    "text": "The last person to have been on a walking tour must drink 1 time",
     "category": "RULE"
   }
 ]
