@@ -226,12 +226,24 @@ export default function GameOneScreen({
         for (let i = index + 1; i < selectedPrompts.length; i++) {
           if (selectedPrompts[i].id === currentVirusID + "b") {
             // Update the "[Name]" with the corresponding virus name
+            console.log("Virus end before replace:" + selectedPrompts[i].text);
             selectedPrompts[i].text = selectedPrompts[i].text.replace(
               "[Name]",
-              name,
+              name
+            );
+            selectedPrompts[i].text = selectedPrompts[i].text.replace(
               "[Name2]",
               name2
             );
+            console.log(
+              "Replacing virus " +
+                currentVirusID +
+                "b's names to name1: " +
+                name +
+                " and name2: " +
+                name2
+            );
+            console.log("Virus end after replace:" + selectedPrompts[i].text);
             break;
           }
         }
@@ -285,9 +297,9 @@ export default function GameOneScreen({
       //if there's a handle to credit, update handle
       // console.log(prompt.handle);
       setPromptHandle(handle);
-      console.log("Before" + promptHandle);
+      // console.log("Before" + promptHandle);
       if (prompt.hasOwnProperty("handle")) {
-        console.log("handle found");
+        // console.log("handle found");
         handle = prompt.handle;
         setPromptHandle(handle);
         console.log(promptHandle);
