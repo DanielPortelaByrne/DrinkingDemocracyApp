@@ -16,6 +16,7 @@ import { RootTabScreenProps } from "../types";
 import { useFonts } from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
 import email from "react-native-email";
+import { sendEmail } from "../hooks/sendEmail";
 
 export default function PromptSubmitScreen({
   navigation,
@@ -69,24 +70,24 @@ export default function PromptSubmitScreen({
     setSelectedGameMode("");
   };
 
-  const handleEmail = () => {
-    const to = ["drinkingdemocracy@gmail.com"]; // string or array of email addresses
-    email(to, {
-      // Optional additional arguments
-      subject: "Prompt Submission from " + prompt.handle,
-      body:
-        "Game Mode: " +
-        selectedGameMode +
-        "\n" +
-        "Prompt Json: " +
-        jsonPrompt +
-        "\n" +
-        "Handle: " +
-        prompt.handle +
-        "\n" +
-        "=========================================",
-    }).catch(console.error);
-  };
+  // const handleEmail = () => {
+  //   const to = ["drinkingdemocracy@gmail.com"]; // string or array of email addresses
+  //   email(to, {
+  //     // Optional additional arguments
+  //     subject: "Prompt Submission from " + prompt.handle,
+  //     body:
+  //       "Game Mode: " +
+  //       selectedGameMode +
+  //       "\n" +
+  //       "Prompt Json: " +
+  //       jsonPrompt +
+  //       "\n" +
+  //       "Handle: " +
+  //       prompt.handle +
+  //       "\n" +
+  //       "=========================================",
+  //   }).catch(console.error);
+  // };
 
   if (!fontsLoaded) {
     return undefined;
@@ -316,7 +317,23 @@ export default function PromptSubmitScreen({
                   ToastAndroid.show("Choose a game mode!", ToastAndroid.SHORT);
                 } else {
                   setPromptObject();
-                  handleEmail();
+                  // handleEmail();
+                  sendEmail(
+                    "drinkingdemocracy@gmail.com",
+                    "Prompt Submission from " + prompt.handle,
+                    "Game Mode: " +
+                      selectedGameMode +
+                      "\n" +
+                      "Prompt Json: " +
+                      jsonPrompt +
+                      "\n" +
+                      "Handle: " +
+                      prompt.handle +
+                      "\n" +
+                      "========================================="
+                  ).then(() => {
+                    console.log("Your message was successfully sent!");
+                  });
                   ToastAndroid.show(
                     "Game prompt submitted!",
                     ToastAndroid.SHORT

@@ -13,11 +13,11 @@ import { virus } from "../virus";
 import { virusend } from "../virusend";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
-// import {
-//   BannerAd,
-//   BannerAdSize,
-//   TestIds,
-// } from "react-native-google-mobile-ads";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 // import { useFocusEffect } from "react-navigation";
 // import "react-native-gesture-handler";
 
@@ -33,7 +33,7 @@ const storePrompts = async () => {
       const data = await response.json();
       const promptsString = JSON.stringify(data);
       await AsyncStorage.setItem("prompts", promptsString);
-      console.log("Successfully fetched and stored data: " + promptsString);
+      // console.log("Successfully fetched and stored data: " + promptsString);
     } catch (error) {
       console.error(error);
       console.log("prinks");
@@ -47,7 +47,7 @@ const storePrompts = async () => {
       const data = await response.json();
       const crazyString = JSON.stringify(data);
       await AsyncStorage.setItem("crazy", crazyString);
-      console.log("Successfully fetched and stored data: " + crazyString);
+      // console.log("Successfully fetched and stored data: " + crazyString);
     } catch (error) {
       console.error(error);
       const crazyString = JSON.stringify(crazy);
@@ -60,7 +60,7 @@ const storePrompts = async () => {
       const data = await response.json();
       const flirtyString = JSON.stringify(data);
       await AsyncStorage.setItem("flirty", flirtyString);
-      console.log("Successfully fetched and stored data: " + flirtyString);
+      // console.log("Successfully fetched and stored data: " + flirtyString);
     } catch (error) {
       console.error(error);
       const flirtyString = JSON.stringify(flirty);
@@ -73,7 +73,7 @@ const storePrompts = async () => {
       const data = await response.json();
       const virusString = JSON.stringify(data);
       await AsyncStorage.setItem("virus", virusString);
-      console.log("Successfully fetched and stored data: " + virusString);
+      // console.log("Successfully fetched and stored data: " + virusString);
     } catch (error) {
       console.error(error);
       const virusString = JSON.stringify(virus);
@@ -86,7 +86,7 @@ const storePrompts = async () => {
       const data = await response.json();
       const virusEndString = JSON.stringify(data);
       await AsyncStorage.setItem("virusend", virusEndString);
-      console.log("Successfully fetched and stored data: " + virusEndString);
+      // console.log("Successfully fetched and stored data: " + virusEndString);
     } catch (error) {
       console.error(error);
       const virusEndString = JSON.stringify(virusend);
@@ -249,9 +249,9 @@ export default function TabTwoScreen({
   if (!fontsLoaded) {
     return undefined;
   }
-  // const adUnitId = __DEV__
-  //   ? TestIds.BANNER
-  //   : "ca-app-pub-2156240493940672/1342308153";
+  const adUnitId = __DEV__
+    ? TestIds.BANNER
+    : "ca-app-pub-2156240493940672/1342308153";
 
   // const names = getNames(); // retrieve the names from the name store
   return (
@@ -277,15 +277,15 @@ export default function TabTwoScreen({
         >
           GAMES
         </Text>
-        <View style={{ position: "absolute", top: 70, left: -90 }}>
-          {/* <BannerAd
+        {/* <View style={{ position: "absolute", top: 70, left: -90 }}>
+          <BannerAd
             unitId={adUnitId}
             size={BannerAdSize.LARGE_BANNER}
             requestOptions={{
               requestNonPersonalizedAdsOnly: true,
             }}
-          /> */}
-        </View>
+          />
+        </View> */}
       </View>
 
       <Image
@@ -369,6 +369,25 @@ export default function TabTwoScreen({
           // marginBottom: 200,
         }}
       >
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: -100,
+            marginBottom: 10,
+            padding: 10,
+          }}
+        >
+          <BannerAd
+            unitId={adUnitId}
+            size={BannerAdSize.LARGE_BANNER}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+          />
+        </View>
+
         <View
           style={{
             flexDirection: "row",

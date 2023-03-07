@@ -145,14 +145,14 @@ export default function GameOneScreen({
     case "flirtyGamePrompts": {
       // Generate a random color
       categoryColors = {
-        CHALLENGE: "#f95979",
-        RULE: "#d62a5e",
-        VIRUS: "#c90084",
-        "VIRUS END": "#c90084",
-        "GET IT DOWN YA": "#ae0072",
+        CHALLENGE: "#e97e74",
+        RULE: "#fcad8e",
+        VIRUS: "#57316b",
+        "VIRUS END": "#57316b",
+        "GET IT DOWN YA": "#575a8d",
         QUIZ: "#bd2841",
-        VOTE: "#bd2841",
-        SEXY: "#45072f",
+        VOTE: "#fc8759",
+        SEXY: "#ba3564",
       };
       break;
     }
