@@ -2,7 +2,7 @@
   "expo": {
     "name": "Party Populist",
     "slug": "drinkingdemocracy",
-    "version": "1.0.1",
+    "version": "1.1.1",
     "icon": "./assets/images/logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
@@ -26,6 +26,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#131313"
       },
+      "versionCode": 5,
       "package": "com.danielportelabyrne.drinkingdemocracy"
     },
     "web": {
@@ -36,5 +37,8 @@
         "projectId": "06a6ae2b-445d-422b-955b-ab769aaacac4"
       }
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-2156240493940672~3832740125"
   }
 }
