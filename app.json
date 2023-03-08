@@ -2,7 +2,7 @@
   "expo": {
     "name": "Drinking Democracy",
     "slug": "drinkingdemocracy",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "icon": "./assets/images/logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
@@ -25,7 +25,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#131313"
       },
-      "versionCode": 4,
+      "versionCode": 5,
       "package": "com.danielportelabyrne.drinkingdemocracy"
     },
     "web": {
