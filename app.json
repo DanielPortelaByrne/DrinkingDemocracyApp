@@ -18,7 +18,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.danielportelabyrne.drinkingdemocracy",
-      "buildNumber": "3"
+      "buildNumber": "4"
     },
     "android": {
       "softwareKeyboardLayoutMode": "pan",
