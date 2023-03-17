@@ -1,14 +1,14 @@
 [
   {
-    "text": "Down your drink if you have a tattoo, otherwise give it out",
-    "category": "GET IT DOWN YA"
+    "text": "On the count of 3, everyone point at the player who flirts the most. The most pointed at player takes 2 sips",
+    "category": "VOTE"
   },
   {
-    "text": "Take 2 sips if you have ever ridden a rollercoaster, otherwise give them out",
-    "category": "RULE"
+    "text": "On the count of 3, everyone point at the player most likely to get arrested. The most pointed at player takes 2 sips",
+    "category": "VOTE"
   },
   {
-    "text": "Down your drink if you have ever bungee jumped, you absolute thrill-seeker",
+    "text": "Everyone vote for the most sober player, it's time for them to down their drink!",
     "category": "GET IT DOWN YA"
   },
   {
@@ -16,7 +16,7 @@
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you have a phobia, otherwise give them out",
+    "text": "[Name], what's your most embarrassing memory? Tell us all or take 3 sips",
     "category": "RULE"
   },
   {
@@ -24,27 +24,59 @@
     "category": "RULE"
   },
   {
-    "text": "Would you rather eat a live cockroach or be bald? Everyone vote at the same time, losing group drinks 2 times",
-    "category": "VOTE"
-  },
-  {
-    "text": "Around the room, name your ex relationships/hookups one at a time. The first person to run out of names, drink 3 times. [Name] you start",
+    "text": "[Name] has to close their eyes while the other players hide their drink. If they can't find it in the next 30 second, they have to down it all",
     "category": "CHALLENGE"
   },
   {
-    "text": "What rhymes with “itch”, first person to repeat themselves or can't think of anything drinks 5 times. [Name] you start",
+    "text": "Around the room, name your ex relationships/hookups one at a time. The first person to run out of names drinks 3 times. [Name] you start",
     "category": "CHALLENGE"
   },
   {
-    "text": "To spice things up, fireman or soldier? Vote at the same time, losing group drink 3 times",
+    "text": "Swear words, first person to repeat themselves or can't think of anything drinks 3 times. [Name] you start",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "Drug types, first person to repeat themselves or can't think of anything drinks 3 times. [Name] you start",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "Sex positions, first person to repeat themselves or can't think of anything drinks 3 times. [Name] you start",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "Places you could hide a body, first person to repeat themselves or can't think of anything drinks 3 times. [Name] you start",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "Countries with attractive people, first person to repeat themselves or can't think of anything drinks 3 times. [Name] you start",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "Who's most likely to f*ck their own sibling? Vote at the same time, the most pointed at player takes 5 sips",
     "category": "VOTE"
   },
   {
-    "text": "[Name] give out 2 sips if you have ever broken a bone, otherwise take them",
+    "text": "Who's most likely to murder someone for money? Vote at the same time, the most pointed at player takes 5 sips",
+    "category": "VOTE"
+  },
+  {
+    "text": "Who watches the most porn? Vote at the same time, the most pointed at player takes a sip for each time this week",
+    "category": "VOTE"
+  },
+  {
+    "text": "Who's the player with the worst attitude? Vote at the same time, the most pointed at player takes 3 sips",
+    "category": "VOTE"
+  },
+  {
+    "text": "To spice things up, who's the hottest player? Vote at the same time, the most pointed at player takes 3 sips",
+    "category": "VOTE"
+  },
+  {
+    "text": "[Name] give out 2 sips if you have recently pissed yourself, otherwise take them",
     "category": "RULE"
   },
   {
-    "text": "[Name], give out 3 sips to a player thinner than you… If it's impossible, drink them",
+    "text": "[Name], give out 3 sips to a player dumber than you… If it's impossible, drink them",
     "category": "RULE"
   },
   {
@@ -52,429 +84,315 @@
     "category": "RULE"
   },
   {
-    "text": "The player who dated the worst girl ever drinks 1 time",
-    "category": "RULE"
-  },
-    {
-    "text": "Give out 2 sips if you have ever vomited after drinking.",
+    "text": "The player who has the craziest ex drinks 3 times",
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you have ever committed a crime, scumbag.",
+    "text": "Take 2 sips if you have ever vomited after drinking.",
     "category": "RULE"
   },
   {
-    "text": "Take a sip if you have ever yelled at a receptionist, retail worker or waiter. Absolute Karen.🙄",
+    "text": "G'wan criminals! If you have ever committed a crime, down your drink!",
+    "category": "GET IT DOWN YA"
+  },
+  {
+    "text": "Take 3 sips if you have ever been arrested.",
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you have ever dined and dashed, you cheapskate.",
+    "text": "Take 4 sips if you have ever gone to prison.",
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you have ever tried an illegal substance. 💉",
+    "text": "Take 2 sips if you have ever tried an illegal substance.",
     "category": "RULE"
   },
   {
-    "text": "Take a sip if you have ever cheated on an exam.",
+    "text": "Take 4 sips if you have a dealer's number.",
     "category": "RULE"
   },
   {
-    "text": "[Name] say the alphabet backwards. Drink every time you mess up or take too long.",
-    "category": "CHALLENGE",
-    "handle": "aoife.doyle1"
+    "text": "Take 3 sips if you're a stoner.",
+    "category": "RULE"
+  },
+  {
+    "text": "[Name], do a contemporary dance to whatever song is playing. If the other players think you've got no talent, take 3 sips.",
+    "category": "CHALLENGE"
   },
   {
     "text": "If you've ever blacked out, your next sips go to the person to your left. Take it easy tonight, yeah?",
     "category": "RULE"
   },
   {
-    "text": "State your most controversial opinion. Everyone who agrees must drink.",
+    "text": "[Name], state your most controversial opinion. Everyone who agrees must drink.",
     "category": "CHALLENGE"
   },
   {
-    "text": "Everyone take as many sips as the amount of years you studied after secondary school",
-    "category": "RULE"
-  },
-  {
-    "text": "Everyone with the letter “a” in their first name drink 2 times",
-    "category": "RULE"
+    "text": "[Name], name something everyone else loves, but you hate. Everyone who disagrees must drink.",
+    "category": "CHALLENGE"
   },
   {
     "text": "[Name], play the beginning of the last song you listened to on your phone. If the majority of the players don't like it, drink 3 times",
     "category": "CHALLENGE"
   },
   {
-    "text": "[Name], pinch someone's arse. 4 sips in case of refusal 🍑",
+    "text": "[Name], pick a player to kiss. 4 sips in case of refusal 🍑",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "[Name], if you're single, give 2 sips to the player you think is hottest",
     "category": "RULE"
   },
   {
-    "text": "The player with the biggest bill in their wallet can give out 3 sips, baller 🤑",
+    "text": "Drink 2 times if you've ever kissed someone you found disgusting.",
     "category": "RULE"
   },
   {
-    "text": "If you're single, give 2 sips to one person",
-    "category": "RULE"
+    "text": "Go around the room, doing your best twerk. Those who can't drink 2 times, [Name] you start.",
+    "category": "CHALLENGE"
   },
   {
-    "text": "[Name], drink 2 times if you've ever kissed someone you found disgusting. Otherwise give out 2 sips",
-    "category": "RULE"
-  },
-  {
-    "text": "Go around the room, make your ears wiggle. Those who can't drink 2 times, [Name] you start.",
-    "category": "RULE"
-  },
-  {
-    "text": "[Name], if your phone is in your pocket drink 2 times. Otherwise give out 2 sips",
-    "category": "RULE"
-  },
-  {
-    "text": "People with Android phones, drink 2 times",
-    "category": "RULE"
-  },
-  {
-    "text": "People with an S in their first name, take 2 sips",
-    "category": "RULE"
-  },
-  {
-    "text": "People who prefer coffee over tea, take 1 sip",
-    "category": "RULE"
-  },
-  {
-    "text": "People who have been to a music festival, take 2 sips. Any yokes going? ❄️",
-    "category": "RULE"
-  },
-  {
-    "text": "People who prefer dogs over cats, take 2 sips 🐈🐕",
-    "category": "RULE"
-  },
-  {
-    "text": "[Name] take 5 sips if you have a fear of public speaking, otherwise give them out",
-    "category": "GET IT DOWN YA"
-  },
-  {
-    "text": "Down your drink if you have ever played a sport at a professional level",
-    "category": "GET IT DOWN YA"
+    "text": "PHONES DOWN! The first person to pick theirs up must down their drink",
+    "category": "CHALLENGE"
   },
   {
     "text": "Bottoms up! People who have a birthday this week, let's down it all!",
     "category": "GET IT DOWN YA"
   },
   {
-    "text": "Bottoms up! People who are of Irish descent, let's down it all!",
+    "text": "Ladies, be honest, take 2 sips if you've ever had good sex.",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 4 sips if you've ever streaked.",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 3 sips if you've ever flashed someone.",
+    "category": "RULE"
+  },
+  {
+    "text": "Which player is the best in bed? Vote at the same time, the most pointed at player takes 3 sips",
+    "category": "VOTE"
+  },
+  {
+    "text": "Which player is most likely to be forever alone? Vote at the same time, the most pointed at player takes 3 sips",
+    "category": "VOTE"
+  },
+  {
+    "text": "Would you rather have a long skinny penis or a short thick one? Minority takes 3 sips",
+    "category": "VOTE"
+  },
+  {
+    "text": "Which player is most likely to get an STI? Vote at the same time, the most pointed at player takes 3 sips",
+    "category": "VOTE"
+  },
+  {
+    "text": "Which player is most likely to take someone home tonight? Vote at the same time, the most pointed at player takes 3 sips",
+    "category": "VOTE"
+  },
+  {
+    "text": "Would you rather find out your partner is a serial killer or a relative? Minority takes 3 sips",
+    "category": "VOTE"
+  },
+  {
+    "text": "Drink 3 times if you've ever thrown up on yourself.",
+    "category": "RULE"
+  },
+  {
+    "text": "Drink 2 times if you've gone out without underwear. An extra 2 if you're not wearing any now.",
+    "category": "RULE"
+  },
+  {
+    "text": "[Name}, say a quality that makes you unique, or take 2 sips.",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "[Name], who's your weirdest celebrity crush? Name them or take 3 sips",
+    "category": "RULE"
+  },
+  {
+    "text": "[Name], point at the players who you think are the best and worst in bed, but don't say which is which. If a player really wants to know, they must down their drink first!",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "[Name], what's the worst thing you've done in a public place? Tell us or take 3 sips",
+    "category": "RULE"
+  },
+  {
+    "text": "[Name], what's your deepest fear? Tell us or take 3 sips",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 2 sips if you've ever peed in a pool",
+    "category": "RULE"
+  },
+  {
+    "text": "[Name], what do you think is your friends' biggest misconception about you? Anyone in the group who held this belief must drink",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 2 sips if you've ever met up IRL with someone you met online.",
+    "category": "RULE"
+  },
+  {
+    "text": "[Name], what's the worst thing you've done while drunk? Tell us or take 3 sips",
+    "category": "RULE"
+  },
+  {
+    "text": "[Name], what's the thing you dislike most about your partner? Tell us or take 3 sips",
+    "category": "RULE"
+  },
+  {
+    "text": "[Name] can draw whatever they like on [Name2]'s arm. If [Name2] wipes it off they have to down their drink",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "[Name], pick a player to tell an embarrassing story about. The player they choose can either let the story be told or take 5 sips.",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "[Name], which of your friend's partners do you think is the fittest? Tell us or take 3 sips",
+    "category": "RULE"
+  },
+  {
+    "text": "Let's play strip poker! On three, all players shout a number between 1-10. If any two say the same number, they must remove one item of clothing.",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "[Name], at any point during the game you can raise your hand. The last person to copy you must take 3 sips.",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "If you could have a clone version of you made, would you get one? Minority takes 3 sips.",
+    "category": "VOTE"
+  },
+  {
+    "text": "Take 2 sips if someone has ever confessed a crime to you.",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 2 sips if you are wearing something worth more than €200.",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 2 sips if you have ever destroyed or lost something which couldn't be replaced.",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 3 sips if you've ever catfished someone.",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 3 sips if you've ever stolen from a friend.",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 5 sips if you've ever bullied someone.",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 2 sips if you've ever had to remove something from the toilet with your hand.",
+    "category": "RULE"
+  },
+  {
+    "text": "Bottoms up! If you can drive but are not the designated driver, it's time to down your drink!",
     "category": "GET IT DOWN YA"
   },
   {
-    "text": "Bottoms up! People who have watched all seasons of Game of Thrones, let's down it all!",
+    "text": "Bottoms up! If you are single tonight, it's time to down your drink!",
     "category": "GET IT DOWN YA"
   },
   {
-    "text": "Take 2 sips if you are Irish",
+    "text": "Take 2 sips if you've ever had diarrhoea while in someone else's house.",
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you are Polish",
+    "text": "Take 2 sips if you've ever done drag. Yes mawmaw!",
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you are American",
+    "text": "Take 3 sips if you've ever forged someone's signature",
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you are Romanian",
+    "text": "Take 4 sips if you've ever fired a gun",
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you are mixed background",
+    "text": "Take 2 sips if you've ever laughed while drinking and had the drink come out of your nose.",
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you are in your early 20s",
+    "text": "Take 2 sips if you've ever gone cliff diving",
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you love formula one",
+    "text": "Take 2 sips if you've ever gone bungee jumping",
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you spend money excessively",
+    "text": "Take 2 sips if you've ever ridden a motorbike",
     "category": "RULE"
   },
   {
-    "text": "Take 3 sips if you have a job in finance",
+    "text": "Take 2 sips if you've ever ridden a dirt bike",
     "category": "RULE"
   },
   {
-    "text": "Take 3 sips if you have a job in tech",
+    "text": "Take 2 sips if you've ever bought an 18+ item for someone underage.",
     "category": "RULE"
   },
   {
-    "text": "Take 3 sips if you have a job in healthcare",
+    "text": "Take 2 sips if you've ever tried a hallucinogen",
     "category": "RULE"
   },
   {
-    "text": "Take 3 sips if you have a job in education",
+    "text": "Take 2 sips if you've ever had an addiction",
     "category": "RULE"
   },
   {
-    "text": "Famous Landmarks, the first to repeat themselves or can't think of any more must drink 4 times. [Name] you start",
+    "text": "Take 2 sips if you've lied during this game",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 2 sips if you've ever had a near-death experience",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 2 sips if you've ever cried on your birthday",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 2 sips if you were alone last New Year's",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 2 sips if you've ever set fire to something accidentally",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 2 sips if you have a stick and poke tattoo",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 2 sips if you've ever gotten obsessed with a person you were seeing way too quickly",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 2 sips if you've ever bled through",
+    "category": "RULE"
+  },
+  {
+    "text": "Take 2 sips if you've ever had to hide an erection",
+    "category": "RULE"
+  },
+  {
+    "text": "[Name], clap out the beats to a well known song. If any of the other players guess it, take 2 sips.",
     "category": "CHALLENGE"
   },
   {
-    "text": "Types of Fruit, the first to repeat themselves or can't think of any more must drink 3 times. [Name] you start",
+    "text": "[Name], sing Twinkle Twinkle Little Star as well as you can. If the other players think you've got no talent, take 3 sips.",
     "category": "CHALLENGE"
-  },
-  {
-    "text": "Bottoms up! People who can speak more than 3 languages, let's down it all!",
-    "category": "GET IT DOWN YA"
-  },
-  {
-    "text": "Bottoms up! People who celebrate St. Patrick's Day, let's down it all!",
-    "category": "GET IT DOWN YA"
-  },
-  {
-    "text": "Bottoms up! People who have watched all seasons of The Office, let's down it all!",
-    "category": "GET IT DOWN YA"
-  },
-  {
-    "text": "Bottoms up! People who have a birthday in March, let's down it all!",
-    "category": "GET IT DOWN YA"
-  },
-  {
-    "text": "Bands from the 90s, the first to repeat themselves or can't think of any more must drink 5 times. [Name] you start",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "Sports Teams, the first to repeat themselves or can't think of any more must drink 2 times. [Name] you start",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "[Name] give out 3 sips if you have a job in the retail industry, otherwise take them",
-    "category": "RULE"
-  },
-  {
-    "text": "[Name] give out 3 sips if you have a job in the hospitality industry, otherwise take them",
-    "category": "RULE"
-  },
-  {
-    "text": "[Name] give out 3 sips if you have a job in the creative industry, otherwise take them",
-    "category": "RULE"
-  },
-  {
-    "text": "Play never have I ever: players take turns saying something they have never done, and anyone who has done it must take a drink",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "Musical Artists, the first to repeat themselves or can't think of any more must drink 4 times. [Name] you start",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "Movies, the first to repeat themselves or can't think of any more must drink 3 times. [Name] you start",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "Cities, the first to repeat themselves or can't think of any more must drink 5 times. [Name] you start",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "Ice Cream Flavors, the first to repeat themselves or can't think of any more must drink 2 times. [Name] you start",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "Hurling teams, the first to repeat themselves or can't think of anything drink 2 times. [Name] you start",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "Things that are popular to eat at the beach, the first to run out of ideas drink 3 times. [Name] you start",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "Everyone draw a cute little penis on the fridge except [Name], who'll decide which is cutest. Big winner will give out 3 sips!, [Name2] you start",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "The last person to have eaten fast food must drink 3 times",
-    "category": "RULE"
-  },
-  {
-    "text": "Those who prefer coffee over tea must drink 4 times",
-    "category": "RULE"
-  },
-  {
-    "text": "The person with the shortest hair must drink 2 times",
-    "category": "RULE"
-  },
-  {
-    "text": "Drink 3 times if you've ever slept through your alarm",
-    "category": "RULE"
-  },
-  {
-    "text": "The person with the most siblings must drink 5 times",
-    "category": "RULE"
-  },
-  {
-    "text": "Those who have never been to a music festival must drink 3 times",
-    "category": "RULE"
-  },
-  {
-    "text": "Drink 2 times if you've ever lost a bet",
-    "category": "RULE"
-  },
-  {
-    "text": "The person with the most Instagram followers must drink 4 times",
-    "category": "RULE"
-  },
-  {
-    "text": "Those who use Twitter drink 4 times",
-    "category": "RULE"
-  },
-  {
-    "text": "Those who have never watched a full episode of Two Broke Girls, drink 2 times. Drink 1 more if you have watched a whole season.",
-    "category": "RULE"
-  },
-  {
-    "text": "3 sips to the last person to have opened a beer",
-    "category": "RULE"
-  },
-  {
-    "text": "Cheese or meat? Vote at the same time, losers drink 2 times",
-    "category": "VOTE"
-  },
-  {
-    "text": "The person with the most Facebook friends drink 2 times",
-    "category": "RULE"
-  },
-  {
-    "text": "[Name] give out 2 sips to a player bigger than you, if it's impossible, drink them",
-    "category": "RULE"
-  },
-  {
-    "text": "If you haven't taken a shower today drink 4 times!",
-    "category": "RULE"
-  },
-  {
-    "text": "Those who didn't want to play Drinking Democracy drink 4 times. Such a shame",
-    "category": "RULE"
-  },
-  {
-    "text": "If you are a smoker drink 3 times",
-    "category": "RULE"
-  },
-  {
-    "text": "Things with holes, first to run out of ideas drink 4 times, [Name] you start",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "[Name] ask a question to the room at large. The first person to answer can give out 5 sips",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "Go around the room, do a gesture after repeating the gestures done so far. The loser drinks 2 times! [Name] you start",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "[Name] say a letter. Everyone keeps adding a letter until a word is made, the person who makes the word drinks 2 times",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "Drink 5 times if you had an orgasm today",
-    "category": "RULE"
-  },
-  {
-    "text": "Drink 4 times if you are wearing a hat right now",
-    "category": "RULE"
-  },
-  {
-    "text": "Drink 3 times if you have a tattoo",
-    "category": "RULE"
-  },
-  {
-    "text": "Drink 2 times if you've ever kissed someone of the same gender",
-    "category": "RULE"
-  },
-  {
-    "text": "Drink 1 time if you've ever kissed someone, while standing on one foot",
-    "category": "RULE"
-  },
-  {
-    "text": "Would you rather live in a castle or a treehouse? Vote now, losing group drinks 4 times",
-    "category": "VOTE"
-  },
-  {
-    "text": "Would you rather be able to fly or be invisible? Vote now, losing group drinks 2 times",
-    "category": "VOTE"
-  },
-  {
-    "text": "Would you rather live in the city or the countryside? Vote now, losing group drinks 3 times",
-    "category": "VOTE"
-  },
-  {
-    "text": "Would you rather have a million dollars or true love? Vote now, losing group drinks 4 times",
-    "category": "VOTE"
-  },
-  {
-    "text": "Would you rather live for a year in the past or the future? Vote now, losing group drinks 2 times",
-    "category": "VOTE"
-  },
-  {
-    "text": "Would you rather be able to speak any language fluently or be able to play any instrument? Vote now, losing group drinks 3 times",
-    "category": "VOTE"
-  },
-  {
-    "text": "Would you rather have a personal chef or a personal shopper? Vote now, losing group drinks 4 times",
-    "category": "VOTE"
-  },
-  {
-    "text": "Would you rather have super strength or super speed? Vote now, losing group drinks 2 times",
-    "category": "VOTE"
-  },
-  {
-    "text": "Would you rather have the ability to teleport or have a time machine? Vote now, losing group drinks 3 times",
-    "category": "VOTE"
-  },
-  {
-    "text": "The last person to have ridden a motorcycle must drink 3 times",
-    "category": "RULE"
-  },
-  {
-    "text": "Those who have ever ridden in a helicopter must drink 2 times",
-    "category": "RULE"
-  },
-  {
-    "text": "The last person to have been on a hike must drink 3 times",
-    "category": "RULE"
-  },
-  {
-    "text": "Those who have ever been on a camping trip must drink 2 times",
-    "category": "RULE"
-  },
-  {
-    "text": "The last person to have been on a boat must drink 3 times",
-    "category": "RULE"
-  },
-  {
-    "text": "Those who have ever been on a kayak must drink 2 times",
-    "category": "RULE"
-  },
-  {
-    "text": "The last person to have been on a fishing trip must drink 3 times",
-    "category": "RULE",
-    "handle": "liam_mccarthy27"
-  },
-  {
-    "text": "Those who have ever been on a bird watching trip must drink 2 times",
-    "category": "RULE"
-  },
-  {
-    "text": "The last person to have been on a hot air balloon ride must drink 3 times",
-    "category": "RULE"
-  },
-  {
-    "text": "Those who have ever been on a bus tour must drink 2 times",
-    "category": "RULE"
-  },
-  {
-    "text": "The last person to have been on a walking tour must drink 3 times",
-    "category": "RULE"
   }
 ]
