@@ -7,6 +7,7 @@ import {
   Alert,
   ToastAndroid,
   Animated,
+  ImageBackground,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -377,6 +378,10 @@ export default function GameOneScreen({
         }
       }}
     >
+      {/* <ImageBackground
+        style={styles.image}
+        source={require("../assets/images/CHALLENGE.png")}
+      > */}
       {isEditVisible && (
         <>
           <TouchableOpacity
@@ -495,7 +500,6 @@ export default function GameOneScreen({
           <MaterialIcons name="add" size={26} color="#fff" />
         </TouchableOpacity>
       </View>
-
       {randomCategory !== " " && (
         <Text
           style={{
@@ -534,6 +538,7 @@ export default function GameOneScreen({
       >
         {randomPrompt}
       </Animated.Text>
+
       {promptHandle && (
         <Animated.Text
           style={{
@@ -556,6 +561,7 @@ export default function GameOneScreen({
           Submitted by @{promptHandle}
         </Animated.Text>
       )}
+      {/* </ImageBackground> */}
     </TouchableOpacity>
   );
 }
@@ -672,4 +678,10 @@ const styles = StyleSheet.create({
     right: 20, // or a fixed value like 20
     top: 50,
   },
+  // image: {
+  //   flex: 1,
+  //   resizeMode: "cover",
+  //   width: "100%",
+  //   // height: "100%",
+  // },
 });
