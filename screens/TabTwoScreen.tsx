@@ -379,13 +379,13 @@ export default function TabTwoScreen({
             padding: 10,
           }}
         >
-          <BannerAd
+          {/* <BannerAd
             unitId={adUnitId}
             size={BannerAdSize.LARGE_BANNER}
             requestOptions={{
               requestNonPersonalizedAdsOnly: true,
             }}
-          />
+          /> */}
         </View>
 
         <View

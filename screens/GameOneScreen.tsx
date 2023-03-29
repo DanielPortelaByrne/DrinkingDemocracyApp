@@ -17,6 +17,20 @@ import { getNames, updateNames } from "../components/nameStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
+import "react-native-get-random-values";
+
+function generateCode(): string {
+  const codeLength = 4;
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const bytes = new Uint8Array(codeLength);
+  crypto.getRandomValues(bytes); // Generate random bytes
+
+  let code = "";
+  for (let i = 0; i < codeLength; i++) {
+    code += alphabet[bytes[i] % alphabet.length];
+  }
+  return code;
+}
 
 // Retrieve the prompts from async storage
 const retrievePrompts = async (gameModeParam: string) => {
@@ -51,6 +65,8 @@ export default function GameOneScreen({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
   });
 
+  const [code, setCode] = useState<string | null>(null);
+
   useEffect(() => {
     if (!fontsLoaded) {
       return undefined;
@@ -84,7 +100,12 @@ export default function GameOneScreen({
   useEffect(() => {
     shake();
     displayRandomPromptAndName();
-  }, []);
+    // Generate the code on the first render only
+    if (code === null) {
+      const newCode = generateCode();
+      setCode(newCode);
+    }
+  }, [code]); // Add `code` to the dependencies array
 
   const names = getNames(); // retrieve the names from the name store
   // Display a random prompt from the list of prompts
@@ -533,6 +554,13 @@ export default function GameOneScreen({
           <MaterialIcons name="close" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
+      <View style={styles.gameCodeText}>
+        <Text>Go to DrinkingDemocracy.com & enter</Text>
+        <View style={styles.gameCodeView}>
+          <Text> game code</Text>
+          <Text>{code}</Text>
+        </View>
+      </View>
 
       <View style={styles.topRightButtonContainer}>
         <TouchableOpacity
@@ -714,6 +742,17 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 10,
     right: 10,
+  },
+  gameCodeText: {
+    position: "absolute",
+    alignItems: "center",
+    top: 60,
+  },
+  gameCodeView: {
+    backgroundColor: "black",
+    alignItems: "center",
+    padding: 10,
+    margin: 10,
   },
   topRightButton: {
     position: "absolute",
