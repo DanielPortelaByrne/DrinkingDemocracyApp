@@ -7,6 +7,7 @@ import {
   Alert,
   ToastAndroid,
   Animated,
+  ImageBackground,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -16,8 +17,6 @@ import { getNames, updateNames } from "../components/nameStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
-
-// var VIRUS ENDIndex = 0;
 
 // Retrieve the prompts from async storage
 const retrievePrompts = async (gameModeParam: string) => {
@@ -91,11 +90,19 @@ export default function GameOneScreen({
   // Display a random prompt from the list of prompts
   const [randomName, setRandomName] = useState("");
   const [randomPrompt, setRandomPrompt] = useState("");
+  let handle = "";
+  const [promptHandle, setPromptHandle] = useState("");
   const [randomCategory, setRandomCategory] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("#fff"); // Add a state to store the background color
   const [shouldNavigate] = useState(false);
   const [previousPrompts, setPreviousPrompts] = useState<
-    { name: string; prompt: string; color: string; category: string }[]
+    {
+      name: string;
+      prompt: string;
+      color: string;
+      category: string;
+      handle: string;
+    }[]
   >([]);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [isPlayerOverlayVisible, setIsPlayerOverlayVisible] = useState(false);
@@ -139,14 +146,14 @@ export default function GameOneScreen({
     case "flirtyGamePrompts": {
       // Generate a random color
       categoryColors = {
-        CHALLENGE: "#f95979",
-        RULE: "#d62a5e",
-        VIRUS: "#c90084",
-        "VIRUS END": "#c90084",
-        "GET IT DOWN YA": "#ae0072",
+        CHALLENGE: "#e97e74",
+        RULE: "#fcad8e",
+        VIRUS: "#57316b",
+        "VIRUS END": "#57316b",
+        "GET IT DOWN YA": "#575a8d",
         QUIZ: "#bd2841",
-        VOTE: "#bd2841",
-        SEXY: "#45072f",
+        VOTE: "#fc8759",
+        SEXY: "#ba3564",
       };
       break;
     }
@@ -221,13 +228,10 @@ export default function GameOneScreen({
     // Check if there are any prompts left to display
     if (selectedPrompts.length > 0) {
       const prompt = selectedPrompts[index];
-
       // Save the category of the prompt
       const { category }: { category: keyof typeof categoryColors } = prompt;
-
       // Create an array to store the chosen name indexes
       const chosenNameIndexes: number[] = [];
-
       // Pick a random name from the list and check if it has already been chosen
       let nameIndex = Math.floor(Math.random() * names.length);
       while (chosenNameIndexes.includes(nameIndex)) {
@@ -261,18 +265,28 @@ export default function GameOneScreen({
       // Check if the current prompt is a virus start
       if (prompt.category === "VIRUS" && prompt.id.slice(-1) === "a") {
         currentVirusID = prompt.id.slice(0, -1);
-
         // Check if the current virus end exists in the remaining selectedPrompts array
         for (let i = index + 1; i < selectedPrompts.length; i++) {
-          // console.log("Looking for virus end");
           if (selectedPrompts[i].id === currentVirusID + "b") {
             // Update the "[Name]" with the corresponding virus name
+            console.log("Virus end before replace:" + selectedPrompts[i].text);
             selectedPrompts[i].text = selectedPrompts[i].text.replace(
               "[Name]",
-              name,
+              name
+            );
+            selectedPrompts[i].text = selectedPrompts[i].text.replace(
               "[Name2]",
               name2
             );
+            console.log(
+              "Replacing virus " +
+                currentVirusID +
+                "b's names to name1: " +
+                name +
+                " and name2: " +
+                name2
+            );
+            console.log("Virus end after replace:" + selectedPrompts[i].text);
             break;
           }
         }
@@ -323,6 +337,16 @@ export default function GameOneScreen({
       setRandomCategory(category);
       // Update the background color
       setBackgroundColor(color);
+      //if there's a handle to credit, update handle
+      // console.log(prompt.handle);
+      setPromptHandle(handle);
+      // console.log("Before" + promptHandle);
+      if (prompt.hasOwnProperty("handle")) {
+        // console.log("handle found");
+        handle = prompt.handle;
+        setPromptHandle(handle);
+        console.log(promptHandle);
+      }
 
       // Add the current name, prompt, and color to the previousPrompts array as an object
       setPreviousPrompts([
@@ -332,6 +356,7 @@ export default function GameOneScreen({
           prompt: prompt.text,
           color: color,
           category: category, // add the category field
+          handle: handle,
         },
       ]);
       arrayIndex.current = previousPrompts.length;
@@ -355,9 +380,7 @@ export default function GameOneScreen({
           // Check if the user tapped on the left side of the screen
           if (side === "left") {
             // Tap on the left side of the screen
-            // console.log("index: ", arrayIndex.current);
             if (arrayIndex.current > 0) {
-              // console.log("Reaching left tap conditional");
               // If there are any previous prompts, go back to the last one
               const lastPrompt = previousPrompts[arrayIndex.current - 1];
               // console.log("Last prompt in array: ", lastPrompt);
@@ -365,10 +388,9 @@ export default function GameOneScreen({
               setRandomPrompt(lastPrompt.prompt);
               setRandomCategory(lastPrompt.category);
               setBackgroundColor(lastPrompt.color);
+              setPromptHandle(lastPrompt.handle);
               arrayIndex.current--;
-              // console.log("Decrementing index to: ", arrayIndex);
             } else {
-              // console.log("You're at the first card!");
               ToastAndroid.show(
                 "You're at the first card!",
                 ToastAndroid.SHORT
@@ -376,7 +398,6 @@ export default function GameOneScreen({
             }
           } else {
             if (arrayIndex.current == previousPrompts.length - 1) {
-              // console.log("You're at the last card!");
               // Tap on the right side of the screen
               displayRandomPromptAndName();
             } else {
@@ -385,8 +406,8 @@ export default function GameOneScreen({
               setRandomPrompt(nextPrompt.prompt);
               setRandomCategory(nextPrompt.category);
               setBackgroundColor(nextPrompt.color);
+              setPromptHandle(nextPrompt.handle);
               arrayIndex.current++;
-              // console.log("Incrementing index to: ", arrayIndex);
             }
             if (shouldNavigate) {
               navigation.navigate("GameOver");
@@ -399,6 +420,10 @@ export default function GameOneScreen({
         }
       }}
     >
+      {/* <ImageBackground
+        style={styles.image}
+        source={require("../assets/images/CHALLENGE.png")}
+      > */}
       {isEditVisible && (
         <>
           <TouchableOpacity
@@ -517,7 +542,6 @@ export default function GameOneScreen({
           <MaterialIcons name="add" size={26} color="#fff" />
         </TouchableOpacity>
       </View>
-
       {randomCategory !== " " && (
         <Text
           style={{
@@ -554,9 +578,32 @@ export default function GameOneScreen({
           ],
         }}
       >
-        {/* {randomName}  */}
         {randomPrompt}
       </Animated.Text>
+
+      {promptHandle && (
+        <Animated.Text
+          style={{
+            fontSize: 14,
+            color: "#fff",
+            fontWeight: "bold",
+            fontStyle: "italic",
+            bottom: 50,
+            position: "absolute",
+            transform: [
+              {
+                translateX: shakeAnim.interpolate({
+                  inputRange: [0, 0.5, 1],
+                  outputRange: [0, 10, 0],
+                }),
+              },
+            ],
+          }}
+        >
+          Submitted by @{promptHandle}
+        </Animated.Text>
+      )}
+      {/* </ImageBackground> */}
     </TouchableOpacity>
   );
 }
@@ -673,4 +720,10 @@ const styles = StyleSheet.create({
     right: 20, // or a fixed value like 20
     top: 50,
   },
+  // image: {
+  //   flex: 1,
+  //   resizeMode: "cover",
+  //   width: "100%",
+  //   // height: "100%",
+  // },
 });
