@@ -179,18 +179,23 @@ export default function GameOneScreen({
       // Convert the selected prompts string back to an array
       const promptsArray = selectedPrompts ? JSON.parse(selectedPrompts) : [];
       // Generate a random index between 0 and the length of the array
-      const randomIndex = Math.floor(Math.random() * (promptsArray.length + 1));
 
       if (Object.keys(data).length !== 0) {
         console.log(data);
         // check if data object is not empty
         // Use the splice method to insert the new rule at the random index
-        promptsArray.splice(randomIndex, 0, {
-          text: data.text,
-          category: data.category,
-        });
+        for (const promptObj of data) {
+          const randomIndex = Math.floor(
+            Math.random() * (promptsArray.length + 1)
+          );
+          promptsArray.splice(randomIndex, 0, {
+            text: promptObj.text,
+            category: promptObj.category,
+          });
+          console.log("Successfully fetched and stored data: " + promptObj);
+        }
+
         await AsyncStorage.setItem(gameMode, JSON.stringify(promptsArray));
-        console.log("Successfully fetched and stored data: " + data);
       } else {
         console.log("No new prompts from the web-app");
       }
