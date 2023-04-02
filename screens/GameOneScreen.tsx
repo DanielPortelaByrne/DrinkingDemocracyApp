@@ -49,6 +49,7 @@ export default function GameOneScreen({
   const { gameMode } = route.params;
   const [fontsLoaded] = useFonts({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
+    Prisma: require("../assets/fonts/Prisma.ttf"),
   });
 
   useEffect(() => {
@@ -115,6 +116,19 @@ export default function GameOneScreen({
   var index = 0;
 
   var categoryColors = {};
+
+  const categoryImages = {
+    CHALLENGE: require("../assets/images/CHALLENGE.png") as any,
+    RULE: require("../assets/images/RULE.png") as any,
+    VIRUS: require("../assets/images/VIRUS.png") as any,
+    "VIRUS END": require("../assets/images/VIRUS.png") as any,
+    "GET IT DOWN YA": require("../assets/images/GIDY.png") as any,
+    VOTE: require("../assets/images/VOTE.png") as any,
+    SEXY: require("../assets/images/SEXY.png") as any,
+  };
+
+  // Define a new state variable to store the background image
+  const [currentCategory, setCurrentCategory] = useState("");
 
   switch (gameMode) {
     case "prinkGamePrompts": {
@@ -188,6 +202,7 @@ export default function GameOneScreen({
       const prompt = selectedPrompts[index];
       // Save the category of the prompt
       const { category }: { category: keyof typeof categoryColors } = prompt;
+      setCurrentCategory(category);
       // Create an array to store the chosen name indexes
       const chosenNameIndexes: number[] = [];
       // Pick a random name from the list and check if it has already been chosen
@@ -295,6 +310,7 @@ export default function GameOneScreen({
       setRandomCategory(category);
       // Update the background color
       setBackgroundColor(color);
+      setCurrentCategory(category);
       //if there's a handle to credit, update handle
       // console.log(prompt.handle);
       setPromptHandle(handle);
@@ -346,6 +362,7 @@ export default function GameOneScreen({
               setRandomPrompt(lastPrompt.prompt);
               setRandomCategory(lastPrompt.category);
               setBackgroundColor(lastPrompt.color);
+              setCurrentCategory(lastPrompt.category);
               setPromptHandle(lastPrompt.handle);
               arrayIndex.current--;
             } else {
@@ -364,6 +381,7 @@ export default function GameOneScreen({
               setRandomPrompt(nextPrompt.prompt);
               setRandomCategory(nextPrompt.category);
               setBackgroundColor(nextPrompt.color);
+              setCurrentCategory(nextPrompt.category);
               setPromptHandle(nextPrompt.handle);
               arrayIndex.current++;
             }
@@ -380,174 +398,158 @@ export default function GameOneScreen({
     >
       {/* <ImageBackground
         style={styles.image}
-        source={require("../assets/images/CHALLENGE.png")}
+        source={require("../assets/images/GIDY.png")}
       > */}
-      {isEditVisible && (
-        <>
-          <TouchableOpacity
-            style={styles.ruleButton}
-            onPress={() => setIsOverlayVisible(!isOverlayVisible)}
-          >
-            <Text style={styles.veryBoldText}>ADD A RULE</Text>
-          </TouchableOpacity>
-          {isOverlayVisible && (
-            <View style={styles.overlay}>
-              <TextInput
-                style={styles.textInput}
-                placeholder="Gráinne is a dryshite, drink 15 sips"
-                onChangeText={(text) => setNewRule(text)}
-                value={newRule}
-              />
-              <TouchableOpacity
-                style={styles.submitButton}
-                onPress={async () => {
-                  // Retrieve the selected prompts from async storage
-                  const selectedPrompts = await AsyncStorage.getItem(gameMode);
-                  // Convert the selected prompts string back to an array
-                  const promptsArray = selectedPrompts
-                    ? JSON.parse(selectedPrompts)
-                    : [];
-                  // Generate a random index between 0 and the length of the array
-                  const randomIndex = Math.floor(
-                    Math.random() * (promptsArray.length + 1)
-                  );
-                  // Use the splice method to insert the new rule at the random index
-                  promptsArray.splice(randomIndex, 0, {
-                    text: newRule,
-                    category: "RULE",
-                  });
-                  await AsyncStorage.setItem(
-                    gameMode,
-                    JSON.stringify(promptsArray)
-                  );
-                  // Reset the new rule input and close the overlay
-                  setNewRule("");
-                  // Display a message to the user to confirm that the new rule has been added
-                  ToastAndroid.show("Rule added!", ToastAndroid.SHORT);
-                  setIsOverlayVisible(false);
-                  setIsEditVisible(false);
-                }}
-              >
-                <Text style={styles.submitButtonText}>ADD RULE</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-
-          <TouchableOpacity
-            style={styles.playerButton}
-            onPress={() => setIsPlayerOverlayVisible(!isPlayerOverlayVisible)}
-          >
-            <Text style={styles.veryBoldText}>ADD A PLAYER</Text>
-          </TouchableOpacity>
-          {isPlayerOverlayVisible && (
-            <View style={styles.overlay}>
-              <TextInput
-                style={styles.textInput}
-                placeholder="Enter the new player's name"
-                onChangeText={(text) => setNewPlayerName(text)}
-                value={newPlayerName}
-              />
-              <TouchableOpacity
-                style={styles.submitButton}
-                onPress={() => {
-                  // Add the new player's name to the name store and update it
-                  addPlayer(newPlayerName);
-                  // Reset the new player name input and close the overlay
-                  setNewPlayerName("");
-                  // Display a message to the user to confirm that the new player has been added
-                  ToastAndroid.show("Player added!", ToastAndroid.SHORT);
-                  setIsPlayerOverlayVisible(false);
-                  setIsEditVisible(false);
-                }}
-              >
-                <Text style={styles.submitButtonText}>ADD PLAYER</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        </>
-      )}
-
-      <View style={styles.topLeftButtonContainer}>
-        <TouchableOpacity
-          style={styles.topLeftButton}
-          onPress={() => {
-            Alert.alert(
-              "Quit Game",
-              "Are you sure you want to quit the game?",
-              [
-                {
-                  text: "Yes",
-                  onPress: () => navigation.navigate("TabTwo"),
-                },
-                {
-                  text: "No",
-                  onPress: () => setIsQuitOverlayVisible(false),
-                },
-              ],
-              { cancelable: true }
-            );
-          }}
-        >
-          <MaterialIcons name="close" size={24} color="#fff" />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.topRightButtonContainer}>
-        <TouchableOpacity
-          style={styles.topRightButton}
-          onPress={() => setIsEditVisible(!isEditVisible)}
-        >
-          <MaterialIcons name="add" size={26} color="#fff" />
-        </TouchableOpacity>
-      </View>
-      {randomCategory !== " " && (
-        <Text
-          style={{
-            fontFamily: "Konstruktor",
-            color: "#fff",
-            fontSize: 45,
-            textAlign: "center",
-            // marginBottom: 20,
-            padding: 20,
-          }}
-        >
-          {randomCategory}
-        </Text>
-      )}
-
-      <Animated.Text
-        style={{
-          // fontFamily: "AGENCYR",
-          fontSize: 28,
-          color: "#fff",
-          textAlign: "center",
-          marginBottom: 10,
-          marginLeft: 30,
-          marginRight: 30,
-          // fontWeight: "bold",
-          // fontStyle: "italic",
-          transform: [
-            {
-              translateX: shakeAnim.interpolate({
-                inputRange: [0, 0.5, 1],
-                outputRange: [0, 10, 0],
-              }),
-            },
-          ],
-        }}
+      <ImageBackground
+        style={styles.image}
+        source={categoryImages[currentCategory]}
       >
-        {randomPrompt}
-      </Animated.Text>
+        {isEditVisible && (
+          <>
+            <TouchableOpacity
+              style={styles.ruleButton}
+              onPress={() => setIsOverlayVisible(!isOverlayVisible)}
+            >
+              <Text style={styles.veryBoldText}>ADD A RULE</Text>
+            </TouchableOpacity>
+            {isOverlayVisible && (
+              <View style={styles.overlay}>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder="Gráinne is a dryshite, drink 15 sips"
+                  onChangeText={(text) => setNewRule(text)}
+                  value={newRule}
+                />
+                <TouchableOpacity
+                  style={styles.submitButton}
+                  onPress={async () => {
+                    // Retrieve the selected prompts from async storage
+                    const selectedPrompts = await AsyncStorage.getItem(
+                      gameMode
+                    );
+                    // Convert the selected prompts string back to an array
+                    const promptsArray = selectedPrompts
+                      ? JSON.parse(selectedPrompts)
+                      : [];
+                    // Generate a random index between 0 and the length of the array
+                    const randomIndex = Math.floor(
+                      Math.random() * (promptsArray.length + 1)
+                    );
+                    // Use the splice method to insert the new rule at the random index
+                    promptsArray.splice(randomIndex, 0, {
+                      text: newRule,
+                      category: "RULE",
+                    });
+                    await AsyncStorage.setItem(
+                      gameMode,
+                      JSON.stringify(promptsArray)
+                    );
+                    // Reset the new rule input and close the overlay
+                    setNewRule("");
+                    // Display a message to the user to confirm that the new rule has been added
+                    ToastAndroid.show("Rule added!", ToastAndroid.SHORT);
+                    setIsOverlayVisible(false);
+                    setIsEditVisible(false);
+                  }}
+                >
+                  <Text style={styles.submitButtonText}>ADD RULE</Text>
+                </TouchableOpacity>
+              </View>
+            )}
 
-      {promptHandle && (
+            <TouchableOpacity
+              style={styles.playerButton}
+              onPress={() => setIsPlayerOverlayVisible(!isPlayerOverlayVisible)}
+            >
+              <Text style={styles.veryBoldText}>ADD A PLAYER</Text>
+            </TouchableOpacity>
+            {isPlayerOverlayVisible && (
+              <View style={styles.overlay}>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder="Enter the new player's name"
+                  onChangeText={(text) => setNewPlayerName(text)}
+                  value={newPlayerName}
+                />
+                <TouchableOpacity
+                  style={styles.submitButton}
+                  onPress={() => {
+                    // Add the new player's name to the name store and update it
+                    addPlayer(newPlayerName);
+                    // Reset the new player name input and close the overlay
+                    setNewPlayerName("");
+                    // Display a message to the user to confirm that the new player has been added
+                    ToastAndroid.show("Player added!", ToastAndroid.SHORT);
+                    setIsPlayerOverlayVisible(false);
+                    setIsEditVisible(false);
+                  }}
+                >
+                  <Text style={styles.submitButtonText}>ADD PLAYER</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </>
+        )}
+
+        <View style={styles.topLeftButtonContainer}>
+          <TouchableOpacity
+            style={styles.topLeftButton}
+            onPress={() => {
+              Alert.alert(
+                "Quit Game",
+                "Are you sure you want to quit the game?",
+                [
+                  {
+                    text: "Yes",
+                    onPress: () => navigation.navigate("TabTwo"),
+                  },
+                  {
+                    text: "No",
+                    onPress: () => setIsQuitOverlayVisible(false),
+                  },
+                ],
+                { cancelable: true }
+              );
+            }}
+          >
+            <MaterialIcons name="close" size={24} color="#fff" />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.topRightButtonContainer}>
+          <TouchableOpacity
+            style={styles.topRightButton}
+            onPress={() => setIsEditVisible(!isEditVisible)}
+          >
+            <MaterialIcons name="add" size={26} color="#fff" />
+          </TouchableOpacity>
+        </View>
+        {randomCategory !== " " && (
+          <Text
+            style={{
+              fontFamily: "Konstruktor",
+              color: "#fff",
+              fontSize: 45,
+              textAlign: "center",
+              // marginBottom: 20,
+              padding: 20,
+            }}
+          >
+            {randomCategory}
+          </Text>
+        )}
+
         <Animated.Text
           style={{
-            fontSize: 14,
+            fontFamily: "Prisma",
+            fontSize: 24,
             color: "#fff",
-            fontWeight: "bold",
-            fontStyle: "italic",
-            bottom: 50,
-            position: "absolute",
+            textAlign: "center",
+            marginBottom: 10,
+            marginLeft: 30,
+            marginRight: 30,
+            // fontWeight: "bold",
+            // fontStyle: "italic",
             transform: [
               {
                 translateX: shakeAnim.interpolate({
@@ -558,10 +560,32 @@ export default function GameOneScreen({
             ],
           }}
         >
-          Submitted by @{promptHandle}
+          {randomPrompt}
         </Animated.Text>
-      )}
-      {/* </ImageBackground> */}
+
+        {promptHandle && (
+          <Animated.Text
+            style={{
+              fontSize: 14,
+              color: "#fff",
+              fontWeight: "bold",
+              fontStyle: "italic",
+              bottom: 50,
+              position: "absolute",
+              transform: [
+                {
+                  translateX: shakeAnim.interpolate({
+                    inputRange: [0, 0.5, 1],
+                    outputRange: [0, 10, 0],
+                  }),
+                },
+              ],
+            }}
+          >
+            Submitted by @{promptHandle}
+          </Animated.Text>
+        )}
+      </ImageBackground>
     </TouchableOpacity>
   );
 }
@@ -678,10 +702,13 @@ const styles = StyleSheet.create({
     right: 20, // or a fixed value like 20
     top: 50,
   },
-  // image: {
-  //   flex: 1,
-  //   resizeMode: "cover",
-  //   width: "100%",
-  //   // height: "100%",
-  // },
+  image: {
+    // flex: 1,
+    resizeMode: "cover",
+    width: "100%",
+    height: "100%",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
