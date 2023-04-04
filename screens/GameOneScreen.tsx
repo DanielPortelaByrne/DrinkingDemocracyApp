@@ -8,6 +8,7 @@ import {
   ToastAndroid,
   Animated,
   ImageBackground,
+  Image,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -49,7 +50,7 @@ export default function GameOneScreen({
   const { gameMode } = route.params;
   const [fontsLoaded] = useFonts({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
-    Prisma: require("../assets/fonts/Prisma.ttf"),
+    Mosh: require("../assets/fonts/Mosherif-1GezZ.ttf"),
   });
 
   useEffect(() => {
@@ -398,7 +399,7 @@ export default function GameOneScreen({
     >
       {/* <ImageBackground
         style={styles.image}
-        source={require("../assets/images/GIDY.png")}
+        source={require("../assets/images/beer_gif.gif")}
       > */}
       <ImageBackground
         style={styles.image}
@@ -524,6 +525,15 @@ export default function GameOneScreen({
             <MaterialIcons name="add" size={26} color="#fff" />
           </TouchableOpacity>
         </View>
+        {/* <View style={styles.topRightBeerContainer}>
+          <View style={{ flexDirection: "row" }}>
+            <Image source={require("../assets/images/beer_glass.png")} />
+            <Image source={require("../assets/images/beer_glass.png")} />
+            <Image source={require("../assets/images/beer_glass.png")} />
+            <Image source={require("../assets/images/beer_glass.png")} />
+          </View>
+        </View> */}
+
         {randomCategory !== " " && (
           <Text
             style={{
@@ -533,6 +543,9 @@ export default function GameOneScreen({
               textAlign: "center",
               // marginBottom: 20,
               padding: 20,
+              textShadowColor: "#000",
+              textShadowOffset: { width: 4, height: 4 },
+              textShadowRadius: 0.1,
             }}
           >
             {randomCategory}
@@ -541,8 +554,8 @@ export default function GameOneScreen({
 
         <Animated.Text
           style={{
-            fontFamily: "Prisma",
-            fontSize: 24,
+            fontFamily: "Mosh",
+            fontSize: 35,
             color: "#fff",
             textAlign: "center",
             marginBottom: 10,
@@ -550,6 +563,9 @@ export default function GameOneScreen({
             marginRight: 30,
             // fontWeight: "bold",
             // fontStyle: "italic",
+            textShadowColor: "#000",
+            textShadowOffset: { width: 1, height: 1 },
+            textShadowRadius: 10,
             transform: [
               {
                 translateX: shakeAnim.interpolate({
@@ -701,6 +717,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 20, // or a fixed value like 20
     top: 50,
+  },
+  topRightBeerContainer: {
+    position: "absolute",
+    top: 150,
+    right: 30,
+    left: 120,
   },
   image: {
     // flex: 1,
