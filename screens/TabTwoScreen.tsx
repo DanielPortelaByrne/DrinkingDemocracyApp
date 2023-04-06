@@ -13,6 +13,13 @@ import { virus } from "../virus";
 import { virusend } from "../virusend";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
+// import {
+//   BannerAd,
+//   BannerAdSize,
+//   TestIds,
+// } from "react-native-google-mobile-ads";
+// import { useFocusEffect } from "react-navigation";
+// import "react-native-gesture-handler";
 
 // Store the prompts in async storage
 const storePrompts = async () => {
@@ -202,7 +209,7 @@ const retrieveFlirty = async () => {
 const retrieveVirus = async () => {
   // Get the prompts from async storage
   const virusString = await AsyncStorage.getItem("virus");
-  // Parse the string into an array of prompts
+  // Parse the string into an array of promptsp
   const virus = virusString ? JSON.parse(virusString) : [];
   // Return the array of prompts
   return virus;
@@ -247,7 +254,7 @@ export default function TabTwoScreen({
     <View style={styles.container}>
       <View style={{ position: "absolute", top: 70, left: 30 }}>
         <TouchableOpacity onPress={() => navigation.navigate("TabOne")}>
-          <Ionicons name="home" size={32} color="#ed1e26" />
+          <Ionicons name="home-outline" size={32} color="#ed1e26" />
         </TouchableOpacity>
       </View>
       <View
@@ -267,6 +274,17 @@ export default function TabTwoScreen({
           GAMES
         </Text>
       </View>
+
+      <Image
+        source={require("../assets/images/chain.png")}
+        style={{
+          width: "100%",
+          height: "40%",
+          position: "absolute",
+          top: "25%",
+          zIndex: -1,
+        }}
+      />
 
       <Image
         source={require("../assets/images/halo_red.png")}
@@ -345,6 +363,7 @@ export default function TabTwoScreen({
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          backgroundColor: "rgba(52, 52, 52, 0)",
           // marginTop: 100,
           // marginBottom: 200,
         }}
@@ -357,6 +376,7 @@ export default function TabTwoScreen({
             marginTop: -100,
             marginBottom: 10,
             padding: 10,
+            backgroundColor: "rgba(52, 52, 52, 0)",
           }}
         >
           {/* <BannerAd
@@ -375,6 +395,7 @@ export default function TabTwoScreen({
             justifyContent: "center",
             // marginTop: 260,
             marginBottom: 10,
+            backgroundColor: "rgba(52, 52, 52, 0)",
           }}
         >
           <Image
@@ -413,11 +434,12 @@ export default function TabTwoScreen({
             justifyContent: "center",
             // marginTop: 260,
             marginBottom: 10,
+            backgroundColor: "rgba(52, 52, 52, 0)",
           }}
         >
           <Image
             style={{ width: "20%", height: "100%", marginRight: 10 }}
-            source={require("../assets/images/crazy.png")}
+            source={require("../assets/images/messy.png")}
           />
           <TouchableOpacity
             onPress={() => {
@@ -426,7 +448,7 @@ export default function TabTwoScreen({
               });
             }}
             style={{
-              backgroundColor: "#ed1e26",
+              backgroundColor: "#ed6c1e",
               width: "55%",
               height: "100%",
             }}
@@ -440,7 +462,7 @@ export default function TabTwoScreen({
                 lineHeight: 80,
               }}
             >
-              Let's get crazy
+              Let's get messy
             </Text>
           </TouchableOpacity>
         </View>
@@ -450,6 +472,7 @@ export default function TabTwoScreen({
             alignItems: "center",
             justifyContent: "center",
             marginBottom: 10,
+            backgroundColor: "rgba(52, 52, 52, 0)",
             // marginTop: 260,
             // marginBottom: 350,
           }}
@@ -465,7 +488,7 @@ export default function TabTwoScreen({
               });
             }}
             style={{
-              backgroundColor: "#d70057",
+              backgroundColor: "#ed1e26",
               width: "55%",
               height: "100%",
             }}
@@ -498,18 +521,23 @@ export default function TabTwoScreen({
               navigation.navigate("PromptSubmit");
             }}
             style={{
-              backgroundColor: "rgba(52, 52, 52, 0)",
+              backgroundColor: "#1c1c1c",
+              // backgroundColor: "rgba(52, 52, 52, 0)",
               width: "77%",
               height: "100%",
-              borderWidth: 5,
+              borderWidth: 2,
               borderColor: "white",
             }}
           >
+            {/* <LinearGradient
+              colors={["#000000", "#f3ce06", "#ed1e26"]}
+              start={[0.5, 0.01]}
+            > */}
             <Text
               style={{
                 fontFamily: "Konstruktor",
-                color: "#ffffff",
-                fontSize: 18,
+                color: "white",
+                fontSize: 28,
                 textAlign: "center",
                 lineHeight: 80,
                 // padding: 25,
@@ -517,6 +545,7 @@ export default function TabTwoScreen({
             >
               SUBMIT A PROMPT
             </Text>
+            {/* </LinearGradient> */}
           </TouchableOpacity>
         </View>
       </View>
