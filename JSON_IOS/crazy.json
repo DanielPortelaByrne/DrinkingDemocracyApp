@@ -1,398 +1,251 @@
 [
   {
-    "text": "On the count of 3, everyone point at the player who flirts the most. The most pointed at player takes 2 sips",
+    "text": "Do a jumping jack if you have ever bungee jumped",
+    "category": "RULE"
+  },
+  {
+    "text": "[Name] do 3 jumping jacks if you have ever been in a car accident ",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 4 pushups if you have a phobia",
+    "category": "RULE"
+  },
+  {
+    "text": "Would you rather eat a live cockroach or be bald? Everyone vote at the same time, losing group does 2 jumping jacks",
     "category": "VOTE"
   },
   {
-    "text": "On the count of 3, everyone point at the player most likely to get arrested. The most pointed at player takes 2 sips",
+    "text": "Around the room, name your ex relationships/hookups one at a time. The first person to run out of names, do 3 jumping jacks. [Name] you start",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "Maximum penalty! Everyone do 3 jumping jacks if you are of Irish descent",
+    "category": "RULE"
+  },
+  {
+    "text": "Maximum penalty! Everyone do 3 jumping jacks if you have watched all seasons of Game of Thrones",
+    "category": "RULE"
+  },
+  {
+    "text": "[Name] do 2 jumping jacks if you are Irish",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 2 jumping jacks if you are mixed background",
+    "category": "RULE"
+  },
+  {
+    "text": "[Name] do 2 jumping jacks if you are in your early 20s ",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 2 jumping jacks if you love formula one",
+    "category": "RULE"
+  },
+  {
+    "text": "[Name] do 2 jumping jacks if you spend money excessively ",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 3 jumping jacks if you have a job in finance",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 3 jumping jacks if you have a job in tech",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 3 jumping jacks if you have a job in healthcare",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 3 jumping jacks if you have a job in education",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 3 jumping jacks if you have a job in the legal field",
+    "category": "RULE"
+  },
+  {
+    "text": "Famous Landmarks, the first to repeat themselves or can't think of any more must do 4 squats. [Name] you start",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "Types of Fruit, the first to repeat themselves or can't think of any more must do 3 squats. [Name] you start",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "Maximum penalty! People who can speak more than 3 languages, do 10 lunges!",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "Maximum penalty! People who celebrate St. Patrick's Day, do 10 lunges!",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "Maximum penalty! People who have watched all seasons of The Office, do 10 lunges!",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "Maximum penalty! People who have a birthday in March, do 10 lunges!",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "Bands from the 90s, the first to repeat themselves or can't think of any more must do 5 pushups. [Name] you start",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "Sports Teams, the first to repeat themselves or can't think of any more must do 2 pushups. [Name] you start",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "Do 3 jumping jacks if you have a job in the retail industry",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 3 jumping jacks if you have a job in the hospitality industry ",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 3 jumping jacks if you have a job in the creative industry",
+    "category": "RULE"
+  },
+
+  {
+    "text": "What rhymes with “itch”, first person to repeat themselves or can't think of anything does 5 squats. [Name] you start",
+    "category": "CHALLENGE"
+  },
+  {
+    "text": "To spice things up, fireman or soldier? Vote at the same time, losing group does 4 jumping jacks",
     "category": "VOTE"
   },
   {
-    "text": "Everyone vote for the most sober player, it's time for them to down their drink!",
-    "category": "GET IT DOWN YA"
-  },
-  {
-    "text": "[Name] give out 3 sips if you have ever been in a car accident, otherwise take them",
+    "text": "[Name] do a pushup if you have ever gone skydiving",
     "category": "RULE"
   },
   {
-    "text": "[Name], what's your most embarrassing memory? Tell us all or take 3 sips",
+    "text": "[Name] do 2 pushups if you have ever broken a bone",
     "category": "RULE"
   },
   {
-    "text": "Take 2 sips if you have ever gone skydiving",
+    "text": "Maximum penalty! Everyone do 3 jumping jacks if you have an S in your first name",
     "category": "RULE"
   },
   {
-    "text": "[Name] has to close their eyes while the other players hide their drink. If they can't find it in the next 30 second, they have to down it all",
+    "text": "Maximum penalty! Everyone do 3 jumping jacks if you prefer tea over coffee",
+    "category": "RULE"
+  },
+  {
+    "text": "Maximum penalty! Everyone do 3 jumping jacks if you have been to a music festival",
+    "category": "RULE"
+  },
+  {
+    "text": "Maximum penalty! Everyone do 3 jumping jacks if you prefer cats over dogs",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 5 burpees if you have a fear of public speaking",
+    "category": "RULE"
+  },
+  {
+    "text": "Do a jumping jack if you have ever played a sport at a professional level",
+    "category": "RULE"
+  },
+  {
+    "text": "Maximum penalty! Everyone do 3 jumping jacks if you have a birthday this week",
+    "category": "RULE"
+  },
+  {
+    "text": "Maximum penalty! Everyone do 3 jumping jacks if you are of Irish descent",
+    "category": "RULE"
+  },
+  {
+    "text": "Maximum penalty! Everyone do 3 jumping jacks if you have watched all seasons of Game of Thrones",
+    "category": "RULE"
+  },
+  {
+    "text": "[Name] do 2 jumping jacks if you are Irish",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 2 jumping jacks if you are mixed background",
+    "category": "RULE"
+  },
+  {
+    "text": "[Name] do 2 jumping jacks if you are in your early 20s ",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 2 jumping jacks if you love formula one",
+    "category": "RULE"
+  },
+  {
+    "text": "[Name] do 2 jumping jacks if you spend money excessively ",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 3 jumping jacks if you have a job in finance",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 3 jumping jacks if you have a job in tech",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 3 jumping jacks if you have a job in healthcare",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 3 jumping jacks if you have a job in education",
+    "category": "RULE"
+  },
+  {
+    "text": "Do 3 jumping jacks if you have a job in the legal field",
+    "category": "RULE"
+  },
+  {
+    "text": "Famous Landmarks, the first to repeat themselves or can't think of any more must do 4 squats. [Name] you start",
     "category": "CHALLENGE"
   },
   {
-    "text": "Around the room, name your ex relationships/hookups one at a time. The first person to run out of names drinks 3 times. [Name] you start",
+    "text": "Types of Fruit, the first to repeat themselves or can't think of any more must do 3 squats. [Name] you start",
     "category": "CHALLENGE"
   },
   {
-    "text": "Swear words, first person to repeat themselves or can't think of anything drinks 3 times. [Name] you start",
+    "text": "Maximum penalty! People who can speak more than 3 languages, do 10 lunges!",
     "category": "CHALLENGE"
   },
   {
-    "text": "Drug types, first person to repeat themselves or can't think of anything drinks 3 times. [Name] you start",
+    "text": "Maximum penalty! People who celebrate St. Patrick's Day, do 10 lunges!",
     "category": "CHALLENGE"
   },
   {
-    "text": "Sex positions, first person to repeat themselves or can't think of anything drinks 3 times. [Name] you start",
+    "text": "Maximum penalty! People who have watched all seasons of The Office, do 10 lunges!",
     "category": "CHALLENGE"
   },
   {
-    "text": "Places you could hide a body, first person to repeat themselves or can't think of anything drinks 3 times. [Name] you start",
+    "text": "Maximum penalty! People who have a birthday in March, do 10 lunges!",
     "category": "CHALLENGE"
   },
   {
-    "text": "Countries with attractive people, first person to repeat themselves or can't think of anything drinks 3 times. [Name] you start",
+    "text": "Bands from the 90s, the first to repeat themselves or can't think of any more must do 5 pushups. [Name] you start",
     "category": "CHALLENGE"
   },
   {
-    "text": "Who's most likely to f*ck their own sibling? Vote at the same time, the most pointed at player takes 5 sips",
-    "category": "VOTE"
-  },
-  {
-    "text": "Who's most likely to murder someone for money? Vote at the same time, the most pointed at player takes 5 sips",
-    "category": "VOTE"
-  },
-  {
-    "text": "Who watches the most porn? Vote at the same time, the most pointed at player takes a sip for each time this week",
-    "category": "VOTE"
-  },
-  {
-    "text": "Who's the player with the worst attitude? Vote at the same time, the most pointed at player takes 3 sips",
-    "category": "VOTE"
-  },
-  {
-    "text": "To spice things up, who's the hottest player? Vote at the same time, the most pointed at player takes 3 sips",
-    "category": "VOTE"
-  },
-  {
-    "text": "[Name] give out 2 sips if you have recently pissed yourself, otherwise take them",
-    "category": "RULE"
-  },
-  {
-    "text": "[Name], give out 3 sips to a player dumber than you… If it's impossible, drink them",
-    "category": "RULE"
-  },
-  {
-    "text": "Drink 2 times if you've ever f*cked in a friend's bed without them finding out",
-    "category": "RULE"
-  },
-  {
-    "text": "The player who has the craziest ex drinks 3 times",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you have ever vomited after drinking.",
-    "category": "RULE"
-  },
-  {
-    "text": "G'wan criminals! If you have ever committed a crime, down your drink!",
-    "category": "GET IT DOWN YA"
-  },
-  {
-    "text": "Take 3 sips if you have ever been arrested.",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 4 sips if you have ever gone to prison.",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you have ever tried an illegal substance.",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 4 sips if you have a dealer's number.",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 3 sips if you're a stoner.",
-    "category": "RULE"
-  },
-  {
-    "text": "[Name], do a contemporary dance to whatever song is playing. If the other players think you've got no talent, take 3 sips.",
+    "text": "Sports Teams, the first to repeat themselves or can't think of any more must do 2 pushups. [Name] you start",
     "category": "CHALLENGE"
   },
   {
-    "text": "If you've ever blacked out, your next sips go to the person to your left. Take it easy tonight, yeah?",
+    "text": "Do 3 jumping jacks if you have a job in the retail industry",
     "category": "RULE"
   },
   {
-    "text": "[Name], state your most controversial opinion. Everyone who agrees must drink.",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "[Name], name something everyone else loves, but you hate. Everyone who disagrees must drink.",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "[Name], play the beginning of the last song you listened to on your phone. If the majority of the players don't like it, drink 3 times",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "[Name], pick a player to kiss. 4 sips in case of refusal 🍑",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "[Name], if you're single, give 2 sips to the player you think is hottest",
+    "text": "Do 3 jumping jacks if you have a job in the hospitality industry ",
     "category": "RULE"
   },
   {
-    "text": "Drink 2 times if you've ever kissed someone you found disgusting.",
+    "text": "Do 3 jumping jacks if you have a job in the creative industry",
     "category": "RULE"
-  },
-  {
-    "text": "Go around the room, doing your best twerk. Those who can't drink 2 times, [Name] you start.",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "PHONES DOWN! The first person to pick theirs up must down their drink",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "Bottoms up! People who have a birthday this week, let's down it all!",
-    "category": "GET IT DOWN YA"
-  },
-  {
-    "text": "Ladies, be honest, take 2 sips if you've ever had good sex.",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 4 sips if you've ever streaked.",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 3 sips if you've ever flashed someone.",
-    "category": "RULE"
-  },
-  {
-    "text": "Which player is the best in bed? Vote at the same time, the most pointed at player takes 3 sips",
-    "category": "VOTE"
-  },
-  {
-    "text": "Which player is most likely to be forever alone? Vote at the same time, the most pointed at player takes 3 sips",
-    "category": "VOTE"
-  },
-  {
-    "text": "Would you rather have a long skinny penis or a short thick one? Minority takes 3 sips",
-    "category": "VOTE"
-  },
-  {
-    "text": "Which player is most likely to get an STI? Vote at the same time, the most pointed at player takes 3 sips",
-    "category": "VOTE"
-  },
-  {
-    "text": "Which player is most likely to take someone home tonight? Vote at the same time, the most pointed at player takes 3 sips",
-    "category": "VOTE"
-  },
-  {
-    "text": "Would you rather find out your partner is a serial killer or a relative? Minority takes 3 sips",
-    "category": "VOTE"
-  },
-  {
-    "text": "Drink 3 times if you've ever thrown up on yourself.",
-    "category": "RULE"
-  },
-  {
-    "text": "Drink 2 times if you've gone out without underwear. An extra 2 if you're not wearing any now.",
-    "category": "RULE"
-  },
-  {
-    "text": "[Name], say a quality that makes you unique, or take 2 sips.",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "[Name], who's your weirdest celebrity crush? Name them or take 3 sips",
-    "category": "RULE"
-  },
-  {
-    "text": "[Name], point at the players who you think are the best and worst in bed, but don't say which is which. If a player really wants to know, they must down their drink first!",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "[Name], what's the worst thing you've done in a public place? Tell us or take 3 sips",
-    "category": "RULE"
-  },
-  {
-    "text": "[Name], what's your deepest fear? Tell us or take 3 sips",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever peed in a pool",
-    "category": "RULE"
-  },
-  {
-    "text": "[Name], what do you think is your friends' biggest misconception about you? Anyone in the group who held this belief must drink",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever met up IRL with someone you met online.",
-    "category": "RULE"
-  },
-  {
-    "text": "[Name], what's the worst thing you've done while drunk? Tell us or take 3 sips",
-    "category": "RULE"
-  },
-  {
-    "text": "[Name], what's the thing you dislike most about your partner? Tell us or take 3 sips",
-    "category": "RULE"
-  },
-  {
-    "text": "[Name] can draw whatever they like on [Name2]'s arm. If [Name2] wipes it off they have to down their drink",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "[Name], pick a player to tell an embarrassing story about. The player they choose can either let the story be told or take 5 sips.",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "[Name], which of your friend's partners do you think is the fittest? Tell us or take 3 sips",
-    "category": "RULE"
-  },
-  {
-    "text": "Let's play strip poker! On three, all players shout a number between 1-10. If any two say the same number, they must remove one item of clothing.",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "[Name], at any point during the game you can raise your hand. The last person to copy you must take 3 sips.",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "If you could have a clone version of you made, would you get one? Minority takes 3 sips.",
-    "category": "VOTE"
-  },
-  {
-    "text": "Take 2 sips if someone has ever confessed a crime to you.",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you are wearing something worth more than €200.",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you have ever destroyed or lost something which couldn't be replaced.",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 3 sips if you've ever catfished someone.",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 3 sips if you've ever stolen from a friend.",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 5 sips if you've ever bullied someone.",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever had to remove something from the toilet with your hand.",
-    "category": "RULE"
-  },
-  {
-    "text": "Bottoms up! If you can drive but are not the designated driver, it's time to down your drink!",
-    "category": "GET IT DOWN YA"
-  },
-  {
-    "text": "Bottoms up! If you are single tonight, it's time to down your drink!",
-    "category": "GET IT DOWN YA"
-  },
-  {
-    "text": "Take 2 sips if you've ever had diarrhoea while in someone else's house.",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever done drag. Yes mawmaw!",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 3 sips if you've ever forged someone's signature",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 4 sips if you've ever fired a gun",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever laughed while drinking and had the drink come out of your nose.",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever gone cliff diving",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever gone bungee jumping",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever ridden a motorbike",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever ridden a dirt bike",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever bought an 18+ item for someone underage.",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever tried a hallucinogen",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever had an addiction",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've lied during this game",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever had a near-death experience",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever cried on your birthday",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you were alone last New Year's",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever set fire to something accidentally",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you have a stick and poke tattoo",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever gotten obsessed with a person you were seeing way too quickly",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever bled through",
-    "category": "RULE"
-  },
-  {
-    "text": "Take 2 sips if you've ever had to hide an erection",
-    "category": "RULE"
-  },
-  {
-    "text": "[Name], clap out the beats to a well known song. If any of the other players guess it, take 2 sips.",
-    "category": "CHALLENGE"
-  },
-  {
-    "text": "[Name], sing Twinkle Twinkle Little Star as well as you can. If the other players think you've got no talent, take 3 sips.",
-    "category": "CHALLENGE"
   }
 ]
