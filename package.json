@@ -36,7 +36,7 @@
     "lodash": "^4.17.21",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "react-native": "0.70.5",
+    "react-native": "0.70.8",
     "react-native-elements": "^3.4.3",
     "react-native-email": "^2.1.0",
     "react-native-fs": "^2.20.0",
@@ -51,7 +51,8 @@
     "react-navigation": "^4.4.4",
     "rn-nodeify": "^10.3.0",
     "styled-components": "^5.3.6",
-    "expo-linear-gradient": "~12.0.1"
+    "expo-linear-gradient": "~12.0.1",
+    "@expo/webpack-config": "^0.17.2"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

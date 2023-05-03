@@ -23,6 +23,10 @@ export default function TabOneScreen({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
   });
 
+  const [imageSource, setImageSource] = useState(
+    require("../assets/images/transparent_logo_glow_new_2.png")
+  );
+
   const scrollViewRef = useRef<ScrollView>(null);
 
   if (!fontsLoaded) {
@@ -67,7 +71,7 @@ export default function TabOneScreen({
     return (
       <View
         style={{
-          justifyContent: "center",
+          // justifyContent: "center",
           backgroundColor: "rgba(52, 52, 52, 0)",
         }}
       >
@@ -95,6 +99,9 @@ export default function TabOneScreen({
             marginTop: 5,
             flexDirection: "row",
             backgroundColor: "rgba(52, 52, 52, 0)",
+            // alignItems: "center",
+            // justifyContent: "center",
+            // alignContent: "center",
           }}
         >
           {names.length > 1 && (
@@ -105,7 +112,7 @@ export default function TabOneScreen({
               <Text
                 style={{
                   fontWeight: "bold",
-                  fontSize: 18,
+                  fontSize: 20,
                   textAlign: "center",
                   // lineHeight: 25,
                 }}
@@ -146,56 +153,95 @@ export default function TabOneScreen({
         source={require("../assets/images/halo.png")}
         style={{
           width: "100%",
-          height: "40%",
+          height: "35%",
           position: "absolute",
-          top: "25%",
+          top: "26%",
           zIndex: -1,
         }}
       />
-
-      <ScrollView
-        ref={scrollViewRef}
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{
-          flexGrow: 1,
+      <View
+        style={{
+          top: -60,
+          flex: 0.25,
+          alignItems: "center",
           justifyContent: "center",
-          paddingRight: "15%",
-          paddingLeft: "15%",
+          backgroundColor: "rgba(52, 52, 52, 0)",
         }}
       >
-        <View
-          style={{
+        <ScrollView
+          ref={scrollViewRef}
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{
+            flexGrow: 0.35,
             justifyContent: "center",
-            backgroundColor: "rgba(52, 52, 52, 0)",
+            paddingRight: "15%",
+            paddingLeft: "15%",
+          }}
+        >
+          <View
+            style={{
+              justifyContent: "center",
+              backgroundColor: "rgba(52, 52, 52, 0)",
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: "Konstruktor",
+                fontSize: 18,
+                textAlign: "center",
+                marginTop: 25,
+                marginBottom: 10,
+                backgroundColor: "rgba(52, 52, 52, 0)",
+              }}
+            >
+              WHO'S SESHING?
+            </Text>
+
+            <NameInput navigation={navigation} />
+          </View>
+        </ScrollView>
+      </View>
+
+      {/* <KeyboardAvoidingView behavior="position"> */}
+      {/* <TouchableOpacity
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            height: "6%",
+            bottom: -45,
+            borderColor: "#ffff",
+            borderWidth: 2,
+            borderRadius: 25,
+            width: "45%",
+          }}
+          onPress={() => {
+            if (getNames().length > 1 && getNames()[0].length > 0) {
+              navigation.navigate("TabTwo");
+            } else {
+              ToastAndroid.show("Enter at least 2 names!", ToastAndroid.SHORT);
+            }
           }}
         >
           <Text
             style={{
               fontFamily: "Konstruktor",
-              fontSize: 18,
+              color: "#ffff",
               textAlign: "center",
-              marginTop: 25,
-              marginBottom: 10,
-              backgroundColor: "rgba(52, 52, 52, 0)",
+              // lineHeight: 50,
+              fontSize: 18,
+              padding: 10,
             }}
           >
-            WHO'S SESHING?
+            LET'S GET DRUNK
           </Text>
-
-          <NameInput navigation={navigation} />
-        </View>
-      </ScrollView>
-      {/* <KeyboardAvoidingView behavior="position"> */}
+        </TouchableOpacity> */}
       <TouchableOpacity
         style={{
-          alignItems: "center",
-          justifyContent: "center",
-          height: "6%",
-          bottom: -45,
-          borderColor: "#ffff",
-          borderWidth: 2,
-          borderRadius: 25,
-          width: "45%",
+          position: "absolute",
+          height: "100%",
+          width: "100%",
+          backgroundColor: "rgba(52, 52, 52, 0)",
+          zIndex: -1,
         }}
         onPress={() => {
           if (getNames().length > 1 && getNames()[0].length > 0) {
@@ -204,25 +250,19 @@ export default function TabOneScreen({
             ToastAndroid.show("Enter at least 2 names!", ToastAndroid.SHORT);
           }
         }}
+        onPressIn={() => {
+          setImageSource(
+            require("../assets/images/transparent_logo_glow_new_5.png")
+          );
+        }}
+        onPressOut={() => {
+          setImageSource(
+            require("../assets/images/transparent_logo_glow_new_2.png")
+          );
+        }}
       >
-        <Text
-          style={{
-            fontFamily: "Konstruktor",
-            color: "#ffff",
-            textAlign: "center",
-            // lineHeight: 50,
-            fontSize: 18,
-            padding: 10,
-          }}
-        >
-          LET'S GET DRUNK
-        </Text>
+        <Image source={imageSource} style={styles.bottomImage} />
       </TouchableOpacity>
-      {/* </KeyboardAvoidingView> */}
-      <Image
-        source={require("../assets/images/transparent_logo_glow.png")}
-        style={styles.bottomImage}
-      />
     </View>
   );
 }
@@ -232,10 +272,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    alignContent: "center",
   },
   image: {
+    position: "absolute",
     width: "100%",
     height: "25%",
+    top: "1%",
   },
   button: {
     backgroundColor: "#ed1e26",
@@ -249,11 +292,14 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   bottomImage: {
-    bottom: -60,
-    left: 0,
-    right: 0,
-    width: "100%",
-    height: "33%",
+    position: "absolute",
+    bottom: -80,
+    right: -20,
+    // alignItems: "center",
+    // justifyContent: "center",
+    // alignContent: "center",
+    width: "105%",
+    height: "55%",
     zIndex: -1,
   },
 });
