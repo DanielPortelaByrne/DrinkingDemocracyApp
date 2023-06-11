@@ -106,6 +106,12 @@ export default function GameOneScreen({
       handle: string;
     }[]
   >([]);
+  const [playedPrompts, setPlayedPrompts] = useState<
+    {
+      text: string;
+      category: string;
+    }[]
+  >([]);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [isPlayerOverlayVisible, setIsPlayerOverlayVisible] = useState(false);
   const [isEditVisible, setIsEditVisible] = useState(false);
@@ -243,7 +249,7 @@ export default function GameOneScreen({
         for (let i = index + 1; i < selectedPrompts.length; i++) {
           if (selectedPrompts[i].id === currentVirusID + "b") {
             // Update the "[Name]" with the corresponding virus name
-            console.log("Virus end before replace:" + selectedPrompts[i].text);
+            // console.log("Virus end before replace:" + selectedPrompts[i].text);
             selectedPrompts[i].text = selectedPrompts[i].text.replace(
               "[Name]",
               name
@@ -252,15 +258,15 @@ export default function GameOneScreen({
               "[Name2]",
               name2
             );
-            console.log(
-              "Replacing virus " +
-                currentVirusID +
-                "b's names to name1: " +
-                name +
-                " and name2: " +
-                name2
-            );
-            console.log("Virus end after replace:" + selectedPrompts[i].text);
+            // console.log(
+            //   "Replacing virus " +
+            //     currentVirusID +
+            //     "b's names to name1: " +
+            //     name +
+            //     " and name2: " +
+            //     name2
+            // );
+            // console.log("Virus end after replace:" + selectedPrompts[i].text);
             break;
           }
         }
@@ -296,14 +302,14 @@ export default function GameOneScreen({
       }
 
       if (prompt.category === "VIRUS") {
-        console.log(
-          prompt.text + "[" + (arrayIndex.current.valueOf() + 1) + "]"
-        );
+        // console.log(
+        //   prompt.text + "[" + (arrayIndex.current.valueOf() + 1) + "]"
+        // );
       }
       if (prompt.category === "VIRUS END") {
-        console.log(
-          prompt.text + "[" + (arrayIndex.current.valueOf() + 1) + "]"
-        );
+        // console.log(
+        //   prompt.text + "[" + (arrayIndex.current.valueOf() + 1) + "]"
+        // );
       }
 
       // Update the random prompt text
@@ -320,7 +326,7 @@ export default function GameOneScreen({
         // console.log("handle found");
         handle = prompt.handle;
         setPromptHandle(handle);
-        console.log(promptHandle);
+        // console.log(promptHandle);
       }
 
       // Add the current name, prompt, and color to the previousPrompts array as an object
@@ -334,8 +340,20 @@ export default function GameOneScreen({
           handle: handle,
         },
       ]);
+      setPlayedPrompts([
+        ...playedPrompts,
+        {
+          text: prompt.text,
+          category: category, // add the category field
+        },
+      ]);
       arrayIndex.current = previousPrompts.length;
       index++;
+      //add updated previousPrompts list of played prompts in Async
+      await AsyncStorage.setItem(
+        "playedPrompts",
+        JSON.stringify(playedPrompts)
+      );
     } else {
       // If there are no prompts left to display, navigate back to the TabTwoScreen
       navigation.navigate("GameOver");

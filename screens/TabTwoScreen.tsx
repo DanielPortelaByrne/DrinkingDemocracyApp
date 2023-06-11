@@ -99,6 +99,7 @@ import {
 // };
 
 const selectRandomPrompts = async () => {
+  const played = await retrievePlayed();
   const prompts = await retrievePrompts();
   const crazy = await retrieveCrazy();
   const flirty = await retrieveFlirty();
@@ -135,15 +136,17 @@ const selectRandomPrompts = async () => {
   // const selectedVirusPrompts = shuffledVirus.slice(0, 4);
   // const selectedVirusEndPrompts = shuffledVirusEnd.slice(0, 4);
 
-  // Retrieve the array of already played prompts
-  const playedPrompts = await AsyncStorage.getItem("playedPrompts");
-  const played = playedPrompts ? JSON.parse(playedPrompts) : [];
-  console.log("Played Prompts: " + played);
+  console.log("Retrieved played prompts: ");
+  for (let i = 0; i < played.length; i++) {
+    console.log("[" + (i + 1) + "] " + played[i].text);
+  }
 
   // Filter out already played prompts
+  console.log("Prinks count before: " + prompts.length);
   const filteredPrompts = prompts.filter(
     (prompt: any) => !played.includes(prompt)
   );
+  console.log("Prinks count after: " + filteredPrompts.length);
   const filteredCrazy = crazy.filter((prompt: any) => !played.includes(prompt));
   const filteredFlirty = flirty.filter(
     (prompt: any) => !played.includes(prompt)
@@ -260,6 +263,15 @@ const retrieveVirusEnd = async () => {
   const virusend = virusEndString ? JSON.parse(virusEndString) : [];
   // Return the array of prompts
   return virusend;
+};
+
+const retrievePlayed = async () => {
+  // Retrieve the array of already played prompts
+  const playedPrompts = await AsyncStorage.getItem("playedPrompts");
+  // Parse the string into an array of prompts
+  const played = playedPrompts ? JSON.parse(playedPrompts) : [];
+  // Return the array of prompts
+  return played;
 };
 
 export default function TabTwoScreen({
