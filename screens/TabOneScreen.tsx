@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   KeyboardAvoidingView,
   ScrollView,
@@ -8,6 +8,12 @@ import {
   TouchableOpacity,
   ToastAndroid,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { prompts } from "../prompts";
+import { crazy } from "../crazy";
+import { flirty } from "../flirty";
+import { virus } from "../virus";
+import { virusend } from "../virusend";
 
 // import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from "../components/Themed";
@@ -16,12 +22,94 @@ import { updateNames, getNames } from "../components/nameStore";
 import { useFonts } from "expo-font";
 import { useFocusEffect } from "@react-navigation/native";
 
+// Store the prompts in async storage
+const storePrompts = async () => {
+  try {
+    // Convert the prompts array to a JSON string
+    // Save the prompts strings in async storage
+    try {
+      const response = await fetch(
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/prompts.json"
+      );
+      const data = await response.json();
+      const promptsString = JSON.stringify(data);
+      await AsyncStorage.setItem("prompts", promptsString);
+      console.log("Successfully fetched and stored data: " + promptsString);
+    } catch (error) {
+      console.error(error);
+      console.log("prinks");
+      const promptsString = JSON.stringify(prompts);
+      await AsyncStorage.setItem("prompts", promptsString);
+    }
+    try {
+      const response = await fetch(
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/crazy.json"
+      );
+      const data = await response.json();
+      const crazyString = JSON.stringify(data);
+      await AsyncStorage.setItem("crazy", crazyString);
+      console.log("Successfully fetched and stored data: " + crazyString);
+    } catch (error) {
+      console.error(error);
+      const crazyString = JSON.stringify(crazy);
+      await AsyncStorage.setItem("crazy", crazyString);
+    }
+    try {
+      const response = await fetch(
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/flirty.json"
+      );
+      const data = await response.json();
+      const flirtyString = JSON.stringify(data);
+      await AsyncStorage.setItem("flirty", flirtyString);
+      console.log("Successfully fetched and stored data: " + flirtyString);
+    } catch (error) {
+      console.error(error);
+      const flirtyString = JSON.stringify(flirty);
+      await AsyncStorage.setItem("flirty", flirtyString);
+    }
+    try {
+      const response = await fetch(
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/virus.json"
+      );
+      const data = await response.json();
+      const virusString = JSON.stringify(data);
+      await AsyncStorage.setItem("virus", virusString);
+      console.log("Successfully fetched and stored data: " + virusString);
+    } catch (error) {
+      console.error(error);
+      const virusString = JSON.stringify(virus);
+      await AsyncStorage.setItem("virus", virusString);
+    }
+    try {
+      const response = await fetch(
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/virusend.json"
+      );
+      const data = await response.json();
+      const virusEndString = JSON.stringify(data);
+      await AsyncStorage.setItem("virusend", virusEndString);
+      console.log("Successfully fetched and stored data: " + virusEndString);
+    } catch (error) {
+      console.error(error);
+      const virusEndString = JSON.stringify(virusend);
+      await AsyncStorage.setItem("virusend", virusEndString);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export default function TabOneScreen({
   navigation,
 }: RootTabScreenProps<"TabOne">) {
   const [fontsLoaded] = useFonts({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
   });
+
+  // Store the prompts in async storage when the component is mounted
+  useEffect(() => {
+    storePrompts();
+    // setNames(getNames());
+  }, []);
 
   const [imageSource, setImageSource] = useState(
     require("../assets/images/transparent_logo_glow_new_2.png")

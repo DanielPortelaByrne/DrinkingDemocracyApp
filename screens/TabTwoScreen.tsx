@@ -22,81 +22,81 @@ import {
 // import { useFocusEffect } from "react-navigation";
 // import "react-native-gesture-handler";
 
-// Store the prompts in async storage
-const storePrompts = async () => {
-  try {
-    // Convert the prompts array to a JSON string
-    // Save the prompts strings in async storage
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/prompts.json"
-      );
-      const data = await response.json();
-      const promptsString = JSON.stringify(data);
-      await AsyncStorage.setItem("prompts", promptsString);
-      // console.log("Successfully fetched and stored data: " + promptsString);
-    } catch (error) {
-      console.error(error);
-      console.log("prinks");
-      const promptsString = JSON.stringify(prompts);
-      await AsyncStorage.setItem("prompts", promptsString);
-    }
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/crazy.json"
-      );
-      const data = await response.json();
-      const crazyString = JSON.stringify(data);
-      await AsyncStorage.setItem("crazy", crazyString);
-      // console.log("Successfully fetched and stored data: " + crazyString);
-    } catch (error) {
-      console.error(error);
-      const crazyString = JSON.stringify(crazy);
-      await AsyncStorage.setItem("crazy", crazyString);
-    }
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/flirty.json"
-      );
-      const data = await response.json();
-      const flirtyString = JSON.stringify(data);
-      await AsyncStorage.setItem("flirty", flirtyString);
-      // console.log("Successfully fetched and stored data: " + flirtyString);
-    } catch (error) {
-      console.error(error);
-      const flirtyString = JSON.stringify(flirty);
-      await AsyncStorage.setItem("flirty", flirtyString);
-    }
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/virus.json"
-      );
-      const data = await response.json();
-      const virusString = JSON.stringify(data);
-      await AsyncStorage.setItem("virus", virusString);
-      // console.log("Successfully fetched and stored data: " + virusString);
-    } catch (error) {
-      console.error(error);
-      const virusString = JSON.stringify(virus);
-      await AsyncStorage.setItem("virus", virusString);
-    }
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/virusend.json"
-      );
-      const data = await response.json();
-      const virusEndString = JSON.stringify(data);
-      await AsyncStorage.setItem("virusend", virusEndString);
-      // console.log("Successfully fetched and stored data: " + virusEndString);
-    } catch (error) {
-      console.error(error);
-      const virusEndString = JSON.stringify(virusend);
-      await AsyncStorage.setItem("virusend", virusEndString);
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
+// // Store the prompts in async storage
+// const storePrompts = async () => {
+//   try {
+//     // Convert the prompts array to a JSON string
+//     // Save the prompts strings in async storage
+//     try {
+//       const response = await fetch(
+//         "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/prompts.json"
+//       );
+//       const data = await response.json();
+//       const promptsString = JSON.stringify(data);
+//       await AsyncStorage.setItem("prompts", promptsString);
+//       // console.log("Successfully fetched and stored data: " + promptsString);
+//     } catch (error) {
+//       console.error(error);
+//       console.log("prinks");
+//       const promptsString = JSON.stringify(prompts);
+//       await AsyncStorage.setItem("prompts", promptsString);
+//     }
+//     try {
+//       const response = await fetch(
+//         "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/crazy.json"
+//       );
+//       const data = await response.json();
+//       const crazyString = JSON.stringify(data);
+//       await AsyncStorage.setItem("crazy", crazyString);
+//       // console.log("Successfully fetched and stored data: " + crazyString);
+//     } catch (error) {
+//       console.error(error);
+//       const crazyString = JSON.stringify(crazy);
+//       await AsyncStorage.setItem("crazy", crazyString);
+//     }
+//     try {
+//       const response = await fetch(
+//         "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/flirty.json"
+//       );
+//       const data = await response.json();
+//       const flirtyString = JSON.stringify(data);
+//       await AsyncStorage.setItem("flirty", flirtyString);
+//       // console.log("Successfully fetched and stored data: " + flirtyString);
+//     } catch (error) {
+//       console.error(error);
+//       const flirtyString = JSON.stringify(flirty);
+//       await AsyncStorage.setItem("flirty", flirtyString);
+//     }
+//     try {
+//       const response = await fetch(
+//         "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/virus.json"
+//       );
+//       const data = await response.json();
+//       const virusString = JSON.stringify(data);
+//       await AsyncStorage.setItem("virus", virusString);
+//       // console.log("Successfully fetched and stored data: " + virusString);
+//     } catch (error) {
+//       console.error(error);
+//       const virusString = JSON.stringify(virus);
+//       await AsyncStorage.setItem("virus", virusString);
+//     }
+//     try {
+//       const response = await fetch(
+//         "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/virusend.json"
+//       );
+//       const data = await response.json();
+//       const virusEndString = JSON.stringify(data);
+//       await AsyncStorage.setItem("virusend", virusEndString);
+//       // console.log("Successfully fetched and stored data: " + virusEndString);
+//     } catch (error) {
+//       console.error(error);
+//       const virusEndString = JSON.stringify(virusend);
+//       await AsyncStorage.setItem("virusend", virusEndString);
+//     }
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 const selectRandomPrompts = async () => {
   const prompts = await retrievePrompts();
@@ -123,15 +123,50 @@ const selectRandomPrompts = async () => {
       shuffledVirusEnd.push(virusend[indices[i] + 1]);
     }
   }
-  // Shuffle the prompts array
-  prompts.sort(() => Math.random() - 0.5);
-  crazy.sort(() => Math.random() - 0.5);
-  flirty.sort(() => Math.random() - 0.5);
+  // // Shuffle the prompts array
+  // prompts.sort(() => Math.random() - 0.5);
+  // crazy.sort(() => Math.random() - 0.5);
+  // flirty.sort(() => Math.random() - 0.5);
 
-  // Select the first 25 prompts from the shuffled array
-  const selectedPrompts = prompts.slice(0, 50);
-  const selectedCrazyPrompts = crazy.slice(0, 50);
-  const selectedFlirtyPrompts = flirty.slice(0, 50);
+  // // Select the first 30 prompts from the shuffled array
+  // const selectedPrompts = prompts.slice(0, 30);
+  // const selectedCrazyPrompts = crazy.slice(0, 30);
+  // const selectedFlirtyPrompts = flirty.slice(0, 30);
+  // const selectedVirusPrompts = shuffledVirus.slice(0, 4);
+  // const selectedVirusEndPrompts = shuffledVirusEnd.slice(0, 4);
+
+  // Retrieve the array of already played prompts
+  const playedPrompts = await AsyncStorage.getItem("playedPrompts");
+  const played = playedPrompts ? JSON.parse(playedPrompts) : [];
+  console.log("Played Prompts: " + played);
+
+  // Filter out already played prompts
+  const filteredPrompts = prompts.filter(
+    (prompt: any) => !played.includes(prompt)
+  );
+  const filteredCrazy = crazy.filter((prompt: any) => !played.includes(prompt));
+  const filteredFlirty = flirty.filter(
+    (prompt: any) => !played.includes(prompt)
+  );
+
+  // If there are no new prompts to select, reset the played prompts array
+  if (
+    filteredPrompts.length === 0 ||
+    filteredCrazy.length === 0 ||
+    filteredFlirty.length === 0
+  ) {
+    await AsyncStorage.removeItem("playedPrompts");
+  }
+
+  // Shuffle the filtered arrays
+  filteredPrompts.sort(() => Math.random() - 0.5);
+  filteredCrazy.sort(() => Math.random() - 0.5);
+  filteredFlirty.sort(() => Math.random() - 0.5);
+
+  // Select the first 30 prompts from the shuffled array
+  const selectedPrompts = filteredPrompts.slice(0, 30);
+  const selectedCrazyPrompts = filteredCrazy.slice(0, 30);
+  const selectedFlirtyPrompts = filteredFlirty.slice(0, 30);
   const selectedVirusPrompts = shuffledVirus.slice(0, 4);
   const selectedVirusEndPrompts = shuffledVirusEnd.slice(0, 4);
 
@@ -163,15 +198,17 @@ const selectRandomPrompts = async () => {
       selectedVirusEndPrompts[i]
     );
   }
-  // console.log(selectedPrompts);
+  // console.log("Prink Game Prompts: " + JSON.stringify(selectedPrompts));
   await AsyncStorage.setItem(
     "prinksGamePrompts",
     JSON.stringify(selectedPrompts)
   );
+  // console.log("Crazy Game Prompts: " + JSON.stringify(selectedCrazyPrompts));
   await AsyncStorage.setItem(
     "crazyGamePrompts",
     JSON.stringify(selectedCrazyPrompts)
   );
+  // console.log("Flirty Game Prompts: " + JSON.stringify(selectedFlirtyPrompts));
   await AsyncStorage.setItem(
     "flirtyGamePrompts",
     JSON.stringify(selectedFlirtyPrompts)
@@ -230,11 +267,11 @@ export default function TabTwoScreen({
 }: RootTabScreenProps<"TabTwo">) {
   const [names, setNames] = useState(getNames());
 
-  // Store the prompts in async storage when the component is mounted
-  useEffect(() => {
-    storePrompts();
-    // setNames(getNames());
-  }, []);
+  // // Store the prompts in async storage when the component is mounted
+  // useEffect(() => {
+  //   storePrompts();
+  //   // setNames(getNames());
+  // }, []);
 
   useFocusEffect(
     React.useCallback(() => {
