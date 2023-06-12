@@ -32,6 +32,15 @@ const retrievePrompts = async (gameModeParam: string) => {
   }
 };
 
+const retrievePlayed = async () => {
+  // Retrieve the array of already played prompts
+  const playedPrompts = await AsyncStorage.getItem("playedPrompts");
+  // Parse the string into an array of prompts
+  const played = playedPrompts ? JSON.parse(playedPrompts) : [];
+  // Return the array of prompts
+  return played;
+};
+
 const addPlayer = async (playerName: string) => {
   // Get the current list of names from async storage
   const names = await getNames();
@@ -104,12 +113,6 @@ export default function GameOneScreen({
       color: string;
       category: string;
       handle: string;
-    }[]
-  >([]);
-  const [playedPrompts, setPlayedPrompts] = useState<
-    {
-      text: string;
-      category: string;
     }[]
   >([]);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
@@ -201,12 +204,25 @@ export default function GameOneScreen({
   const displayRandomPromptAndName = async () => {
     // Retrieve the prompts from async storage
     const selectedPrompts = await retrievePrompts(gameMode);
+    //retrieve played prompts array to be updated
+    const playedPrompts = await retrievePlayed();
     // Start the shake animation
     shake();
 
     // Check if there are any prompts left to display
     if (selectedPrompts.length > 0) {
       const prompt = selectedPrompts[index];
+      const newlyPlayedPrompt = {
+        text: prompt.text,
+        category: prompt.category,
+      };
+      // Add the new prompt to the existing array of played prompts
+      const updatedPlayedPrompts = [...playedPrompts, newlyPlayedPrompt];
+      //add updated playedPrompts list of played prompts in Async
+      await AsyncStorage.setItem(
+        "playedPrompts",
+        JSON.stringify(updatedPlayedPrompts)
+      );
       // Save the category of the prompt
       const { category }: { category: keyof typeof categoryColors } = prompt;
       setCurrentCategory(category);
@@ -340,20 +356,8 @@ export default function GameOneScreen({
           handle: handle,
         },
       ]);
-      setPlayedPrompts([
-        ...playedPrompts,
-        {
-          text: prompt.text,
-          category: category, // add the category field
-        },
-      ]);
       arrayIndex.current = previousPrompts.length;
       index++;
-      //add updated previousPrompts list of played prompts in Async
-      await AsyncStorage.setItem(
-        "playedPrompts",
-        JSON.stringify(playedPrompts)
-      );
     } else {
       // If there are no prompts left to display, navigate back to the TabTwoScreen
       navigation.navigate("GameOver");

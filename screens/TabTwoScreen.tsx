@@ -106,6 +106,8 @@ const selectRandomPrompts = async () => {
   const virus = await retrieveVirus();
   const virusend = await retrieveVirusEnd();
 
+  // await AsyncStorage.removeItem("playedPrompts");
+
   const indices = [];
   for (let i = 0; i < virus.length; i++) {
     if (i % 2 === 0) {
@@ -143,14 +145,34 @@ const selectRandomPrompts = async () => {
 
   // Filter out already played prompts
   console.log("Prinks count before: " + prompts.length);
-  const filteredPrompts = prompts.filter(
-    (prompt: any) => !played.includes(prompt)
-  );
+
+  interface Prompt {
+    text: string;
+    category: string;
+  }
+  const filteredPrompts = prompts.filter((prompt: Prompt) => {
+    return !played.some(
+      (playedPrompt: Prompt) => playedPrompt.text === prompt.text
+    );
+  });
+  const promptsString = JSON.stringify(filteredPrompts);
+  await AsyncStorage.setItem("prompts", promptsString);
   console.log("Prinks count after: " + filteredPrompts.length);
-  const filteredCrazy = crazy.filter((prompt: any) => !played.includes(prompt));
-  const filteredFlirty = flirty.filter(
-    (prompt: any) => !played.includes(prompt)
-  );
+
+  const filteredCrazy = crazy.filter((crazy: Prompt) => {
+    return !played.some(
+      (playedPrompt: Prompt) => playedPrompt.text === crazy.text
+    );
+  });
+  const crazyString = JSON.stringify(filteredCrazy);
+  await AsyncStorage.setItem("crazy", crazyString);
+  const filteredFlirty = flirty.filter((flirty: Prompt) => {
+    return !played.some(
+      (playedPrompt: Prompt) => playedPrompt.text === flirty.text
+    );
+  });
+  const flirtyString = JSON.stringify(filteredFlirty);
+  await AsyncStorage.setItem("flirty", flirtyString);
 
   // If there are no new prompts to select, reset the played prompts array
   if (
@@ -159,6 +181,9 @@ const selectRandomPrompts = async () => {
     filteredFlirty.length === 0
   ) {
     await AsyncStorage.removeItem("playedPrompts");
+    console.log(
+      "No more new unique prompts left to choose from, removing prompts history from async and starting fresh"
+    );
   }
 
   // Shuffle the filtered arrays
