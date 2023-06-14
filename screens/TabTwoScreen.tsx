@@ -178,7 +178,10 @@ const selectRandomPrompts = async () => {
   if (
     filteredPrompts.length === 0 ||
     filteredCrazy.length === 0 ||
-    filteredFlirty.length === 0
+    filteredFlirty.length === 0 ||
+    filteredPrompts.length <= 30 ||
+    filteredCrazy.length <= 30 ||
+    filteredFlirty.length <= 30
   ) {
     await AsyncStorage.removeItem("playedPrompts");
     console.log(
@@ -247,7 +250,7 @@ const selectRandomPrompts = async () => {
 
 const retrievePrompts = async () => {
   // Get the prompts from async storage
-  const promptsString = await AsyncStorage.getItem("prompts");
+  const promptsString = await AsyncStorage.getItem("promptsPack");
   // Parse the string into an array of prompts
   const prompts = promptsString ? JSON.parse(promptsString) : [];
   // Return the array of prompts
@@ -256,7 +259,7 @@ const retrievePrompts = async () => {
 
 const retrieveCrazy = async () => {
   // Get the prompts from async storage
-  const crazyString = await AsyncStorage.getItem("crazy");
+  const crazyString = await AsyncStorage.getItem("crazyPack");
   // Parse the string into an array of prompts
   const crazy = crazyString ? JSON.parse(crazyString) : [];
   // Return the array of prompts
@@ -265,7 +268,7 @@ const retrieveCrazy = async () => {
 
 const retrieveFlirty = async () => {
   // Get the prompts from async storage
-  const flirtyString = await AsyncStorage.getItem("flirty");
+  const flirtyString = await AsyncStorage.getItem("flirtyPack");
   // Parse the string into an array of prompts
   const flirty = flirtyString ? JSON.parse(flirtyString) : [];
   // Return the array of prompts
@@ -274,7 +277,7 @@ const retrieveFlirty = async () => {
 
 const retrieveVirus = async () => {
   // Get the prompts from async storage
-  const virusString = await AsyncStorage.getItem("virus");
+  const virusString = await AsyncStorage.getItem("virusPack");
   // Parse the string into an array of promptsp
   const virus = virusString ? JSON.parse(virusString) : [];
   // Return the array of prompts
@@ -283,7 +286,7 @@ const retrieveVirus = async () => {
 
 const retrieveVirusEnd = async () => {
   // Get the prompts from async storage
-  const virusEndString = await AsyncStorage.getItem("virusend");
+  const virusEndString = await AsyncStorage.getItem("virusendPack");
   // Parse the string into an array of prompts
   const virusend = virusEndString ? JSON.parse(virusEndString) : [];
   // Return the array of prompts
