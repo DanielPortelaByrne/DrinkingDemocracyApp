@@ -99,7 +99,9 @@ import {
 // };
 
 const selectRandomPrompts = async () => {
-  const played = await retrievePlayed();
+  const playedPrinks = await retrievePrinksPlayed();
+  const playedCrazy = await retrieveCrazyPlayed();
+  const playedFlirty = await retrieveFlirtyPlayed();
   const prompts = await retrievePrompts();
   const crazy = await retrieveCrazy();
   const flirty = await retrieveFlirty();
@@ -139,19 +141,17 @@ const selectRandomPrompts = async () => {
   // const selectedVirusEndPrompts = shuffledVirusEnd.slice(0, 4);
 
   console.log("Retrieved played prompts: ");
-  for (let i = 0; i < played.length; i++) {
-    console.log("[" + (i + 1) + "] " + played[i].text);
+  for (let i = 0; i < playedPrinks.length; i++) {
+    console.log("[" + (i + 1) + "] " + playedPrinks[i].text);
   }
 
   // Filter out already played prompts
-  console.log("Prinks count before: " + prompts.length);
-
   interface Prompt {
     text: string;
     category: string;
   }
   const filteredPrompts = prompts.filter((prompt: Prompt) => {
-    return !played.some(
+    return !playedPrinks.some(
       (playedPrompt: Prompt) => playedPrompt.text === prompt.text
     );
   });
@@ -160,30 +160,38 @@ const selectRandomPrompts = async () => {
   console.log("Prinks count after: " + filteredPrompts.length);
 
   const filteredCrazy = crazy.filter((crazy: Prompt) => {
-    return !played.some(
+    return !playedCrazy.some(
       (playedPrompt: Prompt) => playedPrompt.text === crazy.text
     );
   });
   const crazyString = JSON.stringify(filteredCrazy);
   await AsyncStorage.setItem("crazy", crazyString);
+  console.log("Crazy count after: " + filteredCrazy.length);
+
   const filteredFlirty = flirty.filter((flirty: Prompt) => {
-    return !played.some(
+    return !playedFlirty.some(
       (playedPrompt: Prompt) => playedPrompt.text === flirty.text
     );
   });
   const flirtyString = JSON.stringify(filteredFlirty);
   await AsyncStorage.setItem("flirty", flirtyString);
+  console.log("Flirty count after: " + filteredFlirty.length);
 
   // If there are no new prompts to select, reset the played prompts array
-  if (
-    filteredPrompts.length === 0 ||
-    filteredCrazy.length === 0 ||
-    filteredFlirty.length === 0 ||
-    filteredPrompts.length <= 30 ||
-    filteredCrazy.length <= 30 ||
-    filteredFlirty.length <= 30
-  ) {
-    await AsyncStorage.removeItem("playedPrompts");
+  if (filteredPrompts.length === 0 || filteredPrompts.length <= 30) {
+    await AsyncStorage.removeItem("playedPrinksPrompts");
+    console.log(
+      "No more new unique prompts left to choose from, removing prompts history from async and starting fresh"
+    );
+  }
+  if (filteredCrazy.length === 0 || filteredCrazy.length <= 30) {
+    await AsyncStorage.removeItem("playedCrazyPrompts");
+    console.log(
+      "No more new unique prompts left to choose from, removing prompts history from async and starting fresh"
+    );
+  }
+  if (filteredFlirty.length === 0 || filteredFlirty.length <= 30) {
+    await AsyncStorage.removeItem("playedFlirtyPrompts");
     console.log(
       "No more new unique prompts left to choose from, removing prompts history from async and starting fresh"
     );
@@ -231,7 +239,7 @@ const selectRandomPrompts = async () => {
   }
   // console.log("Prink Game Prompts: " + JSON.stringify(selectedPrompts));
   await AsyncStorage.setItem(
-    "prinksGamePrompts",
+    "prinkGamePrompts",
     JSON.stringify(selectedPrompts)
   );
   // console.log("Crazy Game Prompts: " + JSON.stringify(selectedCrazyPrompts));
@@ -293,11 +301,29 @@ const retrieveVirusEnd = async () => {
   return virusend;
 };
 
-const retrievePlayed = async () => {
+const retrievePrinksPlayed = async () => {
   // Retrieve the array of already played prompts
-  const playedPrompts = await AsyncStorage.getItem("playedPrompts");
+  const playedPrinksPrompts = await AsyncStorage.getItem("playedPrinksPrompts");
   // Parse the string into an array of prompts
-  const played = playedPrompts ? JSON.parse(playedPrompts) : [];
+  const played = playedPrinksPrompts ? JSON.parse(playedPrinksPrompts) : [];
+  // Return the array of prompts
+  return played;
+};
+
+const retrieveCrazyPlayed = async () => {
+  // Retrieve the array of already played prompts
+  const playedCrazyPrompts = await AsyncStorage.getItem("playedCrazyPrompts");
+  // Parse the string into an array of prompts
+  const played = playedCrazyPrompts ? JSON.parse(playedCrazyPrompts) : [];
+  // Return the array of prompts
+  return played;
+};
+
+const retrieveFlirtyPlayed = async () => {
+  // Retrieve the array of already played prompts
+  const playedFlirtyPrompts = await AsyncStorage.getItem("playedFlirtyPrompts");
+  // Parse the string into an array of prompts
+  const played = playedFlirtyPrompts ? JSON.parse(playedFlirtyPrompts) : [];
   // Return the array of prompts
   return played;
 };
@@ -496,7 +522,7 @@ export default function TabTwoScreen({
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("GameOne", {
-                gameMode: "prinksGamePrompts",
+                gameMode: "prinkGamePrompts",
               });
             }}
             style={{

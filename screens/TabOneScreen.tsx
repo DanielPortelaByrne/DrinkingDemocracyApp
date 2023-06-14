@@ -107,7 +107,9 @@ export default function TabOneScreen({
 
   // Store the prompts in async storage when the component is mounted
   useEffect(() => {
-    AsyncStorage.removeItem("playedPrompts");
+    AsyncStorage.removeItem("playedPrinksPrompts");
+    AsyncStorage.removeItem("playedCrazyPrompts");
+    AsyncStorage.removeItem("playedFlirtyPrompts");
     storePrompts();
     // setNames(getNames());
   }, []);

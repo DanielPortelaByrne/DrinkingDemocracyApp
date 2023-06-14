@@ -32,9 +32,9 @@ const retrievePrompts = async (gameModeParam: string) => {
   }
 };
 
-const retrievePlayed = async () => {
+const retrievePlayed = async (playedArray: string) => {
   // Retrieve the array of already played prompts
-  const playedPrompts = await AsyncStorage.getItem("playedPrompts");
+  const playedPrompts = await AsyncStorage.getItem(playedArray);
   // Parse the string into an array of prompts
   const played = playedPrompts ? JSON.parse(playedPrompts) : [];
   // Return the array of prompts
@@ -126,6 +126,7 @@ export default function GameOneScreen({
   var index = 0;
 
   var categoryColors = {};
+  var playedArray = "";
 
   const categoryImages = {
     CHALLENGE: require("../assets/images/CHALLENGE.png") as any,
@@ -137,6 +138,8 @@ export default function GameOneScreen({
     SEXY: require("../assets/images/SEXY.png") as any,
   };
 
+  // console.log("Gamemode = " + gameMode);
+
   // Define a new state variable to store the background image
   const [currentCategory, setCurrentCategory] = useState("");
 
@@ -144,14 +147,17 @@ export default function GameOneScreen({
     case "prinkGamePrompts": {
       // Generate a random color
       categoryColors = {
-        CHALLENGE: "#fff62d",
-        RULE: "#69ff4f",
-        VIRUS: "#ff954d",
-        "VIRUS END": "#ff954d",
-        "GET IT DOWN YA": "#55ffb6",
-        QUIZ: "#1dc0ff",
-        VOTE: "#1dc0ff",
+        CHALLENGE: "#d70057",
+        RULE: "#8e0045",
+        VIRUS: "#008e72",
+        "VIRUS END": "#008e72",
+        "GET IT DOWN YA": "#00badc",
+        QUIZ: "#00428f",
+        VOTE: "#00428f",
+        SEXY: "#008e72",
       };
+      playedArray = "playedPrinksPrompts";
+      // console.log("Played array var set to: " + playedArray);
       break;
     }
     case "crazyGamePrompts": {
@@ -165,6 +171,7 @@ export default function GameOneScreen({
         QUIZ: "#162a30",
         VOTE: "#162a30",
       };
+      playedArray = "playedCrazyPrompts";
       break;
     }
     case "flirtyGamePrompts": {
@@ -179,6 +186,7 @@ export default function GameOneScreen({
         VOTE: "#fc8759",
         SEXY: "#ba3564",
       };
+      playedArray = "playedFlirtyPrompts";
       break;
     }
     default: {
@@ -205,7 +213,7 @@ export default function GameOneScreen({
     // Retrieve the prompts from async storage
     const selectedPrompts = await retrievePrompts(gameMode);
     //retrieve played prompts array to be updated
-    const playedPrompts = await retrievePlayed();
+    const playedPrompts = await retrievePlayed(playedArray);
     // Start the shake animation
     shake();
 
@@ -220,7 +228,7 @@ export default function GameOneScreen({
       const updatedPlayedPrompts = [...playedPrompts, newlyPlayedPrompt];
       //add updated playedPrompts list of played prompts in Async
       await AsyncStorage.setItem(
-        "playedPrompts",
+        playedArray,
         JSON.stringify(updatedPlayedPrompts)
       );
       // Save the category of the prompt
