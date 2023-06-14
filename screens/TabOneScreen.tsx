@@ -9,6 +9,7 @@ import {
   ToastAndroid,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Ionicons } from "@expo/vector-icons";
 import { prompts } from "../prompts";
 import { crazy } from "../crazy";
 import { flirty } from "../flirty";
@@ -120,6 +121,11 @@ export default function TabOneScreen({
 
   const scrollViewRef = useRef<ScrollView>(null);
 
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const handleDropdownToggle = () => {
+    setDropdownVisible(!isDropdownVisible);
+  };
+
   if (!fontsLoaded) {
     return undefined;
   }
@@ -159,6 +165,7 @@ export default function TabOneScreen({
         updateNames(names.filter((_, index) => index !== names.length - 1)); // update the names in the name store
       }
     };
+
     return (
       <View
         style={{
@@ -231,9 +238,32 @@ export default function TabOneScreen({
       </View>
     );
   };
-
   return (
     <View style={styles.container}>
+      <View style={{ position: "absolute", top: 70, right: 30, zIndex: 2 }}>
+        <TouchableOpacity onPress={handleDropdownToggle}>
+          <Ionicons name="language" size={32} color="#ed1e26" />
+        </TouchableOpacity>
+
+        {isDropdownVisible && (
+          <View style={{ position: "absolute", top: 70, right: 20, zIndex: 2 }}>
+            {/* Dropdown content */}
+            <TouchableOpacity onPress={() => navigation.navigate("TabOne")}>
+              <Image
+                style={{ height: 32, width: 32 }}
+                source={require("../assets/images/flags/uk.png")}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("TabTwo")}>
+              <Image
+                style={{ height: 32, width: 32 }}
+                source={require("../assets/images/flags/ireland.png")}
+              />
+            </TouchableOpacity>
+            {/* Add more options as needed */}
+          </View>
+        )}
+      </View>
       <Image
         style={styles.image}
         source={require("../assets/images/title_logo.png")}
