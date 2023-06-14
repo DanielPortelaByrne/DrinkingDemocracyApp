@@ -1,1 +1,617 @@
-
+[
+{
+"text": "Glac sip má bhíonn tú riamh ag iarraidh bheith ina tioncharaire 🤳",
+"category": "RULE"
+},
+{
+"text": "Glac sip má tá gasúr ar leathphíopaí ort 🧦",
+"category": "RULE",
+"handle": "john.keegan"
+},
+{
+"text": "[Name], abair ainmneacha na gcluicí eile go léir. Glac sip don ainm mícheart. Má éiríonn leat iad go léir, trí shiopadóireacht a thabhairt amach.",
+"category": "CHALLENGE"
+},
+{
+"text": "Glac dhá sip má bhíonn tú riamh ag scrios post Instagram mar ní bhfaigheann sé go leor maithiúnas 💟",
+"category": "RULE"
+},
+{
+"text": "Glac sip má d'fhéadfá do smidiú a ghoil le do lámh 😭",
+"category": "RULE"
+},
+{
+"text": "Glac trí sip má raibh tú riamh ag cur fút ar fhreastalaí, comhalta i siopa nó freastalaí 🫵",
+"category": "RULE"
+},
+{
+"text": "Glac dhá sip má raibh tú riamh ag suí agus ag rith, a mheascealaí geal.",
+"category": "RULE"
+},
+{
+"text": "Glac dhá sip má thaitníonn duine d'fhamháin le teaghlach do chara céile.",
+"category": "RULE"
+},
+{
+"text": "Glac sip má bhíonn tú riamh ag cur bréig ar scrúdú, agus sip bhreise má fuair tú caught.",
+"category": "RULE"
+},
+{
+"text": "Glac sip má d'fhéadfá téacs a sheoladh chuig an duine mícheart.",
+"category": "RULE"
+},
+{
+"text": "Bain triail as do dhlúthdhiosc. Má ní féidir leat é a dhéanamh, glac sip.",
+"category": "RULE"
+},
+{
+"text": "[Name], déan trí phuist suas nó glac 3 sip 💪",
+"category": "CHALLENGE"
+},
+{
+"text": "[Name], abair an t-alfhabet siar. Ól gach uair a dtagann tú salach nó má thógann tú rófhada.",
+"category": "CHALLENGE"
+},
+{
+"text": "[Name], glac sip don uair gach mí ó d'fhoglaim tú leabhar, a mhucín neamhshaibhir.",
+"category": "CHALLENGE"
+},
+{
+"text": "[Name], má bhain tú bréag asat féin, téann na sipí eile chuig an duine ar do chlé. Tóg sé go héasca anocht, sábháil?",
+"category": "RULE"
+},
+  {
+"text": "Má tá tú in ollscoil, glac dhá sip 🎓",
+"category": "RULE"
+},
+{
+"text": "Glac sólás más gortann tú do mhéarchnis. Ól do deoch más gortann tú do mhéaradáin cos freisin.",
+"category": "RULE"
+},
+{
+"text": "[Name] glac dhá sip más raibh tú riamh ar mhór-roinn eile, seachas sin roinn iad 🌍",
+"category": "RULE"
+},
+{
+"text": "Glac dhá sip más tattoo atá agat, agus dhá bhfuinneog eile má tá drogall ort anois.",
+"category": "RULE"
+},
+{
+"text": "Glac sólás más raideáil tú ar rothchúrsála riamh. Níl an turas caterpillar san áireamh.",
+"category": "RULE"
+},
+{
+"text": "Ól do deoch más bungee jump riamh.",
+"category": "GET IT DOWN YA"
+},
+{
+"text": "[Name] roinn 3 sip más raibh tú riamh i dtimpiste gluaisteáin.",
+"category": "RULE",
+"handle": "thomas.reilly"
+},
+{
+"text": "Glac 3 sip má tá eagla ort 😱",
+"category": "RULE"
+},
+{
+"text": "Tá tú ar I'm a Celeb! Ar mhaith leat beochan coileach beo a ithe nó ballaí cangarú? Vótáil gach duine ag an am céanna, níos lútaigh an grúpa a ólfaidh 2 uair.",
+"category": "VOTE"
+},
+{
+"text": "Siúil timpeall an seomra, luaigh do chaidreamhaidí/ex-conarthaí seanfhocal agus iad aonair ag am amháin. Beidh an duine is luaithe a n-ionadú ag ól 2 uair. [Name] tús á chur leat.",
+"category": "CHALLENGE"
+},
+{
+"text": "Cad a rímheas le “itch”, an chéad duine a atóir nó a n-eolas le aon rud ag ól 2 uair. [Name] tús á chur leat.",
+"category": "CHALLENGE"
+},
+{
+"text": "Cé acu is dóichí a rachaidh go dtí an ifreann: Osama Bin Laden nó [Name]? Vótáil ag an am céanna, ólfaidh an grúpa a chaill 2 uair 😈",
+"category": "VOTE"
+},
+{
+"text": "[Name] roinn 2 sip más bhris tú cnámh riamh, seachas sin, glac iad leat 🦴",
+"category": "RULE"
+},
+{
+"text": "Daoine a bhfuil S ina gcéadainm acu, glac 1 sip.",
+"category": "RULE"
+},
+  {
+"text": "Daoine a roghnaíonn caife níos fearr ná tae, glac gloinne (de do deoch roghnaithe) ☕",
+"category": "RULE"
+},
+{
+"text": "Daoine a bhfuil cuairt déanta acu ar féile cheoil, glac gloinne. Glac 2 gloinnte má níl cuimhní maith agat ar chuid mhór de.",
+"category": "RULE"
+},
+{
+"text": "Gluais 2 gloinnte má bhfuil eagla ort ón óráid phoiblí a dhéanamh. Is féidir leat na gloinntí a scaipeadh amach más dócha go bhfuil tú muiníneach go leor chun labhairt.",
+"category": "RULE"
+},
+{
+"text": "Ól do dhrink má d'imir tú spórt ar leibhéal gairmiúil riamh, taispeánann tú féin ⚽",
+"category": "GET IT DOWN YA",
+"handle": "conor.knowles"
+},
+{
+"text": "Is mise an príomhfheidhmeannach! Daoine a bhfuil breithlá acu an tseachtain seo, ólaimid é go léir!",
+"category": "GET IT DOWN YA"
+},
+{
+"text": "Gluais 2 gloinnte má tá tú Éireannach (bí réidh inniu, tá géiniteacht ó alcól ionat)🍀",
+"category": "RULE"
+},
+{
+"text": "Gluais 2 gloinnte má tá tú Sasannach, RIP LIZZY 🪦👑",
+"category": "RULE"
+},
+{
+"text": "Gluais 2 gloinnte má tá tú Albannach (agus b'fhéidir coinneáil ar an ❄️ anocht a chairde)",
+"category": "RULE"
+},
+{
+"text": "Gluais 2 gloinnte má tá tú Slavic, cyka bylat!",
+"category": "RULE"
+},
+{
+"text": "Gluais 2 gloinnte má tá tú Mheiriceánach, gan cap 🏈",
+"category": "RULE"
+},
+{
+"text": "Gluais 2 gloinnte má tá tú ón mBalcáin, imiúm cúis!",
+"category": "RULE"
+},
+{
+"text": "Gluais 2 gloinnte má tá cúlra míchlúiteach agat.",
+"category": "RULE"
+},
+{
+"text": "Gluais 2 gloinnte má tá tú Nigéarach. Eku araya!",
+"category": "RULE"
+},
+{
+"text": "Gluais 2 gloinnte má tá tú Ghanach. Kosɛ, mente Twi.",
+"category": "RULE"
+},
+{
+"text": "Gluais 2 gloinnte má tá tú ón Zimbaibwe. Mutsara uyu wakaturikirwa pachishandiswa Google.",
+"category": "RULE"
+},
+  {
+"text": "Glac 2 bhligín má tá tú South African. Bajabule!",
+"category": "RULE"
+},
+{
+"text": "Glac 2 bhligín má tá tú ón Caribbean (cuir guth Jesy Nelson anseo)",
+"category": "RULE"
+},
+{
+"text": "Glac braon dá líonann tú Indiach, nó má tá tú nach bhfuil Indiach ach síleann daoine go bhfuil tú.",
+"category": "RULE"
+},
+{
+"text": "Má tá tú Muslamach, glac 2 bhligín... fan, cén fáth a bhfuil tú ag imirt cluiche ólta? Ní bheidh sásta Allah.",
+"category": "RULE"
+},
+{
+"text": "Glac 2 bhligín má tá tú Asiateach.",
+"category": "RULE"
+},
+{
+"text": "Glac braon má tá tú Astráilianach, g'day mate! Cuir scámhóg ar an mbairbi! Glac braon eile má tharraing tú do shúile.",
+"category": "RULE"
+},
+{
+"text": "[Name] glac 2 bhligín má tá tú i do lúcháirí 20idí luath, seachas sin, scaip iad amach",
+"category": "RULE"
+},
+{
+"text": "Glac 2 bhligín má thaitníonn an Formula 1 leat 🏎️",
+"category": "RULE"
+},
+{
+"text": "[Name] glac 2 bhligín má chaiteann tú airgid go mó, agus bain triail as an gcuid eile a chaiteamh anocht ag an mbáir.",
+"category": "RULE"
+},
+{
+"text": "Glac 2 bhligín má tá post agat i margaíocht airgeadais, agus bain triail as gan bheith chomh saghasach le caca milis 💰",
+"category": "RULE"
+},
+{
+"text": "Glac braon má tá post agat i réimse na teicneolaíochta, dweeb 👨‍💻",
+"category": "RULE"
+},
+{
+"text": "Caithfidh gach duine nach bhfuil ina gcuid oibre sláinte seasamh agus gabháil as aghaidh le sú. 🩺",
+"category": "RULE"
+},
+{
+"text": "Glac braon má tá post agat sa réimse oideachais, agus braon eile má cheapann tú nach bhfuil tú cainteoir céimnithe go leor chun an jab seo a dhéanamh 👩‍🏫",
+"category": "RULE"
+},
+{
+"text": "Glac braon má tá post agat sa réimse dlí, ⚖️ Ba cheart go mbeadh sé mídhleathach cé chomh maith is atá tú ag breathnú anocht 😘",
+"category": "RULE"
+},
+  {
+"text": "Glac sop dá mhiotóg má tá post agat sna tráidéalaíochtaí, agus sop breise má tá tú ag déanamh níos fearr ná do chairde a chuaigh go dtí an ollscoil.",
+"category": "RULE"
+},
+{
+"text": "Áiteanna cáiliúla, beidh an chéad duine a atógáil nó nach féidir leo smaoineamh ar aon cheann eile ag ól 2 uair. Tosnóidh tú, [Name].",
+"category": "CHALLENGE"
+},
+{
+"text": "Cineálacha torthaí, beidh an chéad duine a atógáil nó nach féidir leo smaoineamh ar aon cheann eile ag ól 2 uair. Tosnóidh tú, [Name].",
+"category": "CHALLENGE"
+},
+{
+"text": "Prost! ¡Salud! Sláinte! Daoine a bhfuil ceithre theanga nó níos mó acu, seo linn uilig a ól!",
+"category": "GET IT DOWN YA"
+},
+{
+"text": "Bannaí ón 90idí, beidh an chéad duine a atógáil nó nach féidir leo smaoineamh ar aon cheann eile ag ól 2 uair. Tosnóidh tú, [Name].",
+"category": "CHALLENGE"
+},
+{
+"text": "Léircharacht Disney, beidh an chéad duine a atógáil nó nach féidir leo smaoineamh ar aon cheann eile ag ól 2 uair. Tosnóidh tú, [Name].",
+"category": "CHALLENGE"
+},
+{
+"text": "Glac sop le 2 dhiog ar bith má tá post agat sa reatail nó san ospidéal, úsáid an t-ól chun do phian a dhíghal.",
+"category": "RULE"
+},
+{
+"text": "Glac sop dá mhiotóg má tá post agat i réimse cruthaitheach, agus sop breise má tá tú ag ól fíona (a bhfuil tú mar mhadra mór) 🎨",
+"category": "RULE"
+},
+{
+"text": "Imir riamh ní raibh mé riamh: ghlac na himreoirí ceannacha le hobair nach bhfuil déanta acu riamh, agus caithfidh gach duine a rinne é ól a thógáil, Tosnóidh tú, [Name].",
+"category": "CHALLENGE"
+},
+{
+"text": "Amhráin Pop ón 2000idí, beidh an chéad duine a atógáil nó nach féidir leo smaoineamh ar aon cheann eile ag ól 2 uair. Tosnóidh tú, [Name] 🎸",
+"category": "CHALLENGE"
+},
+  {
+"text": "Scannáin do dhéagóirí, an chéad duine a mheasann nó nach féidir leis a smaoineamh ar aon rud eile ní mór dó 2 uair a ól. Tosóidh tú, [Name] 🍿",
+"category": "CHALLENGE"
+},
+{
+"text": "Cathracha, an chéad duine a mheasann nó nach féidir leis a smaoineamh ar aon rud eile ní mór dó 2 uair a ól. Tosóidh tú, [Name]",
+"category": "CHALLENGE"
+},
+{
+"text": "Blaisíní reoite, an chéad duine a mheasann nó nach féidir leis a smaoineamh ar aon rud eile ní mór dó 2 uair a ól. Tosóidh tú, [Name] 🍨",
+"category": "CHALLENGE"
+},
+{
+"text": "Spóirt, an chéad duine a mheasann nó nach féidir leis a smaoineamh ar aon rud eile ní mór dó 2 uair a ól. Tosóidh tú, [Name] 🎾",
+"category": "CHALLENGE"
+},
+{
+"text": "Rudaí a itheann tú don bhricfeasta, an chéad duine a mheasann nó nach féidir leis a smaoineamh ar aon rud eile ní mór dó 2 uair a ól. Tosóidh tú, [Name] 🥞",
+"category": "CHALLENGE"
+},
+{
+"text": "An duine deireanach a d'ith béile mearaí caithfidh sé/dhí siúl 2 suípeanna a ól 🍔",
+"category": "RULE"
+},
+{
+"text": "Caithfidh an duine le greamaíl is giorra a ól 2 huaire 💇",
+"category": "RULE"
+},
+{
+"text": "Caithfidh an duine le gruaig is faide a ól 2 huaire 💇‍♀️",
+"category": "RULE"
+},
+{
+"text": "Ól 3 huaire más imigh tú i do chodladh tríd do ghluaiseacht. Cinntigh go bhfuil sé socraithe don amárach ⏰",
+"category": "RULE"
+},
+{
+"text": "Caithfidh an duine leis an ngluaiseacht is mó deirfiúracha a ól do gach deartháir dheirfiúr atá acu.",
+"category": "RULE"
+},
+{
+"text": "Caithfidh siad a sipéad a ghlacadh iad siúd nach bhfuil riamh iomaitheoir ceoil féachaint.",
+"category": "RULE"
+},
+{
+"text": "Ól 2 huaire más buaileadh tú le heagóir. Téann orm go mbeidh tú ólta anocht!",
+"category": "RULE"
+},
+  {
+"text": "Glac gloine más tá post agat sna tráidéalaíochtaí, agus gloine breise más tú ag déanamh níos fearr ná do chairde a chuaigh go dtí an ollscoil.",
+"category": "RULE"
+},
+{
+"text": "Séadchomharthaí cáiliúla, caith 2 gloine mura féidir leat aon cheann eile a rá nó má dhéanann tú dearmad ar rud ar bith. Tosnaíonn tú, [Name].",
+"category": "CHALLENGE"
+},
+{
+"text": "Cineálacha torthaí, caith 2 gloine mura féidir leat aon cheann eile a rá nó má dhéanann tú dearmad ar rud ar bith. Tosnaíonn tú, [Name].",
+"category": "CHALLENGE"
+},
+{
+"text": "Prost! ¡Salud! Sláinte! Daoine a bhfuil cúig teanga nó níos mó acu, déanaimis a uchtú go léir!",
+"category": "GET IT DOWN YA"
+},
+{
+"text": "Bannaí ón 90idí, caith 2 gloine mura féidir leat aon cheann eile a rá nó má dhéanann tú dearmad ar rud ar bith. Tosnaíonn tú, [Name].",
+"category": "CHALLENGE"
+},
+{
+"text": "Fíréin Disney, caith 2 gloine mura féidir leat aon cheann eile a rá nó má dhéanann tú dearmad ar rud ar bith. Tosnaíonn tú, [Name].",
+"category": "CHALLENGE"
+},
+{
+"text": "Glac greim 2 uair más post agat sa reatail nó san ospidéal, úsáid an t-ól chun do phian a mhaolú.",
+"category": "RULE"
+},
+{
+"text": "Glac gloine má tá post agat i réimse cruthaitheachta, agus gloine breise más tú ag ól fíon (ya bastún fálásach) 🎨",
+"category": "RULE"
+},
+{
+"text": "Imir riamh chaith mé riamh: imreoirí ag casadh cainteanna agus caithfidh aon duine a rinne é ól a ghlacadh, tosnaíonn tú, [Name].",
+"category": "CHALLENGE"
+},
+{
+"text": "Amhráin Pop ón 2000idí, caith 2 gloine mura féidir leat aon cheann eile a rá nó má dhéanann tú dearmad ar rud ar bith. Tosnaíonn tú, [Name] 🎸",
+"category": "CHALLENGE"
+},
+{
+"text": "Scannáin déagóirí, caith 2 gloine mura féidir leat aon cheann eile a rá nó má dhéanann tú dearmad ar rud ar bith. Tosnaíonn tú, [Name] 🍿",
+"category": "CHALLENGE"
+},
+{
+"text": "Cathracha, an chéad duine a atiríonn féin nó nach féidir leo smaoineamh ar aon ní eile níos mó ná ná caithfidh siad ól 2 uair. [Name] tú tosú",
+"category": "CHALLENGE"
+},
+{
+"text": "Blaisíní oighir, an chéad duine a atiríonn féin nó nach féidir leo smaoineamh ar aon ní eile níos mó ná ná caithfidh siad ól 2 uair. [Name] tú tosú 🍨",
+"category": "CHALLENGE"
+},
+{
+"text": "Spóirt, an chéad duine a atiríonn féin nó nach féidir leo smaoineamh ar aon ní eile níos mó ná ná caithfidh siad ól 2 uair. [Name] tú tosú 🎾",
+"category": "CHALLENGE"
+},
+{
+"text": "Rudaí a itheann tú don bhricfeasta, an chéad duine a atiríonn féin nó nach féidir leo smaoineamh ar aon ní eile níos mó ná ná caithfidh siad ól 2 uair. [Name] tú tosú 🥞",
+"category": "CHALLENGE"
+},
+{
+"text": "An duine is déanaí a bhí bricfeasta gasta acu caithfidh siad ól 2 uair 🍔",
+"category": "RULE"
+},
+{
+"text": "An duine a bhfuil an gruaig is giorra acu caithfidh siad ól 2 uair 💇",
+"category": "RULE"
+},
+{
+"text": "An duine a bhfuil an gruaig is faide acu caithfidh siad ól 2 uair 💇‍♀️",
+"category": "RULE"
+},
+{
+"text": "Ól 3 uair má tá tú riamh codladh trí do aláram. Cinntigh go bhfuil sé socraithe agat don lá amárach ⏰",
+"category": "RULE"
+},
+{
+"text": "An duine a bhfuil an t-ábhar is mó acu caithfidh siad ól do gach deartháir acu.",
+"category": "RULE"
+},
+{
+"text": "Na daoine nach raibh riamh ag féile ceoil acu caithfidh siad gloinne a ghlacadh.",
+"category": "RULE"
+},
+{
+"text": "Ól 2 uair má tá tú riamh cúlcheannais a chailliúint. Sílim go mbeidh tú ar meisce anocht!",
+"category": "RULE"
+},
+  {
+"text": "An duine leis na leanúnaí Instagram is mó caithfidh glacadh leis na himreoirí eile rud a phostáil ar a scéal, nó caithfidh siad a deoch a ísliú.",
+"category": "CHALLENGE"
+},
+{
+"text": "Iad siúd a úsáideann Twitter, glac gloinne.",
+"category": "RULE"
+},
+{
+"text": "Iad siúd a úsáideann Reddit, glac gloinne, ansin téigh amach agus déan cairde nua.",
+"category": "RULE"
+},
+{
+"text": "Iad siúd nach bhfuil aon cheann de cheithreatha Game of Thrones faighte acu, ól 2 huaire.",
+"category": "RULE"
+},
+{
+"text": "[Name], ainmigh seó an-sóisialta atá fíor-thóir agat nach bhfuil tú tar éis é a fheiceáil ansin ól 2 huaire mar pionós.",
+"category": "RULE"
+},
+{
+"text": "An duine is déanaí a d'oscail braon caife, ní mór dóibh 2 siop a ghlacadh.",
+"category": "RULE"
+},
+{
+"text": "Cáis nó feoil? Vótáil ag an am céanna, ólaithe a chaillfidh 2 huaire.",
+"category": "VOTE"
+},
+{
+"text": "An duine is lú leanúnaí Instagram, ól 2 huaire.",
+"category": "RULE"
+},
+{
+"text": "[Name], tabhair 2 siop do chleasaithe níos airde ná tú. Mura bhfuil sin ar bith, ól iad iad.",
+"category": "RULE"
+},
+{
+"text": "Má tá tú ag itheachán, ól 2 huaire, is aon mhuca stóráil do ghadaí sula bhfeiceann cailíní ólta iad.",
+"category": "RULE"
+},
+{
+"text": "Iad siúd nach raibh ag iarraidh an cluiche seo a imirt, ól 4 siop. Faraor.",
+"category": "RULE"
+},
+{
+"text": "Má tá tú ag caitheamh tobac, ól 3 huaire, ansin cuir do fagáin i bhfolach sula bhfeiceann aon chailíní ólta iad.",
+"category": "RULE"
+},
+{
+"text": "Rudaí le tollanna, an chéad duine a chailleann smaointe ón gceann eile ól 2 huaire, [Name] tú tosaíonn.",
+"category": "CHALLENGE"
+},
+{
+"text": "[Name] ceist a chur don seomra go léir. An chéad duine a fhreagraíonn ceart, is féidir leo 3 siop a scaipeadh.",
+"category": "CHALLENGE"
+},
+  {
+"text": "Téigh timpeall na seomra, déan gáire tar éis na héadaí a rinneadh go dtí seo a atógáil. Ólann an caillteoir 2 uair! Tosnóidh [Name].",
+"category": "CHALLENGE"
+},
+{
+"text": "Déanaimid imirt ouija. Deir [Name] litir, ansin téimid timpeall ar mhórthimpeall ag cur litreacha le chéile go dtí gur cruthaítear focal. Ólann an duine a chríochnaíonn an focal 2 uair.",
+"category": "CHALLENGE"
+},
+{
+"text": "Ólann tú 2 uair más caitheamh hata ort faoi láthair",
+"category": "RULE"
+},
+{
+"text": "Ólann tú 2 uair más ag dul gan bhríste ort.",
+"category": "RULE"
+},
+{
+"text": "[Name], tabhair broinn do imreoir atá níos bómhaire ná tú ... Mura bhfuil sé seo de dhíth, ól uisce.",
+"category": "RULE"
+},
+{
+"text": "Ólann an imreoir a bhfuil an ex is teasaí aige/aici 3 uair",
+"category": "RULE"
+},
+{
+"text": "[Name], ól chomh minic sin is atá an líon bliana a d'fhoghlaim tú tar éis na meánscoile.",
+"category": "RULE"
+},
+{
+"text": "Ólann gach duine faoi gach fuaimliú i do chéad ainm.",
+"category": "RULE"
+},
+{
+"text": "[Name], seinn an t-amhrán is déanaí a chuala tú ar do ghuthán. Mura gcuirfeadh an chuid is mó de na himreoirí an aux ort, ól 3 uair.",
+"category": "RULE"
+},
+{
+"text": "Ní mór don imreoir a bhfuil an bille is mó ina phóca a ól a deoch nó aontaigh le turas de shotanna a cheannach.",
+"category": "GET IT DOWN YA"
+},
+{
+"text": "[Name], más singil tú, tabhair 4 sipín don imreoir is teasaí leat.",
+"category": "RULE"
+},
+{
+"text": "Téigh timpeall na seomra, lig do chluasa socraigh. Ólann na daoine nach bhfuil in ann, 2 uair a ól. Tosnóidh [Name].",
+"category": "RULE"
+},
+{
+"text": "Ólann daoine le fóin Android 2 uair. Tá úsáideoirí iPhone cúthail anyway...",
+"category": "RULE"
+},
+{
+"text": "Ar mhaith leat peata cornánach nó dragan a bheith agat? Vótáil anois, ólann an grúpa a chaill 2 uair.",
+"category": "VOTE"
+},
+  {
+"text": "Ar mhaith leat maireachtáil i gcaisleán nó i dteach crann? Vótáil anois, bheannaigh an grúpa atá caillte le hól 2 uair",
+"category": "VOTE"
+},
+{
+"text": "Ar mhaith leat bheith in ann eitilt nó bheith neamhbhleachtuil? Vótáil anois, bheannaigh an grúpa atá caillte le hól 2 uair",
+"category": "VOTE"
+},
+{
+"text": "Ar mhaith leat maireachtáil sa chathair nó sa tuath? Vótáil anois, bheannaigh an grúpa atá caillte le hól 2 uair",
+"category": "VOTE"
+},
+{
+"text": "Ar mhaith leat míle dollar nó an grá fíor? Vótáil anois, bheannaigh an grúpa atá caillte le hól 2 uair",
+"category": "VOTE"
+},
+{
+"text": "Ar mhaith leat labhairt leat féin go cruinn bliain ó shin nó go cruinn bliain ón am atá inniu ann? Vótáil anois, bheannaigh an grúpa atá caillte le hól 2 uair",
+"category": "VOTE"
+},
+{
+"text": "Ar mhaith leat bheith in ann aon teanga a labhairt go líofa nó bheith in ann ceolchoirme ar bith a sheinm? Vótáil anois, bheannaigh an grúpa atá caillte le hól 2 uair",
+"category": "VOTE"
+},
+{
+"text": "Ar mhaith leat cócaire pearsanta nó siopadóir pearsanta a bheith agat? Vótáil anois, bheannaigh an grúpa atá caillte le hól 2 uair",
+"category": "VOTE"
+},
+{
+"text": "Ar mhaith leat neart ar leith nó luas ar leith a bheith agat? Vótáil anois, bheannaigh an grúpa atá caillte le hól 2 uair",
+"category": "VOTE"
+},
+{
+"text": "Ar mhaith leat an cumas teleportála a bheith agat nó an cumas a bheith agat meaisín ama? Vótáil anois, bheannaigh an grúpa atá caillte le hól 2 uair",
+"category": "VOTE"
+},
+{
+"text": "Caithfidh duine ar bith a sheasann ar mheascthaí gleoite 2 suipeáil, vroom vroom 🏍️",
+"category": "RULE"
+},
+{
+"text": "Má thug tú rogha chun siúlóid i heilifint, ól 2 uair 🚁",
+"category": "RULE"
+},
+  {
+"text": "An duine is déanaí a bhí ar siúlóid caithfidh sé/i féin a ól 🥾",
+"category": "RULE"
+},
+{
+"text": "Tá ort ól má bhí tú riamh ar turas campála ⛺",
+"category": "RULE"
+},
+{
+"text": "An duine is déanaí a bhí ar bhád caithfidh sé/i féin a ól ⛵",
+"category": "RULE"
+},
+{
+"text": "Má thug tú riamh luscaireacht bán uisce, ól 2 uair 🛶",
+"category": "RULE"
+},
+{
+"text": "Má chuaigh tú riamh ag iascaireacht, glan braon. Glac braon eile má bhíodh leadrán ort.",
+"category": "RULE"
+},
+{
+"text": "A chairde sailéirí a bhfuil ag dul ar thóir theasure, glac braon de do rum, arrrr! 🏴‍☠️",
+"category": "RULE"
+},
+{
+"text": "Má bhí tú riamh i bpailéad aeir te, glac 2 braon.",
+"category": "RULE"
+},
+{
+"text": "Má ghlac tú riamh grianghraf tuarascála creafach ag suíosan ag ionad cáiliúil, glac 2 braon. Má tá tú toilteanach an fhoireann a thaispeáint, is féidir leat do bhraonna a roinnt in ionad iad a ól.",
+"category": "RULE"
+},
+{
+"text": "An duine is déanaí a chuaigh ar an leithreas caithfidh sé/i féin a ól 2 braon.",
+"category": "RULE"
+},
+{
+"text": "Ól do deoch má thug tú riamh spridheanna ar neamhspléachas 🪂",
+"category": "GET IT DOWN YA"
+},
+{
+"text": "[Name] tabhair amach 2 braon má tá tú in aois na déagóirí, agus fág an pháirc orm.",
+"category": "RULE"
+},
+{
+"text": "[Name] glac 2 braon má tá tú i do tríochaí, gabh leat a mháthair máthartha folamh.",
+"category": "RULE"
+}
+]
