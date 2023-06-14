@@ -22,15 +22,18 @@ import { RootTabScreenProps } from "../types";
 import { updateNames, getNames } from "../components/nameStore";
 import { useFonts } from "expo-font";
 import { useFocusEffect } from "@react-navigation/native";
+var language = "english";
 
 // Store the prompts in async storage
-const storePrompts = async () => {
+const storePrompts = async (language: string) => {
   try {
     // Convert the prompts array to a JSON string
     // Save the prompts strings in async storage
     try {
       const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/prompts.json"
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/" +
+          language +
+          "/prompts.json"
       );
       const data = await response.json();
       const promptsString = JSON.stringify(data);
@@ -44,7 +47,9 @@ const storePrompts = async () => {
     }
     try {
       const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/crazy.json"
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/" +
+          language +
+          "/crazy.json"
       );
       const data = await response.json();
       const crazyString = JSON.stringify(data);
@@ -57,7 +62,9 @@ const storePrompts = async () => {
     }
     try {
       const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/flirty.json"
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/" +
+          language +
+          "/flirty.json"
       );
       const data = await response.json();
       const flirtyString = JSON.stringify(data);
@@ -70,7 +77,9 @@ const storePrompts = async () => {
     }
     try {
       const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/virus.json"
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/" +
+          language +
+          "/virus.json"
       );
       const data = await response.json();
       const virusString = JSON.stringify(data);
@@ -83,7 +92,9 @@ const storePrompts = async () => {
     }
     try {
       const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/virusend.json"
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/" +
+          language +
+          "/virusend.json"
       );
       const data = await response.json();
       const virusEndString = JSON.stringify(data);
@@ -111,7 +122,7 @@ export default function TabOneScreen({
     AsyncStorage.removeItem("playedPrinksPrompts");
     AsyncStorage.removeItem("playedCrazyPrompts");
     AsyncStorage.removeItem("playedFlirtyPrompts");
-    storePrompts();
+    storePrompts("English");
     // setNames(getNames());
   }, []);
 
@@ -125,6 +136,8 @@ export default function TabOneScreen({
   const handleDropdownToggle = () => {
     setDropdownVisible(!isDropdownVisible);
   };
+  const [subtitle, setSubTitle] = useState("WHO'S SESHING");
+  const [player, setPlayer] = useState("Player");
 
   if (!fontsLoaded) {
     return undefined;
@@ -183,7 +196,7 @@ export default function TabOneScreen({
             key={index}
           >
             <TextInput
-              placeholder={`Player ${index + 1}`}
+              placeholder={`${player} ${index + 1}`}
               value={name}
               onChangeText={(text) => handleNameChange(text, index)}
               style={styles.textInput}
@@ -246,15 +259,39 @@ export default function TabOneScreen({
         </TouchableOpacity>
 
         {isDropdownVisible && (
-          <View style={{ position: "absolute", top: 70, right: 20, zIndex: 2 }}>
+          <View
+            style={{
+              // backgroundColor: "rgba(52, 52, 52, 0)",
+              position: "absolute",
+              top: 50,
+              zIndex: 2,
+            }}
+          >
             {/* Dropdown content */}
-            <TouchableOpacity onPress={() => navigation.navigate("TabOne")}>
+            <TouchableOpacity
+              style={{ marginBottom: 5 }}
+              onPress={() => {
+                language = "English";
+                storePrompts(language);
+                setSubTitle("WHO'S SESHING");
+                setPlayer("Player");
+                console.log("Language set to: " + language);
+              }}
+            >
               <Image
                 style={{ height: 32, width: 32 }}
                 source={require("../assets/images/flags/uk.png")}
               />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("TabTwo")}>
+            <TouchableOpacity
+              onPress={() => {
+                language = "Irish";
+                storePrompts(language);
+                setSubTitle("CÉ ATÁ AG ÓL?");
+                setPlayer("Imreoir");
+                console.log("Language set to: " + language);
+              }}
+            >
               <Image
                 style={{ height: 32, width: 32 }}
                 source={require("../assets/images/flags/ireland.png")}
@@ -315,7 +352,7 @@ export default function TabOneScreen({
                 backgroundColor: "rgba(52, 52, 52, 0)",
               }}
             >
-              WHO'S SESHING?
+              {subtitle}
             </Text>
 
             <NameInput navigation={navigation} />
