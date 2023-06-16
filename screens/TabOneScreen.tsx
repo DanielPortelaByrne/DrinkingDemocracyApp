@@ -271,7 +271,9 @@ export default function TabOneScreen({
             <TouchableOpacity
               style={{ marginBottom: 5 }}
               onPress={() => {
+                setDropdownVisible(false);
                 language = "English";
+                AsyncStorage.setItem("language", language);
                 storePrompts(language);
                 setSubTitle("WHO'S SESHING");
                 setPlayer("Player");
@@ -285,7 +287,9 @@ export default function TabOneScreen({
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
+                setDropdownVisible(false);
                 language = "Irish";
+                AsyncStorage.setItem("language", language);
                 storePrompts(language);
                 setSubTitle("CÉ ATÁ AG ÓL?");
                 setPlayer("Imreoir");

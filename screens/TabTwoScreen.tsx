@@ -333,18 +333,21 @@ export default function TabTwoScreen({
 }: RootTabScreenProps<"TabTwo">) {
   const [names, setNames] = useState(getNames());
 
-  // // Store the prompts in async storage when the component is mounted
-  // useEffect(() => {
-  //   storePrompts();
-  //   // setNames(getNames());
-  // }, []);
-
   useFocusEffect(
     React.useCallback(() => {
+      setLanguage();
       setNames(getNames());
       selectRandomPrompts();
     }, [])
   );
+
+  const setLanguage = async () => {
+    // Retrieve the language variable set
+    const language = await AsyncStorage.getItem("language");
+    console.log("Language is: " + language);
+    // Return the language variable set
+    return language;
+  };
 
   const [fontsLoaded] = useFonts({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
