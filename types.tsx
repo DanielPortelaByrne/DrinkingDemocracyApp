@@ -19,11 +19,15 @@ declare global {
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   TabOne: undefined;
-  TabTwo: undefined;
+  TabTwo: {
+    language: string;
+  };
   GameOne: {
     gameMode: string;
   };
-  PromptSubmit: undefined;
+  PromptSubmit: {
+    language: string;
+  };
   PersonalisedGame: undefined;
   GameOver: undefined;
   Modal: undefined;
@@ -35,9 +39,13 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
 
 export type RootTabParamList = {
   TabOne: undefined;
-  TabTwo: undefined;
+  TabTwo: {
+    language: string;
+  };
   GameOne: { gameMode: string };
-  PromptSubmit: undefined;
+  PromptSubmit: {
+    language: string;
+  };
   PersonalisedGame: undefined;
   GameOver: undefined;
 };

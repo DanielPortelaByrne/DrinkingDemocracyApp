@@ -6,97 +6,13 @@ import { getNames } from "../components/nameStore";
 import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
-import { prompts } from "../prompts";
-import { crazy } from "../crazy";
-import { flirty } from "../flirty";
-import { virus } from "../virus";
-import { virusend } from "../virusend";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
 import {
   BannerAd,
   BannerAdSize,
   TestIds,
 } from "react-native-google-mobile-ads";
-// import { useFocusEffect } from "react-navigation";
-// import "react-native-gesture-handler";
-
-// // Store the prompts in async storage
-// const storePrompts = async () => {
-//   try {
-//     // Convert the prompts array to a JSON string
-//     // Save the prompts strings in async storage
-//     try {
-//       const response = await fetch(
-//         "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/prompts.json"
-//       );
-//       const data = await response.json();
-//       const promptsString = JSON.stringify(data);
-//       await AsyncStorage.setItem("prompts", promptsString);
-//       // console.log("Successfully fetched and stored data: " + promptsString);
-//     } catch (error) {
-//       console.error(error);
-//       console.log("prinks");
-//       const promptsString = JSON.stringify(prompts);
-//       await AsyncStorage.setItem("prompts", promptsString);
-//     }
-//     try {
-//       const response = await fetch(
-//         "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/crazy.json"
-//       );
-//       const data = await response.json();
-//       const crazyString = JSON.stringify(data);
-//       await AsyncStorage.setItem("crazy", crazyString);
-//       // console.log("Successfully fetched and stored data: " + crazyString);
-//     } catch (error) {
-//       console.error(error);
-//       const crazyString = JSON.stringify(crazy);
-//       await AsyncStorage.setItem("crazy", crazyString);
-//     }
-//     try {
-//       const response = await fetch(
-//         "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/flirty.json"
-//       );
-//       const data = await response.json();
-//       const flirtyString = JSON.stringify(data);
-//       await AsyncStorage.setItem("flirty", flirtyString);
-//       // console.log("Successfully fetched and stored data: " + flirtyString);
-//     } catch (error) {
-//       console.error(error);
-//       const flirtyString = JSON.stringify(flirty);
-//       await AsyncStorage.setItem("flirty", flirtyString);
-//     }
-//     try {
-//       const response = await fetch(
-//         "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/virus.json"
-//       );
-//       const data = await response.json();
-//       const virusString = JSON.stringify(data);
-//       await AsyncStorage.setItem("virus", virusString);
-//       // console.log("Successfully fetched and stored data: " + virusString);
-//     } catch (error) {
-//       console.error(error);
-//       const virusString = JSON.stringify(virus);
-//       await AsyncStorage.setItem("virus", virusString);
-//     }
-//     try {
-//       const response = await fetch(
-//         "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/virusend.json"
-//       );
-//       const data = await response.json();
-//       const virusEndString = JSON.stringify(data);
-//       await AsyncStorage.setItem("virusend", virusEndString);
-//       // console.log("Successfully fetched and stored data: " + virusEndString);
-//     } catch (error) {
-//       console.error(error);
-//       const virusEndString = JSON.stringify(virusend);
-//       await AsyncStorage.setItem("virusend", virusEndString);
-//     }
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
 
 const selectRandomPrompts = async () => {
   const playedPrinks = await retrievePrinksPlayed();
@@ -107,8 +23,6 @@ const selectRandomPrompts = async () => {
   const flirty = await retrieveFlirty();
   const virus = await retrieveVirus();
   const virusend = await retrieveVirusEnd();
-
-  // await AsyncStorage.removeItem("playedPrompts");
 
   const indices = [];
   for (let i = 0; i < virus.length; i++) {
@@ -128,18 +42,6 @@ const selectRandomPrompts = async () => {
       shuffledVirusEnd.push(virusend[indices[i] + 1]);
     }
   }
-  // // Shuffle the prompts array
-  // prompts.sort(() => Math.random() - 0.5);
-  // crazy.sort(() => Math.random() - 0.5);
-  // flirty.sort(() => Math.random() - 0.5);
-
-  // // Select the first 30 prompts from the shuffled array
-  // const selectedPrompts = prompts.slice(0, 30);
-  // const selectedCrazyPrompts = crazy.slice(0, 30);
-  // const selectedFlirtyPrompts = flirty.slice(0, 30);
-  // const selectedVirusPrompts = shuffledVirus.slice(0, 4);
-  // const selectedVirusEndPrompts = shuffledVirusEnd.slice(0, 4);
-
   console.log("Retrieved played prompts: ");
   for (let i = 0; i < playedPrinks.length; i++) {
     console.log("[" + (i + 1) + "] " + playedPrinks[i].text);
@@ -329,24 +231,62 @@ const retrieveFlirtyPlayed = async () => {
 };
 
 export default function TabTwoScreen({
+  route,
   navigation,
 }: RootTabScreenProps<"TabTwo">) {
+  const { language } = route.params;
   const [names, setNames] = useState(getNames());
+  const [prinksText, setPrinksText] = useState("Let's get prinking");
+  const [crazyText, setCrazyText] = useState("Let's get messy");
+  const [flirtyText, setFlirtyText] = useState("Let's get flirty");
+  const [sapText, setSapText] = useState("SUBMIT A PROMPT");
+  const [title, setTitle] = useState("GAMES");
+
+  console.log("Returned language:", language);
 
   useFocusEffect(
     React.useCallback(() => {
-      setLanguage();
+      setLanguage(language);
       setNames(getNames());
       selectRandomPrompts();
     }, [])
   );
 
-  const setLanguage = async () => {
-    // Retrieve the language variable set
-    const language = await AsyncStorage.getItem("language");
-    console.log("Language is: " + language);
-    // Return the language variable set
-    return language;
+  const setLanguage = async (language: string) => {
+    switch (language) {
+      case "English": {
+        setTitle("GAMES");
+        setPrinksText("Let's get prinking");
+        setCrazyText("Let's get messy");
+        setFlirtyText("Let's get flirty");
+        setSapText("SUBMIT A PROMPT");
+        break;
+      }
+      case "Irish": {
+        setTitle("CLUICHÍ");
+        setPrinksText("Bainigí spleodar as");
+        setCrazyText("Bainigí gach rud mícheart");
+        setFlirtyText("Bainigí grá amach");
+        setSapText("SEOL ISTIGH PHROMPTA");
+        break;
+      }
+      case "Spanish": {
+        setTitle(language);
+        setPrinksText(language);
+        setCrazyText(language);
+        setFlirtyText(language);
+        setSapText(language);
+        break;
+      }
+      default: {
+        setTitle(language);
+        setPrinksText(language);
+        setCrazyText(language);
+        setFlirtyText(language);
+        setSapText(language);
+        break;
+      }
+    }
   };
 
   const [fontsLoaded] = useFonts({
@@ -382,7 +322,7 @@ export default function TabTwoScreen({
             textAlign: "center",
           }}
         >
-          GAMES
+          {title}
         </Text>
         {/* <View style={{ position: "absolute", top: 70, left: -90 }}>
           <BannerAd
@@ -538,12 +478,12 @@ export default function TabTwoScreen({
               style={{
                 fontFamily: "Konstruktor",
                 color: "#111111",
-                fontSize: 18,
+                fontSize: 16,
                 textAlign: "center",
                 lineHeight: 80,
               }}
             >
-              Let's get prinking
+              {prinksText}
             </Text>
           </TouchableOpacity>
         </View>
@@ -577,12 +517,12 @@ export default function TabTwoScreen({
               style={{
                 fontFamily: "Konstruktor",
                 color: "#111111",
-                fontSize: 18,
+                fontSize: 16,
                 textAlign: "center",
                 lineHeight: 80,
               }}
             >
-              Let's get messy
+              {crazyText}
             </Text>
           </TouchableOpacity>
         </View>
@@ -617,13 +557,13 @@ export default function TabTwoScreen({
               style={{
                 fontFamily: "Konstruktor",
                 color: "#111111",
-                fontSize: 18,
+                fontSize: 16,
                 textAlign: "center",
                 lineHeight: 80,
                 // padding: 25,
               }}
             >
-              Let's get flirty
+              {flirtyText}
             </Text>
           </TouchableOpacity>
         </View>
@@ -638,7 +578,9 @@ export default function TabTwoScreen({
         >
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("PromptSubmit");
+              navigation.navigate("PromptSubmit", {
+                language: language,
+              });
             }}
             style={{
               backgroundColor: "#1c1c1c",
@@ -657,13 +599,13 @@ export default function TabTwoScreen({
               style={{
                 fontFamily: "Konstruktor",
                 color: "white",
-                fontSize: 28,
+                fontSize: 26,
                 textAlign: "center",
                 lineHeight: 80,
                 // padding: 25,
               }}
             >
-              SUBMIT A PROMPT
+              {sapText}
             </Text>
             {/* </LinearGradient> */}
           </TouchableOpacity>

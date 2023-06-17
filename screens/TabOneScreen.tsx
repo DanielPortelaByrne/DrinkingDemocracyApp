@@ -22,7 +22,7 @@ import { RootTabScreenProps } from "../types";
 import { updateNames, getNames } from "../components/nameStore";
 import { useFonts } from "expo-font";
 import { useFocusEffect } from "@react-navigation/native";
-var language = "english";
+var language = "English";
 
 // Store the prompts in async storage
 const storePrompts = async (language: string) => {
@@ -407,7 +407,9 @@ export default function TabOneScreen({
         }}
         onPress={() => {
           if (getNames().length > 1 && getNames()[0].length > 0) {
-            navigation.navigate("TabTwo");
+            navigation.navigate("TabTwo", {
+              language: language,
+            });
           } else {
             ToastAndroid.show("Enter at least 2 names!", ToastAndroid.SHORT);
           }

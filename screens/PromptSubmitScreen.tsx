@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   ScrollView,
   TextInput,
@@ -19,13 +19,31 @@ import email from "react-native-email";
 import { sendEmail } from "../hooks/sendEmail";
 
 export default function PromptSubmitScreen({
+  route,
   navigation,
 }: RootTabScreenProps<"PromptSubmit">) {
+  const { language } = route.params;
   const [fontsLoaded] = useFonts({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
   });
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedGameMode, setSelectedGameMode] = useState("");
+  const [enterPromptText, setEnterPromptText] = useState("ENTER YOUR PROMPT");
+  const [customPromptText, setCustomPromptText] = useState(
+    "Enter your custom prompt"
+  );
+  const [pickCatText, setPickCatText] = useState("PICK YOUR PROMPT CATEGORY");
+  const [selectCatText, setSelectCatText] = useState("Select prompt category");
+  const [gameModeText, setGameModeText] = useState(
+    "PICK YOUR PROMPT GAME MODE"
+  );
+  const [selectGameModeText, setSelectGameModeText] = useState(
+    "Select your game mode"
+  );
+  const [socialText, setSocialText] = useState(
+    "ENTER YOUR SOCIAL MEDIA HANDLE TO BE CREDITED"
+  );
+  const [submitText, setSubmitText] = useState("SUBMIT YOUR PROMPT");
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [prompt, setPrompt] = useState({
     text: "",
@@ -33,6 +51,57 @@ export default function PromptSubmitScreen({
     handle: "",
   });
   // const [handleText, setHandleText] = useState("");
+
+  useEffect(() => {
+    setLanguage(language);
+  }, []);
+
+  const setLanguage = async (language: string) => {
+    switch (language) {
+      case "English": {
+        setEnterPromptText("ENTER YOUR PROMPT");
+        setPickCatText("PICK YOUR PROMPT CATEGORY");
+        setGameModeText("PICK YOUR PROMPT GAME MODE");
+        setSocialText("ENTER YOUR SOCIAL MEDIA HANDLE TO BE CREDITED");
+        setSubmitText("SUBMIT YOUR PROMPT");
+        setSelectCatText("Select prompt category");
+        setSelectGameModeText("Select your game mode");
+        break;
+      }
+      case "Irish": {
+        setEnterPromptText("IONTRÁIL DO PHROMPTA");
+        setPickCatText("ROGHNAIGH DO CHATEGÓIR PHROMPTA");
+        setGameModeText("ROGHNAIGH DO MHÓD CHLUICHE PHROMPTA");
+        setSocialText(
+          "IONTRÁIL DO DHÁLACH MÉID SÓISIALTA CHUN A BHEITH IDIRBHIRT"
+        );
+        setSubmitText("SEOL DO PHROMPTA");
+        setSelectCatText("Roghnaigh catagóir tiomána");
+        setSelectGameModeText("Roghnaigh do mhod tráchtála");
+        break;
+      }
+      case "Spanish": {
+        setEnterPromptText("ENTER YOUR PROMPT");
+        setPickCatText("PICK YOUR PROMPT CATEGORY");
+        setGameModeText("PICK YOUR PROMPT GAME MODE");
+        setSocialText("ENTER YOUR SOCIAL MEDIA HANDLE TO BE CREDITED");
+        setSubmitText("SUBMIT YOUR PROMPT");
+        setSelectCatText("Select prompt category");
+        setSelectGameModeText("Select your game mode");
+        break;
+      }
+      default: {
+        setEnterPromptText("ENTER YOUR PROMPT");
+        setPickCatText("PICK YOUR PROMPT CATEGORY");
+        setGameModeText("PICK YOUR PROMPT GAME MODE");
+        setSocialText("ENTER YOUR SOCIAL MEDIA HANDLE TO BE CREDITED");
+        setSubmitText("SUBMIT YOUR PROMPT");
+        setSelectCatText("Select prompt category");
+        setSelectGameModeText("Select your game mode");
+        break;
+      }
+    }
+  };
 
   let jsonPrompt = "";
 
@@ -101,7 +170,13 @@ export default function PromptSubmitScreen({
         source={require("../assets/images/title_logo.png")}
       /> */}
         <View style={{ position: "absolute", top: "10%", left: "8%" }}>
-          <TouchableOpacity onPress={() => navigation.navigate("TabTwo")}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("TabTwo", {
+                language: language,
+              })
+            }
+          >
             <Ionicons name="arrow-undo-sharp" size={32} color="#ffffff" />
           </TouchableOpacity>
         </View>
@@ -219,10 +294,10 @@ export default function PromptSubmitScreen({
                 backgroundColor: "rgba(52, 52, 52, 0)",
               }}
             >
-              ENTER YOUR PROMPT
+              {enterPromptText}
             </Text>
             <TextInput
-              placeholder={`Enter your custom prompt`}
+              placeholder={`${customPromptText}`}
               onChangeText={(text) => handlePromptTextChange(text)}
               style={styles.textInput}
               textAlign="center"
@@ -236,14 +311,14 @@ export default function PromptSubmitScreen({
                 backgroundColor: "rgba(52, 52, 52, 0)",
               }}
             >
-              PICK YOUR PROMPT CATEGORY
+              {pickCatText}
             </Text>
             <Picker
               selectedValue={selectedCategory}
               style={{ backgroundColor: "white", marginBottom: 10 }}
               onValueChange={(text) => handlePromptCategoryChange(text)}
             >
-              <Picker.Item label="Select prompt category" value="" />
+              <Picker.Item label={selectCatText} value="" />
               <Picker.Item label="RULE" value="RULE" />
               <Picker.Item label="GET IT DOWN YA" value="GET IT DOWN YA" />
               <Picker.Item label="CHALLENGE" value="CHALLENGE" />
@@ -261,7 +336,7 @@ export default function PromptSubmitScreen({
                 backgroundColor: "rgba(52, 52, 52, 0)",
               }}
             >
-              PICK YOUR PROMPT GAME MODE
+              {gameModeText}
             </Text>
             <Picker
               selectedValue={selectedGameMode}
@@ -270,9 +345,9 @@ export default function PromptSubmitScreen({
                 setSelectedGameMode(itemValue)
               }
             >
-              <Picker.Item label="Select your game mode" value="" />
+              <Picker.Item label={selectGameModeText} value="" />
               <Picker.Item label="PRINKS" value="PRINKS" />
-              <Picker.Item label="CRAZY" value="CRAZY" />
+              <Picker.Item label="MESSY" value="MESSY" />
               <Picker.Item label="FLIRTY" value="FLIRTY" />
             </Picker>
 
@@ -285,7 +360,7 @@ export default function PromptSubmitScreen({
                 backgroundColor: "rgba(52, 52, 52, 0)",
               }}
             >
-              ENTER YOUR SOCIAL MEDIA HANDLE TO BE CREDITED
+              {socialText}
             </Text>
             <TextInput
               placeholder={`@...`}
@@ -338,7 +413,9 @@ export default function PromptSubmitScreen({
                     "Game prompt submitted!",
                     ToastAndroid.SHORT
                   );
-                  navigation.navigate("TabTwo");
+                  navigation.navigate("TabTwo", {
+                    language: language,
+                  });
                 }
               }}
             >
@@ -352,7 +429,7 @@ export default function PromptSubmitScreen({
                   padding: 10,
                 }}
               >
-                SUBMIT YOUR PROMPT
+                {submitText}
               </Text>
             </TouchableOpacity>
           </View>

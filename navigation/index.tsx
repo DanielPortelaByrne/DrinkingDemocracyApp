@@ -64,6 +64,9 @@ function RootNavigator() {
         name="TabTwo"
         component={TabTwoScreen}
         options={{ headerShown: false }}
+        initialParams={{
+          language: "", // Set the initial value of language here
+        }}
       />
       <Stack.Screen
         name="GameOne"
