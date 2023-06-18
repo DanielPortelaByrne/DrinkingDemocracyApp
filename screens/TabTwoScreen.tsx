@@ -466,6 +466,7 @@ export default function TabTwoScreen({
             onPress={() => {
               navigation.navigate("GameOne", {
                 gameMode: "prinkGamePrompts",
+                language: language,
               });
             }}
             style={{

@@ -122,6 +122,8 @@ export default function TabOneScreen({
     AsyncStorage.removeItem("playedPrinksPrompts");
     AsyncStorage.removeItem("playedCrazyPrompts");
     AsyncStorage.removeItem("playedFlirtyPrompts");
+    AsyncStorage.removeItem("virusPack");
+    AsyncStorage.removeItem("virusendPack");
     storePrompts("English");
     // setNames(getNames());
   }, []);
@@ -137,6 +139,7 @@ export default function TabOneScreen({
     setDropdownVisible(!isDropdownVisible);
   };
   const [subtitle, setSubTitle] = useState("WHO'S SESHING");
+  const [toast, setToast] = useState("Enter at least 2 names!");
   const [player, setPlayer] = useState("Player");
 
   if (!fontsLoaded) {
@@ -273,9 +276,15 @@ export default function TabOneScreen({
               onPress={() => {
                 setDropdownVisible(false);
                 language = "English";
+                AsyncStorage.removeItem("playedPrinksPrompts");
+                AsyncStorage.removeItem("playedCrazyPrompts");
+                AsyncStorage.removeItem("playedFlirtyPrompts");
+                AsyncStorage.removeItem("virusPack");
+                AsyncStorage.removeItem("virusendPack");
                 AsyncStorage.setItem("language", language);
                 storePrompts(language);
                 setSubTitle("WHO'S SESHING");
+                setToast("Enter at least 2 names!");
                 setPlayer("Player");
                 console.log("Language set to: " + language);
               }}
@@ -290,8 +299,14 @@ export default function TabOneScreen({
                 setDropdownVisible(false);
                 language = "Irish";
                 AsyncStorage.setItem("language", language);
+                AsyncStorage.removeItem("playedPrinksPrompts");
+                AsyncStorage.removeItem("playedCrazyPrompts");
+                AsyncStorage.removeItem("playedFlirtyPrompts");
+                AsyncStorage.removeItem("virusPack");
+                AsyncStorage.removeItem("virusendPack");
                 storePrompts(language);
                 setSubTitle("CÉ ATÁ AG ÓL?");
+                setToast("Iontráil go minic 2 ainm ar a laghad!");
                 setPlayer("Imreoir");
                 console.log("Language set to: " + language);
               }}
@@ -411,7 +426,7 @@ export default function TabOneScreen({
               language: language,
             });
           } else {
-            ToastAndroid.show("Enter at least 2 names!", ToastAndroid.SHORT);
+            ToastAndroid.show(toast, ToastAndroid.SHORT);
           }
         }}
         onPressIn={() => {

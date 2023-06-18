@@ -24,12 +24,15 @@ export type RootStackParamList = {
   };
   GameOne: {
     gameMode: string;
+    language: string;
   };
   PromptSubmit: {
     language: string;
   };
   PersonalisedGame: undefined;
-  GameOver: undefined;
+  GameOver: {
+    language: string;
+  };
   Modal: undefined;
   NotFound: undefined;
 };
@@ -42,12 +45,14 @@ export type RootTabParamList = {
   TabTwo: {
     language: string;
   };
-  GameOne: { gameMode: string };
+  GameOne: { gameMode: string; language: string };
   PromptSubmit: {
     language: string;
   };
   PersonalisedGame: undefined;
-  GameOver: undefined;
+  GameOver: {
+    language: string;
+  };
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =

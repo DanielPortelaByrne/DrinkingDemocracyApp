@@ -2,22 +2,50 @@ import { Button, StyleSheet, TouchableOpacity } from "react-native";
 
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 
 export default function GameOverScreen({
+  route,
   navigation,
 }: RootTabScreenProps<"GameOver">) {
+  const { language } = route.params;
+  const [gameOverText, setGameOverText] = useState("Game Over");
+  const [moreGamesText, setMoreGamesText] = useState("More Games");
   const [fontsLoaded] = useFonts({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
-    // AGENCYR: require("../assets/fonts/AGENCYB.TTF"),
   });
 
   useEffect(() => {
+    setLanguage(language);
     if (!fontsLoaded) {
       return undefined;
     }
   });
+  const setLanguage = async (language: string) => {
+    switch (language) {
+      case "English": {
+        setGameOverText("Game Over");
+        setMoreGamesText("More Games");
+        break;
+      }
+      case "Irish": {
+        setGameOverText("Cluiche Críochnaithe");
+        setMoreGamesText("Cluichí Breise");
+        break;
+      }
+      case "Spanish": {
+        setGameOverText("Game Over");
+        setMoreGamesText("More Games");
+        break;
+      }
+      default: {
+        setGameOverText("Game Over");
+        setMoreGamesText("More Games");
+        break;
+      }
+    }
+  };
   return (
     <View style={styles.container}>
       <Text
@@ -28,10 +56,14 @@ export default function GameOverScreen({
           marginBottom: 20,
         }}
       >
-        Game Over
+        {gameOverText}
       </Text>
       <TouchableOpacity
-        onPress={() => navigation.navigate("TabTwo")}
+        onPress={() =>
+          navigation.navigate("TabTwo", {
+            language: language,
+          })
+        }
         style={{
           backgroundColor: "#ed1e26",
           padding: 20,
@@ -49,7 +81,7 @@ export default function GameOverScreen({
             marginTop: 5,
           }}
         >
-          More Games
+          {moreGamesText}
         </Text>
       </TouchableOpacity>
     </View>
