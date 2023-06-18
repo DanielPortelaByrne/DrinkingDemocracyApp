@@ -8,7 +8,6 @@ import {
   ToastAndroid,
   Animated,
   ImageBackground,
-  Image,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 

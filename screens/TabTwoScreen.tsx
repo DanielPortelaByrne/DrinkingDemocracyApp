@@ -506,6 +506,7 @@ export default function TabTwoScreen({
             onPress={() => {
               navigation.navigate("GameOne", {
                 gameMode: "crazyGamePrompts",
+                language: language,
               });
             }}
             style={{
@@ -546,6 +547,7 @@ export default function TabTwoScreen({
             onPress={() => {
               navigation.navigate("GameOne", {
                 gameMode: "flirtyGamePrompts",
+                language: language,
               });
             }}
             style={{
