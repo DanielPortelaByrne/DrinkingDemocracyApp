@@ -124,18 +124,33 @@ export default function GameOneScreen({
         setQuitGameOpt2("Nílim");
         break;
       }
+      case "Polish": {
+        setAddRuleButtonText("DODAJ ZASADĘ");
+        setAddRuleFieldText("Gráinne to suchar, wypij 15 łyków");
+        setAddRuleButton2Text("DODAJ ZASADĘ");
+        setAddPlayerButtonText("DODAJ GRACZA");
+        setAddPlayerFieldText("Wprowadź imię nowego gracza");
+        setAddPlayerButton2Text("DODAJ GRACZA");
+        setAddPlayerToastText("Gracz dodany!");
+        setFirstCardText("Jesteś na pierwszej karcie!");
+        setQuitGameTitle("Zakończ grę");
+        setQuitGameText("Czy na pewno chcesz zakończyć grę?");
+        setQuitGameOpt1("Tak");
+        setQuitGameOpt2("Nie");
+        break;
+      }
       case "Spanish": {
-        setAddRuleButtonText("ADD A RULE");
-        setAddRuleFieldText("Gráinne is a dryshite, drink 15 sips");
-        setAddRuleButton2Text("ADD RULE");
-        setAddPlayerButtonText("ADD A PLAYER");
-        setAddPlayerFieldText("Enter the new player's name");
-        setAddPlayerButton2Text("ADD PLAYER");
-        setAddPlayerToastText("Player added!");
-        setFirstCardText("You're at the first card!");
-        setQuitGameTitle("Quit Game");
-        setQuitGameText("Are you sure you want to quit the game?");
-        setQuitGameOpt1("Yes");
+        setAddRuleButtonText("AGREGAR REGLA");
+        setAddRuleFieldText("Gráinne es una fastidiosa, toma 15 sorbos");
+        setAddRuleButton2Text("AGREGAR REGLA");
+        setAddPlayerButtonText("AGREGAR JUGADOR");
+        setAddPlayerFieldText("Ingresa el nombre del nuevo jugador");
+        setAddPlayerButton2Text("AGREGAR JUGADOR");
+        setAddPlayerToastText("¡Jugador agregado!");
+        setFirstCardText("¡Estás en la primera carta!");
+        setQuitGameTitle("Salir del Juego");
+        setQuitGameText("¿Estás seguro de que deseas salir del juego?");
+        setQuitGameOpt1("Sí");
         setQuitGameOpt2("No");
         break;
       }
@@ -362,6 +377,79 @@ export default function GameOneScreen({
             "GABH I SÍORRÚD É": "#00badc",
             CEISTEACHÁN: "#00428f",
             VÓTA: "#00428f",
+          };
+          break;
+        }
+      }
+      break;
+    }
+    case "Polish": {
+      categoryImages = {
+        CHALLENGE: require("../assets/images/CHALLENGE.png") as any,
+        RULE: require("../assets/images/RULE.png") as any,
+        VIRUS: require("../assets/images/VIRUS.png") as any,
+        "VIRUS END": require("../assets/images/VIRUS.png") as any,
+        "GET IT DOWN YA": require("../assets/images/GIDY.png") as any,
+        VOTE: require("../assets/images/VOTE.png") as any,
+        SEXY: require("../assets/images/SEXY.png") as any,
+      };
+      switch (gameMode) {
+        case "prinkGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#d70057",
+            RULE: "#8e0045",
+            VIRUS: "#008e72",
+            "VIRUS END": "#008e72",
+            "GET IT DOWN YA": "#00badc",
+            QUIZ: "#00428f",
+            VOTE: "#00428f",
+            SEXY: "#008e72",
+          };
+          playedArray = "playedPrinksPrompts";
+          // console.log("Played array var set to: " + playedArray);
+          break;
+        }
+        case "crazyGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#e39600",
+            RULE: "#964cad",
+            VIRUS: "#fa563c",
+            "VIRUS END": "#fa563c",
+            "GET IT DOWN YA": "#2e2f48",
+            QUIZ: "#162a30",
+            VOTE: "#162a30",
+          };
+          playedArray = "playedCrazyPrompts";
+          break;
+        }
+        case "flirtyGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#e97e74",
+            RULE: "#fcad8e",
+            VIRUS: "#57316b",
+            "VIRUS END": "#57316b",
+            "GET IT DOWN YA": "#575a8d",
+            QUIZ: "#bd2841",
+            VOTE: "#fc8759",
+            SEXY: "#ba3564",
+          };
+          playedArray = "playedFlirtyPrompts";
+          break;
+        }
+        default: {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#d70057",
+            RULE: "#8e0045",
+            VIRUS: "#008e72",
+            "VIRUS END": "#008e72",
+            "GET IT DOWN YA": "#00badc",
+            QUIZ: "#00428f",
+            VOTE: "#00428f",
+            SEXY: "#008e72",
           };
           break;
         }
@@ -1012,7 +1100,7 @@ const styles = StyleSheet.create({
   },
   veryBoldText: {
     fontFamily: "Konstruktor",
-    fontSize: 17,
+    fontSize: 16,
   },
   topLeftButtonContainer: {
     position: "absolute",

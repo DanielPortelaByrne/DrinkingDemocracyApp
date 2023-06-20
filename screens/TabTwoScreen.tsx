@@ -270,20 +270,28 @@ export default function TabTwoScreen({
         setSapText("SEOL ISTIGH PHROMPTA");
         break;
       }
+      case "Polish": {
+        setTitle("GRY");
+        setPrinksText("Zróbmy sobie psikusy");
+        setCrazyText("Zróbmy się nieporządni");
+        setFlirtyText("Zróbmy sobie zaloty");
+        setSapText("WYŚLIJ WSKAZÓWKĘ");
+        break;
+      }
       case "Spanish": {
-        setTitle(language);
-        setPrinksText(language);
-        setCrazyText(language);
-        setFlirtyText(language);
-        setSapText(language);
+        setTitle("JUEGOS");
+        setPrinksText("Vamos a divertirnos");
+        setCrazyText("Vamos a desordenarnos");
+        setFlirtyText("Vamos a coquetear");
+        setSapText("ENVÍA UNA PROPUESTA");
         break;
       }
       default: {
-        setTitle(language);
-        setPrinksText(language);
-        setCrazyText(language);
-        setFlirtyText(language);
-        setSapText(language);
+        setTitle("GAMES");
+        setPrinksText("Let's get prinking");
+        setCrazyText("Let's get messy");
+        setFlirtyText("Let's get flirty");
+        setSapText("SUBMIT A PROMPT");
         break;
       }
     }

@@ -158,40 +158,78 @@ export default function PromptSubmitScreen({
         setMode3("FHEIRTEACH");
         break;
       }
-      case "Spanish": {
-        setEnterPromptText("ENTER YOUR PROMPT");
-        setPickCatText("PICK YOUR PROMPT CATEGORY");
-        setGameModeText("PICK YOUR PROMPT GAME MODE");
-        setSocialText("ENTER YOUR SOCIAL MEDIA HANDLE TO BE CREDITED");
-        setSubmitText("SUBMIT YOUR PROMPT");
-        setSelectCatText("Select prompt category");
-        setSelectGameModeText("Select your game mode");
-        setCustomPromptText("Enter your custom prompt");
+      case "Polish": {
+        setEnterPromptText("WPISZ SWOJĄ PROPOZYCJĘ");
+        setPickCatText("WYBIERZ KATEGORIĘ PROPOZYCJI");
+        setGameModeText("WYBIERZ TRYB GRY PROPOZYCJI");
+        setSocialText(
+          "WPROWADŹ SWOJE KONTO NA MEDIACH SPOŁECZNOŚCIOWYCH, ABY BYĆ WYPOSAŻONYM"
+        );
+        setSubmitText("WYŚLIJ SWOJĄ PROPOZYCJĘ");
+        setSelectCatText("Wybierz kategorię propozycji");
+        setSelectGameModeText("Wybierz tryb gry");
+        setCustomPromptText("Wprowadź własną propozycję");
         setInstruct1(
-          "- BE IN WITH A CHANCE OF HAVING YOUR CUSTOM PROMPT FEATURED PERMANENTLY IN THE GAME"
+          "- MIEJ SZANSĘ NA STAŁE UMIESZCZENIE TWOJEJ WŁASNEJ PROPOZYCJI W GRZE"
         );
         setInstruct2(
-          "- TYPE 'NAME' IF YOU WANT TO RANDOMISE YOUR NAME INPUT, AND 'NAME2' IF YOU WANT TO ADD A SECOND RANDOM NAME"
+          "- WPISZ 'NAME', JEŚLI CHCESZ LOSOWĄ NAZWĘ, LUB 'NAME2', JEŚLI CHCESZ DODAĆ DRUGĄ LOSOWĄ NAZWĘ"
+        );
+        setInstruct3("- NP. 'NAME MUSI SZEPNĄĆ DO NAME2 PRZEZ RESZTĘ GRY'");
+        setInstruct4(
+          "- DODAJ SWOJE KONTO NA MEDIACH SPOŁECZNOŚCIOWYCH, ABY BYĆ WYPOSAŻONYM W APLIKACJI (OPCJONALNIE)"
+        );
+        setToast1("Wprowadź tekst propozycji!");
+        setToast2("Wybierz kategorię propozycji!");
+        setToast3("Wybierz tryb gry!");
+        setToast4("Propozycja gry wysłana!");
+        setCat1("ZASADY");
+        setCat2("ZAPISZ TO SOBIE");
+        setCat3("WYZWANIE");
+        setCat4("GŁOSOWANIE");
+        setCat5("SEKSYOWNY");
+        setCat6("WIRUS");
+        setMode1("ZABAWKI");
+        setMode2("BAWLDAJ");
+        setMode3("KOKETKA");
+        break;
+      }
+      case "Spanish": {
+        setEnterPromptText("INGRESA TU PREGUNTA");
+        setPickCatText("ELIGE LA CATEGORÍA DE TU PREGUNTA");
+        setGameModeText("ELIGE EL MODO DE JUEGO DE TU PREGUNTA");
+        setSocialText(
+          "INGRESA TU NOMBRE DE USUARIO EN REDES SOCIALES PARA RECIBIR CRÉDITO"
+        );
+        setSubmitText("ENVÍA TU PREGUNTA");
+        setSelectCatText("Selecciona la categoría de la pregunta");
+        setSelectGameModeText("Selecciona tu modo de juego");
+        setCustomPromptText("Ingresa tu pregunta personalizada");
+        setInstruct1(
+          "- PARTICIPA PARA TENER LA OPORTUNIDAD DE QUE TU PREGUNTA PERSONALIZADA APAREZCA PERMANENTEMENTE EN EL JUEGO"
+        );
+        setInstruct2(
+          "- ESCRIBE 'NAME' SI QUIERES QUE TU NOMBRE SEA GENERADO ALEATORIAMENTE, Y 'NAME2' SI QUIERES AGREGAR UN SEGUNDO NOMBRE ALEATORIO"
         );
         setInstruct3(
-          "- E.G. 'NAME HAS TO WHISPER TO NAME2 FOR THE REST OF THE GAME'"
+          "- POR EJEMPLO: 'NAME TIENE QUE SUSURRARLE A NAME2 POR EL RESTO DEL JUEGO'"
         );
         setInstruct4(
-          "- ADD YOUR SOCIAL MEDIA HANDLE AND PLATFORM TO BE CREDITED ON THE APP (OPTIONAL)"
+          "- AGREGA TU NOMBRE DE USUARIO EN REDES SOCIALES Y PLATAFORMA PARA RECIBIR CRÉDITO EN LA APLICACIÓN (OPCIONAL)"
         );
-        setToast1("Enter prompt text!");
-        setToast2("Choose a prompt category!");
-        setToast3("Choose a game mode!");
-        setToast4("Game prompt submitted!");
-        setCat1("RULE");
-        setCat2("GET IT DOWN YA");
-        setCat3("CHALLENGE");
-        setCat4("VOTE");
+        setToast1("¡Ingresa el texto de la pregunta!");
+        setToast2("¡Elige una categoría de pregunta!");
+        setToast3("¡Elige un modo de juego!");
+        setToast4("¡Pregunta del juego enviada!");
+        setCat1("REGLA");
+        setCat2("HAZLO");
+        setCat3("DESAFÍO");
+        setCat4("VOTAR");
         setCat5("SEXY");
         setCat6("VIRUS");
-        setMode1("PRINKS");
-        setMode2("MESSY");
-        setMode3("FLIRTY");
+        setMode1("PREP");
+        setMode2("DESORDENADO");
+        setMode3("COQUETO");
         break;
       }
       default: {

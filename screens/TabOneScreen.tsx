@@ -295,6 +295,7 @@ export default function TabOneScreen({
               />
             </TouchableOpacity>
             <TouchableOpacity
+              style={{ marginBottom: 5 }}
               onPress={() => {
                 setDropdownVisible(false);
                 language = "Irish";
@@ -314,6 +315,52 @@ export default function TabOneScreen({
               <Image
                 style={{ height: 32, width: 32 }}
                 source={require("../assets/images/flags/ireland.png")}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ marginBottom: 5 }}
+              onPress={() => {
+                setDropdownVisible(false);
+                language = "Polish";
+                AsyncStorage.setItem("language", language);
+                AsyncStorage.removeItem("playedPrinksPrompts");
+                AsyncStorage.removeItem("playedCrazyPrompts");
+                AsyncStorage.removeItem("playedFlirtyPrompts");
+                AsyncStorage.removeItem("virusPack");
+                AsyncStorage.removeItem("virusendPack");
+                storePrompts(language);
+                setSubTitle("KTO PIJE");
+                setToast("Wpisz co najmniej 2 imiona!");
+                setPlayer("Gracz");
+                console.log("Language set to: " + language);
+              }}
+            >
+              <Image
+                style={{ height: 32, width: 32 }}
+                source={require("../assets/images/flags/poland.png")}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ marginBottom: 5 }}
+              onPress={() => {
+                setDropdownVisible(false);
+                language = "Spanish";
+                AsyncStorage.setItem("language", language);
+                AsyncStorage.removeItem("playedPrinksPrompts");
+                AsyncStorage.removeItem("playedCrazyPrompts");
+                AsyncStorage.removeItem("playedFlirtyPrompts");
+                AsyncStorage.removeItem("virusPack");
+                AsyncStorage.removeItem("virusendPack");
+                storePrompts(language);
+                setSubTitle("¿QUIÉN ESTÁ BEBIENDO?");
+                setToast("¡Ingresa al menos 2 nombres!");
+                setPlayer("Jugador");
+                console.log("Language set to: " + language);
+              }}
+            >
+              <Image
+                style={{ height: 32, width: 32 }}
+                source={require("../assets/images/flags/spain.png")}
               />
             </TouchableOpacity>
             {/* Add more options as needed */}
