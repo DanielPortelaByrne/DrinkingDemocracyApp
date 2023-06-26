@@ -149,7 +149,7 @@
     "category": "VIRUS END",
     "id": "30b"
   },
-    {
+  {
     "text": "[Name], you can stop drinking every time the person to your right does, cop on.",
     "category": "VIRUS END",
     "id": "31b"
@@ -158,5 +158,95 @@
     "text": "[Name] and [Name2], you can have your birth names back now.",
     "category": "VIRUS END",
     "id": "32b"
+  },
+  {
+    "text": "[Name] is no longer the designated DJ. Everyone can stop dancing.",
+    "category": "VIRUS END",
+    "id": "33b"
+  },
+  {
+    "text": "[Name] can now use multi-syllable words.",
+    "category": "VIRUS END",
+    "id": "34b"
+  },
+  {
+    "text": "[Name] can now stop completing every sentence with the word \"banana\".",
+    "category": "VIRUS END",
+    "id": "35b"
+  },
+  {
+    "text": "[Name] can now take off their blindfold.",
+    "category": "VIRUS END",
+    "id": "36b"
+  },
+  {
+    "text": "[Name] can now do things without asking [Name2]'s permission.",
+    "category": "VIRUS END",
+    "id": "37b"
+  },
+  {
+    "text": "[Name] can now speak in the first person again.",
+    "category": "VIRUS END",
+    "id": "38b"
+  },
+  {
+    "text": "[Name] can now stop making funny faces when they speak.",
+    "category": "VIRUS END",
+    "id": "39b"
+  },
+  {
+    "text": "[Name] can now stop giving [Name2] compliments every time they speak.",
+    "category": "VIRUS END",
+    "id": "40b"
+  },
+  {
+    "text": "[Name] can now stop doing dares from other players every time they move from their spot.",
+    "category": "VIRUS END",
+    "id": "41b"
+  },
+  {
+    "text": "[Name] can now drink with their right hand (or left hand, if they're already right-handed).",
+    "category": "VIRUS END",
+    "id": "42b"
+  },
+  {
+    "text": "[Name] can now drink from their own cup.",
+    "category": "VIRUS END",
+    "id": "43b"
+  },
+  {
+    "text": "[Name] and [Name2] no longer have to swap seats when their names are mentioned.",
+    "category": "VIRUS END",
+    "id": "44b"
+  },
+  {
+    "text": "[Name] can now speak in complete sentences.",
+    "category": "VIRUS END",
+    "id": "45b"
+  },
+  {
+    "text": "[Name] can now use words that don't start with the letter \"A\".",
+    "category": "VIRUS END",
+    "id": "46b"
+  },
+  {
+    "text": "[Name] can now use words that aren't related to food.",
+    "category": "VIRUS END",
+    "id": "47b"
+  },
+  {
+    "text": "[Name] can now use words that aren't related to animals.",
+    "category": "VIRUS END",
+    "id": "48b"
+  },
+  {
+    "text": "[Name] can now use words that are more than 3 syllables long.",
+    "category": "VIRUS END",
+    "id": "49b"
+  },
+  {
+    "text": "Everyone can now speak normally.",
+    "category": "VIRUS END",
+    "id": "50b"
   }
 ]
