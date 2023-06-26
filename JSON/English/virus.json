@@ -158,5 +158,95 @@
     "text": "[Name] and [Name2], the group will call you two by nicknames from now on. Get creative with them!",
     "category": "VIRUS",
     "id": "32a"
+  },
+  {
+    "text": "[Name] is now the designated DJ. Everyone must dance to their music until told otherwise.",
+    "category": "VIRUS",
+    "id": "33a"
+  },
+  {
+    "text": "[Name] must use only one syllable words until told otherwise.",
+    "category": "VIRUS",
+    "id": "34a"
+  },
+  {
+    "text": "[Name] must complete every sentence with the word \"banana\".",
+    "category": "VIRUS",
+    "id": "35a"
+  },
+  {
+    "text": "[Name] must wear a blindfold for the rest of the game.",
+    "category": "VIRUS",
+    "id": "36a"
+  },
+  {
+    "text": "[Name] must ask [Name2] permission to do anything, even the smallest things, until told otherwise.",
+    "category": "VIRUS",
+    "id": "37a"
+  },
+  {
+    "text": "[Name] must speak in the third person for the rest of the game.",
+    "category": "VIRUS",
+    "id": "38a"
+  },
+  {
+    "text": "[Name] must make a funny face every time they speak (Although their face is already funny looking).",
+    "category": "VIRUS",
+    "id": "39a"
+  },
+  {
+    "text": "[Name] must give [Name2] a compliment every time they speak.",
+    "category": "VIRUS",
+    "id": "40a"
+  },
+  {
+    "text": "[Name] must do a dare from another player every time they move from their spot.",
+    "category": "VIRUS",
+    "id": "41a"
+  },
+  {
+    "text": "[Name] must only drink with their left hand (or right hand, if they're already left-handed).",
+    "category": "VIRUS",
+    "id": "42a"
+  },
+  {
+    "text": "[Name] must only drink from the person to their left's cup.",
+    "category": "VIRUS",
+    "id": "43a"
+  },
+  {
+    "text": "[Name] and [Name2] must immediately swap seats any time anyone mentions either of their names.",
+    "category": "VIRUS",
+    "id": "44a"
+  },
+  {
+    "text": "[Name] must only speak in questions from now on.",
+    "category": "VIRUS",
+    "id": "45a"
+  },
+  {
+    "text": "[Name] must only use words that start with the letter \"A\" from now on.",
+    "category": "VIRUS",
+    "id": "46a"
+  },
+  {
+    "text": "[Name] must only use words that are related to food from now on.",
+    "category": "VIRUS",
+    "id": "47a"
+  },
+  {
+    "text": "[Name] must only use words that are related to animals from now on.",
+    "category": "VIRUS",
+    "id": "48a"
+  },
+  {
+    "text": "[Name] must only use words that are related to the colour blue from now on.",
+    "category": "VIRUS",
+    "id": "49a"
+  },
+  {
+    "text": "Everyone has to speak like a caveman from now, meaning they can only speak 3 words max at a time (e.g. I like virus. Virus is funny.).",
+    "category": "VIRUS",
+    "id": "50a"
   }
 ]
