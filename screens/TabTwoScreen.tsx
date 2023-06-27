@@ -332,7 +332,7 @@ export default function TabTwoScreen({
         >
           {title}
         </Text>
-        {/* <View style={{ position: "absolute", top: 70, left: -90 }}>
+        <View style={{ position: "absolute", top: 70, left: -90 }}>
           <BannerAd
             unitId={adUnitId}
             size={BannerAdSize.LARGE_BANNER}
@@ -340,7 +340,7 @@ export default function TabTwoScreen({
               requestNonPersonalizedAdsOnly: true,
             }}
           />
-        </View> */}
+        </View>
       </View>
 
       <Image
@@ -447,13 +447,13 @@ export default function TabTwoScreen({
             backgroundColor: "rgba(52, 52, 52, 0)",
           }}
         >
-          {/* <BannerAd
+          <BannerAd
             unitId={adUnitId}
             size={BannerAdSize.LARGE_BANNER}
             requestOptions={{
               requestNonPersonalizedAdsOnly: true,
             }}
-          /> */}
+          />
         </View>
 
         <View

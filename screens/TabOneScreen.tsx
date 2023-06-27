@@ -117,6 +117,9 @@ export default function TabOneScreen({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
   });
 
+  const glow1 = require("../assets/images/transparent_logo_glow_new_2.png");
+  const glow2 = require("../assets/images/transparent_logo_glow_new_5.png");
+
   // Store the prompts in async storage when the component is mounted
   useEffect(() => {
     AsyncStorage.removeItem("playedPrinksPrompts");
@@ -125,12 +128,24 @@ export default function TabOneScreen({
     AsyncStorage.removeItem("virusPack");
     AsyncStorage.removeItem("virusendPack");
     storePrompts("English");
+    Promise.all([Image.prefetch(glow1.uri), Image.prefetch(glow2.uri)])
+      .then(() => {
+        setImageSource(glow1);
+      })
+      .catch((error) => {
+        console.log("Error preloading image", error);
+      });
     // setNames(getNames());
   }, []);
 
-  const [imageSource, setImageSource] = useState(
-    require("../assets/images/transparent_logo_glow_new_2.png")
-  );
+  const handlePressIn = () => {
+    setImageSource(glow2);
+  };
+  const handlePressOut = () => {
+    setImageSource(glow1);
+  };
+
+  const [imageSource, setImageSource] = useState(glow1);
 
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -476,16 +491,8 @@ export default function TabOneScreen({
             ToastAndroid.show(toast, ToastAndroid.SHORT);
           }
         }}
-        onPressIn={() => {
-          setImageSource(
-            require("../assets/images/transparent_logo_glow_new_5.png")
-          );
-        }}
-        onPressOut={() => {
-          setImageSource(
-            require("../assets/images/transparent_logo_glow_new_2.png")
-          );
-        }}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
       >
         <Image source={imageSource} style={styles.bottomImage} />
       </TouchableOpacity>
