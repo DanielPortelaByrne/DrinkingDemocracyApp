@@ -1,0 +1,394 @@
+[
+  {
+  "text": "Ar an gcuntas de 3, díríonn gach duine ar an imreoir a dhéanann an iomarca flirt. Glacann an t-imreoir a ndírítear ar an mó de dhíonachaíocht",
+  "category": "VÓTA"
+  },
+  {
+  "text": "Ar an gcuntas de 3, díríonn gach duine ar an imreoir is dócha go dtarlóidh gearradh. Glacann an t-imreoir a ndírítear ar an mó de dhíonachaíocht",
+  "category": "VÓTA"
+  },
+  {
+  "text": "VÓTA gach duine don imreoir is treise. Tá sé in am dóibh an deoch a ísliú!",
+  "category": "VÓTA"
+  },
+  {
+  "text": "[Name], soláthraigh 3 siopa má tá tú riamh i dtimpiste gluaisteáin, seachas sin glac leo",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "[Name], cén cuimhin leat is díomhaoin do chuimhní? Abraigí dúinn go léir nó glac 3 siopaí",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 siopa má tá tú riamh ag dul le parachute",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Caithfidh [Name] a shúile a dhúnadh agus na himreoirí eile a deoch a fholúsú. Mura dtig leo é a aimsiú sna 30 soicind seo chugainn, caithfidh siad é a ól go léir",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "Timpeall an tseomra, ainmnigh do ghabhálaí/nascanna éigin. Ólann an chéad duine a rithann amach ainmneacha 3 uair. Tosaíonn [Name] leat",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "Focail mallachta, an chéad duine a athdhéanann féin nó nach féidir leis smaoineamh ar aon rud, ólann sé 3 huaire. Tosaíonn [Name] leat",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "Cineálacha drugaí, an chéad duine a athdhéanann féin nó nach féidir leis smaoineamh ar aon rud, ólann sé 3 huaire. Tosaíonn [Name] leat",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "Lonnaí inar féidir leat corp a cheilt, an chéad duine a dhéanann athrá nó nach féidir leis/a léiriú aon rud ólann 3 uair. [Name] tús a dhéanamh",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "Tíortha le daoine tarraingteacha, an chéad duine a dhéanann athrá nó nach féidir leis/a léiriú aon rud ólann 3 uair. [Name] tús a dhéanamh",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "Cé atá is dóichí ná a gcuid deartháireacha féin a chaithiú lena chéile? VÓTA ag an am céanna, beidh 5 uillinn de ól ag an imreoir a ndírítear go hiomlán uirthi",
+  "category": "VÓTA"
+  },
+  {
+  "text": "Cé atá is dóichí a dhuine a mharú do chuid airgid? VÓTA ag an am céanna, beidh 5 uillinn de ól ag an imreoir a ndírítear go hiomlán uirthi",
+  "category": "VÓTA"
+  },
+  {
+  "text": "Cé atá ag breathnú ar an phorn is mó? VÓTA ag an am céanna, beidh gloine de ól ag an imreoir a ndírítear uirthi do gach uair sa tseachtain seo",
+  "category": "VÓTA"
+  },
+  {
+  "text": "Cé atá an imreoir leis an n-uaireadh is measa? VÓTA ag an am céanna, beidh 3 uillinn de ól ag an imreoir a ndírítear go hiomlán uirthi",
+  "category": "VÓTA"
+  },
+  {
+  "text": "Le do thoil, cé atá an imreoir is teo? VÓTA ag an am céanna, beidh 3 uillinn de ól ag an imreoir a ndírítear go hiomlán uirthi",
+  "category": "VÓTA"
+  },
+  {
+  "text": "[Name] scaoil 2 uillinneacha amach má tháinig tuaslag ort le déanaí, seachas sin glan iad",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "[Name], scaoil 3 uillinneacha amach do imreoir atá níos bodhaire ná tú... Mura bhfuil sé deacair, ól iad",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Ól 2 uair más cailleadh ort riamh i leaba cara gan iad a fheiceáil",
+  "category": "RIALACHÁN"
+  },
+    {
+  "text": "An imreoir a bhfuil an ex is uafásach aige/ aici ól 3 uair",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Ghlac 2 síb leat má tá tú riamh pléascadh tar éis ól.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "G'wan coirpeachtaí! Má tá tú riamh cóir fhillte, ól do deoch!",
+  "category": "GABH I SÍORRÚD É"
+  },
+  {
+  "text": "Ghlac 3 síb leat má bhí tú riamh gearrtha.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Ghlac 4 síb leat má bhí tú riamh i bpríosún.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Ghlac 2 síb leat má bhí tú riamh ag triail ar substaint mídhleathach.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Ghlac 4 síb leat má tá uimhir díolaithe agat.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Ghlac 3 síb leat má tá tú stoner.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "[Name], déan damhsa comhaimseartha ar an amhrán atá ag seinm. Má cheapann na himreoirí eile nach bhfuil tallann agat, ól 3 síb.",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "Má tá tú riamh tar éis dul as do mheabhair, téann do shlí siar chun an duine ar do chlé. Ná bí ródhian go hoidhre anocht, sea?",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "[Name], ráigh do thuairim is forleathan. Caithfidh gach duine aontú ól.",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "[Name], ainmneoidh rud is fearr le gach duine eile, ach nach maith leat tú é. Caithfidh gach duine nach bhfuil ag aontú ól.",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "[Name], seinn tús an amhráin is déanaí a éist tú ar do ghuthán. Má bhíonn formhor na n-imreoirí míshásta leis, ól 3 uair",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "[Name], roghnaigh imreoir chun pógadh. 4 síb má dhéantar diúltú 🍑",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "[Name], má tá tú singil, tabhair 2 síb don imreoir is dathúla leat",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Ól 2 uair má ghabh tú póg le duine a bhfuil déistin uait.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Siúil timpeall na seomra, ag déanamh do dhícheall ar an chuid is fearr duit. Ba cheart dóibh siúd nach féidir, ól 2 uair, [Name], tosaigh tú.",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "FÓNAÍ SIAR! Ní mór don chéad duine a ghlacadh a phost síos a ól go léir",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "Bun suas! Daoine a bhfuil breithlá acu an tseachtain seo, ólfaidh muid é go léir!",
+  "category": "GABH I SÍORRÚD É"
+  },
+  {
+  "text": "A mhná, bí fírinneach, glaoigh 2 suíp má tá sé agat cheanna féin.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glaoigh 4 suíp má rinne tú stríocadh riamh.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glaoigh 3 suíp má rinne tú flaithiúlacht do dhuine éigin.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Cé acu den imreoir is fearr sa leaba? VÓTA ag an am céanna, ghlacfaidh an t-imreoir a bhí ardaíodh an líon is mó suípí.",
+  "category": "VÓTA"
+  },
+  {
+  "text": "Cé acu den imreoir is dóichí a bheith fágtha gan éinne? VÓTA ag an am céanna, ghlacfaidh an t-imreoir a bhí ardaíodh an líon is mó suípí.",
+  "category": "VÓTA"
+  },
+  {
+  "text": "An bhfearr leat bheith agatreidh mhaith sileide a bheith fada nó giorra domhain? Ghlacfaidh an meoinróba an líon is mó suípí.",
+  "category": "VÓTA"
+  },
+  {
+  "text": "Cé acu den imreoir is dóichí a fháil STI? VÓTA ag an am céanna, ghlacfaidh an t-imreoir a bhí ardaíodh an líon is mó suípí.",
+  "category": "VÓTA"
+  },
+  {
+  "text": "Cé acu den imreoir is dóichí a thabharfaidh duine abhaile inniu? VÓTA ag an am céanna, ghlacfaidh an t-imreoir a bhí ardaíodh an líon is mó suípí.",
+  "category": "VÓTA"
+  },
+  {
+  "text": "An bhfuil tú ag iarraidh a fháil amach má tá do chuid comhpháirtí ina ghearrchailleach nó ina ghaol? Beidh an tromlach ag ól 3 dheoch.",
+  "category": "VÓTA"
+  },
+  {
+  "text": "Ól 3 huaire má tá tú riamh tarraing anuas ort féin.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Ól 2 huaire má tá tú imithe amach gan éadaí éadrom. 2 breise má níl tú ag caitheamh aon rud faoi láthair.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "[Name], abair cáilíocht a dhéanann thú ar leith, nó ól 2 dheoch.",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "[Name], cé hé do chara céile is áiféiseach leat? Ainmnigh iad nó ól 3 dheoch.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "[Name], dírigh ar na himreoirí a cheapann tú is fearr agus is measa sa leaba, ach ná habair cé acu iad. Má tá imreoir fíorúil ag iarraidh a fháil amach, caithfidh siad a n-deoch a íoslódáil den chéad uair!",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "[Name], cad is measa ruda a rinne tú i ionad poiblí? Inis dúinn nó ól 3 dheoch.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "[Name], cad is mó atá imithe i bhfolach ort? Inis dúinn nó ól 3 dheoch.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Ól 2 dheoch má tá tú riamh pioctha i bhfolach i bpoll snámha",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "[Name], cad a cheapann tú go bhfuil na tríailacha móraíl atá ag do chairde faoi thú? Caithfidh duine ar bith sa ghrúpa a dhearbhaigh an creideamh seo a ól",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Ól 2 dheoch má tá tú riamh bualadh le duine ar líne a chuirtear i bhfeidhm i gcleachtadh.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "[Name], cad is measa ruda a rinne tú nuair a bhí tú ólta? Inis dúinn nó ól 3 dheoch.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "[Name], cad is mó a dhéanann tú mídhíomá faoi do chompháirtí? Inis dúinn nó ól 3 dheoch.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "[Name] is féidir leo aon rud a dhearadh ar bhráid [Name2]. Mura ndíríonn [Name2] é, caithfidh siad a ndíon a ól",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "[Name], roghnaigh imreoir chun scéal náireach a insint faoi. Is féidir leis an imreoir a roghnaíonn an scéal a rá nó glacadh le 5 ól",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "[Name], cé acu de charad do chara a cheapann tú go bhfuil sé an chuma is fearr air? Insigh dúinn nó glacadh le 3 ól",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Tar éis strip poker a imirt! Ar trí, bíonn gach imreoir ag rá uimhir idir 1-10. Mura bhfuil ach beirt a deir an uimhir céanna, caithfidh siad ár n-éadaí a bhaint.",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "[Name], ag aon bpointe le linn an chluiche is féidir leat do láimh a ardú. Caithfidh an duine deireanach aonrud a dhéanamh ort a gheinnt 3 ól.",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "Má bhíodh cóip deathtach agat déanta díot féin, an nglacfá ceann? Míbhuntáiste ag glacadh 3 ól.",
+  "category": "VÓTA"
+  },
+  {
+  "text": "Gheobhaidh tú 2 ól mura bhfuair duine éigin riamh córas a chomhaireamh ort.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Gheobhaidh tú 2 ól más rud éigin atá ar díoltaíocht níos mó ná €200 ort.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Gheobhaidh tú 2 ól má rinne tú riamh rud éigin a scriosadh nó a chaill nach féidir a athsholáthar.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Gheobhaidh tú 3 ól má rinne tú riamh catfish ar dhuine éigin.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Gheobhaidh tú 3 ól má rinne tú riamh cosc a chur ar do chara.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Gheobhaidh tú 5 ól má rinne tú riamh bullaí ar dhuine éigin.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Gheobhaidh tú 2 ól má bhí tú riamh ag caith amach rud éigin as an leithris le do láimh.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Lóistín suas! Má tá tú in ann tiománaí ach ní tú an tiománaí ainmnithe, tá sé in am an deoch a íoslódáil!",
+  "category": "GABH I SÍORRÚD É"
+  },
+  {
+  "text": "Lóistín suas! Má tá tú singil anocht, tá sé in am an deoch a íoslódáil!",
+  "category": "GABH I SÍORRÚD É"
+  },
+  {
+  "text": "Glac 2 mhóna mura bhfuil bainnseach agat riamh i dteach duine eile.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 mhóna má tá tú tarraingthe suas. Is ea mawmaw!",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 3 mhóna mura bhfuil túr fhoilsiúcháin duine éigin a lorg riamh",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 4 mhóna mura bhfuil tú coirnéal a lasadh riamh",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 mhóna má chuaigh an deoch amach as do srón riamh agus tú ag gáire.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 mhóna má chuaigh tú léim as an gcarraig",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 mhóna má chuaigh tú léim as bungee",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 mhóna má raibh tú ag tiomáint ar mótair",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 mhóna má raibh tú ag tiomáint ar mótair dirt",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 mhóna má cheannaigh tú mír 18+ do dhuine faoi aois.",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 mhóna má rinne tú hallucinogen a thriail",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 mhóna má bhí drogall ort",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 mhóna má d'fhéadfá bréag a rá le linn an cluiche seo",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 mhóna má raibh taithí faoi bhrón ort",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 mhóna má ghoileann tú ar do lá breithe",
+  "category": "RIALACHÁN"
+  },
+    {
+  "text": "Glac 2 siosanna más raibh tú ina doineann an Bhliain Úr seo caite",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 siosanna más chuireamar tine le rud éigin de tháinig isteach go dteannta",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 siosanna más tá dúil agat saothar stick and poke",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 siosanna más d'fhás tú ró-ghearr gafa le duine ar bith a bhí tú ag freastal air",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 siosanna más bhain tú fola tríd",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "Glac 2 siosanna más bhí gortú duit riamh",
+  "category": "RIALACHÁN"
+  },
+  {
+  "text": "[Name], bualadh amach na bpíosaí ceoil do amhrán cáiliúil. Má aisghabhann aon cheann de na himreoirí eile é, glac 2 siosanna.",
+  "category": "DÚSHLÁN"
+  },
+  {
+  "text": "[Name], canaigh Twinkle Twinkle Little Star chomh maith agus is féidir leat. Má cheapann na himreoirí eile nach bhfuil taithneamh agat ann, glac 3 siosanna.",
+  "category": "DÚSHLÁN"
+  }
+]

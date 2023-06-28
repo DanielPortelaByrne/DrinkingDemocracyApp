@@ -1,0 +1,162 @@
+[
+  {
+  "text": "Is féidir le gach duine stop a dhéanamh ar [Name] a aithne mar Máistir",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "1b"
+  },
+  {
+  "text": "[Name] is féidir leat do leathain a thógáil den tábla anois, bí cúramach!",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "2b"
+  },
+  {
+  "text": "Is féidir leat an tábla a dhéanamh teagmháil arís",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "3b"
+  },
+  {
+  "text": "Is féidir le [Name] abairtí fricteacha a rá arís",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "4b"
+  },
+  {
+  "text": "Is féidir le [Name] labhairt lena gcainníochta féin arís, bíodh meas agat ar dhaoine!",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "5b"
+  },
+  {
+  "text": "Is féidir le gach duine stop damhsa le guth [Name] anois",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "6b"
+  },
+  {
+  "text": "Is féidir le [Name] cumarsáid gnáthaitheanta a dhéanamh arís",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "7b"
+  },
+  {
+  "text": "Is féidir le gach duine stop a sipiú le guth [Name], fíoraí",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "8b"
+  },
+  {
+  "text": "Is féidir le [Name] an hata amaideach sin a bhaint de!",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "9b"
+  },
+  {
+  "text": "Is féidir le [Name] stop a ligean amhránaíocht lena gcuid abairtí anois, tabhair sos d'uaisle!",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "10b"
+  },
+  {
+  "text": "Is féidir le gach duine stop meáchan a dhéanamh nuair a labhraíonn [Name], strangóirí",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "11b"
+  },
+  {
+  "text": "Is féidir le [Name] stop a labhairt mar róbat",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "12b"
+  },
+  {
+  "text": "Is féidir le [Name] stop a labhairt le haccent Breatnach, amach libh na Breataineach!",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "13b"
+  },
+  {
+  "text": "Is féidir leat an gortú a chur ar ais, gan riosca go gcaithfidh tú sip a ól",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "14b"
+  },
+  {
+  "text": "Is féidir le [Name] agus [Name2] scaradh óna chéile!",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "15b"
+  },
+  {
+  "text": "[Name], ní tú captaen níos mó!",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "16b"
+  },
+  {
+  "text": "[Name], ní tú an draoi níos mó",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "17b"
+  },
+  {
+  "text": "Is féidir leat labhairt gan bheith cosúil le Yoda. (Ní gá duit labhairt cosúil le Yoda níos mó, tá an abairt sin ait.)",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "18b"
+  },
+  {
+  "text": "[Name], níl níos mó masáistí lámha ort",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "19b"
+  },
+  {
+  "text": "Is féidir le gach duine stad a chur le cur síos órduithe [Name]",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "20b"
+  },
+  {
+  "text": "Is féidir le gach duine stad a chur le ag caint arís",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "21b"
+  },
+  {
+  "text": "Is féidir le [Name] stad a chur le caint de réir ríme",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "22b"
+  },
+  {
+  "text": "Is féidir le [Name] stad a chur le cumarsáid trí chaint téacs, boomer",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "23b"
+  },
+  {
+  "text": "Is féidir le gach duine labhairt ina dteanga féin arís",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "24b"
+  },
+  {
+  "text": "Is féidir le gach duine stop a chur le cumarsáid i ngáire",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "25b"
+  },
+  {
+  "text": "Is féidir le gach duine stop a chur le héascú fuaimanna ainmhí",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "26b"
+  },
+  {
+  "text": "[Name], is féidir leat stop a chur le meancóiriú, sacre bleu!",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "27b"
+  },
+  {
+  "text": "Is féidir le gach duine labhairt ina gcainníocht féin arís",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "28b"
+  },
+  {
+  "text": "[Name], is féidir leat stop a bheith ag caint mar mairnéalach",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "29b"
+  },
+  {
+  "text": "Is féidir le gach duine labhairt ina nglór féin arís",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "30b"
+  },
+  {
+  "text": "[Name], is féidir leat stop a bheith ag ól gach uair a ndéanann an duine ar do dheis é, bíodh ciall agat.",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "31b"
+  },
+  {
+  "text": "[Name] agus [Name2], is féidir libh filleadh ar bhur gceannaí teaghlaigh anois.",
+  "category": "DEIREADH AN VÍREAS",
+  "id": "32b"
+  }
+]
