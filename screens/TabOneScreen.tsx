@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   KeyboardAvoidingView,
   ScrollView,
@@ -6,9 +6,15 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  ToastAndroid,
 } from "react-native";
 import Toast from "react-native-root-toast";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Ionicons } from "@expo/vector-icons";
+import { prompts } from "../prompts";
+import { crazy } from "../crazy";
+import { flirty } from "../flirty";
+import { virus } from "../virus";
+import { virusend } from "../virusend";
 
 // import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from "../components/Themed";
@@ -16,6 +22,93 @@ import { RootTabScreenProps } from "../types";
 import { updateNames, getNames } from "../components/nameStore";
 import { useFonts } from "expo-font";
 import { useFocusEffect } from "@react-navigation/native";
+var language = "English";
+
+// Store the prompts in async storage
+const storePrompts = async (language: string) => {
+  try {
+    // Convert the prompts array to a JSON string
+    // Save the prompts strings in async storage
+    try {
+      const response = await fetch(
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/" +
+          language +
+          "/prompts.json"
+      );
+      const data = await response.json();
+      const promptsString = JSON.stringify(data);
+      await AsyncStorage.setItem("promptsPack", promptsString);
+      console.log("Successfully fetched and stored data: " + promptsString);
+    } catch (error) {
+      console.error(error);
+      console.log("prinks");
+      const promptsString = JSON.stringify(prompts);
+      await AsyncStorage.setItem("promptsPack", promptsString);
+    }
+    try {
+      const response = await fetch(
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/" +
+          language +
+          "/crazy.json"
+      );
+      const data = await response.json();
+      const crazyString = JSON.stringify(data);
+      await AsyncStorage.setItem("crazyPack", crazyString);
+      console.log("Successfully fetched and stored data: " + crazyString);
+    } catch (error) {
+      console.error(error);
+      const crazyString = JSON.stringify(crazy);
+      await AsyncStorage.setItem("crazyPack", crazyString);
+    }
+    try {
+      const response = await fetch(
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/" +
+          language +
+          "/flirty.json"
+      );
+      const data = await response.json();
+      const flirtyString = JSON.stringify(data);
+      await AsyncStorage.setItem("flirtyPack", flirtyString);
+      console.log("Successfully fetched and stored data: " + flirtyString);
+    } catch (error) {
+      console.error(error);
+      const flirtyString = JSON.stringify(flirty);
+      await AsyncStorage.setItem("flirtyPack", flirtyString);
+    }
+    try {
+      const response = await fetch(
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/" +
+          language +
+          "/virus.json"
+      );
+      const data = await response.json();
+      const virusString = JSON.stringify(data);
+      await AsyncStorage.setItem("virusPack", virusString);
+      console.log("Successfully fetched and stored data: " + virusString);
+    } catch (error) {
+      console.error(error);
+      const virusString = JSON.stringify(virus);
+      await AsyncStorage.setItem("virusPack", virusString);
+    }
+    try {
+      const response = await fetch(
+        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/" +
+          language +
+          "/virusend.json"
+      );
+      const data = await response.json();
+      const virusEndString = JSON.stringify(data);
+      await AsyncStorage.setItem("virusendPack", virusEndString);
+      console.log("Successfully fetched and stored data: " + virusEndString);
+    } catch (error) {
+      console.error(error);
+      const virusEndString = JSON.stringify(virusend);
+      await AsyncStorage.setItem("virusendPack", virusEndString);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export default function TabOneScreen({
   navigation,
@@ -24,7 +117,45 @@ export default function TabOneScreen({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
   });
 
+  const glow1 = require("../assets/images/transparent_logo_glow_new_2.png");
+  const glow2 = require("../assets/images/transparent_logo_glow_new_5.png");
+
+  // Store the prompts in async storage when the component is mounted
+  useEffect(() => {
+    AsyncStorage.removeItem("playedPrinksPrompts");
+    AsyncStorage.removeItem("playedCrazyPrompts");
+    AsyncStorage.removeItem("playedFlirtyPrompts");
+    AsyncStorage.removeItem("virusPack");
+    AsyncStorage.removeItem("virusendPack");
+    storePrompts("English");
+    Promise.all([Image.prefetch(glow1.uri), Image.prefetch(glow2.uri)])
+      .then(() => {
+        setImageSource(glow1);
+      })
+      .catch((error) => {
+        console.log("Error preloading image", error);
+      });
+    // setNames(getNames());
+  }, []);
+
+  const handlePressIn = () => {
+    setImageSource(glow2);
+  };
+  const handlePressOut = () => {
+    setImageSource(glow1);
+  };
+
+  const [imageSource, setImageSource] = useState(glow1);
+
   const scrollViewRef = useRef<ScrollView>(null);
+
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const handleDropdownToggle = () => {
+    setDropdownVisible(!isDropdownVisible);
+  };
+  const [subtitle, setSubTitle] = useState("WHO'S SESHING");
+  const [toast, setToast] = useState("Enter at least 2 names!");
+  const [player, setPlayer] = useState("Player");
 
   if (!fontsLoaded) {
     return undefined;
@@ -65,10 +196,11 @@ export default function TabOneScreen({
         updateNames(names.filter((_, index) => index !== names.length - 1)); // update the names in the name store
       }
     };
+
     return (
       <View
         style={{
-          justifyContent: "center",
+          // justifyContent: "center",
           backgroundColor: "rgba(52, 52, 52, 0)",
         }}
       >
@@ -82,7 +214,7 @@ export default function TabOneScreen({
             key={index}
           >
             <TextInput
-              placeholder={`Player ${index + 1}`}
+              placeholder={`${player} ${index + 1}`}
               placeholderTextColor="#ccc"
               value={name}
               onChangeText={(text) => handleNameChange(text, index)}
@@ -97,6 +229,9 @@ export default function TabOneScreen({
             marginTop: 5,
             flexDirection: "row",
             backgroundColor: "rgba(52, 52, 52, 0)",
+            // alignItems: "center",
+            // justifyContent: "center",
+            // alignContent: "center",
           }}
         >
           {names.length > 1 && (
@@ -107,7 +242,7 @@ export default function TabOneScreen({
               <Text
                 style={{
                   fontWeight: "bold",
-                  fontSize: 18,
+                  fontSize: 20,
                   textAlign: "center",
                   // lineHeight: 25,
                 }}
@@ -135,9 +270,119 @@ export default function TabOneScreen({
       </View>
     );
   };
-
   return (
     <View style={styles.container}>
+      <View style={{ position: "absolute", top: 70, right: 30, zIndex: 2 }}>
+        <TouchableOpacity onPress={handleDropdownToggle}>
+          <Ionicons name="language" size={32} color="#ed1e26" />
+        </TouchableOpacity>
+
+        {isDropdownVisible && (
+          <View
+            style={{
+              // backgroundColor: "rgba(52, 52, 52, 0)",
+              position: "absolute",
+              top: 50,
+              zIndex: 2,
+            }}
+          >
+            {/* Dropdown content */}
+            <TouchableOpacity
+              style={{ marginBottom: 5 }}
+              onPress={() => {
+                setDropdownVisible(false);
+                language = "English";
+                AsyncStorage.removeItem("playedPrinksPrompts");
+                AsyncStorage.removeItem("playedCrazyPrompts");
+                AsyncStorage.removeItem("playedFlirtyPrompts");
+                AsyncStorage.removeItem("virusPack");
+                AsyncStorage.removeItem("virusendPack");
+                AsyncStorage.setItem("language", language);
+                storePrompts(language);
+                setSubTitle("WHO'S SESHING");
+                setToast("Enter at least 2 names!");
+                setPlayer("Player");
+                console.log("Language set to: " + language);
+              }}
+            >
+              <Image
+                style={{ height: 32, width: 32 }}
+                source={require("../assets/images/flags/uk.png")}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ marginBottom: 5 }}
+              onPress={() => {
+                setDropdownVisible(false);
+                language = "Irish";
+                AsyncStorage.setItem("language", language);
+                AsyncStorage.removeItem("playedPrinksPrompts");
+                AsyncStorage.removeItem("playedCrazyPrompts");
+                AsyncStorage.removeItem("playedFlirtyPrompts");
+                AsyncStorage.removeItem("virusPack");
+                AsyncStorage.removeItem("virusendPack");
+                storePrompts(language);
+                setSubTitle("CÉ ATÁ AG ÓL?");
+                setToast("Iontráil go minic 2 ainm ar a laghad!");
+                setPlayer("Imreoir");
+                console.log("Language set to: " + language);
+              }}
+            >
+              <Image
+                style={{ height: 32, width: 32 }}
+                source={require("../assets/images/flags/ireland.png")}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ marginBottom: 5 }}
+              onPress={() => {
+                setDropdownVisible(false);
+                language = "Polish";
+                AsyncStorage.setItem("language", language);
+                AsyncStorage.removeItem("playedPrinksPrompts");
+                AsyncStorage.removeItem("playedCrazyPrompts");
+                AsyncStorage.removeItem("playedFlirtyPrompts");
+                AsyncStorage.removeItem("virusPack");
+                AsyncStorage.removeItem("virusendPack");
+                storePrompts(language);
+                setSubTitle("KTO PIJE");
+                setToast("Wpisz co najmniej 2 imiona!");
+                setPlayer("Gracz");
+                console.log("Language set to: " + language);
+              }}
+            >
+              <Image
+                style={{ height: 32, width: 32 }}
+                source={require("../assets/images/flags/poland.png")}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ marginBottom: 5 }}
+              onPress={() => {
+                setDropdownVisible(false);
+                language = "Spanish";
+                AsyncStorage.setItem("language", language);
+                AsyncStorage.removeItem("playedPrinksPrompts");
+                AsyncStorage.removeItem("playedCrazyPrompts");
+                AsyncStorage.removeItem("playedFlirtyPrompts");
+                AsyncStorage.removeItem("virusPack");
+                AsyncStorage.removeItem("virusendPack");
+                storePrompts(language);
+                setSubTitle("¿QUIÉN ESTÁ BEBIENDO?");
+                setToast("¡Ingresa al menos 2 nombres!");
+                setPlayer("Jugador");
+                console.log("Language set to: " + language);
+              }}
+            >
+              <Image
+                style={{ height: 32, width: 32 }}
+                source={require("../assets/images/flags/spain.png")}
+              />
+            </TouchableOpacity>
+            {/* Add more options as needed */}
+          </View>
+        )}
+      </View>
       <Image
         style={styles.image}
         source={require("../assets/images/title_logo.png")}
@@ -148,86 +393,113 @@ export default function TabOneScreen({
         source={require("../assets/images/halo.png")}
         style={{
           width: "100%",
-          height: "40%",
+          height: "35%",
           position: "absolute",
-          top: "25%",
+          top: "26%",
           zIndex: -1,
         }}
       />
-
-      <ScrollView
-        ref={scrollViewRef}
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{
-          flexGrow: 1,
+      <View
+        style={{
+          top: -60,
+          flex: 0.25,
+          alignItems: "center",
           justifyContent: "center",
-          paddingRight: "15%",
-          paddingLeft: "15%",
+          backgroundColor: "rgba(52, 52, 52, 0)",
         }}
       >
-        <View
-          style={{
+        <ScrollView
+          ref={scrollViewRef}
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{
+            flexGrow: 0.35,
             justifyContent: "center",
-            backgroundColor: "rgba(52, 52, 52, 0)",
+            paddingRight: "15%",
+            paddingLeft: "15%",
+          }}
+        >
+          <View
+            style={{
+              justifyContent: "center",
+              backgroundColor: "rgba(52, 52, 52, 0)",
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: "Konstruktor",
+                fontSize: 18,
+                textAlign: "center",
+                marginTop: 25,
+                marginBottom: 10,
+                backgroundColor: "rgba(52, 52, 52, 0)",
+              }}
+            >
+              {subtitle}
+            </Text>
+
+            <NameInput navigation={navigation} />
+          </View>
+        </ScrollView>
+      </View>
+
+      {/* <KeyboardAvoidingView behavior="position"> */}
+      {/* <TouchableOpacity
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            height: "6%",
+            bottom: -45,
+            borderColor: "#ffff",
+            borderWidth: 2,
+            borderRadius: 25,
+            width: "45%",
+          }}
+          onPress={() => {
+            if (getNames().length > 1 && getNames()[0].length > 0) {
+              navigation.navigate("TabTwo");
+            } else {
+              ToastAndroid.show("Enter at least 2 names!", ToastAndroid.SHORT);
+            }
           }}
         >
           <Text
             style={{
               fontFamily: "Konstruktor",
-              fontSize: 18,
+              color: "#ffff",
               textAlign: "center",
-              marginTop: 25,
-              marginBottom: 10,
-              backgroundColor: "rgba(52, 52, 52, 0)",
+              // lineHeight: 50,
+              fontSize: 18,
+              padding: 10,
             }}
           >
-            WHO'S SESHING?
+            LET'S GET DRUNK
           </Text>
-
-          <NameInput navigation={navigation} />
-        </View>
-      </ScrollView>
-      {/* <KeyboardAvoidingView behavior="position"> */}
+        </TouchableOpacity> */}
       <TouchableOpacity
         style={{
-          alignItems: "center",
-          justifyContent: "center",
-          height: "6%",
-          bottom: -45,
-          borderColor: "#ffff",
-          borderWidth: 2,
-          borderRadius: 25,
-          width: "45%",
+          position: "absolute",
+          height: "100%",
+          width: "100%",
+          backgroundColor: "rgba(52, 52, 52, 0)",
+          zIndex: -1,
         }}
         onPress={() => {
           if (getNames().length > 1 && getNames()[0].length > 0) {
-            navigation.navigate("TabTwo");
+            navigation.navigate("TabTwo", {
+              language: language,
+            });
           } else {
-            // ToastAndroid.show("Enter at least 2 names!", ToastAndroid.SHORT);
-            Toast.show("Enter at least 2 names!", {
+            // ToastAndroid.show(toast, ToastAndroid.SHORT);
+            Toast.show(toast, {
               duration: Toast.durations.SHORT,
             });
           }
         }}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
       >
-        <Text
-          style={{
-            fontFamily: "Konstruktor",
-            color: "#ffff",
-            textAlign: "center",
-            lineHeight: 25,
-            fontSize: 15,
-            padding: 10,
-          }}
-        >
-          LET'S GET STARTED
-        </Text>
+        <Image source={imageSource} style={styles.bottomImage} />
       </TouchableOpacity>
-      {/* </KeyboardAvoidingView> */}
-      <Image
-        source={require("../assets/images/transparent_logo_glow.png")}
-        style={styles.bottomImage}
-      />
     </View>
   );
 }
@@ -237,10 +509,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    alignContent: "center",
   },
   image: {
+    position: "absolute",
     width: "100%",
     height: "25%",
+    top: "1%",
   },
   button: {
     backgroundColor: "#ed1e26",
@@ -256,11 +531,14 @@ const styles = StyleSheet.create({
     placeholderTextColor: "#00000",
   },
   bottomImage: {
-    bottom: -60,
-    left: 0,
-    right: 0,
-    width: "100%",
-    height: "33%",
+    position: "absolute",
+    bottom: -80,
+    right: -20,
+    // alignItems: "center",
+    // justifyContent: "center",
+    // alignContent: "center",
+    width: "105%",
+    height: "55%",
     zIndex: -1,
   },
 });

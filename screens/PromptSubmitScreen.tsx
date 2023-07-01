@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   TextInput,
   StyleSheet,
@@ -17,13 +17,57 @@ import { Ionicons } from "@expo/vector-icons";
 import { sendEmail } from "../hooks/sendEmail";
 
 export default function PromptSubmitScreen({
+  route,
   navigation,
 }: RootTabScreenProps<"PromptSubmit">) {
+  const { language } = route.params;
   const [fontsLoaded] = useFonts({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
   });
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedGameMode, setSelectedGameMode] = useState("");
+  const [enterPromptText, setEnterPromptText] = useState("ENTER YOUR PROMPT");
+  const [customPromptText, setCustomPromptText] = useState(
+    "Enter your custom prompt"
+  );
+  const [pickCatText, setPickCatText] = useState("PICK YOUR PROMPT CATEGORY");
+  const [selectCatText, setSelectCatText] = useState("Select prompt category");
+  const [gameModeText, setGameModeText] = useState(
+    "PICK YOUR PROMPT GAME MODE"
+  );
+  const [selectGameModeText, setSelectGameModeText] = useState(
+    "Select your game mode"
+  );
+  const [socialText, setSocialText] = useState(
+    "ENTER YOUR SOCIAL MEDIA HANDLE TO BE CREDITED"
+  );
+
+  const [instruct1, setInstruct1] = useState(
+    "- BE IN WITH A CHANCE OF HAVING YOUR CUSTOM PROMPT FEATURED PERMANENTLY IN THE GAME"
+  );
+  const [instruct2, setInstruct2] = useState(
+    "- TYPE 'NAME' IF YOU WANT TO RANDOMISE YOUR NAME INPUT, AND 'NAME2' IF YOU WANT TO ADD A SECOND RANDOM NAME"
+  );
+  const [instruct3, setInstruct3] = useState(
+    "- E.G. 'NAME HAS TO WHISPER TO NAME2 FOR THE REST OF THE GAME'"
+  );
+  const [instruct4, setInstruct4] = useState(
+    "- ADD YOUR SOCIAL MEDIA HANDLE AND PLATFORM TO BE CREDITED ON THE APP (OPTIONAL)"
+  );
+  const [submitText, setSubmitText] = useState("SUBMIT YOUR PROMPT");
+  const [toast1, setToast1] = useState("Enter prompt text!");
+  const [toast2, setToast2] = useState("Choose a prompt category!");
+  const [toast3, setToast3] = useState("Choose a game mode!");
+  const [toast4, setToast4] = useState("Game prompt submitted!");
+  const [cat1, setCat1] = useState("RULE");
+  const [cat2, setCat2] = useState("GET IT DOWN YA");
+  const [cat3, setCat3] = useState("CHALLENGE");
+  const [cat4, setCat4] = useState("VOTE");
+  const [cat5, setCat5] = useState("SEXY");
+  const [cat6, setCat6] = useState("VIRUS");
+  const [mode1, setMode1] = useState("PRINKS");
+  const [mode2, setMode2] = useState("MESSY");
+  const [mode3, setMode3] = useState("FLIRTY");
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   // const [categories, setCategories] = useState([]);
   const [prompt, setPrompt] = useState({
@@ -31,8 +75,8 @@ export default function PromptSubmitScreen({
     selectedCategory: "",
     handle: "",
   });
-  const options = ["RULE", "GET IT DOWN YA", "CHALLENGE", "SEXY", "VIRUS"];
-  const options2 = ["PRINKS", "CRAZY", "FLIRTY"];
+  const options = [cat1, cat2, cat3, cat4, cat5, cat6];
+  const options2 = [mode1, mode2, mode3];
   const showCategoryActionSheet = useCallback(() => {
     ActionSheetIOS.showActionSheetWithOptions(
       {
@@ -67,6 +111,199 @@ export default function PromptSubmitScreen({
     );
   }, [options2]);
   // const [handleText, setHandleText] = useState("");
+
+  useEffect(() => {
+    setLanguage(language);
+  }, []);
+
+  const setLanguage = async (language: string) => {
+    switch (language) {
+      case "English": {
+        setEnterPromptText("ENTER YOUR PROMPT");
+        setPickCatText("PICK YOUR PROMPT CATEGORY");
+        setGameModeText("PICK YOUR PROMPT GAME MODE");
+        setSocialText("ENTER YOUR SOCIAL MEDIA HANDLE TO BE CREDITED");
+        setSubmitText("SUBMIT YOUR PROMPT");
+        setSelectCatText("Select prompt category");
+        setSelectGameModeText("Select your game mode");
+        setCustomPromptText("Enter your custom prompt");
+        setInstruct1(
+          "- BE IN WITH A CHANCE OF HAVING YOUR CUSTOM PROMPT FEATURED PERMANENTLY IN THE GAME"
+        );
+        setInstruct2(
+          "- TYPE 'NAME' IF YOU WANT TO RANDOMISE YOUR NAME INPUT, AND 'NAME2' IF YOU WANT TO ADD A SECOND RANDOM NAME"
+        );
+        setInstruct3(
+          "- E.G. 'NAME HAS TO WHISPER TO NAME2 FOR THE REST OF THE GAME'"
+        );
+        setInstruct4(
+          "- ADD YOUR SOCIAL MEDIA HANDLE AND PLATFORM TO BE CREDITED ON THE APP (OPTIONAL)"
+        );
+        setToast1("Enter prompt text!");
+        setToast2("Choose a prompt category!");
+        setToast3("Choose a game mode!");
+        setToast4("Game prompt submitted!");
+        setCat1("RULE");
+        setCat2("GET IT DOWN YA");
+        setCat3("CHALLENGE");
+        setCat4("VOTE");
+        setCat5("SEXY");
+        setCat6("VIRUS");
+        setMode1("PRINKS");
+        setMode2("MESSY");
+        setMode3("FLIRTY");
+        break;
+      }
+      case "Irish": {
+        setEnterPromptText("IONTRÁIL DO PHROMPTA");
+        setPickCatText("ROGHNAIGH DO CHATEGÓIR PHROMPTA");
+        setGameModeText("ROGHNAIGH DO MHÓD CHLUICHE PHROMPTA");
+        setSocialText(
+          "IONTRÁIL DO DHÁLACH MÉID SÓISIALTA CHUN A BHEITH IDIRBHIRT"
+        );
+        setSubmitText("SEOL DO PHROMPTA");
+        setSelectCatText("Roghnaigh catagóir tiomána");
+        setSelectGameModeText("Roghnaigh do mhod tráchtála");
+        setCustomPromptText("Cuir do phromt pearsanta isteach");
+        setInstruct1(
+          "- BÍ I DO THAIRSEACH CHUN DEIS A BHEITH AGAT DO PHROMTÉAD PEARSANTA A THAISPEÁINT GO BUAN SA CLUICH"
+        );
+        setInstruct2(
+          "- SCRÍOBH 'NAME' MÁ BA MHIAN LEAT DO SHEOLTAÍAINM A DHÉANAMH ANIARADH, AGUS 'NAME2' MÁ BA MHIAN LEAT DARA SHEOLTAÍAINM A CHUR LEIS"
+        );
+        setInstruct3(
+          "- M.A. 'TÁ ORT SINNIS AG BREATHNÚ AR NAME2 SNA RESTA AG AN CHLUICH'"
+        );
+        setInstruct4(
+          "- CUIR DO DHLEAS ÁITIÚIL MEÁN SÓISIALTA AGUS PLATFÓIRM LEIS CHUN AITHINT A BHEITH ORT SA APLIKÉAD (ROGHNACH)"
+        );
+        setToast1("Iontráil téacs an phrómóid!");
+        setToast2("Roghnaigh catagóir phrómóid!");
+        setToast3("Roghnaigh mód cluiche!");
+        setToast4("Phrómóid cluiche curtha isteach!");
+        setCat1("RIALACHÁN");
+        setCat2("GABH I SÍORRÚD É");
+        setCat3("DÚSHLÁN");
+        setCat4("VÓTA");
+        setCat5("GNÉASÚIL");
+        setCat6("VÍREAS");
+        setMode1("BREÁCHA");
+        setMode2("MíCHEART");
+        setMode3("FHEIRTEACH");
+        break;
+      }
+      case "Polish": {
+        setEnterPromptText("WPISZ SWOJĄ PROPOZYCJĘ");
+        setPickCatText("WYBIERZ KATEGORIĘ PROPOZYCJI");
+        setGameModeText("WYBIERZ TRYB GRY PROPOZYCJI");
+        setSocialText(
+          "WPROWADŹ SWOJE KONTO NA MEDIACH SPOŁECZNOŚCIOWYCH, ABY BYĆ WYPOSAŻONYM"
+        );
+        setSubmitText("WYŚLIJ SWOJĄ PROPOZYCJĘ");
+        setSelectCatText("Wybierz kategorię propozycji");
+        setSelectGameModeText("Wybierz tryb gry");
+        setCustomPromptText("Wprowadź własną propozycję");
+        setInstruct1(
+          "- MIEJ SZANSĘ NA STAŁE UMIESZCZENIE TWOJEJ WŁASNEJ PROPOZYCJI W GRZE"
+        );
+        setInstruct2(
+          "- WPISZ 'NAME', JEŚLI CHCESZ LOSOWĄ NAZWĘ, LUB 'NAME2', JEŚLI CHCESZ DODAĆ DRUGĄ LOSOWĄ NAZWĘ"
+        );
+        setInstruct3("- NP. 'NAME MUSI SZEPNĄĆ DO NAME2 PRZEZ RESZTĘ GRY'");
+        setInstruct4(
+          "- DODAJ SWOJE KONTO NA MEDIACH SPOŁECZNOŚCIOWYCH, ABY BYĆ WYPOSAŻONYM W APLIKACJI (OPCJONALNIE)"
+        );
+        setToast1("Wprowadź tekst propozycji!");
+        setToast2("Wybierz kategorię propozycji!");
+        setToast3("Wybierz tryb gry!");
+        setToast4("Propozycja gry wysłana!");
+        setCat1("ZASADY");
+        setCat2("ZAPISZ TO SOBIE");
+        setCat3("WYZWANIE");
+        setCat4("GŁOSOWANIE");
+        setCat5("SEKSYOWNY");
+        setCat6("WIRUS");
+        setMode1("ZABAWKI");
+        setMode2("BAWLDAJ");
+        setMode3("KOKETKA");
+        break;
+      }
+      case "Spanish": {
+        setEnterPromptText("INGRESA TU PREGUNTA");
+        setPickCatText("ELIGE LA CATEGORÍA DE TU PREGUNTA");
+        setGameModeText("ELIGE EL MODO DE JUEGO DE TU PREGUNTA");
+        setSocialText(
+          "INGRESA TU NOMBRE DE USUARIO EN REDES SOCIALES PARA RECIBIR CRÉDITO"
+        );
+        setSubmitText("ENVÍA TU PREGUNTA");
+        setSelectCatText("Selecciona la categoría de la pregunta");
+        setSelectGameModeText("Selecciona tu modo de juego");
+        setCustomPromptText("Ingresa tu pregunta personalizada");
+        setInstruct1(
+          "- PARTICIPA PARA TENER LA OPORTUNIDAD DE QUE TU PREGUNTA PERSONALIZADA APAREZCA PERMANENTEMENTE EN EL JUEGO"
+        );
+        setInstruct2(
+          "- ESCRIBE 'NAME' SI QUIERES QUE TU NOMBRE SEA GENERADO ALEATORIAMENTE, Y 'NAME2' SI QUIERES AGREGAR UN SEGUNDO NOMBRE ALEATORIO"
+        );
+        setInstruct3(
+          "- POR EJEMPLO: 'NAME TIENE QUE SUSURRARLE A NAME2 POR EL RESTO DEL JUEGO'"
+        );
+        setInstruct4(
+          "- AGREGA TU NOMBRE DE USUARIO EN REDES SOCIALES Y PLATAFORMA PARA RECIBIR CRÉDITO EN LA APLICACIÓN (OPCIONAL)"
+        );
+        setToast1("¡Ingresa el texto de la pregunta!");
+        setToast2("¡Elige una categoría de pregunta!");
+        setToast3("¡Elige un modo de juego!");
+        setToast4("¡Pregunta del juego enviada!");
+        setCat1("REGLA");
+        setCat2("HAZLO");
+        setCat3("DESAFÍO");
+        setCat4("VOTAR");
+        setCat5("SEXY");
+        setCat6("VIRUS");
+        setMode1("PREP");
+        setMode2("DESORDENADO");
+        setMode3("COQUETO");
+        break;
+      }
+      default: {
+        setEnterPromptText("ENTER YOUR PROMPT");
+        setPickCatText("PICK YOUR PROMPT CATEGORY");
+        setGameModeText("PICK YOUR PROMPT GAME MODE");
+        setSocialText("ENTER YOUR SOCIAL MEDIA HANDLE TO BE CREDITED");
+        setSubmitText("SUBMIT YOUR PROMPT");
+        setSelectCatText("Select prompt category");
+        setSelectGameModeText("Select your game mode");
+        setCustomPromptText("Enter your custom prompt");
+        setInstruct1(
+          "- BE IN WITH A CHANCE OF HAVING YOUR CUSTOM PROMPT FEATURED PERMANENTLY IN THE GAME"
+        );
+        setInstruct2(
+          "- TYPE 'NAME' IF YOU WANT TO RANDOMISE YOUR NAME INPUT, AND 'NAME2' IF YOU WANT TO ADD A SECOND RANDOM NAME"
+        );
+        setInstruct3(
+          "- E.G. 'NAME HAS TO WHISPER TO NAME2 FOR THE REST OF THE GAME'"
+        );
+        setInstruct4(
+          "- ADD YOUR SOCIAL MEDIA HANDLE AND PLATFORM TO BE CREDITED ON THE APP (OPTIONAL)"
+        );
+        setToast1("Enter prompt text!");
+        setToast2("Choose a prompt category!");
+        setToast3("Choose a game mode!");
+        setToast4("Game prompt submitted!");
+        setCat1("RULE");
+        setCat2("GET IT DOWN YA");
+        setCat3("CHALLENGE");
+        setCat4("VOTE");
+        setCat5("SEXY");
+        setCat6("VIRUS");
+        setMode1("PRINKS");
+        setMode2("MESSY");
+        setMode3("FLIRTY");
+        break;
+      }
+    }
+  };
 
   let jsonPrompt = "";
 
@@ -111,15 +348,18 @@ export default function PromptSubmitScreen({
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView style={styles.container}>
-        <View
-          style={{
-            position: "absolute",
-            top: "10%",
-            left: "8%",
-            backgroundColor: "rgba(52, 52, 52, 0)",
-          }}
-        >
-          <TouchableOpacity onPress={() => navigation.navigate("TabTwo")}>
+        {/* <Image
+        style={styles.image}
+        source={require("../assets/images/title_logo.png")}
+      /> */}
+        <View style={{ position: "absolute", top: "10%", left: "8%" }}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("TabTwo", {
+                language: language,
+              })
+            }
+          >
             <Ionicons name="arrow-undo-sharp" size={32} color="#ffffff" />
           </TouchableOpacity>
         </View>
@@ -159,8 +399,7 @@ export default function PromptSubmitScreen({
                     backgroundColor: "rgba(52, 52, 52, 0)",
                   }}
                 >
-                  - BE IN WITH A CHANCE OF HAVING YOUR CUSTOM PROMPT FEATURED
-                  PERMANENTLY IN THE GAME
+                  {instruct1}
                 </Text>
                 <Text
                   style={{
@@ -172,8 +411,7 @@ export default function PromptSubmitScreen({
                     backgroundColor: "rgba(52, 52, 52, 0)",
                   }}
                 >
-                  - TYPE "NAME" IF YOU WANT TO RANDOMISE YOUR NAME INPUT, AND
-                  "NAME2" IF YOU WANT TO ADD A SECOND RANDOM NAME
+                  {instruct2}
                 </Text>
                 <Text
                   style={{
@@ -185,7 +423,7 @@ export default function PromptSubmitScreen({
                     backgroundColor: "rgba(52, 52, 52, 0)",
                   }}
                 >
-                  - E.G. "NAME HAS TO WHISPER TO NAME2 FOR THE REST OF THE GAME"
+                  {instruct3}
                 </Text>
                 <Text
                   style={{
@@ -197,8 +435,7 @@ export default function PromptSubmitScreen({
                     backgroundColor: "rgba(52, 52, 52, 0)",
                   }}
                 >
-                  - ADD YOUR SOCIAL MEDIA HANDLE AND PLATFORM TO BE CREDITED ON
-                  THE APP (OPTIONAL)
+                  {instruct4}
                 </Text>
               </View>
             </View>
@@ -237,10 +474,10 @@ export default function PromptSubmitScreen({
                 backgroundColor: "rgba(52, 52, 52, 0)",
               }}
             >
-              ENTER YOUR PROMPT
+              {enterPromptText}
             </Text>
             <TextInput
-              placeholder={`Enter your custom prompt`}
+              placeholder={`${customPromptText}`}
               onChangeText={(text) => handlePromptTextChange(text)}
               style={styles.textInput}
               textAlign="center"
@@ -255,14 +492,14 @@ export default function PromptSubmitScreen({
                 backgroundColor: "rgba(52, 52, 52, 0)",
               }}
             >
-              PICK YOUR PROMPT CATEGORY
+              {pickCatText}
             </Text>
             <TouchableOpacity
               onPress={showCategoryActionSheet}
               style={styles.categoryPicker}
             >
               <Text style={styles.categoryText}>
-                {selectedCategory || "Select a category"}
+                {selectedCategory || selectCatText}
               </Text>
             </TouchableOpacity>
 
@@ -275,14 +512,14 @@ export default function PromptSubmitScreen({
                 backgroundColor: "rgba(52, 52, 52, 0)",
               }}
             >
-              PICK YOUR PROMPT GAME MODE
+              {gameModeText}
             </Text>
             <TouchableOpacity
               onPress={showModeActionSheet}
               style={styles.categoryPicker}
             >
               <Text style={styles.categoryText}>
-                {selectedGameMode || "Select a Game Mode"}
+                {selectedGameMode || selectGameModeText}
               </Text>
             </TouchableOpacity>
 
@@ -295,7 +532,7 @@ export default function PromptSubmitScreen({
                 backgroundColor: "rgba(52, 52, 52, 0)",
               }}
             >
-              ENTER YOUR SOCIAL MEDIA HANDLE TO BE CREDITED
+              {socialText}
             </Text>
             <TextInput
               placeholder={`@...`}
@@ -318,15 +555,15 @@ export default function PromptSubmitScreen({
               }}
               onPress={() => {
                 if (prompt.text.length < 1) {
-                  Toast.show("Enter prompt text!", {
+                  Toast.show(toast1, {
                     duration: Toast.durations.SHORT,
                   });
                 } else if (prompt.selectedCategory.length < 1) {
-                  Toast.show("Choose a prompt category!", {
+                  Toast.show(toast2, {
                     duration: Toast.durations.SHORT,
                   });
                 } else if (selectedGameMode === "") {
-                  Toast.show("Choose a game mode!", {
+                  Toast.show(toast3, {
                     duration: Toast.durations.SHORT,
                   });
                 } else {
@@ -348,10 +585,12 @@ export default function PromptSubmitScreen({
                   ).then(() => {
                     console.log("Your message was successfully sent!");
                   });
-                  Toast.show("Game prompt submitted!", {
+                  Toast.show(toast4, {
                     duration: Toast.durations.SHORT,
                   });
-                  navigation.navigate("TabTwo");
+                  navigation.navigate("TabTwo", {
+                    language: language,
+                  });
                 }
               }}
             >
@@ -365,7 +604,7 @@ export default function PromptSubmitScreen({
                   padding: 10,
                 }}
               >
-                SUBMIT YOUR PROMPT
+                {submitText}
               </Text>
             </TouchableOpacity>
           </View>

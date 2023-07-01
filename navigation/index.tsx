@@ -39,7 +39,7 @@ export default function Navigation({
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+      theme={colorScheme === "dark" ? DarkTheme : DarkTheme}
     >
       <RootNavigator />
     </NavigationContainer>
@@ -64,6 +64,9 @@ function RootNavigator() {
         name="TabTwo"
         component={TabTwoScreen}
         options={{ headerShown: false }}
+        initialParams={{
+          language: "", // Set the initial value of language here
+        }}
       />
       <Stack.Screen
         name="GameOne"

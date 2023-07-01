@@ -6,11 +6,6 @@ import { getNames } from "../components/nameStore";
 import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
-import { prompts } from "../prompts";
-import { crazy } from "../crazy";
-import { flirty } from "../flirty";
-import { virus } from "../virus";
-import { virusend } from "../virusend";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 // import {
@@ -18,86 +13,11 @@ import { useFocusEffect } from "@react-navigation/native";
 //   BannerAdSize,
 //   TestIds,
 // } from "react-native-google-mobile-ads";
-// import { useFocusEffect } from "react-navigation";
-// import "react-native-gesture-handler";
-
-// Store the prompts in async storage
-const storePrompts = async () => {
-  try {
-    // Convert the prompts array to a JSON string
-    // Save the prompts strings in async storage
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/prompts.json"
-      );
-      const data = await response.json();
-      const promptsString = JSON.stringify(data);
-      await AsyncStorage.setItem("prompts", promptsString);
-      // console.log("Successfully fetched and stored data: " + promptsString);
-    } catch (error) {
-      console.error(error);
-      console.log("prinks");
-      const promptsString = JSON.stringify(prompts);
-      await AsyncStorage.setItem("prompts", promptsString);
-    }
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/crazy.json"
-      );
-      const data = await response.json();
-      const crazyString = JSON.stringify(data);
-      await AsyncStorage.setItem("crazy", crazyString);
-      // console.log("Successfully fetched and stored data: " + crazyString);
-    } catch (error) {
-      console.error(error);
-      const crazyString = JSON.stringify(crazy);
-      await AsyncStorage.setItem("crazy", crazyString);
-    }
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/flirty.json"
-      );
-      const data = await response.json();
-      const flirtyString = JSON.stringify(data);
-      await AsyncStorage.setItem("flirty", flirtyString);
-      // console.log("Successfully fetched and stored data: " + flirtyString);
-    } catch (error) {
-      console.error(error);
-      const flirtyString = JSON.stringify(flirty);
-      await AsyncStorage.setItem("flirty", flirtyString);
-    }
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/virus.json"
-      );
-      const data = await response.json();
-      const virusString = JSON.stringify(data);
-      await AsyncStorage.setItem("virus", virusString);
-      // console.log("Successfully fetched and stored data: " + virusString);
-    } catch (error) {
-      console.error(error);
-      const virusString = JSON.stringify(virus);
-      await AsyncStorage.setItem("virus", virusString);
-    }
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON_IOS/virusend.json"
-      );
-      const data = await response.json();
-      const virusEndString = JSON.stringify(data);
-      await AsyncStorage.setItem("virusend", virusEndString);
-      // console.log("Successfully fetched and stored data: " + virusEndString);
-    } catch (error) {
-      console.error(error);
-      const virusEndString = JSON.stringify(virusend);
-      await AsyncStorage.setItem("virusend", virusEndString);
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 const selectRandomPrompts = async () => {
+  const playedPrinks = await retrievePrinksPlayed();
+  const playedCrazy = await retrieveCrazyPlayed();
+  const playedFlirty = await retrieveFlirtyPlayed();
   const prompts = await retrievePrompts();
   const crazy = await retrieveCrazy();
   const flirty = await retrieveFlirty();
@@ -122,15 +42,72 @@ const selectRandomPrompts = async () => {
       shuffledVirusEnd.push(virusend[indices[i] + 1]);
     }
   }
-  // Shuffle the prompts array
-  prompts.sort(() => Math.random() - 0.5);
-  crazy.sort(() => Math.random() - 0.5);
-  flirty.sort(() => Math.random() - 0.5);
+  console.log("Retrieved played prompts: ");
+  for (let i = 0; i < playedPrinks.length; i++) {
+    console.log("[" + (i + 1) + "] " + playedPrinks[i].text);
+  }
 
-  // Select the first 25 prompts from the shuffled array
-  const selectedPrompts = prompts.slice(0, 50);
-  const selectedCrazyPrompts = crazy.slice(0, 50);
-  const selectedFlirtyPrompts = flirty.slice(0, 50);
+  // Filter out already played prompts
+  interface Prompt {
+    text: string;
+    category: string;
+  }
+  const filteredPrompts = prompts.filter((prompt: Prompt) => {
+    return !playedPrinks.some(
+      (playedPrompt: Prompt) => playedPrompt.text === prompt.text
+    );
+  });
+  const promptsString = JSON.stringify(filteredPrompts);
+  await AsyncStorage.setItem("prompts", promptsString);
+  console.log("Prinks count after: " + filteredPrompts.length);
+
+  const filteredCrazy = crazy.filter((crazy: Prompt) => {
+    return !playedCrazy.some(
+      (playedPrompt: Prompt) => playedPrompt.text === crazy.text
+    );
+  });
+  const crazyString = JSON.stringify(filteredCrazy);
+  await AsyncStorage.setItem("crazy", crazyString);
+  console.log("Crazy count after: " + filteredCrazy.length);
+
+  const filteredFlirty = flirty.filter((flirty: Prompt) => {
+    return !playedFlirty.some(
+      (playedPrompt: Prompt) => playedPrompt.text === flirty.text
+    );
+  });
+  const flirtyString = JSON.stringify(filteredFlirty);
+  await AsyncStorage.setItem("flirty", flirtyString);
+  console.log("Flirty count after: " + filteredFlirty.length);
+
+  // If there are no new prompts to select, reset the played prompts array
+  if (filteredPrompts.length === 0 || filteredPrompts.length <= 30) {
+    await AsyncStorage.removeItem("playedPrinksPrompts");
+    console.log(
+      "No more new unique prompts left to choose from, removing prompts history from async and starting fresh"
+    );
+  }
+  if (filteredCrazy.length === 0 || filteredCrazy.length <= 30) {
+    await AsyncStorage.removeItem("playedCrazyPrompts");
+    console.log(
+      "No more new unique prompts left to choose from, removing prompts history from async and starting fresh"
+    );
+  }
+  if (filteredFlirty.length === 0 || filteredFlirty.length <= 30) {
+    await AsyncStorage.removeItem("playedFlirtyPrompts");
+    console.log(
+      "No more new unique prompts left to choose from, removing prompts history from async and starting fresh"
+    );
+  }
+
+  // Shuffle the filtered arrays
+  filteredPrompts.sort(() => Math.random() - 0.5);
+  filteredCrazy.sort(() => Math.random() - 0.5);
+  filteredFlirty.sort(() => Math.random() - 0.5);
+
+  // Select the first 30 prompts from the shuffled array
+  const selectedPrompts = filteredPrompts.slice(0, 30);
+  const selectedCrazyPrompts = filteredCrazy.slice(0, 30);
+  const selectedFlirtyPrompts = filteredFlirty.slice(0, 30);
   const selectedVirusPrompts = shuffledVirus.slice(0, 4);
   const selectedVirusEndPrompts = shuffledVirusEnd.slice(0, 4);
 
@@ -162,15 +139,17 @@ const selectRandomPrompts = async () => {
       selectedVirusEndPrompts[i]
     );
   }
-  // console.log(selectedPrompts);
+  // console.log("Prink Game Prompts: " + JSON.stringify(selectedPrompts));
   await AsyncStorage.setItem(
-    "prinksGamePrompts",
+    "prinkGamePrompts",
     JSON.stringify(selectedPrompts)
   );
+  // console.log("Crazy Game Prompts: " + JSON.stringify(selectedCrazyPrompts));
   await AsyncStorage.setItem(
     "crazyGamePrompts",
     JSON.stringify(selectedCrazyPrompts)
   );
+  // console.log("Flirty Game Prompts: " + JSON.stringify(selectedFlirtyPrompts));
   await AsyncStorage.setItem(
     "flirtyGamePrompts",
     JSON.stringify(selectedFlirtyPrompts)
@@ -181,7 +160,7 @@ const selectRandomPrompts = async () => {
 
 const retrievePrompts = async () => {
   // Get the prompts from async storage
-  const promptsString = await AsyncStorage.getItem("prompts");
+  const promptsString = await AsyncStorage.getItem("promptsPack");
   // Parse the string into an array of prompts
   const prompts = promptsString ? JSON.parse(promptsString) : [];
   // Return the array of prompts
@@ -190,7 +169,7 @@ const retrievePrompts = async () => {
 
 const retrieveCrazy = async () => {
   // Get the prompts from async storage
-  const crazyString = await AsyncStorage.getItem("crazy");
+  const crazyString = await AsyncStorage.getItem("crazyPack");
   // Parse the string into an array of prompts
   const crazy = crazyString ? JSON.parse(crazyString) : [];
   // Return the array of prompts
@@ -199,7 +178,7 @@ const retrieveCrazy = async () => {
 
 const retrieveFlirty = async () => {
   // Get the prompts from async storage
-  const flirtyString = await AsyncStorage.getItem("flirty");
+  const flirtyString = await AsyncStorage.getItem("flirtyPack");
   // Parse the string into an array of prompts
   const flirty = flirtyString ? JSON.parse(flirtyString) : [];
   // Return the array of prompts
@@ -208,7 +187,7 @@ const retrieveFlirty = async () => {
 
 const retrieveVirus = async () => {
   // Get the prompts from async storage
-  const virusString = await AsyncStorage.getItem("virus");
+  const virusString = await AsyncStorage.getItem("virusPack");
   // Parse the string into an array of promptsp
   const virus = virusString ? JSON.parse(virusString) : [];
   // Return the array of prompts
@@ -217,30 +196,106 @@ const retrieveVirus = async () => {
 
 const retrieveVirusEnd = async () => {
   // Get the prompts from async storage
-  const virusEndString = await AsyncStorage.getItem("virusend");
+  const virusEndString = await AsyncStorage.getItem("virusendPack");
   // Parse the string into an array of prompts
   const virusend = virusEndString ? JSON.parse(virusEndString) : [];
   // Return the array of prompts
   return virusend;
 };
 
+const retrievePrinksPlayed = async () => {
+  // Retrieve the array of already played prompts
+  const playedPrinksPrompts = await AsyncStorage.getItem("playedPrinksPrompts");
+  // Parse the string into an array of prompts
+  const played = playedPrinksPrompts ? JSON.parse(playedPrinksPrompts) : [];
+  // Return the array of prompts
+  return played;
+};
+
+const retrieveCrazyPlayed = async () => {
+  // Retrieve the array of already played prompts
+  const playedCrazyPrompts = await AsyncStorage.getItem("playedCrazyPrompts");
+  // Parse the string into an array of prompts
+  const played = playedCrazyPrompts ? JSON.parse(playedCrazyPrompts) : [];
+  // Return the array of prompts
+  return played;
+};
+
+const retrieveFlirtyPlayed = async () => {
+  // Retrieve the array of already played prompts
+  const playedFlirtyPrompts = await AsyncStorage.getItem("playedFlirtyPrompts");
+  // Parse the string into an array of prompts
+  const played = playedFlirtyPrompts ? JSON.parse(playedFlirtyPrompts) : [];
+  // Return the array of prompts
+  return played;
+};
+
 export default function TabTwoScreen({
+  route,
   navigation,
 }: RootTabScreenProps<"TabTwo">) {
+  const { language } = route.params;
   const [names, setNames] = useState(getNames());
+  const [prinksText, setPrinksText] = useState("Let's get prinking");
+  const [crazyText, setCrazyText] = useState("Let's get messy");
+  const [flirtyText, setFlirtyText] = useState("Let's get flirty");
+  const [sapText, setSapText] = useState("SUBMIT A PROMPT");
+  const [title, setTitle] = useState("GAMES");
 
-  // Store the prompts in async storage when the component is mounted
-  useEffect(() => {
-    storePrompts();
-    // setNames(getNames());
-  }, []);
+  console.log("Returned language:", language);
 
   useFocusEffect(
     React.useCallback(() => {
+      setLanguage(language);
       setNames(getNames());
       selectRandomPrompts();
     }, [])
   );
+
+  const setLanguage = async (language: string) => {
+    switch (language) {
+      case "English": {
+        setTitle("GAMES");
+        setPrinksText("Let's get prinking");
+        setCrazyText("Let's get messy");
+        setFlirtyText("Let's get flirty");
+        setSapText("SUBMIT A PROMPT");
+        break;
+      }
+      case "Irish": {
+        setTitle("CLUICHÍ");
+        setPrinksText("Bainigí spleodar as");
+        setCrazyText("Bainigí gach rud mícheart");
+        setFlirtyText("Bainigí grá amach");
+        setSapText("SEOL ISTIGH PHROMPTA");
+        break;
+      }
+      case "Polish": {
+        setTitle("GRY");
+        setPrinksText("Zróbmy sobie psikusy");
+        setCrazyText("Zróbmy się nieporządni");
+        setFlirtyText("Zróbmy sobie zaloty");
+        setSapText("WYŚLIJ WSKAZÓWKĘ");
+        break;
+      }
+      case "Spanish": {
+        setTitle("JUEGOS");
+        setPrinksText("Vamos a divertirnos");
+        setCrazyText("Vamos a desordenarnos");
+        setFlirtyText("Vamos a coquetear");
+        setSapText("ENVÍA UNA PROPUESTA");
+        break;
+      }
+      default: {
+        setTitle("GAMES");
+        setPrinksText("Let's get prinking");
+        setCrazyText("Let's get messy");
+        setFlirtyText("Let's get flirty");
+        setSapText("SUBMIT A PROMPT");
+        break;
+      }
+    }
+  };
 
   const [fontsLoaded] = useFonts({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
@@ -271,7 +326,7 @@ export default function TabTwoScreen({
             textAlign: "center",
           }}
         >
-          GAMES
+          {title}
         </Text>
       </View>
 
@@ -405,7 +460,8 @@ export default function TabTwoScreen({
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("GameOne", {
-                gameMode: "prinksGamePrompts",
+                gameMode: "prinkGamePrompts",
+                language: language,
               });
             }}
             style={{
@@ -418,12 +474,12 @@ export default function TabTwoScreen({
               style={{
                 fontFamily: "Konstruktor",
                 color: "#111111",
-                fontSize: 18,
+                fontSize: 16,
                 textAlign: "center",
                 lineHeight: 80,
               }}
             >
-              Let's get prinking
+              {prinksText}
             </Text>
           </TouchableOpacity>
         </View>
@@ -445,6 +501,7 @@ export default function TabTwoScreen({
             onPress={() => {
               navigation.navigate("GameOne", {
                 gameMode: "crazyGamePrompts",
+                language: language,
               });
             }}
             style={{
@@ -457,12 +514,12 @@ export default function TabTwoScreen({
               style={{
                 fontFamily: "Konstruktor",
                 color: "#111111",
-                fontSize: 18,
+                fontSize: 16,
                 textAlign: "center",
                 lineHeight: 80,
               }}
             >
-              Let's get messy
+              {crazyText}
             </Text>
           </TouchableOpacity>
         </View>
@@ -485,6 +542,7 @@ export default function TabTwoScreen({
             onPress={() => {
               navigation.navigate("GameOne", {
                 gameMode: "flirtyGamePrompts",
+                language: language,
               });
             }}
             style={{
@@ -497,13 +555,13 @@ export default function TabTwoScreen({
               style={{
                 fontFamily: "Konstruktor",
                 color: "#111111",
-                fontSize: 18,
+                fontSize: 16,
                 textAlign: "center",
                 lineHeight: 80,
                 // padding: 25,
               }}
             >
-              Let's get flirty
+              {flirtyText}
             </Text>
           </TouchableOpacity>
         </View>
@@ -518,7 +576,9 @@ export default function TabTwoScreen({
         >
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("PromptSubmit");
+              navigation.navigate("PromptSubmit", {
+                language: language,
+              });
             }}
             style={{
               backgroundColor: "#1c1c1c",
@@ -537,13 +597,13 @@ export default function TabTwoScreen({
               style={{
                 fontFamily: "Konstruktor",
                 color: "white",
-                fontSize: 28,
+                fontSize: 26,
                 textAlign: "center",
                 lineHeight: 80,
                 // padding: 25,
               }}
             >
-              SUBMIT A PROMPT
+              {sapText}
             </Text>
             {/* </LinearGradient> */}
           </TouchableOpacity>

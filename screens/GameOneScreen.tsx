@@ -8,7 +8,6 @@ import {
   ToastAndroid,
   Animated,
   ImageBackground,
-  Image,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import Toast from "react-native-root-toast";
@@ -33,6 +32,15 @@ const retrievePrompts = async (gameModeParam: string) => {
   }
 };
 
+const retrievePlayed = async (playedArray: string) => {
+  // Retrieve the array of already played prompts
+  const playedPrompts = await AsyncStorage.getItem(playedArray);
+  // Parse the string into an array of prompts
+  const played = playedPrompts ? JSON.parse(playedPrompts) : [];
+  // Return the array of prompts
+  return played;
+};
+
 const addPlayer = async (playerName: string) => {
   // Get the current list of names from async storage
   const names = await getNames();
@@ -48,17 +56,122 @@ export default function GameOneScreen({
   route,
   navigation,
 }: RootTabScreenProps<"GameOne">) {
-  const { gameMode } = route.params;
+  const { gameMode, language } = route.params;
+  const [addRuleButtonText, setAddRuleButtonText] = useState("ADD A RULE");
+  const [addRuleFieldText, setAddRuleFieldText] = useState(
+    "Gráinne is a dryshite, drink 15 sips"
+  );
+  const [addRuleButton2Text, setAddRuleButton2Text] = useState("ADD RULE");
+  const [addPlayerButtonText, setAddPlayerButtonText] =
+    useState("ADD A PLAYER");
+  const [addPlayerFieldText, setAddPlayerFieldText] = useState(
+    "Enter the new player's name"
+  );
+  const [addPlayerButton2Text, setAddPlayerButton2Text] =
+    useState("ADD PLAYER");
+  const [addPlayerToastText, setAddPlayerToastText] = useState("Player added!");
+  const [firstCardText, setFirstCardText] = useState(
+    "You're at the first card!"
+  );
+  const [quitGameTitle, setQuitGameTitle] = useState("Quit Game");
+  const [quitGameText, setQuitGameText] = useState(
+    "Are you sure you want to quit the game?"
+  );
+  const [quitGameOpt1, setQuitGameOpt1] = useState("Yes");
+  const [quitGameOpt2, setQuitGameOpt2] = useState("No");
   const [fontsLoaded] = useFonts({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
     Mosh: require("../assets/fonts/Mosherif-1GezZ.ttf"),
   });
 
   useEffect(() => {
+    setLanguage(language);
     if (!fontsLoaded) {
       return undefined;
     }
   });
+
+  const setLanguage = async (language: string) => {
+    switch (language) {
+      case "English": {
+        setAddRuleButtonText("ADD A RULE");
+        setAddRuleFieldText("Gráinne is a dryshite, drink 15 sips");
+        setAddRuleButton2Text("ADD RULE");
+        setAddPlayerButtonText("ADD A PLAYER");
+        setAddPlayerFieldText("Enter the new player's name");
+        setAddPlayerButton2Text("ADD PLAYER");
+        setAddPlayerToastText("Player added!");
+        setFirstCardText("You're at the first card!");
+        setQuitGameTitle("Quit Game");
+        setQuitGameText("Are you sure you want to quit the game?");
+        setQuitGameOpt1("Yes");
+        setQuitGameOpt2("No");
+        break;
+      }
+      case "Irish": {
+        setAddRuleButtonText("RIALACHÁN NUA");
+        setAddRuleFieldText("Is dryshite í Gráinne, ól 15 blaise");
+        setAddRuleButton2Text("CUIR RIALACHÁN LEIS");
+        setAddPlayerButtonText("IMREOIR NUA");
+        setAddPlayerFieldText("Iontráil ainm an imreora nua");
+        setAddPlayerButton2Text("CUIR IMREORA LEIS");
+        setAddPlayerToastText("Imreoir cuirtear leis!");
+        setFirstCardText("Tá tú ag an gcéad cárta!");
+        setQuitGameTitle("Céasadh den Chluiche");
+        setQuitGameText(
+          "An bhfuil tú cinnte go bhfuil tú ag iarraidh an cluiche a dhúnadh?"
+        );
+        setQuitGameOpt1("Táim");
+        setQuitGameOpt2("Nílim");
+        break;
+      }
+      case "Polish": {
+        setAddRuleButtonText("DODAJ ZASADĘ");
+        setAddRuleFieldText("Gráinne to suchar, wypij 15 łyków");
+        setAddRuleButton2Text("DODAJ ZASADĘ");
+        setAddPlayerButtonText("DODAJ GRACZA");
+        setAddPlayerFieldText("Wprowadź imię nowego gracza");
+        setAddPlayerButton2Text("DODAJ GRACZA");
+        setAddPlayerToastText("Gracz dodany!");
+        setFirstCardText("Jesteś na pierwszej karcie!");
+        setQuitGameTitle("Zakończ grę");
+        setQuitGameText("Czy na pewno chcesz zakończyć grę?");
+        setQuitGameOpt1("Tak");
+        setQuitGameOpt2("Nie");
+        break;
+      }
+      case "Spanish": {
+        setAddRuleButtonText("AGREGAR REGLA");
+        setAddRuleFieldText("Gráinne es una fastidiosa, toma 15 sorbos");
+        setAddRuleButton2Text("AGREGAR REGLA");
+        setAddPlayerButtonText("AGREGAR JUGADOR");
+        setAddPlayerFieldText("Ingresa el nombre del nuevo jugador");
+        setAddPlayerButton2Text("AGREGAR JUGADOR");
+        setAddPlayerToastText("¡Jugador agregado!");
+        setFirstCardText("¡Estás en la primera carta!");
+        setQuitGameTitle("Salir del Juego");
+        setQuitGameText("¿Estás seguro de que deseas salir del juego?");
+        setQuitGameOpt1("Sí");
+        setQuitGameOpt2("No");
+        break;
+      }
+      default: {
+        setAddRuleButtonText("ADD A RULE");
+        setAddRuleFieldText("Gráinne is a dryshite, drink 15 sips");
+        setAddRuleButton2Text("ADD RULE");
+        setAddPlayerButtonText("ADD A PLAYER");
+        setAddPlayerFieldText("Enter the new player's name");
+        setAddPlayerButton2Text("ADD PLAYER");
+        setAddPlayerToastText("Player added!");
+        setFirstCardText("You're at the first card!");
+        setQuitGameTitle("Quit Game");
+        setQuitGameText("Are you sure you want to quit the game?");
+        setQuitGameOpt1("Yes");
+        setQuitGameOpt2("No");
+        break;
+      }
+    }
+  };
 
   // Initialize the shake animation value
   const shakeAnim = new Animated.Value(0);
@@ -118,73 +231,367 @@ export default function GameOneScreen({
   var index = 0;
 
   var categoryColors = {};
+  var playedArray = "";
 
-  const categoryImages = {
-    CHALLENGE: require("../assets/images/CHALLENGE.png") as any,
-    RULE: require("../assets/images/RULE.png") as any,
-    VIRUS: require("../assets/images/VIRUS.png") as any,
-    "VIRUS END": require("../assets/images/VIRUS.png") as any,
-    "GET IT DOWN YA": require("../assets/images/GIDY.png") as any,
-    VOTE: require("../assets/images/VOTE.png") as any,
-    SEXY: require("../assets/images/SEXY.png") as any,
-  };
+  // console.log("Gamemode = " + gameMode);
 
   // Define a new state variable to store the background image
   const [currentCategory, setCurrentCategory] = useState("");
 
-  switch (gameMode) {
-    case "prinkGamePrompts": {
-      // Generate a random color
-      categoryColors = {
-        CHALLENGE: "#fff62d",
-        RULE: "#69ff4f",
-        VIRUS: "#ff954d",
-        "VIRUS END": "#ff954d",
-        "GET IT DOWN YA": "#55ffb6",
-        QUIZ: "#1dc0ff",
-        VOTE: "#1dc0ff",
+  var categoryImages = {};
+
+  switch (language) {
+    case "English": {
+      categoryImages = {
+        CHALLENGE: require("../assets/images/CHALLENGE.png") as any,
+        RULE: require("../assets/images/RULE.png") as any,
+        VIRUS: require("../assets/images/VIRUS.png") as any,
+        "VIRUS END": require("../assets/images/VIRUS.png") as any,
+        "GET IT DOWN YA": require("../assets/images/GIDY.png") as any,
+        VOTE: require("../assets/images/VOTE.png") as any,
+        SEXY: require("../assets/images/SEXY.png") as any,
       };
+      switch (gameMode) {
+        case "prinkGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#d70057",
+            RULE: "#8e0045",
+            VIRUS: "#008e72",
+            "VIRUS END": "#008e72",
+            "GET IT DOWN YA": "#00badc",
+            QUIZ: "#00428f",
+            VOTE: "#00428f",
+            SEXY: "#008e72",
+          };
+          playedArray = "playedPrinksPrompts";
+          // console.log("Played array var set to: " + playedArray);
+          break;
+        }
+        case "crazyGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#e39600",
+            RULE: "#964cad",
+            VIRUS: "#fa563c",
+            "VIRUS END": "#fa563c",
+            "GET IT DOWN YA": "#2e2f48",
+            QUIZ: "#162a30",
+            VOTE: "#162a30",
+          };
+          playedArray = "playedCrazyPrompts";
+          break;
+        }
+        case "flirtyGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#e97e74",
+            RULE: "#fcad8e",
+            VIRUS: "#57316b",
+            "VIRUS END": "#57316b",
+            "GET IT DOWN YA": "#575a8d",
+            QUIZ: "#bd2841",
+            VOTE: "#fc8759",
+            SEXY: "#ba3564",
+          };
+          playedArray = "playedFlirtyPrompts";
+          break;
+        }
+        default: {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#d70057",
+            RULE: "#8e0045",
+            VIRUS: "#008e72",
+            "VIRUS END": "#008e72",
+            "GET IT DOWN YA": "#00badc",
+            QUIZ: "#00428f",
+            VOTE: "#00428f",
+          };
+          break;
+        }
+      }
       break;
     }
-    case "crazyGamePrompts": {
-      // Generate a random color
-      categoryColors = {
-        CHALLENGE: "#e39600",
-        RULE: "#964cad",
-        VIRUS: "#fa563c",
-        "VIRUS END": "#fa563c",
-        "GET IT DOWN YA": "#2e2f48",
-        QUIZ: "#162a30",
-        VOTE: "#162a30",
+    case "Irish": {
+      categoryImages = {
+        DÚSHLÁN: require("../assets/images/CHALLENGE.png") as any,
+        RIALACHÁN: require("../assets/images/RULE.png") as any,
+        VÍREAS: require("../assets/images/VIRUS.png") as any,
+        "DEIREADH AN VÍREAS": require("../assets/images/VIRUS.png") as any,
+        "GABH I SÍORRÚD É": require("../assets/images/GIDY.png") as any,
+        VÓTA: require("../assets/images/VOTE.png") as any,
+        GNÉASÚIL: require("../assets/images/SEXY.png") as any,
       };
+      switch (gameMode) {
+        case "prinkGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            DÚSHLÁN: "#d70057",
+            RIALACHÁN: "#8e0045",
+            VÍREAS: "#008e72",
+            "DEIREADH AN VÍREAS": "#008e72",
+            "GABH I SÍORRÚD É": "#00badc",
+            CEISTEACHÁN: "#00428f",
+            VÓTA: "#00428f",
+          };
+          playedArray = "playedPrinksPrompts";
+          // console.log("Played array var set to: " + playedArray);
+          break;
+        }
+        case "crazyGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            DÚSHLÁN: "#e39600",
+            RIALACHÁN: "#964cad",
+            VÍREAS: "#fa563c",
+            "DEIREADH AN VÍREAS": "#fa563c",
+            "GABH I SÍORRÚD É": "#2e2f48",
+            CEISTEACHÁN: "#162a30",
+            VÓTA: "#162a30",
+          };
+          playedArray = "playedCrazyPrompts";
+          break;
+        }
+        case "flirtyGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            DÚSHLÁN: "#e97e74",
+            RIALACHÁN: "#fcad8e",
+            VÍREAS: "#57316b",
+            "DEIREADH AN VÍREAS": "#57316b",
+            "GABH I SÍORRÚD É": "#575a8d",
+            CEISTEACHÁN: "#bd2841",
+            VÓTA: "#fc8759",
+            GNÉASÚIL: "#ba3564",
+          };
+          playedArray = "playedFlirtyPrompts";
+          break;
+        }
+        default: {
+          // Generate a random color
+          categoryColors = {
+            DÚSHLÁN: "#d70057",
+            RIALACHÁN: "#8e0045",
+            VÍREAS: "#008e72",
+            "DEIREADH AN VÍREAS": "#008e72",
+            "GABH I SÍORRÚD É": "#00badc",
+            CEISTEACHÁN: "#00428f",
+            VÓTA: "#00428f",
+          };
+          break;
+        }
+      }
       break;
     }
-    case "flirtyGamePrompts": {
-      // Generate a random color
-      categoryColors = {
-        CHALLENGE: "#e97e74",
-        RULE: "#fcad8e",
-        VIRUS: "#57316b",
-        "VIRUS END": "#57316b",
-        "GET IT DOWN YA": "#575a8d",
-        QUIZ: "#bd2841",
-        VOTE: "#fc8759",
-        SEXY: "#ba3564",
+    case "Polish": {
+      categoryImages = {
+        CHALLENGE: require("../assets/images/CHALLENGE.png") as any,
+        RULE: require("../assets/images/RULE.png") as any,
+        VIRUS: require("../assets/images/VIRUS.png") as any,
+        "VIRUS END": require("../assets/images/VIRUS.png") as any,
+        "GET IT DOWN YA": require("../assets/images/GIDY.png") as any,
+        VOTE: require("../assets/images/VOTE.png") as any,
+        SEXY: require("../assets/images/SEXY.png") as any,
       };
+      switch (gameMode) {
+        case "prinkGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#d70057",
+            RULE: "#8e0045",
+            VIRUS: "#008e72",
+            "VIRUS END": "#008e72",
+            "GET IT DOWN YA": "#00badc",
+            QUIZ: "#00428f",
+            VOTE: "#00428f",
+            SEXY: "#008e72",
+          };
+          playedArray = "playedPrinksPrompts";
+          // console.log("Played array var set to: " + playedArray);
+          break;
+        }
+        case "crazyGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#e39600",
+            RULE: "#964cad",
+            VIRUS: "#fa563c",
+            "VIRUS END": "#fa563c",
+            "GET IT DOWN YA": "#2e2f48",
+            QUIZ: "#162a30",
+            VOTE: "#162a30",
+          };
+          playedArray = "playedCrazyPrompts";
+          break;
+        }
+        case "flirtyGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#e97e74",
+            RULE: "#fcad8e",
+            VIRUS: "#57316b",
+            "VIRUS END": "#57316b",
+            "GET IT DOWN YA": "#575a8d",
+            QUIZ: "#bd2841",
+            VOTE: "#fc8759",
+            SEXY: "#ba3564",
+          };
+          playedArray = "playedFlirtyPrompts";
+          break;
+        }
+        default: {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#d70057",
+            RULE: "#8e0045",
+            VIRUS: "#008e72",
+            "VIRUS END": "#008e72",
+            "GET IT DOWN YA": "#00badc",
+            QUIZ: "#00428f",
+            VOTE: "#00428f",
+            SEXY: "#008e72",
+          };
+          break;
+        }
+      }
+      break;
+    }
+    case "Spanish": {
+      categoryImages = {
+        CHALLENGE: require("../assets/images/CHALLENGE.png") as any,
+        RULE: require("../assets/images/RULE.png") as any,
+        VIRUS: require("../assets/images/VIRUS.png") as any,
+        "VIRUS END": require("../assets/images/VIRUS.png") as any,
+        "GET IT DOWN YA": require("../assets/images/GIDY.png") as any,
+        VOTE: require("../assets/images/VOTE.png") as any,
+        SEXY: require("../assets/images/SEXY.png") as any,
+      };
+      switch (gameMode) {
+        case "prinkGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#d70057",
+            RULE: "#8e0045",
+            VIRUS: "#008e72",
+            "VIRUS END": "#008e72",
+            "GET IT DOWN YA": "#00badc",
+            QUIZ: "#00428f",
+            VOTE: "#00428f",
+            SEXY: "#008e72",
+          };
+          playedArray = "playedPrinksPrompts";
+          // console.log("Played array var set to: " + playedArray);
+          break;
+        }
+        case "crazyGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#e39600",
+            RULE: "#964cad",
+            VIRUS: "#fa563c",
+            "VIRUS END": "#fa563c",
+            "GET IT DOWN YA": "#2e2f48",
+            QUIZ: "#162a30",
+            VOTE: "#162a30",
+          };
+          playedArray = "playedCrazyPrompts";
+          break;
+        }
+        case "flirtyGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#e97e74",
+            RULE: "#fcad8e",
+            VIRUS: "#57316b",
+            "VIRUS END": "#57316b",
+            "GET IT DOWN YA": "#575a8d",
+            QUIZ: "#bd2841",
+            VOTE: "#fc8759",
+            SEXY: "#ba3564",
+          };
+          playedArray = "playedFlirtyPrompts";
+          break;
+        }
+        default: {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#d70057",
+            RULE: "#8e0045",
+            VIRUS: "#008e72",
+            "VIRUS END": "#008e72",
+            "GET IT DOWN YA": "#00badc",
+            QUIZ: "#00428f",
+            VOTE: "#00428f",
+            SEXY: "#008e72",
+          };
+          break;
+        }
+      }
       break;
     }
     default: {
-      // Generate a random color
-      categoryColors = {
-        CHALLENGE: "#d70057",
-        RULE: "#8e0045",
-        VIRUS: "#008e72",
-        "VIRUS END": "#008e72",
-        "GET IT DOWN YA": "#00badc",
-        QUIZ: "#00428f",
-        VOTE: "#00428f",
-        SEXY: "#008e72",
-      };
+      switch (gameMode) {
+        case "prinkGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#d70057",
+            RULE: "#8e0045",
+            VIRUS: "#008e72",
+            "VIRUS END": "#008e72",
+            "GET IT DOWN YA": "#00badc",
+            QUIZ: "#00428f",
+            VOTE: "#00428f",
+            SEXY: "#008e72",
+          };
+          playedArray = "playedPrinksPrompts";
+          // console.log("Played array var set to: " + playedArray);
+          break;
+        }
+        case "crazyGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#e39600",
+            RULE: "#964cad",
+            VIRUS: "#fa563c",
+            "VIRUS END": "#fa563c",
+            "GET IT DOWN YA": "#2e2f48",
+            QUIZ: "#162a30",
+            VOTE: "#162a30",
+          };
+          playedArray = "playedCrazyPrompts";
+          break;
+        }
+        case "flirtyGamePrompts": {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#e97e74",
+            RULE: "#fcad8e",
+            VIRUS: "#57316b",
+            "VIRUS END": "#57316b",
+            "GET IT DOWN YA": "#575a8d",
+            QUIZ: "#bd2841",
+            VOTE: "#fc8759",
+            SEXY: "#ba3564",
+          };
+          playedArray = "playedFlirtyPrompts";
+          break;
+        }
+        default: {
+          // Generate a random color
+          categoryColors = {
+            CHALLENGE: "#d70057",
+            RULE: "#8e0045",
+            VIRUS: "#008e72",
+            "VIRUS END": "#008e72",
+            "GET IT DOWN YA": "#00badc",
+            QUIZ: "#00428f",
+            VOTE: "#00428f",
+            SEXY: "#008e72",
+          };
+          break;
+        }
+      }
       break;
     }
   }
@@ -196,12 +603,25 @@ export default function GameOneScreen({
   const displayRandomPromptAndName = async () => {
     // Retrieve the prompts from async storage
     const selectedPrompts = await retrievePrompts(gameMode);
+    //retrieve played prompts array to be updated
+    const playedPrompts = await retrievePlayed(playedArray);
     // Start the shake animation
     shake();
 
     // Check if there are any prompts left to display
     if (selectedPrompts.length > 0) {
       const prompt = selectedPrompts[index];
+      const newlyPlayedPrompt = {
+        text: prompt.text,
+        category: prompt.category,
+      };
+      // Add the new prompt to the existing array of played prompts
+      const updatedPlayedPrompts = [...playedPrompts, newlyPlayedPrompt];
+      //add updated playedPrompts list of played prompts in Async
+      await AsyncStorage.setItem(
+        playedArray,
+        JSON.stringify(updatedPlayedPrompts)
+      );
       // Save the category of the prompt
       const { category }: { category: keyof typeof categoryColors } = prompt;
       setCurrentCategory(category);
@@ -244,7 +664,7 @@ export default function GameOneScreen({
         for (let i = index + 1; i < selectedPrompts.length; i++) {
           if (selectedPrompts[i].id === currentVirusID + "b") {
             // Update the "[Name]" with the corresponding virus name
-            console.log("Virus end before replace:" + selectedPrompts[i].text);
+            // console.log("Virus end before replace:" + selectedPrompts[i].text);
             selectedPrompts[i].text = selectedPrompts[i].text.replace(
               "[Name]",
               name
@@ -253,15 +673,6 @@ export default function GameOneScreen({
               "[Name2]",
               name2
             );
-            console.log(
-              "Replacing virus " +
-                currentVirusID +
-                "b's names to name1: " +
-                name +
-                " and name2: " +
-                name2
-            );
-            console.log("Virus end after replace:" + selectedPrompts[i].text);
             break;
           }
         }
@@ -295,18 +706,6 @@ export default function GameOneScreen({
           );
         }
       }
-
-      if (prompt.category === "VIRUS") {
-        console.log(
-          prompt.text + "[" + (arrayIndex.current.valueOf() + 1) + "]"
-        );
-      }
-      if (prompt.category === "VIRUS END") {
-        console.log(
-          prompt.text + "[" + (arrayIndex.current.valueOf() + 1) + "]"
-        );
-      }
-
       // Update the random prompt text
       setRandomPrompt(prompt.text);
       setRandomCategory(category);
@@ -321,7 +720,7 @@ export default function GameOneScreen({
         // console.log("handle found");
         handle = prompt.handle;
         setPromptHandle(handle);
-        console.log(promptHandle);
+        // console.log(promptHandle);
       }
 
       // Add the current name, prompt, and color to the previousPrompts array as an object
@@ -339,7 +738,9 @@ export default function GameOneScreen({
       index++;
     } else {
       // If there are no prompts left to display, navigate back to the TabTwoScreen
-      navigation.navigate("GameOver");
+      navigation.navigate("GameOver", {
+        language: language,
+      });
     }
   };
   return (
@@ -373,7 +774,7 @@ export default function GameOneScreen({
               //   "You're at the first card!",
               //   ToastAndroid.SHORT
               // );
-              Toast.show("You're at the first card!", {
+              Toast.show(firstCardText, {
                 duration: Toast.durations.SHORT,
               });
             }
@@ -392,7 +793,9 @@ export default function GameOneScreen({
               arrayIndex.current++;
             }
             if (shouldNavigate) {
-              navigation.navigate("GameOver");
+              navigation.navigate("GameOver", {
+                language: language,
+              });
             }
           }
         } else {
@@ -416,13 +819,13 @@ export default function GameOneScreen({
               style={styles.ruleButton}
               onPress={() => setIsOverlayVisible(!isOverlayVisible)}
             >
-              <Text style={styles.veryBoldText}>ADD A RULE</Text>
+              <Text style={styles.veryBoldText}>{addRuleButtonText}</Text>
             </TouchableOpacity>
             {isOverlayVisible && (
               <View style={styles.overlay}>
                 <TextInput
                   style={styles.textInput}
-                  placeholder="Gráinne is a dryshite, drink 15 sips"
+                  placeholder={addRuleFieldText}
                   placeholderTextColor="#ccc"
                   onChangeText={(text) => setNewRule(text)}
                   value={newRule}
@@ -462,7 +865,9 @@ export default function GameOneScreen({
                     setIsEditVisible(false);
                   }}
                 >
-                  <Text style={styles.submitButtonText}>ADD RULE</Text>
+                  <Text style={styles.submitButtonText}>
+                    {addRuleButton2Text}
+                  </Text>
                 </TouchableOpacity>
               </View>
             )}
@@ -471,13 +876,13 @@ export default function GameOneScreen({
               style={styles.playerButton}
               onPress={() => setIsPlayerOverlayVisible(!isPlayerOverlayVisible)}
             >
-              <Text style={styles.veryBoldText}>ADD A PLAYER</Text>
+              <Text style={styles.veryBoldText}>{addPlayerButtonText}</Text>
             </TouchableOpacity>
             {isPlayerOverlayVisible && (
               <View style={styles.overlay}>
                 <TextInput
                   style={styles.textInput}
-                  placeholder="Enter the new player's name"
+                  placeholder={addPlayerFieldText}
                   placeholderTextColor="#ccc"
                   onChangeText={(text) => setNewPlayerName(text)}
                   value={newPlayerName}
@@ -491,14 +896,16 @@ export default function GameOneScreen({
                     setNewPlayerName("");
                     // Display a message to the user to confirm that the new player has been added
                     // ToastAndroid.show("Player added!", ToastAndroid.SHORT);
-                    Toast.show("Player added!", {
+                    Toast.show(addPlayerToastText, {
                       duration: Toast.durations.SHORT,
                     });
                     setIsPlayerOverlayVisible(false);
                     setIsEditVisible(false);
                   }}
                 >
-                  <Text style={styles.submitButtonText}>ADD PLAYER</Text>
+                  <Text style={styles.submitButtonText}>
+                    {addPlayerButton2Text}
+                  </Text>
                 </TouchableOpacity>
               </View>
             )}
@@ -510,15 +917,18 @@ export default function GameOneScreen({
             style={styles.topLeftButton}
             onPress={() => {
               Alert.alert(
-                "Quit Game",
-                "Are you sure you want to quit the game?",
+                quitGameTitle,
+                quitGameText,
                 [
                   {
-                    text: "Yes",
-                    onPress: () => navigation.navigate("TabTwo"),
+                    text: quitGameOpt1,
+                    onPress: () =>
+                      navigation.navigate("TabTwo", {
+                        language: language,
+                      }),
                   },
                   {
-                    text: "No",
+                    text: quitGameOpt2,
                     onPress: () => setIsQuitOverlayVisible(false),
                   },
                 ],
@@ -678,26 +1088,26 @@ const styles = StyleSheet.create({
     top: 45,
     right: 15,
     height: 50,
-    width: 125,
+    width: 130,
     backgroundColor: "#ed1e26",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
     zIndex: 12,
-    padding: 10,
+    padding: 8,
   },
   playerButton: {
     position: "absolute",
     top: 100,
     right: 15,
     height: 50,
-    width: 125,
+    width: 130,
     backgroundColor: "#ed1e26",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
     zIndex: 12,
-    padding: 10,
+    padding: 8,
   },
   submitButtonText: {
     fontFamily: "Konstruktor",
