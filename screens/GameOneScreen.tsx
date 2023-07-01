@@ -61,6 +61,8 @@ export default function GameOneScreen({
     "Gráinne is a dryshite, drink 15 sips"
   );
   const [addRuleButton2Text, setAddRuleButton2Text] = useState("ADD RULE");
+  const [newRuleTitle, setNewRuleTitle] = useState("RULE");
+  const [addRuleToastText, setAddRuleToastText] = useState("Rule added!");
   const [addPlayerButtonText, setAddPlayerButtonText] =
     useState("ADD A PLAYER");
   const [addPlayerFieldText, setAddPlayerFieldText] = useState(
@@ -96,6 +98,8 @@ export default function GameOneScreen({
         setAddRuleButtonText("ADD A RULE");
         setAddRuleFieldText("Gráinne is a dryshite, drink 15 sips");
         setAddRuleButton2Text("ADD RULE");
+        setNewRuleTitle("RULE");
+        setAddRuleToastText("Rule added!");
         setAddPlayerButtonText("ADD A PLAYER");
         setAddPlayerFieldText("Enter the new player's name");
         setAddPlayerButton2Text("ADD PLAYER");
@@ -111,6 +115,8 @@ export default function GameOneScreen({
         setAddRuleButtonText("RIALACHÁN NUA");
         setAddRuleFieldText("Is dryshite í Gráinne, ól 15 blaise");
         setAddRuleButton2Text("CUIR RIALACHÁN LEIS");
+        setNewRuleTitle("RIALACHÁN");
+        setAddRuleToastText("Rúl curtha leis!");
         setAddPlayerButtonText("IMREOIR NUA");
         setAddPlayerFieldText("Iontráil ainm an imreora nua");
         setAddPlayerButton2Text("CUIR IMREORA LEIS");
@@ -128,6 +134,8 @@ export default function GameOneScreen({
         setAddRuleButtonText("DODAJ ZASADĘ");
         setAddRuleFieldText("Gráinne to suchar, wypij 15 łyków");
         setAddRuleButton2Text("DODAJ ZASADĘ");
+        setNewRuleTitle("REGUŁA");
+        setAddRuleToastText("Reguła dodana!");
         setAddPlayerButtonText("DODAJ GRACZA");
         setAddPlayerFieldText("Wprowadź imię nowego gracza");
         setAddPlayerButton2Text("DODAJ GRACZA");
@@ -839,7 +847,7 @@ export default function GameOneScreen({
                     // Use the splice method to insert the new rule at the random index
                     promptsArray.splice(randomIndex, 0, {
                       text: newRule,
-                      category: "RULE",
+                      category: newRuleTitle,
                     });
                     await AsyncStorage.setItem(
                       gameMode,
@@ -848,7 +856,7 @@ export default function GameOneScreen({
                     // Reset the new rule input and close the overlay
                     setNewRule("");
                     // Display a message to the user to confirm that the new rule has been added
-                    ToastAndroid.show("Rule added!", ToastAndroid.SHORT);
+                    ToastAndroid.show(addRuleToastText, ToastAndroid.SHORT);
                     setIsOverlayVisible(false);
                     setIsEditVisible(false);
                   }}
