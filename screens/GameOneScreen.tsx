@@ -135,6 +135,8 @@ export default function GameOneScreen({
         setAddRuleButtonText("DODAJ ZASADĘ");
         setAddRuleFieldText("Gráinne to suchar, wypij 15 łyków");
         setAddRuleButton2Text("DODAJ ZASADĘ");
+        setNewRuleTitle("REGUŁA");
+        setAddRuleToastText("Reguła dodana!");
         setAddPlayerButtonText("DODAJ GRACZA");
         setAddPlayerFieldText("Wprowadź imię nowego gracza");
         setAddPlayerButton2Text("DODAJ GRACZA");
