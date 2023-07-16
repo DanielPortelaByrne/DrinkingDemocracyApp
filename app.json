@@ -6,6 +6,7 @@
     "icon": "./assets/images/logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
+    "orientation": "default",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",

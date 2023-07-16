@@ -5,8 +5,10 @@ import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
 import React from "react";
+import * as ScreenOrientation from "expo-screen-orientation";
 
 export default function App() {
+  ScreenOrientation.unlockAsync();
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 

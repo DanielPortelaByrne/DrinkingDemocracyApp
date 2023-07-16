@@ -117,8 +117,8 @@ export default function TabOneScreen({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
   });
 
-  const glow1 = require("../assets/images/transparent_logo_glow_new_2.png");
-  const glow2 = require("../assets/images/transparent_logo_glow_new_5.png");
+  const glow1 = require("../assets/images/transparent_logo_glow_new_iphone.png");
+  const glow2 = require("../assets/images/transparent_logo_glow_new_iphone_pressed.png");
 
   // Store the prompts in async storage when the component is mounted
   useEffect(() => {
