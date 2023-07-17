@@ -28,7 +28,7 @@
     "category": "RULE"
   },
   {
-    "text": "[Name] do 2 jumping jacks if you are Irish",
+    "text": "[Name] do 2 jumping jacks if you are Irish, otherwise give them out",
     "category": "RULE"
   },
   {
@@ -120,7 +120,7 @@
     "category": "VOTE"
   },
   {
-    "text": "[Name] do a pushup if you have ever gone skydiving",
+    "text": "[Name] do a pushup if you have ever gone skydiving, otherwise give it out",
     "category": "RULE"
   },
   {
@@ -144,7 +144,7 @@
     "category": "RULE"
   },
   {
-    "text": "Do 5 burpees if you have a fear of public speaking",
+    "text": "Do 5 burpees if you have a fear of public speaking, otherwise give them out",
     "category": "RULE"
   },
   {
