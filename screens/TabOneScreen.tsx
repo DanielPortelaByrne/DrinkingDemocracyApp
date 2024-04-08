@@ -22,7 +22,25 @@ import { RootTabScreenProps } from "../types";
 import { updateNames, getNames } from "../components/nameStore";
 import { useFonts } from "expo-font";
 import { useFocusEffect } from "@react-navigation/native";
+import en from "../languages/en.json";
+import ga from "../languages/ga.json";
+import pl from "../languages/pl.json";
+import es from "../languages/es.json";
 var language = "English";
+
+// Define an interface for language translations
+interface LanguageData {
+  subTitle: string;
+  toast: string;
+  player: string;
+}
+
+const languages: { [key: string]: Partial<LanguageData> } = {
+  English: en,
+  Irish: ga,
+  Polish: pl,
+  Spanish: es,
+};
 
 // Store the prompts in async storage
 const storePrompts = async (language: string) => {
@@ -137,6 +155,20 @@ export default function TabOneScreen({
       });
     // setNames(getNames());
   }, []);
+
+  const setLanguage = async (language: string) => {
+    let languageData = languages[language];
+    console.log("Reaching new function with language: " + language);
+
+    // If the selected language is not available or not explicitly set, default to English
+    if (!languageData) {
+      languageData = languages["English"];
+    }
+
+    setSubTitle(languageData.subTitle || "WHO'S SESHING");
+    setToast(languageData.toast || "Enter at least 2 names!");
+    setPlayer(languageData.player || "Player");
+  };
 
   const handlePressIn = () => {
     setImageSource(glow2);
@@ -298,9 +330,10 @@ export default function TabOneScreen({
                 AsyncStorage.removeItem("virusendPack");
                 AsyncStorage.setItem("language", language);
                 storePrompts(language);
-                setSubTitle("WHO'S SESHING");
-                setToast("Enter at least 2 names!");
-                setPlayer("Player");
+                setLanguage(language);
+                // setSubTitle("WHO'S SESHING");
+                // setToast("Enter at least 2 names!");
+                // setPlayer("Player");
                 console.log("Language set to: " + language);
               }}
             >
@@ -321,9 +354,10 @@ export default function TabOneScreen({
                 AsyncStorage.removeItem("virusPack");
                 AsyncStorage.removeItem("virusendPack");
                 storePrompts(language);
-                setSubTitle("CÉ ATÁ AG ÓL?");
-                setToast("Iontráil go minic 2 ainm ar a laghad!");
-                setPlayer("Imreoir");
+                setLanguage(language);
+                // setSubTitle("CÉ ATÁ AG ÓL?");
+                // setToast("Iontráil go minic 2 ainm ar a laghad!");
+                // setPlayer("Imreoir");
                 console.log("Language set to: " + language);
               }}
             >
@@ -344,9 +378,10 @@ export default function TabOneScreen({
                 AsyncStorage.removeItem("virusPack");
                 AsyncStorage.removeItem("virusendPack");
                 storePrompts(language);
-                setSubTitle("KTO PIJE");
-                setToast("Wpisz co najmniej 2 imiona!");
-                setPlayer("Gracz");
+                setLanguage(language);
+                // setSubTitle("KTO PIJE");
+                // setToast("Wpisz co najmniej 2 imiona!");
+                // setPlayer("Gracz");
                 console.log("Language set to: " + language);
               }}
             >
@@ -367,9 +402,10 @@ export default function TabOneScreen({
                 AsyncStorage.removeItem("virusPack");
                 AsyncStorage.removeItem("virusendPack");
                 storePrompts(language);
-                setSubTitle("¿QUIÉN ESTÁ BEBIENDO?");
-                setToast("¡Ingresa al menos 2 nombres!");
-                setPlayer("Jugador");
+                setLanguage(language);
+                // setSubTitle("¿QUIÉN ESTÁ BEBIENDO?");
+                // setToast("¡Ingresa al menos 2 nombres!");
+                // setPlayer("Jugador");
                 console.log("Language set to: " + language);
               }}
             >

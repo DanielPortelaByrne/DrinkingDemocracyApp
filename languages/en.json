@@ -17,5 +17,8 @@
   "prinksText": "Let's get prinking",
   "crazyText": "Let's get messy",
   "flirtyText": "Let's get flirty",
-  "sapText": "SUBMIT A PROMPT"
+  "sapText": "SUBMIT A PROMPT",
+  "subTitle": "WHO'S SESHING",
+  "toast": "Enter at least 2 names!",
+  "player": "Player"
 }

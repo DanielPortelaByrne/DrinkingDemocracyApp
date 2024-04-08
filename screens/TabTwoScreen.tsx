@@ -269,7 +269,7 @@ export default function TabTwoScreen({
   navigation,
 }: RootTabScreenProps<"TabTwo">) {
   const { language } = route.params;
-  const languageData: LanguageTranslations = languages[language];
+  // const languageData: LanguageTranslations = languages[language];
   const [names, setNames] = useState(getNames());
   const [prinksText, setPrinksText] = useState("Let's get prinking");
   const [crazyText, setCrazyText] = useState("Let's get messy");
@@ -287,57 +287,12 @@ export default function TabTwoScreen({
     }, [language])
   );
 
-  // const setLanguage = async (language: string) => {
-  //   switch (language) {
-  //     case "English": {
-  //       setTitle("GAMES");
-  //       setPrinksText("Let's get prinking");
-  //       setCrazyText("Let's get messy");
-  //       setFlirtyText("Let's get flirty");
-  //       setSapText("SUBMIT A PROMPT");
-  //       break;
-  //     }
-  //     case "Irish": {
-  //       setTitle("CLUICHÍ");
-  //       setPrinksText("Bainigí spleodar as");
-  //       setCrazyText("Bainigí gach rud mícheart");
-  //       setFlirtyText("Bainigí grá amach");
-  //       setSapText("SEOL ISTIGH PHROMPTA");
-  //       break;
-  //     }
-  //     case "Polish": {
-  //       setTitle("GRY");
-  //       setPrinksText("Zróbmy sobie psikusy");
-  //       setCrazyText("Zróbmy się nieporządni");
-  //       setFlirtyText("Zróbmy sobie zaloty");
-  //       setSapText("WYŚLIJ WSKAZÓWKĘ");
-  //       break;
-  //     }
-  //     case "Spanish": {
-  //       setTitle("JUEGOS");
-  //       setPrinksText("Vamos a divertirnos");
-  //       setCrazyText("Vamos a desordenarnos");
-  //       setFlirtyText("Vamos a coquetear");
-  //       setSapText("ENVÍA UNA PROPUESTA");
-  //       break;
-  //     }
-  //     default: {
-  //       setTitle("GAMES");
-  //       setPrinksText("Let's get prinking");
-  //       setCrazyText("Let's get messy");
-  //       setFlirtyText("Let's get flirty");
-  //       setSapText("SUBMIT A PROMPT");
-  //       break;
-  //     }
-  //   }
-  // };
-
   const setLanguage = async (language: string) => {
     let languageData = languages[language];
     console.log("Passing: " + language);
     console.log("Reaching language set, languageData:" + languageData.title);
 
-    // // If the selected language is not available or not explicitly set, default to English
+    // If the selected language is not available or not explicitly set, default to English
     if (!languageData) {
       languageData = languages["English"];
     }
