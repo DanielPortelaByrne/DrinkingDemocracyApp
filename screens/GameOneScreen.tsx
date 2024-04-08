@@ -10,7 +10,10 @@ import {
   ImageBackground,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-
+import en from "../languages/en.json";
+import ga from "../languages/ga.json";
+import pl from "../languages/pl.json";
+import es from "../languages/es.json";
 import { Text } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 import { getNames, updateNames } from "../components/nameStore";

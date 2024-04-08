@@ -1,0 +1,21 @@
+{
+  "addRuleButtonText": "ADD A RULE",
+  "addRuleFieldText": "Gráinne is a dryshite, drink 15 sips",
+  "addRuleButton2Text": "ADD RULE",
+  "newRuleTitle": "RULE",
+  "addRuleToastText": "Rule added!",
+  "addPlayerButtonText": "ADD A PLAYER",
+  "addPlayerFieldText": "Enter the new player's name",
+  "addPlayerButton2Text": "ADD PLAYER",
+  "addPlayerToastText": "Player added!",
+  "firstCardText": "You're at the first card!",
+  "quitGameTitle": "Quit Game",
+  "quitGameText": "Are you sure you want to quit the game?",
+  "quitGameOpt1": "Yes",
+  "quitGameOpt2": "No",
+  "title": "GAMES",
+  "prinksText": "Let's get prinking",
+  "crazyText": "Let's get messy",
+  "flirtyText": "Let's get flirty",
+  "sapText": "SUBMIT A PROMPT"
+}

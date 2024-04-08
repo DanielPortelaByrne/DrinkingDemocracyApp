@@ -1,0 +1,19 @@
+{
+  "addRuleButtonText": "AGREGAR REGLA",
+  "addRuleFieldText": "Gráinne es una fastidiosa, toma 15 sorbos",
+  "addRuleButton2Text": "AGREGAR REGLA",
+  "addPlayerButtonText": "AGREGAR JUGADOR",
+  "addPlayerFieldText": "Ingresa el nombre del nuevo jugador",
+  "addPlayerButton2Text": "AGREGAR JUGADOR",
+  "addPlayerToastText": "¡Jugador agregado!",
+  "firstCardText": "¡Estás en la primera carta!",
+  "quitGameTitle": "Salir del Juego",
+  "quitGameText": "¿Estás seguro de que deseas salir del juego?",
+  "quitGameOpt1": "Sí",
+  "quitGameOpt2": "No",
+  "title": "JUEGOS",
+  "prinksText": "Vamos a divertirnos",
+  "crazyText": "Vamos a desordenarnos",
+  "flirtyText": "Vamos a coquetear",
+  "sapText": "ENVÍA UNA PROPUESTA"
+}

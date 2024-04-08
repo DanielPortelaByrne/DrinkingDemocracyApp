@@ -1,0 +1,21 @@
+{
+  "addRuleButtonText": "DODAJ ZASADĘ",
+  "addRuleFieldText": "Gráinne to suchar, wypij 15 łyków",
+  "addRuleButton2Text": "DODAJ ZASADĘ",
+  "newRuleTitle": "REGUŁA",
+  "addRuleToastText": "Reguła dodana!",
+  "addPlayerButtonText": "DODAJ GRACZA",
+  "addPlayerFieldText": "Wprowadź imię nowego gracza",
+  "addPlayerButton2Text": "DODAJ GRACZA",
+  "addPlayerToastText": "Gracz dodany!",
+  "firstCardText": "Jesteś na pierwszej karcie!",
+  "quitGameTitle": "Zakończ grę",
+  "quitGameText": "Czy na pewno chcesz zakończyć grę?",
+  "quitGameOpt1": "Tak",
+  "quitGameOpt2": "Nie",
+  "title": "GRY",
+  "prinksText": "Zróbmy sobie psikusy",
+  "crazyText": "Zróbmy się nieporządni",
+  "flirtyText": "Zróbmy sobie zaloty",
+  "sapText": "WYŚLIJ WSKAZÓWKĘ"
+}
