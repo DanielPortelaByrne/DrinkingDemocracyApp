@@ -14,12 +14,20 @@ import en from "../languages/en.json";
 import ga from "../languages/ga.json";
 import pl from "../languages/pl.json";
 import es from "../languages/es.json";
+import { LanguageData } from "../utils/language/LanguageData";
 import { Text } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 import { getNames, updateNames } from "../components/nameStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
+
+const languages: { [key: string]: Partial<LanguageData> } = {
+  English: en,
+  Irish: ga,
+  Polish: pl,
+  Spanish: es,
+};
 
 // Retrieve the prompts from async storage
 const retrievePrompts = async (gameModeParam: string) => {
@@ -96,91 +104,33 @@ export default function GameOneScreen({
   });
 
   const setLanguage = async (language: string) => {
-    switch (language) {
-      case "English": {
-        setAddRuleButtonText("ADD A RULE");
-        setAddRuleFieldText("Gráinne is a dryshite, drink 15 sips");
-        setAddRuleButton2Text("ADD RULE");
-        setNewRuleTitle("RULE");
-        setAddRuleToastText("Rule added!");
-        setAddPlayerButtonText("ADD A PLAYER");
-        setAddPlayerFieldText("Enter the new player's name");
-        setAddPlayerButton2Text("ADD PLAYER");
-        setAddPlayerToastText("Player added!");
-        setFirstCardText("You're at the first card!");
-        setQuitGameTitle("Quit Game");
-        setQuitGameText("Are you sure you want to quit the game?");
-        setQuitGameOpt1("Yes");
-        setQuitGameOpt2("No");
-        break;
-      }
-      case "Irish": {
-        setAddRuleButtonText("RIALACHÁN NUA");
-        setAddRuleFieldText("Is dryshite í Gráinne, ól 15 blaise");
-        setAddRuleButton2Text("CUIR RIALACHÁN LEIS");
-        setNewRuleTitle("RIALACHÁN");
-        setAddRuleToastText("Rúl curtha leis!");
-        setAddPlayerButtonText("IMREOIR NUA");
-        setAddPlayerFieldText("Iontráil ainm an imreora nua");
-        setAddPlayerButton2Text("CUIR IMREORA LEIS");
-        setAddPlayerToastText("Imreoir cuirtear leis!");
-        setFirstCardText("Tá tú ag an gcéad cárta!");
-        setQuitGameTitle("Céasadh den Chluiche");
-        setQuitGameText(
-          "An bhfuil tú cinnte go bhfuil tú ag iarraidh an cluiche a dhúnadh?"
-        );
-        setQuitGameOpt1("Táim");
-        setQuitGameOpt2("Nílim");
-        break;
-      }
-      case "Polish": {
-        setAddRuleButtonText("DODAJ ZASADĘ");
-        setAddRuleFieldText("Gráinne to suchar, wypij 15 łyków");
-        setAddRuleButton2Text("DODAJ ZASADĘ");
-        setNewRuleTitle("REGUŁA");
-        setAddRuleToastText("Reguła dodana!");
-        setAddPlayerButtonText("DODAJ GRACZA");
-        setAddPlayerFieldText("Wprowadź imię nowego gracza");
-        setAddPlayerButton2Text("DODAJ GRACZA");
-        setAddPlayerToastText("Gracz dodany!");
-        setFirstCardText("Jesteś na pierwszej karcie!");
-        setQuitGameTitle("Zakończ grę");
-        setQuitGameText("Czy na pewno chcesz zakończyć grę?");
-        setQuitGameOpt1("Tak");
-        setQuitGameOpt2("Nie");
-        break;
-      }
-      case "Spanish": {
-        setAddRuleButtonText("AGREGAR REGLA");
-        setAddRuleFieldText("Gráinne es una fastidiosa, toma 15 sorbos");
-        setAddRuleButton2Text("AGREGAR REGLA");
-        setAddPlayerButtonText("AGREGAR JUGADOR");
-        setAddPlayerFieldText("Ingresa el nombre del nuevo jugador");
-        setAddPlayerButton2Text("AGREGAR JUGADOR");
-        setAddPlayerToastText("¡Jugador agregado!");
-        setFirstCardText("¡Estás en la primera carta!");
-        setQuitGameTitle("Salir del Juego");
-        setQuitGameText("¿Estás seguro de que deseas salir del juego?");
-        setQuitGameOpt1("Sí");
-        setQuitGameOpt2("No");
-        break;
-      }
-      default: {
-        setAddRuleButtonText("ADD A RULE");
-        setAddRuleFieldText("Gráinne is a dryshite, drink 15 sips");
-        setAddRuleButton2Text("ADD RULE");
-        setAddPlayerButtonText("ADD A PLAYER");
-        setAddPlayerFieldText("Enter the new player's name");
-        setAddPlayerButton2Text("ADD PLAYER");
-        setAddPlayerToastText("Player added!");
-        setFirstCardText("You're at the first card!");
-        setQuitGameTitle("Quit Game");
-        setQuitGameText("Are you sure you want to quit the game?");
-        setQuitGameOpt1("Yes");
-        setQuitGameOpt2("No");
-        break;
-      }
+    let languageData = languages[language];
+    console.log("Reaching new function with language: " + language);
+
+    // If the selected language is not available or not explicitly set, default to English
+    if (!languageData) {
+      languageData = languages["English"];
     }
+    setAddRuleButtonText(languageData.addRuleButtonText || "ADD A RULE");
+    setAddRuleFieldText(
+      languageData.addRuleFieldText || "Gráinne is a dryshite, drink 15 sips"
+    );
+    setAddRuleButton2Text(languageData.addRuleButton2Text || "ADD RULE");
+    setNewRuleTitle(languageData.newRuleTitle || "RULE");
+    setAddRuleToastText(languageData.addRuleToastText || "Rule added!");
+    setAddPlayerButtonText(languageData.addPlayerButtonText || "ADD A PLAYER");
+    setAddPlayerFieldText(
+      languageData.addPlayerFieldText || "Enter the new player's name"
+    );
+    setAddPlayerButton2Text(languageData.addPlayerButton2Text || "ADD PLAYER");
+    setAddPlayerToastText(languageData.addPlayerToastText || "Player added!");
+    setFirstCardText(languageData.firstCardText || "You're at the first card!");
+    setQuitGameTitle(languageData.quitGameTitle || "Quit Game");
+    setQuitGameText(
+      languageData.quitGameText || "Are you sure you want to quit the game?"
+    );
+    setQuitGameOpt1(languageData.quitGameOpt1 || "Yes");
+    setQuitGameOpt2(languageData.quitGameOpt2 || "No");
   };
 
   // Initialize the shake animation value

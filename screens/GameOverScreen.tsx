@@ -4,6 +4,19 @@ import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 import React, { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
+import en from "../languages/en.json";
+import ga from "../languages/ga.json";
+import pl from "../languages/pl.json";
+import es from "../languages/es.json";
+import { LanguageData } from "../utils/language/LanguageData";
+var language = "English";
+
+const languages: { [key: string]: Partial<LanguageData> } = {
+  English: en,
+  Irish: ga,
+  Polish: pl,
+  Spanish: es,
+};
 
 export default function GameOverScreen({
   route,
@@ -22,29 +35,18 @@ export default function GameOverScreen({
       return undefined;
     }
   });
+
   const setLanguage = async (language: string) => {
-    switch (language) {
-      case "English": {
-        setGameOverText("Game Over");
-        setMoreGamesText("More Games");
-        break;
-      }
-      case "Irish": {
-        setGameOverText("Cluiche Críochnaithe");
-        setMoreGamesText("Cluichí Breise");
-        break;
-      }
-      case "Spanish": {
-        setGameOverText("Game Over");
-        setMoreGamesText("More Games");
-        break;
-      }
-      default: {
-        setGameOverText("Game Over");
-        setMoreGamesText("More Games");
-        break;
-      }
+    let languageData = languages[language];
+    console.log("Reaching new function with language: " + language);
+
+    // If the selected language is not available or not explicitly set, default to English
+    if (!languageData) {
+      languageData = languages["English"];
     }
+
+    setGameOverText(languageData.subTitle || "Game Over");
+    setMoreGamesText(languageData.toast || "More Games");
   };
   return (
     <View style={styles.container}>

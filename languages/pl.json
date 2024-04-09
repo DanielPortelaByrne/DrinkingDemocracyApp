@@ -20,5 +20,7 @@
   "sapText": "WYŚLIJ WSKAZÓWKĘ",
   "subTitle": "KTO PIJE",
   "toast": "Wpisz co najmniej 2 imiona!",
-  "player": "Gracz"
+  "player": "Gracz",
+  "gameOverText": "Koniec Gry",
+  "moreGamesText": "Więcej Gier"
 }

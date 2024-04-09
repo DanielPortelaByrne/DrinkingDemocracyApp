@@ -20,5 +20,7 @@
   "sapText": "SUBMIT A PROMPT",
   "subTitle": "WHO'S SESHING",
   "toast": "Enter at least 2 names!",
-  "player": "Player"
+  "player": "Player",
+  "gameOverText": "Game Over",
+  "moreGamesText": "More Games"
 }

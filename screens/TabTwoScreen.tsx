@@ -8,6 +8,7 @@ import en from "../languages/en.json";
 import ga from "../languages/ga.json";
 import pl from "../languages/pl.json";
 import es from "../languages/es.json";
+import { LanguageData } from "../utils/language/LanguageData";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -17,29 +18,6 @@ import { useFocusEffect } from "@react-navigation/native";
 //   BannerAdSize,
 //   TestIds,
 // } from "react-native-google-mobile-ads";
-
-// Define an interface for language translations
-interface LanguageData {
-  addRuleButtonText: string;
-  addRuleFieldText: string;
-  addRuleButton2Text: string;
-  newRuleTitle: string;
-  addRuleToastText: string;
-  addPlayerButtonText: string;
-  addPlayerFieldText: string;
-  addPlayerButton2Text: string;
-  addPlayerToastText: string;
-  firstCardText: string;
-  quitGameTitle: string;
-  quitGameText: string;
-  quitGameOpt1: string;
-  quitGameOpt2: string;
-  title: string;
-  prinksText: string;
-  crazyText: string;
-  flirtyText: string;
-  sapText: string;
-}
 
 const languages: { [key: string]: Partial<LanguageData> } = {
   English: en,

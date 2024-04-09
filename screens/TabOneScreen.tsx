@@ -26,14 +26,15 @@ import en from "../languages/en.json";
 import ga from "../languages/ga.json";
 import pl from "../languages/pl.json";
 import es from "../languages/es.json";
+import { LanguageData } from "../utils/language/LanguageData";
 var language = "English";
 
-// Define an interface for language translations
-interface LanguageData {
-  subTitle: string;
-  toast: string;
-  player: string;
-}
+// // Define an interface for language translations
+// interface LanguageData {
+//   subTitle: string;
+//   toast: string;
+//   player: string;
+// }
 
 const languages: { [key: string]: Partial<LanguageData> } = {
   English: en,

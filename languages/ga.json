@@ -20,5 +20,7 @@
   "sapText": "SEOL ISTIGH PHROMPTA",
   "subTitle": "CÉ ATÁ AG ÓL?",
   "toast": "Iontráil go minic 2 ainm ar a laghad!",
-  "player": "Imreoir"
+  "player": "Imreoir",
+  "gameOverText": "Cluiche Críochnaithe",
+  "moreGamesText": "Cluichí Breise"
 }

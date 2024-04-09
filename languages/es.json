@@ -18,5 +18,7 @@
   "sapText": "ENVÍA UNA PROPUESTA",
   "subTitle": "¿QUIÉN ESTÁ BEBIENDO?",
   "toast": "¡Ingresa al menos 2 nombres!",
-  "player": "Jugador"
+  "player": "Jugador",
+  "gameOverText": "Juego Terminado",
+  "moreGamesText": "Más Juegos"
 }
