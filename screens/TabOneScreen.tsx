@@ -1,13 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  KeyboardAvoidingView,
   ScrollView,
   TextInput,
-  StyleSheet,
   Image,
   TouchableOpacity,
   ToastAndroid,
+  StyleProp,
+  ImageStyle,
+  TextStyle,
+  ViewStyle,
 } from "react-native";
+import { screen1Styles } from "../assets/styles/styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 import { prompts } from "../prompts";
@@ -16,7 +19,6 @@ import { flirty } from "../flirty";
 import { virus } from "../virus";
 import { virusend } from "../virusend";
 
-// import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 import { updateNames, getNames } from "../components/nameStore";
@@ -28,13 +30,6 @@ import pl from "../languages/pl.json";
 import es from "../languages/es.json";
 import { LanguageData } from "../utils/language/LanguageData";
 var language = "English";
-
-// // Define an interface for language translations
-// interface LanguageData {
-//   subTitle: string;
-//   toast: string;
-//   player: string;
-// }
 
 const languages: { [key: string]: Partial<LanguageData> } = {
   English: en,
@@ -154,7 +149,6 @@ export default function TabOneScreen({
       .catch((error) => {
         console.log("Error preloading image", error);
       });
-    // setNames(getNames());
   }, []);
 
   const setLanguage = async (language: string) => {
@@ -195,8 +189,6 @@ export default function TabOneScreen({
   }
 
   const NameInput: React.FC<RootTabScreenProps<"TabOne">> = () => {
-    // const [names, setNames] = useState<string[]>([""]);
-
     const [names, setNames] = useState(getNames());
     useFocusEffect(
       React.useCallback(() => {
@@ -233,7 +225,6 @@ export default function TabOneScreen({
     return (
       <View
         style={{
-          // justifyContent: "center",
           backgroundColor: "rgba(52, 52, 52, 0)",
         }}
       >
@@ -250,7 +241,7 @@ export default function TabOneScreen({
               placeholder={`${player} ${index + 1}`}
               value={name}
               onChangeText={(text) => handleNameChange(text, index)}
-              style={styles.textInput}
+              style={screen1Styles.textInput as StyleProp<ImageStyle>}
               textAlign="center"
             />
           </View>
@@ -261,14 +252,15 @@ export default function TabOneScreen({
             marginTop: 5,
             flexDirection: "row",
             backgroundColor: "rgba(52, 52, 52, 0)",
-            // alignItems: "center",
-            // justifyContent: "center",
-            // alignContent: "center",
           }}
         >
           {names.length > 1 && (
             <TouchableOpacity
-              style={{ ...styles.button, width: "25%", marginRight: 5 }}
+              style={{
+                ...screen1Styles.button,
+                width: "25%",
+                marginRight: 5,
+              }}
               onPress={handleRemoveName}
             >
               <Text
@@ -276,7 +268,6 @@ export default function TabOneScreen({
                   fontWeight: "bold",
                   fontSize: 20,
                   textAlign: "center",
-                  // lineHeight: 25,
                 }}
               >
                 -
@@ -284,13 +275,12 @@ export default function TabOneScreen({
             </TouchableOpacity>
           )}
           <TouchableOpacity
-            style={{ ...styles.button, width: "25%" }}
+            style={{ ...screen1Styles.button, width: "25%" }}
             onPress={handleAddName}
           >
             <Text
               style={{
                 textAlign: "center",
-                // lineHeight: 25,
                 fontWeight: "bold",
                 fontSize: 18,
               }}
@@ -303,24 +293,15 @@ export default function TabOneScreen({
     );
   };
   return (
-    <View style={styles.container}>
-      <View style={{ position: "absolute", top: 70, right: 30, zIndex: 2 }}>
+    <View style={screen1Styles.container as StyleProp<ImageStyle>}>
+      <View style={screen1Styles.innerContainer as StyleProp<ImageStyle>}>
         <TouchableOpacity onPress={handleDropdownToggle}>
           <Ionicons name="language" size={32} color="#ed1e26" />
         </TouchableOpacity>
-
         {isDropdownVisible && (
-          <View
-            style={{
-              // backgroundColor: "rgba(52, 52, 52, 0)",
-              position: "absolute",
-              top: 50,
-              zIndex: 2,
-            }}
-          >
-            {/* Dropdown content */}
+          <View style={screen1Styles.dropdownContainer as StyleProp<ViewStyle>}>
             <TouchableOpacity
-              style={{ marginBottom: 5 }}
+              style={screen1Styles.flagButton}
               onPress={() => {
                 setDropdownVisible(false);
                 language = "English";
@@ -332,19 +313,16 @@ export default function TabOneScreen({
                 AsyncStorage.setItem("language", language);
                 storePrompts(language);
                 setLanguage(language);
-                // setSubTitle("WHO'S SESHING");
-                // setToast("Enter at least 2 names!");
-                // setPlayer("Player");
                 console.log("Language set to: " + language);
               }}
             >
               <Image
-                style={{ height: 32, width: 32 }}
+                style={screen1Styles.flagImage}
                 source={require("../assets/images/flags/uk.png")}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              style={{ marginBottom: 5 }}
+              style={screen1Styles.flagButton}
               onPress={() => {
                 setDropdownVisible(false);
                 language = "Irish";
@@ -356,19 +334,16 @@ export default function TabOneScreen({
                 AsyncStorage.removeItem("virusendPack");
                 storePrompts(language);
                 setLanguage(language);
-                // setSubTitle("CÉ ATÁ AG ÓL?");
-                // setToast("Iontráil go minic 2 ainm ar a laghad!");
-                // setPlayer("Imreoir");
                 console.log("Language set to: " + language);
               }}
             >
               <Image
-                style={{ height: 32, width: 32 }}
+                style={screen1Styles.flagImage}
                 source={require("../assets/images/flags/ireland.png")}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              style={{ marginBottom: 5 }}
+              style={screen1Styles.flagButton}
               onPress={() => {
                 setDropdownVisible(false);
                 language = "Polish";
@@ -380,19 +355,16 @@ export default function TabOneScreen({
                 AsyncStorage.removeItem("virusendPack");
                 storePrompts(language);
                 setLanguage(language);
-                // setSubTitle("KTO PIJE");
-                // setToast("Wpisz co najmniej 2 imiona!");
-                // setPlayer("Gracz");
                 console.log("Language set to: " + language);
               }}
             >
               <Image
-                style={{ height: 32, width: 32 }}
+                style={screen1Styles.flagImage}
                 source={require("../assets/images/flags/poland.png")}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              style={{ marginBottom: 5 }}
+              style={screen1Styles.flagButton}
               onPress={() => {
                 setDropdownVisible(false);
                 language = "Spanish";
@@ -404,113 +376,48 @@ export default function TabOneScreen({
                 AsyncStorage.removeItem("virusendPack");
                 storePrompts(language);
                 setLanguage(language);
-                // setSubTitle("¿QUIÉN ESTÁ BEBIENDO?");
-                // setToast("¡Ingresa al menos 2 nombres!");
-                // setPlayer("Jugador");
                 console.log("Language set to: " + language);
               }}
             >
               <Image
-                style={{ height: 32, width: 32 }}
+                style={screen1Styles.flagImage}
                 source={require("../assets/images/flags/spain.png")}
               />
             </TouchableOpacity>
-            {/* Add more options as needed */}
           </View>
         )}
       </View>
       <Image
-        style={styles.image}
+        style={screen1Styles.logo as StyleProp<ImageStyle>}
         source={require("../assets/images/title_logo.png")}
       />
-
-      {/* <StatusBar style="auto" /> */}
       <Image
         source={require("../assets/images/halo.png")}
-        style={{
-          width: "100%",
-          height: "35%",
-          position: "absolute",
-          top: "26%",
-          zIndex: -1,
-        }}
+        style={screen1Styles.backgroundImage as StyleProp<ImageStyle>}
       />
       <View
-        style={{
-          top: -60,
-          flex: 0.25,
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "rgba(52, 52, 52, 0)",
-        }}
+        style={
+          screen1Styles.outerScrollViewContentContainer as StyleProp<ViewStyle>
+        }
       >
         <ScrollView
           ref={scrollViewRef}
           keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{
-            flexGrow: 0.35,
-            justifyContent: "center",
-            paddingRight: "15%",
-            paddingLeft: "15%",
-          }}
+          contentContainerStyle={
+            screen1Styles.scrollViewContentContainer as StyleProp<ViewStyle>
+          }
         >
           <View
-            style={{
-              justifyContent: "center",
-              backgroundColor: "rgba(52, 52, 52, 0)",
-            }}
+            style={screen1Styles.subtitleTextContainer as StyleProp<ViewStyle>}
           >
-            <Text
-              style={{
-                fontFamily: "Konstruktor",
-                fontSize: 18,
-                textAlign: "center",
-                marginTop: 25,
-                marginBottom: 10,
-                backgroundColor: "rgba(52, 52, 52, 0)",
-              }}
-            >
+            <Text style={screen1Styles.subtitleText as StyleProp<TextStyle>}>
               {subtitle}
             </Text>
-
             <NameInput navigation={navigation} />
           </View>
         </ScrollView>
       </View>
 
-      {/* <KeyboardAvoidingView behavior="position"> */}
-      {/* <TouchableOpacity
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            height: "6%",
-            bottom: -45,
-            borderColor: "#ffff",
-            borderWidth: 2,
-            borderRadius: 25,
-            width: "45%",
-          }}
-          onPress={() => {
-            if (getNames().length > 1 && getNames()[0].length > 0) {
-              navigation.navigate("TabTwo");
-            } else {
-              ToastAndroid.show("Enter at least 2 names!", ToastAndroid.SHORT);
-            }
-          }}
-        >
-          <Text
-            style={{
-              fontFamily: "Konstruktor",
-              color: "#ffff",
-              textAlign: "center",
-              // lineHeight: 50,
-              fontSize: 18,
-              padding: 10,
-            }}
-          >
-            LET'S GET DRUNK
-          </Text>
-        </TouchableOpacity> */}
       <TouchableOpacity
         style={{
           position: "absolute",
@@ -531,45 +438,11 @@ export default function TabOneScreen({
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
       >
-        <Image source={imageSource} style={styles.bottomImage} />
+        <Image
+          source={imageSource}
+          style={screen1Styles.bottomImage as StyleProp<ImageStyle>}
+        />
       </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    alignContent: "center",
-  },
-  image: {
-    position: "absolute",
-    width: "100%",
-    height: "25%",
-    top: "1%",
-  },
-  button: {
-    backgroundColor: "#ed1e26",
-    // height: "100%",
-    borderRadius: 25,
-  },
-  textInput: {
-    backgroundColor: "white",
-    width: 250,
-    fontStyle: "bold",
-    borderRadius: 25,
-  },
-  bottomImage: {
-    position: "absolute",
-    bottom: -80,
-    right: -20,
-    // alignItems: "center",
-    // justifyContent: "center",
-    // alignContent: "center",
-    width: "105%",
-    height: "55%",
-    zIndex: -1,
-  },
-});
