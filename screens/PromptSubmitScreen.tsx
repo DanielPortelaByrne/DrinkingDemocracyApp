@@ -17,6 +17,18 @@ import { useFonts } from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
 import email from "react-native-email";
 import { sendEmail } from "../hooks/sendEmail";
+import en from "../languages/en.json";
+import ga from "../languages/ga.json";
+import pl from "../languages/pl.json";
+import es from "../languages/es.json";
+import { LanguageData } from "../utils/language/LanguageData";
+
+const languages: { [key: string]: Partial<LanguageData> } = {
+  English: en,
+  Irish: ga,
+  Polish: pl,
+  Spanish: es,
+};
 
 export default function PromptSubmitScreen({
   route,
@@ -83,192 +95,57 @@ export default function PromptSubmitScreen({
   }, []);
 
   const setLanguage = async (language: string) => {
-    switch (language) {
-      case "English": {
-        setEnterPromptText("ENTER YOUR PROMPT");
-        setPickCatText("PICK YOUR PROMPT CATEGORY");
-        setGameModeText("PICK YOUR PROMPT GAME MODE");
-        setSocialText("ENTER YOUR SOCIAL MEDIA HANDLE TO BE CREDITED");
-        setSubmitText("SUBMIT YOUR PROMPT");
-        setSelectCatText("Select prompt category");
-        setSelectGameModeText("Select your game mode");
-        setCustomPromptText("Enter your custom prompt");
-        setInstruct1(
-          "- BE IN WITH A CHANCE OF HAVING YOUR CUSTOM PROMPT FEATURED PERMANENTLY IN THE GAME"
-        );
-        setInstruct2(
-          "- TYPE 'NAME' IF YOU WANT TO RANDOMISE YOUR NAME INPUT, AND 'NAME2' IF YOU WANT TO ADD A SECOND RANDOM NAME"
-        );
-        setInstruct3(
-          "- E.G. 'NAME HAS TO WHISPER TO NAME2 FOR THE REST OF THE GAME'"
-        );
-        setInstruct4(
-          "- ADD YOUR SOCIAL MEDIA HANDLE AND PLATFORM TO BE CREDITED ON THE APP (OPTIONAL)"
-        );
-        setToast1("Enter prompt text!");
-        setToast2("Choose a prompt category!");
-        setToast3("Choose a game mode!");
-        setToast4("Game prompt submitted!");
-        setCat1("RULE");
-        setCat2("GET IT DOWN YA");
-        setCat3("CHALLENGE");
-        setCat4("VOTE");
-        setCat5("SEXY");
-        setCat6("VIRUS");
-        setMode1("PRINKS");
-        setMode2("MESSY");
-        setMode3("FLIRTY");
-        break;
-      }
-      case "Irish": {
-        setEnterPromptText("IONTRÁIL DO PHROMPTA");
-        setPickCatText("ROGHNAIGH DO CHATEGÓIR PHROMPTA");
-        setGameModeText("ROGHNAIGH DO MHÓD CHLUICHE PHROMPTA");
-        setSocialText(
-          "IONTRÁIL DO DHÁLACH MÉID SÓISIALTA CHUN A BHEITH IDIRBHIRT"
-        );
-        setSubmitText("SEOL DO PHROMPTA");
-        setSelectCatText("Roghnaigh catagóir tiomána");
-        setSelectGameModeText("Roghnaigh do mhod tráchtála");
-        setCustomPromptText("Cuir do phromt pearsanta isteach");
-        setInstruct1(
-          "- BÍ I DO THAIRSEACH CHUN DEIS A BHEITH AGAT DO PHROMTÉAD PEARSANTA A THAISPEÁINT GO BUAN SA CLUICH"
-        );
-        setInstruct2(
-          "- SCRÍOBH 'NAME' MÁ BA MHIAN LEAT DO SHEOLTAÍAINM A DHÉANAMH ANIARADH, AGUS 'NAME2' MÁ BA MHIAN LEAT DARA SHEOLTAÍAINM A CHUR LEIS"
-        );
-        setInstruct3(
-          "- M.A. 'TÁ ORT SINNIS AG BREATHNÚ AR NAME2 SNA RESTA AG AN CHLUICH'"
-        );
-        setInstruct4(
-          "- CUIR DO DHLEAS ÁITIÚIL MEÁN SÓISIALTA AGUS PLATFÓIRM LEIS CHUN AITHINT A BHEITH ORT SA APLIKÉAD (ROGHNACH)"
-        );
-        setToast1("Iontráil téacs an phrómóid!");
-        setToast2("Roghnaigh catagóir phrómóid!");
-        setToast3("Roghnaigh mód cluiche!");
-        setToast4("Phrómóid cluiche curtha isteach!");
-        setCat1("RIALACHÁN");
-        setCat2("GABH I SÍORRÚD É");
-        setCat3("DÚSHLÁN");
-        setCat4("VÓTA");
-        setCat5("GNÉASÚIL");
-        setCat6("VÍREAS");
-        setMode1("BREÁCHA");
-        setMode2("MíCHEART");
-        setMode3("FHEIRTEACH");
-        break;
-      }
-      case "Polish": {
-        setEnterPromptText("WPISZ SWOJĄ PROPOZYCJĘ");
-        setPickCatText("WYBIERZ KATEGORIĘ PROPOZYCJI");
-        setGameModeText("WYBIERZ TRYB GRY PROPOZYCJI");
-        setSocialText(
-          "WPROWADŹ SWOJE KONTO NA MEDIACH SPOŁECZNOŚCIOWYCH, ABY BYĆ WYPOSAŻONYM"
-        );
-        setSubmitText("WYŚLIJ SWOJĄ PROPOZYCJĘ");
-        setSelectCatText("Wybierz kategorię propozycji");
-        setSelectGameModeText("Wybierz tryb gry");
-        setCustomPromptText("Wprowadź własną propozycję");
-        setInstruct1(
-          "- MIEJ SZANSĘ NA STAŁE UMIESZCZENIE TWOJEJ WŁASNEJ PROPOZYCJI W GRZE"
-        );
-        setInstruct2(
-          "- WPISZ 'NAME', JEŚLI CHCESZ LOSOWĄ NAZWĘ, LUB 'NAME2', JEŚLI CHCESZ DODAĆ DRUGĄ LOSOWĄ NAZWĘ"
-        );
-        setInstruct3("- NP. 'NAME MUSI SZEPNĄĆ DO NAME2 PRZEZ RESZTĘ GRY'");
-        setInstruct4(
-          "- DODAJ SWOJE KONTO NA MEDIACH SPOŁECZNOŚCIOWYCH, ABY BYĆ WYPOSAŻONYM W APLIKACJI (OPCJONALNIE)"
-        );
-        setToast1("Wprowadź tekst propozycji!");
-        setToast2("Wybierz kategorię propozycji!");
-        setToast3("Wybierz tryb gry!");
-        setToast4("Propozycja gry wysłana!");
-        setCat1("ZASADY");
-        setCat2("ZAPISZ TO SOBIE");
-        setCat3("WYZWANIE");
-        setCat4("GŁOSOWANIE");
-        setCat5("SEKSYOWNY");
-        setCat6("WIRUS");
-        setMode1("ZABAWKI");
-        setMode2("BAWLDAJ");
-        setMode3("KOKETKA");
-        break;
-      }
-      case "Spanish": {
-        setEnterPromptText("INGRESA TU PREGUNTA");
-        setPickCatText("ELIGE LA CATEGORÍA DE TU PREGUNTA");
-        setGameModeText("ELIGE EL MODO DE JUEGO DE TU PREGUNTA");
-        setSocialText(
-          "INGRESA TU NOMBRE DE USUARIO EN REDES SOCIALES PARA RECIBIR CRÉDITO"
-        );
-        setSubmitText("ENVÍA TU PREGUNTA");
-        setSelectCatText("Selecciona la categoría de la pregunta");
-        setSelectGameModeText("Selecciona tu modo de juego");
-        setCustomPromptText("Ingresa tu pregunta personalizada");
-        setInstruct1(
-          "- PARTICIPA PARA TENER LA OPORTUNIDAD DE QUE TU PREGUNTA PERSONALIZADA APAREZCA PERMANENTEMENTE EN EL JUEGO"
-        );
-        setInstruct2(
-          "- ESCRIBE 'NAME' SI QUIERES QUE TU NOMBRE SEA GENERADO ALEATORIAMENTE, Y 'NAME2' SI QUIERES AGREGAR UN SEGUNDO NOMBRE ALEATORIO"
-        );
-        setInstruct3(
-          "- POR EJEMPLO: 'NAME TIENE QUE SUSURRARLE A NAME2 POR EL RESTO DEL JUEGO'"
-        );
-        setInstruct4(
-          "- AGREGA TU NOMBRE DE USUARIO EN REDES SOCIALES Y PLATAFORMA PARA RECIBIR CRÉDITO EN LA APLICACIÓN (OPCIONAL)"
-        );
-        setToast1("¡Ingresa el texto de la pregunta!");
-        setToast2("¡Elige una categoría de pregunta!");
-        setToast3("¡Elige un modo de juego!");
-        setToast4("¡Pregunta del juego enviada!");
-        setCat1("REGLA");
-        setCat2("HAZLO");
-        setCat3("DESAFÍO");
-        setCat4("VOTAR");
-        setCat5("SEXY");
-        setCat6("VIRUS");
-        setMode1("PREP");
-        setMode2("DESORDENADO");
-        setMode3("COQUETO");
-        break;
-      }
-      default: {
-        setEnterPromptText("ENTER YOUR PROMPT");
-        setPickCatText("PICK YOUR PROMPT CATEGORY");
-        setGameModeText("PICK YOUR PROMPT GAME MODE");
-        setSocialText("ENTER YOUR SOCIAL MEDIA HANDLE TO BE CREDITED");
-        setSubmitText("SUBMIT YOUR PROMPT");
-        setSelectCatText("Select prompt category");
-        setSelectGameModeText("Select your game mode");
-        setCustomPromptText("Enter your custom prompt");
-        setInstruct1(
-          "- BE IN WITH A CHANCE OF HAVING YOUR CUSTOM PROMPT FEATURED PERMANENTLY IN THE GAME"
-        );
-        setInstruct2(
-          "- TYPE 'NAME' IF YOU WANT TO RANDOMISE YOUR NAME INPUT, AND 'NAME2' IF YOU WANT TO ADD A SECOND RANDOM NAME"
-        );
-        setInstruct3(
-          "- E.G. 'NAME HAS TO WHISPER TO NAME2 FOR THE REST OF THE GAME'"
-        );
-        setInstruct4(
-          "- ADD YOUR SOCIAL MEDIA HANDLE AND PLATFORM TO BE CREDITED ON THE APP (OPTIONAL)"
-        );
-        setToast1("Enter prompt text!");
-        setToast2("Choose a prompt category!");
-        setToast3("Choose a game mode!");
-        setToast4("Game prompt submitted!");
-        setCat1("RULE");
-        setCat2("GET IT DOWN YA");
-        setCat3("CHALLENGE");
-        setCat4("VOTE");
-        setCat5("SEXY");
-        setCat6("VIRUS");
-        setMode1("PRINKS");
-        setMode2("MESSY");
-        setMode3("FLIRTY");
-        break;
-      }
+    let languageData = languages[language];
+    console.log("Reaching new function with language: " + language);
+
+    // If the selected language is not available or not explicitly set, default to English
+    if (!languageData) {
+      languageData = languages["English"];
     }
+
+    setEnterPromptText(languageData.enterPromptText || "ENTER YOUR PROMPT");
+    setPickCatText(languageData.pickCatText || "PICK YOUR PROMPT CATEGORY");
+    setGameModeText(languageData.gameModeText || "PICK YOUR PROMPT GAME MODE");
+    setSocialText(
+      languageData.socialText || "ENTER YOUR SOCIAL MEDIA HANDLE TO BE CREDITED"
+    );
+    setSubmitText(languageData.submitText || "SUBMIT YOUR PROMPT");
+    setSelectCatText(languageData.selectCatText || "Select prompt category");
+    setSelectGameModeText(
+      languageData.selectGameModeText || "Select your game mode"
+    );
+    setCustomPromptText(
+      languageData.customPromptText || "Enter your custom prompt"
+    );
+    setInstruct1(
+      languageData.instruct1 ||
+        "- BE IN WITH A CHANCE OF HAVING YOUR CUSTOM PROMPT FEATURED PERMANENTLY IN THE GAME"
+    );
+    setInstruct2(
+      languageData.instruct2 ||
+        "- TYPE 'NAME' IF YOU WANT TO RANDOMISE YOUR NAME INPUT, AND 'NAME2' IF YOU WANT TO ADD A SECOND RANDOM NAME"
+    );
+    setInstruct3(
+      languageData.instruct3 ||
+        "- E.G. 'NAME HAS TO WHISPER TO NAME2 FOR THE REST OF THE GAME'"
+    );
+    setInstruct4(
+      languageData.instruct4 ||
+        "- ADD YOUR SOCIAL MEDIA HANDLE AND PLATFORM TO BE CREDITED ON THE APP (OPTIONAL)"
+    );
+    setToast1(languageData.toast1 || "Enter prompt text!");
+    setToast2(languageData.toast2 || "Choose a prompt category!");
+    setToast3(languageData.toast3 || "Choose a game mode!");
+    setToast4(languageData.toast4 || "Game prompt submitted!");
+    setCat1(languageData.cat1 || "RULE");
+    setCat2(languageData.cat2 || "GET IT DOWN YA");
+    setCat3(languageData.cat3 || "CHALLENGE");
+    setCat4(languageData.cat4 || "VOTE");
+    setCat5(languageData.cat5 || "SEXY");
+    setCat6(languageData.cat6 || "VIRUS");
+    setMode1(languageData.mode1 || "PRINKS");
+    setMode2(languageData.mode2 || "MESSY");
+    setMode3(languageData.mode3 || "FLIRTY");
   };
 
   let jsonPrompt = "";
