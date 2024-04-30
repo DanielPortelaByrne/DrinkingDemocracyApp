@@ -10,7 +10,10 @@ import {
   TextStyle,
   ViewStyle,
 } from "react-native";
-import { screen1Styles } from "../assets/styles/styles";
+import {
+  screen1Styles,
+  nameInputComponentStyles,
+} from "../assets/styles/styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 import { prompts } from "../prompts";
@@ -223,20 +226,9 @@ export default function TabOneScreen({
     };
 
     return (
-      <View
-        style={{
-          backgroundColor: "rgba(52, 52, 52, 0)",
-        }}
-      >
+      <View style={nameInputComponentStyles.container}>
         {names.map((name, index) => (
-          <View
-            style={{
-              marginTop: 2.5,
-              marginBottom: 2.5,
-              backgroundColor: "rgba(52, 52, 52, 0)",
-            }}
-            key={index}
-          >
+          <View style={nameInputComponentStyles.nameItem} key={index}>
             <TextInput
               placeholder={`${player} ${index + 1}`}
               value={name}
@@ -247,13 +239,7 @@ export default function TabOneScreen({
           </View>
         ))}
 
-        <View
-          style={{
-            marginTop: 5,
-            flexDirection: "row",
-            backgroundColor: "rgba(52, 52, 52, 0)",
-          }}
-        >
+        <View style={nameInputComponentStyles.buttonContainer}>
           {names.length > 1 && (
             <TouchableOpacity
               style={{
@@ -413,19 +399,13 @@ export default function TabOneScreen({
             <Text style={screen1Styles.subtitleText as StyleProp<TextStyle>}>
               {subtitle}
             </Text>
-            <NameInput navigation={navigation} />
+            <NameInput navigation={navigation} scrollViewRef={scrollViewRef} />
           </View>
         </ScrollView>
       </View>
 
       <TouchableOpacity
-        style={{
-          position: "absolute",
-          height: "100%",
-          width: "100%",
-          backgroundColor: "rgba(52, 52, 52, 0)",
-          zIndex: -1,
-        }}
+        style={screen1Styles.imageButton}
         onPress={() => {
           if (getNames().length > 1 && getNames()[0].length > 0) {
             navigation.navigate("TabTwo", {

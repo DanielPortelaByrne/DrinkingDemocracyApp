@@ -45,8 +45,8 @@ export default function GameOverScreen({
       languageData = languages["English"];
     }
 
-    setGameOverText(languageData.subTitle || "Game Over");
-    setMoreGamesText(languageData.toast || "More Games");
+    setGameOverText(languageData.gameOverText || "Game Over");
+    setMoreGamesText(languageData.moreGamesText || "More Games");
   };
   return (
     <View style={styles.container}>

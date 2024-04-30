@@ -28,6 +28,8 @@ export interface LanguageData {
   socialText: string;
   submitText: string;
   selectCatText: string;
+  gameOverText: string;
+  moreGamesText: string;
   selectGameModeText: string;
   customPromptText: string;
   instruct1: string;

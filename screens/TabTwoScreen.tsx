@@ -13,6 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
+import { screen2Styles } from "../assets/styles/styles";
 // import {
 //   BannerAd,
 //   BannerAdSize,
@@ -295,29 +296,15 @@ export default function TabTwoScreen({
 
   // const names = getNames(); // retrieve the names from the name store
   return (
-    <View style={styles.container}>
-      <View style={{ position: "absolute", top: 70, left: 30 }}>
+    <View style={screen2Styles.container}>
+      <View style={screen2Styles.homeButton}>
         <TouchableOpacity onPress={() => navigation.navigate("TabOne")}>
           <Ionicons name="home-outline" size={32} color="#ed1e26" />
         </TouchableOpacity>
       </View>
-      <View
-        style={{
-          alignSelf: "center",
-          position: "absolute",
-          top: 60,
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: "Konstruktor",
-            fontSize: 48,
-            textAlign: "center",
-          }}
-        >
-          {title}
-        </Text>
-        {/* <View style={{ position: "absolute", top: 70, left: -90 }}>
+      <View style={screen2Styles.titleView}>
+        <Text style={screen2Styles.screenTitle}>{title}</Text>
+        {/* <View style={screen2Styles.adBanner}>
           <BannerAd
             unitId={adUnitId}
             size={BannerAdSize.LARGE_BANNER}
@@ -330,108 +317,30 @@ export default function TabTwoScreen({
 
       <Image
         source={require("../assets/images/chain.png")}
-        style={{
-          width: "100%",
-          height: "40%",
-          position: "absolute",
-          top: "25%",
-          zIndex: -1,
-        }}
+        style={screen2Styles.chainImage}
       />
 
       <Image
         source={require("../assets/images/halo_red.png")}
-        style={{
-          width: "100%",
-          height: "40%",
-          position: "absolute",
-          bottom: -80,
-          zIndex: -1,
-        }}
+        style={screen2Styles.haloImage}
       />
-      <View
-        style={{
-          alignSelf: "center",
-          position: "absolute",
-          bottom: 50,
-          backgroundColor: "rgba(52, 52, 52, 0)",
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "center",
-            marginLeft: 15,
-            marginRight: 15,
-            backgroundColor: "rgba(52, 52, 52, 0)",
-            // borderColor: "white",
-            // borderWidth: 2,
-            // backgroundColor: "#000000",
-          }}
-        >
+      <View style={screen2Styles.playerIconsContainer}>
+        <View style={screen2Styles.playerIconsInnerContainer}>
           {names.map((name, index) => (
             <View
-              style={{
-                flexDirection: "column",
-                alignItems: "center",
-                padding: 10,
-                justifyContent: "center",
-                zIndex: 2,
-                backgroundColor: "rgba(52, 52, 52, 0)",
-                // backgroundColor: "#000000",
-              }}
+              style={screen2Styles.playerIconsInnerMostContainer}
               key={index}
             >
               <Ionicons name="person-circle" size={25} color="white" />
-              <View
-                style={{
-                  paddingBottom: 8,
-                  paddingLeft: 8,
-                  paddingRight: 8,
-                  paddingTop: 4,
-                  zIndex: 2,
-                  // backgroundColor: "rgba(52, 52, 52, 0)",
-                }}
-              >
-                <Text
-                  style={{
-                    fontFamily: "Konstruktor",
-                    color: "#ffff",
-                    textAlign: "center",
-                    fontSize: 13,
-                    zIndex: 2,
-                  }}
-                >
-                  {name}
-                </Text>
+              <View style={screen2Styles.playerIcon}>
+                <Text style={screen2Styles.playerIconText}>{name}</Text>
               </View>
             </View>
           ))}
         </View>
       </View>
-      <View
-        style={{
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "rgba(52, 52, 52, 0)",
-          // marginTop: 100,
-          // marginBottom: 200,
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: -100,
-            marginBottom: 10,
-            padding: 10,
-            backgroundColor: "rgba(52, 52, 52, 0)",
-          }}
-        >
+      <View style={screen2Styles.gameModesContainer}>
+        <View style={screen2Styles.adBannerContainer}>
           {/* <BannerAd
             unitId={adUnitId}
             size={BannerAdSize.LARGE_BANNER}
@@ -440,19 +349,9 @@ export default function TabTwoScreen({
             }}
           /> */}
         </View>
-
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            // marginTop: 260,
-            marginBottom: 10,
-            backgroundColor: "rgba(52, 52, 52, 0)",
-          }}
-        >
+        <View style={screen2Styles.gameModeSectionContainer}>
           <Image
-            style={{ width: "20%", height: "100%", marginRight: 10 }}
+            style={screen2Styles.gameModeSectionImage}
             source={require("../assets/images/prinks.png")}
           />
           <TouchableOpacity
@@ -462,37 +361,14 @@ export default function TabTwoScreen({
                 language: language,
               });
             }}
-            style={{
-              backgroundColor: "#f3ce06",
-              width: "55%",
-              height: "100%",
-            }}
+            style={screen2Styles.prinksButton}
           >
-            <Text
-              style={{
-                fontFamily: "Konstruktor",
-                color: "#111111",
-                fontSize: 16,
-                textAlign: "center",
-                lineHeight: 80,
-              }}
-            >
-              {prinksText}
-            </Text>
+            <Text style={screen2Styles.gameModeSectionText}>{prinksText}</Text>
           </TouchableOpacity>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            // marginTop: 260,
-            marginBottom: 10,
-            backgroundColor: "rgba(52, 52, 52, 0)",
-          }}
-        >
+        <View style={screen2Styles.gameModeSectionContainer}>
           <Image
-            style={{ width: "20%", height: "100%", marginRight: 10 }}
+            style={screen2Styles.gameModeSectionImage}
             source={require("../assets/images/messy.png")}
           />
           <TouchableOpacity
@@ -502,38 +378,14 @@ export default function TabTwoScreen({
                 language: language,
               });
             }}
-            style={{
-              backgroundColor: "#ed6c1e",
-              width: "55%",
-              height: "100%",
-            }}
+            style={screen2Styles.messyButton}
           >
-            <Text
-              style={{
-                fontFamily: "Konstruktor",
-                color: "#111111",
-                fontSize: 16,
-                textAlign: "center",
-                lineHeight: 80,
-              }}
-            >
-              {crazyText}
-            </Text>
+            <Text style={screen2Styles.gameModeSectionText}>{crazyText}</Text>
           </TouchableOpacity>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            marginBottom: 10,
-            backgroundColor: "rgba(52, 52, 52, 0)",
-            // marginTop: 260,
-            // marginBottom: 350,
-          }}
-        >
+        <View style={screen2Styles.gameModeSectionContainer}>
           <Image
-            style={{ width: "20%", height: "100%", marginRight: 10 }}
+            style={screen2Styles.gameModeSectionImage}
             source={require("../assets/images/flirty.png")}
           />
           <TouchableOpacity
@@ -543,85 +395,24 @@ export default function TabTwoScreen({
                 language: language,
               });
             }}
-            style={{
-              backgroundColor: "#ed1e26",
-              width: "55%",
-              height: "100%",
-            }}
+            style={screen2Styles.flirtyButton}
           >
-            <Text
-              style={{
-                fontFamily: "Konstruktor",
-                color: "#111111",
-                fontSize: 16,
-                textAlign: "center",
-                lineHeight: 80,
-                // padding: 25,
-              }}
-            >
-              {flirtyText}
-            </Text>
+            <Text style={screen2Styles.gameModeSectionText}>{flirtyText}</Text>
           </TouchableOpacity>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            // marginTop: 260,
-            // marginBottom: 350,
-          }}
-        >
+        <View style={screen2Styles.gameModeSectionContainer}>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("PromptSubmit", {
                 language: language,
               });
             }}
-            style={{
-              backgroundColor: "#1c1c1c",
-              // backgroundColor: "rgba(52, 52, 52, 0)",
-              width: "77%",
-              height: "100%",
-              borderWidth: 2,
-              borderColor: "white",
-            }}
+            style={screen2Styles.promptSubmitButton}
           >
-            {/* <LinearGradient
-              colors={["#000000", "#f3ce06", "#ed1e26"]}
-              start={[0.5, 0.01]}
-            > */}
-            <Text
-              style={{
-                fontFamily: "Konstruktor",
-                color: "white",
-                fontSize: 26,
-                textAlign: "center",
-                lineHeight: 80,
-                // padding: 25,
-              }}
-            >
-              {sapText}
-            </Text>
-            {/* </LinearGradient> */}
+            <Text style={screen2Styles.promptSubmitText}>{sapText}</Text>
           </TouchableOpacity>
         </View>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 48,
-    fontWeight: "bold",
-  },
-  greeting: {
-    flexDirection: "row",
-  },
-});

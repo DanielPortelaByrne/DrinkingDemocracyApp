@@ -8,6 +8,8 @@ import {
   ToastAndroid,
   Animated,
   ImageBackground,
+  ViewStyle,
+  StyleProp,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import en from "../languages/en.json";
@@ -21,6 +23,7 @@ import { getNames, updateNames } from "../components/nameStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
+import { gameOneScreenStyles } from "../assets/styles/styles";
 
 const languages: { [key: string]: Partial<LanguageData> } = {
   English: en,
@@ -706,7 +709,10 @@ export default function GameOneScreen({
   return (
     <TouchableOpacity
       activeOpacity={0.9} // set activeOpacity to 1
-      style={[styles.container, { backgroundColor }]}
+      style={[
+        gameOneScreenStyles.container as StyleProp<ViewStyle>,
+        { backgroundColor },
+      ]}
       onPress={(event) => {
         const { locationX } = event.nativeEvent;
         const screenWidth = Dimensions.get("window").width;
@@ -759,31 +765,35 @@ export default function GameOneScreen({
       }}
     >
       {/* <ImageBackground
-        style={styles.image}
+        style={gameOneScreenStyles.image}
         source={require("../assets/images/beer_gif.gif")}
       > */}
       <ImageBackground
-        style={styles.image}
+        style={gameOneScreenStyles.image as StyleProp<ViewStyle>}
         source={categoryImages[currentCategory]}
       >
         {isEditVisible && (
           <>
             <TouchableOpacity
-              style={styles.ruleButton}
+              style={gameOneScreenStyles.ruleButton as StyleProp<ViewStyle>}
               onPress={() => setIsOverlayVisible(!isOverlayVisible)}
             >
-              <Text style={styles.veryBoldText}>{addRuleButtonText}</Text>
+              <Text style={gameOneScreenStyles.veryBoldText}>
+                {addRuleButtonText}
+              </Text>
             </TouchableOpacity>
             {isOverlayVisible && (
-              <View style={styles.overlay}>
+              <View style={gameOneScreenStyles.overlay as StyleProp<ViewStyle>}>
                 <TextInput
-                  style={styles.textInput}
+                  style={gameOneScreenStyles.textInput as StyleProp<ViewStyle>}
                   placeholder={addRuleFieldText}
                   onChangeText={(text) => setNewRule(text)}
                   value={newRule}
                 />
                 <TouchableOpacity
-                  style={styles.submitButton}
+                  style={
+                    gameOneScreenStyles.submitButton as StyleProp<ViewStyle>
+                  }
                   onPress={async () => {
                     // Retrieve the selected prompts from async storage
                     const selectedPrompts = await AsyncStorage.getItem(
@@ -814,7 +824,7 @@ export default function GameOneScreen({
                     setIsEditVisible(false);
                   }}
                 >
-                  <Text style={styles.submitButtonText}>
+                  <Text style={gameOneScreenStyles.submitButtonText}>
                     {addRuleButton2Text}
                   </Text>
                 </TouchableOpacity>
@@ -822,21 +832,25 @@ export default function GameOneScreen({
             )}
 
             <TouchableOpacity
-              style={styles.playerButton}
+              style={gameOneScreenStyles.playerButton as StyleProp<ViewStyle>}
               onPress={() => setIsPlayerOverlayVisible(!isPlayerOverlayVisible)}
             >
-              <Text style={styles.veryBoldText}>{addPlayerButtonText}</Text>
+              <Text style={gameOneScreenStyles.veryBoldText}>
+                {addPlayerButtonText}
+              </Text>
             </TouchableOpacity>
             {isPlayerOverlayVisible && (
-              <View style={styles.overlay}>
+              <View style={gameOneScreenStyles.overlay as StyleProp<ViewStyle>}>
                 <TextInput
-                  style={styles.textInput}
+                  style={gameOneScreenStyles.textInput as StyleProp<ViewStyle>}
                   placeholder={addPlayerFieldText}
                   onChangeText={(text) => setNewPlayerName(text)}
                   value={newPlayerName}
                 />
                 <TouchableOpacity
-                  style={styles.submitButton}
+                  style={
+                    gameOneScreenStyles.submitButton as StyleProp<ViewStyle>
+                  }
                   onPress={() => {
                     // Add the new player's name to the name store and update it
                     addPlayer(newPlayerName);
@@ -848,7 +862,7 @@ export default function GameOneScreen({
                     setIsEditVisible(false);
                   }}
                 >
-                  <Text style={styles.submitButtonText}>
+                  <Text style={gameOneScreenStyles.submitButtonText}>
                     {addPlayerButton2Text}
                   </Text>
                 </TouchableOpacity>
@@ -857,9 +871,13 @@ export default function GameOneScreen({
           </>
         )}
 
-        <View style={styles.topLeftButtonContainer}>
+        <View
+          style={
+            gameOneScreenStyles.topLeftButtonContainer as StyleProp<ViewStyle>
+          }
+        >
           <TouchableOpacity
-            style={styles.topLeftButton}
+            style={gameOneScreenStyles.topLeftButton as StyleProp<ViewStyle>}
             onPress={() => {
               Alert.alert(
                 quitGameTitle,
@@ -885,15 +903,19 @@ export default function GameOneScreen({
           </TouchableOpacity>
         </View>
 
-        <View style={styles.topRightButtonContainer}>
+        <View
+          style={
+            gameOneScreenStyles.topRightButtonContainer as StyleProp<ViewStyle>
+          }
+        >
           <TouchableOpacity
-            style={styles.topRightButton}
+            style={gameOneScreenStyles.topRightButton as StyleProp<ViewStyle>}
             onPress={() => setIsEditVisible(!isEditVisible)}
           >
             <MaterialIcons name="add" size={26} color="#fff" />
           </TouchableOpacity>
         </View>
-        {/* <View style={styles.topRightBeerContainer}>
+        {/* <View style={gameOneScreenStyles.topRightBeerContainer}>
           <View style={{ flexDirection: "row" }}>
             <Image source={require("../assets/images/beer_glass.png")} />
             <Image source={require("../assets/images/beer_glass.png")} />
@@ -973,132 +995,3 @@ export default function GameOneScreen({
     </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  gameText: {
-    fontSize: 28,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginLeft: 20,
-    marginRight: 20,
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-  overlay: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    zIndex: 10,
-  },
-  textInput: {
-    position: "absolute",
-    top: "45%",
-    left: "10%",
-    right: "10%",
-    height: 50,
-    borderColor: "white",
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 10,
-    zIndex: 11,
-    backgroundColor: "#ffff",
-  },
-  submitButton: {
-    position: "absolute",
-    top: "55%",
-    left: "10%",
-    right: "10%",
-    height: 50,
-    marginTop: 15,
-    backgroundColor: "#ed1e26",
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 12,
-    padding: 10,
-  },
-  ruleButton: {
-    position: "absolute",
-    top: 45,
-    right: 15,
-    height: 50,
-    width: 130,
-    backgroundColor: "#ed1e26",
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 12,
-    padding: 8,
-  },
-  playerButton: {
-    position: "absolute",
-    top: 100,
-    right: 15,
-    height: 50,
-    width: 130,
-    backgroundColor: "#ed1e26",
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 12,
-    padding: 8,
-  },
-  submitButtonText: {
-    fontFamily: "Konstruktor",
-    color: "#fff",
-    fontSize: 25,
-  },
-  veryBoldText: {
-    fontFamily: "Konstruktor",
-    fontSize: 16,
-  },
-  topLeftButtonContainer: {
-    position: "absolute",
-    top: 20,
-    left: 20,
-  },
-  topLeftButton: {
-    height: 48,
-    width: 48,
-    top: 30,
-    borderRadius: 24,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  topRightButtonContainer: {
-    position: "absolute",
-    top: 10,
-    right: 10,
-  },
-  topRightButton: {
-    position: "absolute",
-    right: 20, // or a fixed value like 20
-    top: 50,
-  },
-  topRightBeerContainer: {
-    position: "absolute",
-    top: 150,
-    right: 30,
-    left: 120,
-  },
-  image: {
-    // flex: 1,
-    resizeMode: "cover",
-    width: "100%",
-    height: "100%",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

@@ -8,6 +8,8 @@ import {
   ToastAndroid,
   Keyboard,
   TouchableWithoutFeedback,
+  StyleProp,
+  ViewStyle,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
@@ -22,6 +24,7 @@ import ga from "../languages/ga.json";
 import pl from "../languages/pl.json";
 import es from "../languages/es.json";
 import { LanguageData } from "../utils/language/LanguageData";
+import { promptSubmitScreenStyles } from "../assets/styles/styles";
 
 const languages: { [key: string]: Partial<LanguageData> } = {
   English: en,
@@ -190,7 +193,7 @@ export default function PromptSubmitScreen({
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
+      <View style={promptSubmitScreenStyles.container as StyleProp<ViewStyle>}>
         {/* <Image
         style={styles.image}
         source={require("../assets/images/title_logo.png")}
@@ -227,11 +230,15 @@ export default function PromptSubmitScreen({
 
         {isOverlayVisible && (
           <TouchableOpacity
-            style={styles.overlay}
+            style={promptSubmitScreenStyles.overlay as StyleProp<ViewStyle>}
             onPress={(event) => setIsOverlayVisible(false)}
           >
-            <View style={styles.overlayView}>
-              <View style={styles.innerView}>
+            <View
+              style={
+                promptSubmitScreenStyles.overlayView as StyleProp<ViewStyle>
+              }
+            >
+              <View style={promptSubmitScreenStyles.innerView}>
                 <Text
                   style={{
                     fontFamily: "Konstruktor",
@@ -322,7 +329,7 @@ export default function PromptSubmitScreen({
             <TextInput
               placeholder={`${customPromptText}`}
               onChangeText={(text) => handlePromptTextChange(text)}
-              style={styles.textInput}
+              style={promptSubmitScreenStyles.textInput as StyleProp<ViewStyle>}
               textAlign="center"
             />
             <Text
@@ -388,7 +395,7 @@ export default function PromptSubmitScreen({
             <TextInput
               placeholder={`@...`}
               onChangeText={(text) => handlePromptHandleChange(text)}
-              style={styles.textInput}
+              style={promptSubmitScreenStyles.textInput as StyleProp<ViewStyle>}
               textAlign="center"
             />
             <TouchableOpacity
@@ -460,51 +467,3 @@ export default function PromptSubmitScreen({
     </TouchableWithoutFeedback>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  // image: {
-  //   width: "80%",
-  //   height: "25%",
-  //   marginBottom: 80,
-  // },
-  button: {
-    backgroundColor: "#ed1e26",
-  },
-  textInput: {
-    backgroundColor: "white",
-    fontStyle: "bold",
-    borderRadius: 25,
-    marginBottom: 10,
-  },
-  overlay: {
-    position: "absolute",
-    alignItems: "center",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "rgba(0,0,0,0.8)",
-    zIndex: 10,
-  },
-  overlayView: {
-    top: "30%",
-    justifyContent: "center",
-    height: "40%",
-    width: "90%",
-    backgroundColor: "rgba(0,0,0,1)",
-    zIndex: 10,
-    // borderWidth: 1,
-    // borderColor: "white",
-  },
-  innerView: {
-    backgroundColor: "rgba(0,0,0,1)",
-    zIndex: 10,
-    borderWidth: 1,
-    borderColor: "white",
-  },
-});
