@@ -32,6 +32,7 @@ import ga from "../languages/ga.json";
 import pl from "../languages/pl.json";
 import es from "../languages/es.json";
 import { LanguageData } from "../utils/language/LanguageData";
+import { NameInput } from "../components/NameInput";
 var language = "English";
 
 const languages: { [key: string]: Partial<LanguageData> } = {
@@ -191,93 +192,6 @@ export default function TabOneScreen({
     return undefined;
   }
 
-  const NameInput: React.FC<RootTabScreenProps<"TabOne">> = () => {
-    const [names, setNames] = useState(getNames());
-    useFocusEffect(
-      React.useCallback(() => {
-        setNames(getNames());
-      }, [])
-    );
-
-    const handleNameChange = (text: string, index: number) => {
-      // If the input text is not empty, add it to the list of names
-      const newNames = [...names];
-      newNames[index] = text;
-      setNames(newNames);
-      updateNames(newNames); // update the names in the name store
-      if (scrollViewRef.current) {
-        scrollViewRef.current.scrollToEnd({ animated: true });
-      }
-    };
-
-    const handleAddName = () => {
-      setNames([...names, ""]);
-      if (scrollViewRef.current) {
-        scrollViewRef.current.scrollToEnd({ animated: true });
-      }
-      const newNames = [...names];
-      updateNames(newNames); // update the names in the name store
-    };
-    const handleRemoveName = () => {
-      if (names.length > 1) {
-        setNames(names.filter((_, index) => index !== names.length - 1));
-        updateNames(names.filter((_, index) => index !== names.length - 1)); // update the names in the name store
-      }
-    };
-
-    return (
-      <View style={nameInputComponentStyles.container}>
-        {names.map((name, index) => (
-          <View style={nameInputComponentStyles.nameItem} key={index}>
-            <TextInput
-              placeholder={`${player} ${index + 1}`}
-              value={name}
-              onChangeText={(text) => handleNameChange(text, index)}
-              style={screen1Styles.textInput as StyleProp<ImageStyle>}
-              textAlign="center"
-            />
-          </View>
-        ))}
-
-        <View style={nameInputComponentStyles.buttonContainer}>
-          {names.length > 1 && (
-            <TouchableOpacity
-              style={{
-                ...screen1Styles.button,
-                width: "25%",
-                marginRight: 5,
-              }}
-              onPress={handleRemoveName}
-            >
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 20,
-                  textAlign: "center",
-                }}
-              >
-                -
-              </Text>
-            </TouchableOpacity>
-          )}
-          <TouchableOpacity
-            style={{ ...screen1Styles.button, width: "25%" }}
-            onPress={handleAddName}
-          >
-            <Text
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-                fontSize: 18,
-              }}
-            >
-              +
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
   return (
     <View style={screen1Styles.container as StyleProp<ImageStyle>}>
       <View style={screen1Styles.innerContainer as StyleProp<ImageStyle>}>
@@ -399,13 +313,13 @@ export default function TabOneScreen({
             <Text style={screen1Styles.subtitleText as StyleProp<TextStyle>}>
               {subtitle}
             </Text>
-            <NameInput navigation={navigation} scrollViewRef={scrollViewRef} />
+            <NameInput scrollViewRef={scrollViewRef} player={player} />
           </View>
         </ScrollView>
       </View>
 
       <TouchableOpacity
-        style={screen1Styles.imageButton}
+        style={screen1Styles.imageButton as StyleProp<ViewStyle>}
         onPress={() => {
           if (getNames().length > 1 && getNames()[0].length > 0) {
             navigation.navigate("TabTwo", {

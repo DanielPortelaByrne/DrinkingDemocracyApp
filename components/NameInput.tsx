@@ -1,5 +1,5 @@
 import { useFocusEffect } from "@react-navigation/native";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,19 +8,24 @@ import {
   StyleProp,
   ImageStyle,
   ScrollView,
+  ViewStyle,
+  TextStyle,
 } from "react-native";
 import { getNames, updateNames } from "./nameStore";
-import { RootTabScreenProps } from "../types";
-import { screen1Styles } from "../assets/styles/styles";
+import {
+  nameInputComponentStyles,
+  screen1Styles,
+} from "../assets/styles/styles";
 
-interface NameInputProps extends RootTabScreenProps<"TabOne"> {
+export interface NameInputProps {
   scrollViewRef: React.RefObject<ScrollView>;
+  player: string;
 }
 
-// const scrollViewRef = useRef<ScrollView>(null);
-const [player, setPlayer] = useState("Player");
-
-const NameInput: React.FC<NameInputProps> = ({ scrollViewRef, navigation }) => {
+export const NameInput: React.FC<NameInputProps> = ({
+  scrollViewRef,
+  player,
+}) => {
   const [names, setNames] = useState(getNames());
   useFocusEffect(
     React.useCallback(() => {
@@ -55,20 +60,9 @@ const NameInput: React.FC<NameInputProps> = ({ scrollViewRef, navigation }) => {
   };
 
   return (
-    <View
-      style={{
-        backgroundColor: "rgba(52, 52, 52, 0)",
-      }}
-    >
+    <View style={nameInputComponentStyles.container}>
       {names.map((name, index) => (
-        <View
-          style={{
-            marginTop: 2.5,
-            marginBottom: 2.5,
-            backgroundColor: "rgba(52, 52, 52, 0)",
-          }}
-          key={index}
-        >
+        <View style={nameInputComponentStyles.nameItem} key={index}>
           <TextInput
             placeholder={`${player} ${index + 1}`}
             value={name}
@@ -80,11 +74,7 @@ const NameInput: React.FC<NameInputProps> = ({ scrollViewRef, navigation }) => {
       ))}
 
       <View
-        style={{
-          marginTop: 5,
-          flexDirection: "row",
-          backgroundColor: "rgba(52, 52, 52, 0)",
-        }}
+        style={nameInputComponentStyles.buttonContainer as StyleProp<ViewStyle>}
       >
         {names.length > 1 && (
           <TouchableOpacity
@@ -96,11 +86,7 @@ const NameInput: React.FC<NameInputProps> = ({ scrollViewRef, navigation }) => {
             onPress={handleRemoveName}
           >
             <Text
-              style={{
-                fontWeight: "bold",
-                fontSize: 20,
-                textAlign: "center",
-              }}
+              style={nameInputComponentStyles.button as StyleProp<ViewStyle>}
             >
               -
             </Text>
@@ -111,11 +97,12 @@ const NameInput: React.FC<NameInputProps> = ({ scrollViewRef, navigation }) => {
           onPress={handleAddName}
         >
           <Text
-            style={{
-              textAlign: "center",
-              fontWeight: "bold",
-              fontSize: 18,
-            }}
+            style={
+              {
+                ...nameInputComponentStyles.button,
+                fontSize: 18,
+              } as StyleProp<TextStyle>
+            }
           >
             +
           </Text>
@@ -124,5 +111,3 @@ const NameInput: React.FC<NameInputProps> = ({ scrollViewRef, navigation }) => {
     </View>
   );
 };
-
-export default NameInput;

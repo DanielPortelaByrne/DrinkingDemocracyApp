@@ -244,7 +244,6 @@ const nameInputComponentStyles = {
   },
   textInput: {
     textAlign: "center",
-    // Add other text input styles as needed
   },
   buttonContainer: {
     marginTop: 5,
@@ -254,7 +253,8 @@ const nameInputComponentStyles = {
   button: {
     fontWeight: "bold",
     textAlign: "center",
-    // Add other button styles as needed
+    color: "white",
+    fontSize: 20,
   },
 };
 
