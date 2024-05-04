@@ -19,39 +19,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { gameOneScreenStyles } from "../assets/styles/styles";
 import { useLanguage } from "../utils/language/useLanguage";
-
-// Retrieve the prompts from async storage
-const retrievePrompts = async (gameModeParam: string) => {
-  try {
-    // Get the selected prompts string from async storage
-    const selectedPromptsString = await AsyncStorage.getItem(gameModeParam);
-    // Convert the selected prompts string back to an array
-    return selectedPromptsString ? JSON.parse(selectedPromptsString) : [];
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
-
-const retrievePlayed = async (playedArray: string) => {
-  // Retrieve the array of already played prompts
-  const playedPrompts = await AsyncStorage.getItem(playedArray);
-  // Parse the string into an array of prompts
-  const played = playedPrompts ? JSON.parse(playedPrompts) : [];
-  // Return the array of prompts
-  return played;
-};
-
-const addPlayer = async (playerName: string) => {
-  // Get the current list of names from async storage
-  const names = await getNames();
-  // Add the new player's name to the list of names
-  names.push(playerName);
-  // Update the name store with the new list of names
-  await AsyncStorage.setItem("names", JSON.stringify(names));
-  const newNames = [...names];
-  updateNames(newNames); // update the names in the name store
-};
+import { retrievePrompts, retrievePlayed } from "../utils/retrievePrompts";
+import { addPlayer } from "../utils/addPlayer";
 
 export default function GameOneScreen({
   route,
