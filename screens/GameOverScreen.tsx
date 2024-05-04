@@ -12,8 +12,6 @@ export default function GameOverScreen({
   navigation,
 }: RootTabScreenProps<"GameOver">) {
   const { language } = route.params;
-  // const [gameOverText, setGameOverText] = useState("Game Over");
-  // const [moreGamesText, setMoreGamesText] = useState("More Games");
   const [fontsLoaded] = useFonts({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
   });

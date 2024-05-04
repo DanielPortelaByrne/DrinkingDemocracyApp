@@ -94,8 +94,6 @@ export const useLanguage = () => {
   const setLanguage = async (language: string) => {
     let languageData = languages[language];
 
-    console.log("Reaching new function with language: " + language);
-
     // If the selected language is not available or not explicitly set, default to English
     if (!languageData) {
       languageData = languages["English"];
