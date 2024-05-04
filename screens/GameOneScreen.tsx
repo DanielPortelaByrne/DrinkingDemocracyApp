@@ -86,7 +86,6 @@ export default function GameOneScreen({
   }, []);
 
   const names = getNames(); // retrieve the names from the name store
-  // Display a random prompt from the list of prompts
   const [randomName, setRandomName] = useState("");
   const [randomPrompt, setRandomPrompt] = useState("");
   let handle = "";
@@ -115,8 +114,6 @@ export default function GameOneScreen({
 
   var categoryColors = {};
   var playedArray = "";
-
-  // console.log("Gamemode = " + gameMode);
 
   // Define a new state variable to store the background image
   const [currentCategory, setCurrentCategory] = useState("");
