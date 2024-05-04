@@ -1,31 +1,28 @@
-import { Image, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Image,
+  ImageStyle,
+  StyleProp,
+  StyleSheet,
+  TextStyle,
+  TouchableOpacity,
+  ViewStyle,
+} from "react-native";
 
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 import { getNames } from "../components/nameStore";
-import React, { useEffect, useState } from "react";
-import en from "../languages/en.json";
-import ga from "../languages/ga.json";
-import pl from "../languages/pl.json";
-import es from "../languages/es.json";
-import { LanguageData } from "../utils/language/LanguageData";
+import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import { screen2Styles } from "../assets/styles/styles";
+import { useLanguage } from "../utils/language/useLanguage";
 // import {
 //   BannerAd,
 //   BannerAdSize,
 //   TestIds,
 // } from "react-native-google-mobile-ads";
-
-const languages: { [key: string]: Partial<LanguageData> } = {
-  English: en,
-  Irish: ga,
-  Polish: pl,
-  Spanish: es,
-};
 
 const selectRandomPrompts = async () => {
   const playedPrinks = await retrievePrinksPlayed();
@@ -248,13 +245,9 @@ export default function TabTwoScreen({
   navigation,
 }: RootTabScreenProps<"TabTwo">) {
   const { language } = route.params;
-  // const languageData: LanguageTranslations = languages[language];
+  const { prinksText, crazyText, flirtyText, sapText, title, setLanguage } =
+    useLanguage();
   const [names, setNames] = useState(getNames());
-  const [prinksText, setPrinksText] = useState("Let's get prinking");
-  const [crazyText, setCrazyText] = useState("Let's get messy");
-  const [flirtyText, setFlirtyText] = useState("Let's get flirty");
-  const [sapText, setSapText] = useState("SUBMIT A PROMPT");
-  const [title, setTitle] = useState("GAMES");
 
   console.log("Returned language:", language);
 
@@ -265,23 +258,6 @@ export default function TabTwoScreen({
       selectRandomPrompts();
     }, [language])
   );
-
-  const setLanguage = async (language: string) => {
-    let languageData = languages[language];
-    console.log("Passing: " + language);
-    console.log("Reaching language set, languageData:" + languageData.title);
-
-    // If the selected language is not available or not explicitly set, default to English
-    if (!languageData) {
-      languageData = languages["English"];
-    }
-
-    setTitle(languageData.title || "GAMES");
-    setPrinksText(languageData.prinksText || "Let's get prinking");
-    setCrazyText(languageData.crazyText || "Let's get messy");
-    setFlirtyText(languageData.flirtyText || "Let's get flirty");
-    setSapText(languageData.sapText || "SUBMIT A PROMPT");
-  };
 
   const [fontsLoaded] = useFonts({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
@@ -296,14 +272,16 @@ export default function TabTwoScreen({
 
   // const names = getNames(); // retrieve the names from the name store
   return (
-    <View style={screen2Styles.container}>
-      <View style={screen2Styles.homeButton}>
+    <View style={screen2Styles.container as StyleProp<ViewStyle>}>
+      <View style={screen2Styles.homeButton as StyleProp<ViewStyle>}>
         <TouchableOpacity onPress={() => navigation.navigate("TabOne")}>
           <Ionicons name="home-outline" size={32} color="#ed1e26" />
         </TouchableOpacity>
       </View>
-      <View style={screen2Styles.titleView}>
-        <Text style={screen2Styles.screenTitle}>{title}</Text>
+      <View style={screen2Styles.titleView as StyleProp<ViewStyle>}>
+        <Text style={screen2Styles.screenTitle as StyleProp<TextStyle>}>
+          {title}
+        </Text>
         {/* <View style={screen2Styles.adBanner}>
           <BannerAd
             unitId={adUnitId}
@@ -317,30 +295,40 @@ export default function TabTwoScreen({
 
       <Image
         source={require("../assets/images/chain.png")}
-        style={screen2Styles.chainImage}
+        style={screen2Styles.chainImage as StyleProp<ImageStyle>}
       />
 
       <Image
         source={require("../assets/images/halo_red.png")}
-        style={screen2Styles.haloImage}
+        style={screen2Styles.haloImage as StyleProp<ImageStyle>}
       />
-      <View style={screen2Styles.playerIconsContainer}>
-        <View style={screen2Styles.playerIconsInnerContainer}>
+      <View style={screen2Styles.playerIconsContainer as StyleProp<ViewStyle>}>
+        <View
+          style={
+            screen2Styles.playerIconsInnerContainer as StyleProp<ViewStyle>
+          }
+        >
           {names.map((name, index) => (
             <View
-              style={screen2Styles.playerIconsInnerMostContainer}
+              style={
+                screen2Styles.playerIconsInnerMostContainer as StyleProp<ViewStyle>
+              }
               key={index}
             >
               <Ionicons name="person-circle" size={25} color="white" />
               <View style={screen2Styles.playerIcon}>
-                <Text style={screen2Styles.playerIconText}>{name}</Text>
+                <Text
+                  style={screen2Styles.playerIconText as StyleProp<TextStyle>}
+                >
+                  {name}
+                </Text>
               </View>
             </View>
           ))}
         </View>
       </View>
-      <View style={screen2Styles.gameModesContainer}>
-        <View style={screen2Styles.adBannerContainer}>
+      <View style={screen2Styles.gameModesContainer as StyleProp<ViewStyle>}>
+        <View style={screen2Styles.adBannerContainer as StyleProp<ViewStyle>}>
           {/* <BannerAd
             unitId={adUnitId}
             size={BannerAdSize.LARGE_BANNER}
@@ -349,9 +337,11 @@ export default function TabTwoScreen({
             }}
           /> */}
         </View>
-        <View style={screen2Styles.gameModeSectionContainer}>
+        <View
+          style={screen2Styles.gameModeSectionContainer as StyleProp<ViewStyle>}
+        >
           <Image
-            style={screen2Styles.gameModeSectionImage}
+            style={screen2Styles.gameModeSectionImage as StyleProp<ImageStyle>}
             source={require("../assets/images/prinks.png")}
           />
           <TouchableOpacity
@@ -361,14 +351,20 @@ export default function TabTwoScreen({
                 language: language,
               });
             }}
-            style={screen2Styles.prinksButton}
+            style={screen2Styles.prinksButton as StyleProp<ViewStyle>}
           >
-            <Text style={screen2Styles.gameModeSectionText}>{prinksText}</Text>
+            <Text
+              style={screen2Styles.gameModeSectionText as StyleProp<TextStyle>}
+            >
+              {prinksText}
+            </Text>
           </TouchableOpacity>
         </View>
-        <View style={screen2Styles.gameModeSectionContainer}>
+        <View
+          style={screen2Styles.gameModeSectionContainer as StyleProp<ViewStyle>}
+        >
           <Image
-            style={screen2Styles.gameModeSectionImage}
+            style={screen2Styles.gameModeSectionImage as StyleProp<ImageStyle>}
             source={require("../assets/images/messy.png")}
           />
           <TouchableOpacity
@@ -378,14 +374,20 @@ export default function TabTwoScreen({
                 language: language,
               });
             }}
-            style={screen2Styles.messyButton}
+            style={screen2Styles.messyButton as StyleProp<ViewStyle>}
           >
-            <Text style={screen2Styles.gameModeSectionText}>{crazyText}</Text>
+            <Text
+              style={screen2Styles.gameModeSectionText as StyleProp<TextStyle>}
+            >
+              {crazyText}
+            </Text>
           </TouchableOpacity>
         </View>
-        <View style={screen2Styles.gameModeSectionContainer}>
+        <View
+          style={screen2Styles.gameModeSectionContainer as StyleProp<ViewStyle>}
+        >
           <Image
-            style={screen2Styles.gameModeSectionImage}
+            style={screen2Styles.gameModeSectionImage as StyleProp<ImageStyle>}
             source={require("../assets/images/flirty.png")}
           />
           <TouchableOpacity
@@ -395,21 +397,31 @@ export default function TabTwoScreen({
                 language: language,
               });
             }}
-            style={screen2Styles.flirtyButton}
+            style={screen2Styles.flirtyButton as StyleProp<ViewStyle>}
           >
-            <Text style={screen2Styles.gameModeSectionText}>{flirtyText}</Text>
+            <Text
+              style={screen2Styles.gameModeSectionText as StyleProp<TextStyle>}
+            >
+              {flirtyText}
+            </Text>
           </TouchableOpacity>
         </View>
-        <View style={screen2Styles.gameModeSectionContainer}>
+        <View
+          style={screen2Styles.gameModeSectionContainer as StyleProp<TextStyle>}
+        >
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("PromptSubmit", {
                 language: language,
               });
             }}
-            style={screen2Styles.promptSubmitButton}
+            style={screen2Styles.promptSubmitButton as StyleProp<TextStyle>}
           >
-            <Text style={screen2Styles.promptSubmitText}>{sapText}</Text>
+            <Text
+              style={screen2Styles.promptSubmitText as StyleProp<TextStyle>}
+            >
+              {sapText}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

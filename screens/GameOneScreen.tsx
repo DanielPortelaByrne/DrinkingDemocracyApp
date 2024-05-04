@@ -2,7 +2,6 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  StyleSheet,
   Dimensions,
   Alert,
   ToastAndroid,
@@ -12,11 +11,6 @@ import {
   StyleProp,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import en from "../languages/en.json";
-import ga from "../languages/ga.json";
-import pl from "../languages/pl.json";
-import es from "../languages/es.json";
-import { LanguageData } from "../utils/language/LanguageData";
 import { Text } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 import { getNames, updateNames } from "../components/nameStore";
@@ -24,13 +18,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { gameOneScreenStyles } from "../assets/styles/styles";
-
-const languages: { [key: string]: Partial<LanguageData> } = {
-  English: en,
-  Irish: ga,
-  Polish: pl,
-  Spanish: es,
-};
+import { useLanguage } from "../utils/language/useLanguage";
 
 // Retrieve the prompts from async storage
 const retrievePrompts = async (gameModeParam: string) => {
@@ -70,34 +58,28 @@ export default function GameOneScreen({
   navigation,
 }: RootTabScreenProps<"GameOne">) {
   const { gameMode, language } = route.params;
-  const [addRuleButtonText, setAddRuleButtonText] = useState("ADD A RULE");
-  const [addRuleFieldText, setAddRuleFieldText] = useState(
-    "Gráinne is a dryshite, drink 15 sips"
-  );
-  const [addRuleButton2Text, setAddRuleButton2Text] = useState("ADD RULE");
-  const [newRuleTitle, setNewRuleTitle] = useState("RULE");
-  const [addRuleToastText, setAddRuleToastText] = useState("Rule added!");
-  const [addPlayerButtonText, setAddPlayerButtonText] =
-    useState("ADD A PLAYER");
-  const [addPlayerFieldText, setAddPlayerFieldText] = useState(
-    "Enter the new player's name"
-  );
-  const [addPlayerButton2Text, setAddPlayerButton2Text] =
-    useState("ADD PLAYER");
-  const [addPlayerToastText, setAddPlayerToastText] = useState("Player added!");
-  const [firstCardText, setFirstCardText] = useState(
-    "You're at the first card!"
-  );
-  const [quitGameTitle, setQuitGameTitle] = useState("Quit Game");
-  const [quitGameText, setQuitGameText] = useState(
-    "Are you sure you want to quit the game?"
-  );
-  const [quitGameOpt1, setQuitGameOpt1] = useState("Yes");
-  const [quitGameOpt2, setQuitGameOpt2] = useState("No");
   const [fontsLoaded] = useFonts({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
     Mosh: require("../assets/fonts/Mosherif-1GezZ.ttf"),
   });
+
+  const {
+    addRuleButtonText,
+    addRuleFieldText,
+    addRuleButton2Text,
+    newRuleTitle,
+    addRuleToastText,
+    addPlayerButtonText,
+    addPlayerFieldText,
+    addPlayerButton2Text,
+    addPlayerToastText,
+    firstCardText,
+    quitGameTitle,
+    quitGameText,
+    quitGameOpt1,
+    quitGameOpt2,
+    setLanguage,
+  } = useLanguage();
 
   useEffect(() => {
     setLanguage(language);
@@ -105,37 +87,6 @@ export default function GameOneScreen({
       return undefined;
     }
   });
-
-  const setLanguage = async (language: string) => {
-    let languageData = languages[language];
-    console.log("Reaching new function with language: " + language);
-
-    // If the selected language is not available or not explicitly set, default to English
-    if (!languageData) {
-      languageData = languages["English"];
-    }
-    setAddRuleButtonText(languageData.addRuleButtonText || "ADD A RULE");
-    setAddRuleFieldText(
-      languageData.addRuleFieldText || "Gráinne is a dryshite, drink 15 sips"
-    );
-    setAddRuleButton2Text(languageData.addRuleButton2Text || "ADD RULE");
-    setNewRuleTitle(languageData.newRuleTitle || "RULE");
-    setAddRuleToastText(languageData.addRuleToastText || "Rule added!");
-    setAddPlayerButtonText(languageData.addPlayerButtonText || "ADD A PLAYER");
-    setAddPlayerFieldText(
-      languageData.addPlayerFieldText || "Enter the new player's name"
-    );
-    setAddPlayerButton2Text(languageData.addPlayerButton2Text || "ADD PLAYER");
-    setAddPlayerToastText(languageData.addPlayerToastText || "Player added!");
-    setFirstCardText(languageData.firstCardText || "You're at the first card!");
-    setQuitGameTitle(languageData.quitGameTitle || "Quit Game");
-    setQuitGameText(
-      languageData.quitGameText || "Are you sure you want to quit the game?"
-    );
-    setQuitGameOpt1(languageData.quitGameOpt1 || "Yes");
-    setQuitGameOpt2(languageData.quitGameOpt2 || "No");
-  };
-
   // Initialize the shake animation value
   const shakeAnim = new Animated.Value(0);
 
@@ -764,10 +715,6 @@ export default function GameOneScreen({
         }
       }}
     >
-      {/* <ImageBackground
-        style={gameOneScreenStyles.image}
-        source={require("../assets/images/beer_gif.gif")}
-      > */}
       <ImageBackground
         style={gameOneScreenStyles.image as StyleProp<ViewStyle>}
         source={categoryImages[currentCategory]}
@@ -915,14 +862,6 @@ export default function GameOneScreen({
             <MaterialIcons name="add" size={26} color="#fff" />
           </TouchableOpacity>
         </View>
-        {/* <View style={gameOneScreenStyles.topRightBeerContainer}>
-          <View style={{ flexDirection: "row" }}>
-            <Image source={require("../assets/images/beer_glass.png")} />
-            <Image source={require("../assets/images/beer_glass.png")} />
-            <Image source={require("../assets/images/beer_glass.png")} />
-            <Image source={require("../assets/images/beer_glass.png")} />
-          </View>
-        </View> */}
 
         {randomCategory !== " " && (
           <Text

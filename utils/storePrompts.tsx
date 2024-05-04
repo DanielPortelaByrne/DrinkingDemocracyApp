@@ -90,3 +90,12 @@ export const storePrompts = async (language: string) => {
     console.error(error);
   }
 };
+
+export const resetPrompts = () => {
+  console.log("Resetting prompts");
+  AsyncStorage.removeItem("playedPrinksPrompts");
+  AsyncStorage.removeItem("playedCrazyPrompts");
+  AsyncStorage.removeItem("playedFlirtyPrompts");
+  AsyncStorage.removeItem("virusPack");
+  AsyncStorage.removeItem("virusendPack");
+};

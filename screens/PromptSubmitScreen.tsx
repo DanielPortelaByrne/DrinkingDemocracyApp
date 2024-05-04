@@ -1,8 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  ScrollView,
   TextInput,
-  StyleSheet,
   Image,
   TouchableOpacity,
   ToastAndroid,
@@ -17,21 +15,9 @@ import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 import { useFonts } from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
-import email from "react-native-email";
 import { sendEmail } from "../hooks/sendEmail";
-import en from "../languages/en.json";
-import ga from "../languages/ga.json";
-import pl from "../languages/pl.json";
-import es from "../languages/es.json";
-import { LanguageData } from "../utils/language/LanguageData";
 import { promptSubmitScreenStyles } from "../assets/styles/styles";
-
-const languages: { [key: string]: Partial<LanguageData> } = {
-  English: en,
-  Irish: ga,
-  Polish: pl,
-  Spanish: es,
-};
+import { useLanguage } from "../utils/language/useLanguage";
 
 export default function PromptSubmitScreen({
   route,
@@ -43,113 +29,44 @@ export default function PromptSubmitScreen({
   });
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedGameMode, setSelectedGameMode] = useState("");
-  const [enterPromptText, setEnterPromptText] = useState("ENTER YOUR PROMPT");
-  const [customPromptText, setCustomPromptText] = useState(
-    "Enter your custom prompt"
-  );
-  const [pickCatText, setPickCatText] = useState("PICK YOUR PROMPT CATEGORY");
-  const [selectCatText, setSelectCatText] = useState("Select prompt category");
-  const [gameModeText, setGameModeText] = useState(
-    "PICK YOUR PROMPT GAME MODE"
-  );
-  const [selectGameModeText, setSelectGameModeText] = useState(
-    "Select your game mode"
-  );
-  const [socialText, setSocialText] = useState(
-    "ENTER YOUR SOCIAL MEDIA HANDLE TO BE CREDITED"
-  );
-
-  const [instruct1, setInstruct1] = useState(
-    "- BE IN WITH A CHANCE OF HAVING YOUR CUSTOM PROMPT FEATURED PERMANENTLY IN THE GAME"
-  );
-  const [instruct2, setInstruct2] = useState(
-    "- TYPE 'NAME' IF YOU WANT TO RANDOMISE YOUR NAME INPUT, AND 'NAME2' IF YOU WANT TO ADD A SECOND RANDOM NAME"
-  );
-  const [instruct3, setInstruct3] = useState(
-    "- E.G. 'NAME HAS TO WHISPER TO NAME2 FOR THE REST OF THE GAME'"
-  );
-  const [instruct4, setInstruct4] = useState(
-    "- ADD YOUR SOCIAL MEDIA HANDLE AND PLATFORM TO BE CREDITED ON THE APP (OPTIONAL)"
-  );
-  const [submitText, setSubmitText] = useState("SUBMIT YOUR PROMPT");
-  const [toast1, setToast1] = useState("Enter prompt text!");
-  const [toast2, setToast2] = useState("Choose a prompt category!");
-  const [toast3, setToast3] = useState("Choose a game mode!");
-  const [toast4, setToast4] = useState("Game prompt submitted!");
-  const [cat1, setCat1] = useState("RULE");
-  const [cat2, setCat2] = useState("GET IT DOWN YA");
-  const [cat3, setCat3] = useState("CHALLENGE");
-  const [cat4, setCat4] = useState("VOTE");
-  const [cat5, setCat5] = useState("SEXY");
-  const [cat6, setCat6] = useState("VIRUS");
-  const [mode1, setMode1] = useState("PRINKS");
-  const [mode2, setMode2] = useState("MESSY");
-  const [mode3, setMode3] = useState("FLIRTY");
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [prompt, setPrompt] = useState({
     text: "",
     category: "",
     handle: "",
   });
-  // const [handleText, setHandleText] = useState("");
+  const {
+    enterPromptText,
+    customPromptText,
+    pickCatText,
+    selectCatText,
+    gameModeText,
+    selectGameModeText,
+    socialText,
+    instruct1,
+    instruct2,
+    instruct3,
+    instruct4,
+    submitText,
+    toast1,
+    toast2,
+    toast3,
+    toast4,
+    cat1,
+    cat2,
+    cat3,
+    cat4,
+    cat5,
+    cat6,
+    mode1,
+    mode2,
+    mode3,
+    setLanguage,
+  } = useLanguage();
 
   useEffect(() => {
     setLanguage(language);
   }, []);
-
-  const setLanguage = async (language: string) => {
-    let languageData = languages[language];
-    console.log("Reaching new function with language: " + language);
-
-    // If the selected language is not available or not explicitly set, default to English
-    if (!languageData) {
-      languageData = languages["English"];
-    }
-
-    setEnterPromptText(languageData.enterPromptText || "ENTER YOUR PROMPT");
-    setPickCatText(languageData.pickCatText || "PICK YOUR PROMPT CATEGORY");
-    setGameModeText(languageData.gameModeText || "PICK YOUR PROMPT GAME MODE");
-    setSocialText(
-      languageData.socialText || "ENTER YOUR SOCIAL MEDIA HANDLE TO BE CREDITED"
-    );
-    setSubmitText(languageData.submitText || "SUBMIT YOUR PROMPT");
-    setSelectCatText(languageData.selectCatText || "Select prompt category");
-    setSelectGameModeText(
-      languageData.selectGameModeText || "Select your game mode"
-    );
-    setCustomPromptText(
-      languageData.customPromptText || "Enter your custom prompt"
-    );
-    setInstruct1(
-      languageData.instruct1 ||
-        "- BE IN WITH A CHANCE OF HAVING YOUR CUSTOM PROMPT FEATURED PERMANENTLY IN THE GAME"
-    );
-    setInstruct2(
-      languageData.instruct2 ||
-        "- TYPE 'NAME' IF YOU WANT TO RANDOMISE YOUR NAME INPUT, AND 'NAME2' IF YOU WANT TO ADD A SECOND RANDOM NAME"
-    );
-    setInstruct3(
-      languageData.instruct3 ||
-        "- E.G. 'NAME HAS TO WHISPER TO NAME2 FOR THE REST OF THE GAME'"
-    );
-    setInstruct4(
-      languageData.instruct4 ||
-        "- ADD YOUR SOCIAL MEDIA HANDLE AND PLATFORM TO BE CREDITED ON THE APP (OPTIONAL)"
-    );
-    setToast1(languageData.toast1 || "Enter prompt text!");
-    setToast2(languageData.toast2 || "Choose a prompt category!");
-    setToast3(languageData.toast3 || "Choose a game mode!");
-    setToast4(languageData.toast4 || "Game prompt submitted!");
-    setCat1(languageData.cat1 || "RULE");
-    setCat2(languageData.cat2 || "GET IT DOWN YA");
-    setCat3(languageData.cat3 || "CHALLENGE");
-    setCat4(languageData.cat4 || "VOTE");
-    setCat5(languageData.cat5 || "SEXY");
-    setCat6(languageData.cat6 || "VIRUS");
-    setMode1(languageData.mode1 || "PRINKS");
-    setMode2(languageData.mode2 || "MESSY");
-    setMode3(languageData.mode3 || "FLIRTY");
-  };
 
   let jsonPrompt = "";
 
@@ -194,10 +111,6 @@ export default function PromptSubmitScreen({
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={promptSubmitScreenStyles.container as StyleProp<ViewStyle>}>
-        {/* <Image
-        style={styles.image}
-        source={require("../assets/images/title_logo.png")}
-      /> */}
         <View style={{ position: "absolute", top: "10%", left: "8%" }}>
           <TouchableOpacity
             onPress={() =>
@@ -371,9 +284,7 @@ export default function PromptSubmitScreen({
             <Picker
               selectedValue={selectedGameMode}
               style={{ backgroundColor: "white", marginBottom: 10 }}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedGameMode(itemValue)
-              }
+              onValueChange={(itemValue) => setSelectedGameMode(itemValue)}
             >
               <Picker.Item label={selectGameModeText} value="" />
               <Picker.Item label={mode1} value="PRINKS" />
@@ -419,7 +330,6 @@ export default function PromptSubmitScreen({
                   ToastAndroid.show(toast3, ToastAndroid.SHORT);
                 } else {
                   setPromptObject();
-                  // handleEmail();
                   sendEmail(
                     "drinkingdemocracy@gmail.com",
                     "Prompt Submission from " + prompt.handle,
@@ -448,7 +358,6 @@ export default function PromptSubmitScreen({
                   fontFamily: "Konstruktor",
                   color: "#ffffff",
                   textAlign: "center",
-                  // lineHeight: 50,
                   fontSize: 18,
                   padding: 10,
                 }}
@@ -458,11 +367,6 @@ export default function PromptSubmitScreen({
             </TouchableOpacity>
           </View>
         </View>
-
-        {/* <Image
-        source={require("../assets/images/transparent_logo_glow.png")}
-        style={styles.bottomImage}
-      /> */}
       </View>
     </TouchableWithoutFeedback>
   );

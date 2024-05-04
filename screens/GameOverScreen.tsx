@@ -1,33 +1,24 @@
-import { Button, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useFonts } from "expo-font";
-import en from "../languages/en.json";
-import ga from "../languages/ga.json";
-import pl from "../languages/pl.json";
-import es from "../languages/es.json";
-import { LanguageData } from "../utils/language/LanguageData";
+import { useLanguage } from "../utils/language/useLanguage";
 var language = "English";
-
-const languages: { [key: string]: Partial<LanguageData> } = {
-  English: en,
-  Irish: ga,
-  Polish: pl,
-  Spanish: es,
-};
 
 export default function GameOverScreen({
   route,
   navigation,
 }: RootTabScreenProps<"GameOver">) {
   const { language } = route.params;
-  const [gameOverText, setGameOverText] = useState("Game Over");
-  const [moreGamesText, setMoreGamesText] = useState("More Games");
+  // const [gameOverText, setGameOverText] = useState("Game Over");
+  // const [moreGamesText, setMoreGamesText] = useState("More Games");
   const [fontsLoaded] = useFonts({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
   });
+
+  const { gameOverText, moreGamesText, setLanguage } = useLanguage();
 
   useEffect(() => {
     setLanguage(language);
@@ -36,18 +27,6 @@ export default function GameOverScreen({
     }
   });
 
-  const setLanguage = async (language: string) => {
-    let languageData = languages[language];
-    console.log("Reaching new function with language: " + language);
-
-    // If the selected language is not available or not explicitly set, default to English
-    if (!languageData) {
-      languageData = languages["English"];
-    }
-
-    setGameOverText(languageData.gameOverText || "Game Over");
-    setMoreGamesText(languageData.moreGamesText || "More Games");
-  };
   return (
     <View style={styles.container}>
       <Text
