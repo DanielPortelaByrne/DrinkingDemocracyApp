@@ -118,7 +118,7 @@ export default function GameOneScreen({
   // Define a new state variable to store the background image
   const [currentCategory, setCurrentCategory] = useState("");
 
-  var categoryImages = {};
+  var categoryImages: any = {};
 
   switch (language) {
     case "English": {
