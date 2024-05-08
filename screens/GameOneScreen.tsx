@@ -10,7 +10,7 @@ import {
   ViewStyle,
   StyleProp,
 } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Text } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 import { getNames, updateNames } from "../components/nameStore";
@@ -21,6 +21,7 @@ import { gameOneScreenStyles } from "../assets/styles/styles";
 import { useLanguage } from "../utils/language/useLanguage";
 import { retrievePrompts, retrievePlayed } from "../utils/retrievePrompts";
 import { addPlayer } from "../utils/addPlayer";
+import React = require("react");
 
 export default function GameOneScreen({
   route,
@@ -630,7 +631,7 @@ export default function GameOneScreen({
         gameOneScreenStyles.container as StyleProp<ViewStyle>,
         { backgroundColor },
       ]}
-      onPress={(event) => {
+      onPress={(event: { nativeEvent: { locationX: any } }) => {
         const { locationX } = event.nativeEvent;
         const screenWidth = Dimensions.get("window").width;
         if (!isEditVisible && !isOverlayVisible && !isPlayerOverlayVisible) {
@@ -700,7 +701,7 @@ export default function GameOneScreen({
                 <TextInput
                   style={gameOneScreenStyles.textInput as StyleProp<ViewStyle>}
                   placeholder={addRuleFieldText}
-                  onChangeText={(text) => setNewRule(text)}
+                  onChangeText={(text: any) => setNewRule(text)}
                   value={newRule}
                 />
                 <TouchableOpacity
@@ -757,7 +758,7 @@ export default function GameOneScreen({
                 <TextInput
                   style={gameOneScreenStyles.textInput as StyleProp<ViewStyle>}
                   placeholder={addPlayerFieldText}
-                  onChangeText={(text) => setNewPlayerName(text)}
+                  onChangeText={(text: any) => setNewPlayerName(text)}
                   value={newPlayerName}
                 />
                 <TouchableOpacity
