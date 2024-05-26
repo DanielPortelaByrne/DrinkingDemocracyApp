@@ -16,6 +16,10 @@ declare global {
   }
 }
 
+interface CategoryImages {
+  [category: string]: any; // Change 'any' to the actual type of image paths if known
+}
+
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   TabOne: undefined;
@@ -45,7 +49,11 @@ export type RootTabParamList = {
   TabTwo: {
     language: string;
   };
-  GameOne: { gameMode: string; language: string };
+  GameOne: {
+    gameMode: string;
+    language: string;
+    categoryImages: CategoryImages;
+  };
   PromptSubmit: {
     language: string;
   };

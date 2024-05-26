@@ -17,6 +17,8 @@ import { useFocusEffect } from "@react-navigation/native";
 import { screen2Styles } from "../assets/styles/styles";
 import { useLanguage } from "../utils/language/useLanguage";
 import { selectRandomPrompts } from "../utils/selectRandomPrompts";
+import { getCategoryAssets } from "../utils/language/getCategoryAssets";
+
 // import {
 //   BannerAd,
 //   BannerAdSize,
@@ -28,6 +30,7 @@ export default function TabTwoScreen({
   navigation,
 }: RootTabScreenProps<"TabTwo">) {
   const { language } = route.params;
+  const { categoryImages } = getCategoryAssets(language);
   const { prinksText, crazyText, flirtyText, sapText, title, setLanguage } =
     useLanguage();
   const [names, setNames] = useState(getNames());
@@ -132,6 +135,7 @@ export default function TabTwoScreen({
               navigation.navigate("GameOne", {
                 gameMode: "prinkGamePrompts",
                 language: language,
+                categoryImages: categoryImages,
               });
             }}
             style={screen2Styles.prinksButton as StyleProp<ViewStyle>}
@@ -155,6 +159,7 @@ export default function TabTwoScreen({
               navigation.navigate("GameOne", {
                 gameMode: "crazyGamePrompts",
                 language: language,
+                categoryImages: categoryImages,
               });
             }}
             style={screen2Styles.messyButton as StyleProp<ViewStyle>}
@@ -178,6 +183,7 @@ export default function TabTwoScreen({
               navigation.navigate("GameOne", {
                 gameMode: "flirtyGamePrompts",
                 language: language,
+                categoryImages: categoryImages,
               });
             }}
             style={screen2Styles.flirtyButton as StyleProp<ViewStyle>}
