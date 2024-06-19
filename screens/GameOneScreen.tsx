@@ -29,7 +29,6 @@ export default function GameOneScreen({
   navigation,
 }: RootTabScreenProps<"GameOne">) {
   const { gameMode, language, categoryImages } = route.params;
-  // const { categoryImages } = getCategoryAssets(language);
   const { categoryColors, playedArray } = getGameModeAssets(gameMode);
   const [fontsLoaded] = useFonts({
     Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
@@ -60,6 +59,7 @@ export default function GameOneScreen({
       return undefined;
     }
   });
+
   // Initialize the shake animation value
   const shakeAnim = new Animated.Value(0);
 
@@ -122,11 +122,21 @@ export default function GameOneScreen({
     shake();
   }, [randomName, randomPrompt]);
 
+  const getRandomIndexes = (names: string[], count: number) => {
+    const chosenIndexes = new Set<number>();
+    while (chosenIndexes.size < count) {
+      chosenIndexes.add(Math.floor(Math.random() * names.length));
+    }
+    return Array.from(chosenIndexes);
+  };
+
   const displayRandomPromptAndName = async () => {
     // Retrieve the prompts from async storage
-    const selectedPrompts = await retrievePrompts(gameMode);
-    //retrieve played prompts array to be updated
-    const playedPrompts = await retrievePlayed(playedArray);
+    const [selectedPrompts, playedPrompts] = await Promise.all([
+      retrievePrompts(gameMode),
+      retrievePlayed(playedArray),
+    ]);
+
     // Start the shake animation
     shake();
 
@@ -137,64 +147,30 @@ export default function GameOneScreen({
         text: prompt.text,
         category: prompt.category,
       };
+
       // Add the new prompt to the existing array of played prompts
       const updatedPlayedPrompts = [...playedPrompts, newlyPlayedPrompt];
-      //add updated playedPrompts list of played prompts in Async
       await AsyncStorage.setItem(
         playedArray,
         JSON.stringify(updatedPlayedPrompts)
       );
+
       // Save the category of the prompt
       const { category }: { category: keyof typeof categoryColors } = prompt;
       setCurrentCategory(category);
-      // Create an array to store the chosen name indexes
-      const chosenNameIndexes: number[] = [];
-      // Pick a random name from the list and check if it has already been chosen
-      let nameIndex = Math.floor(Math.random() * names.length);
-      while (chosenNameIndexes.includes(nameIndex)) {
-        nameIndex = Math.floor(Math.random() * names.length);
-      }
-      const name = names[nameIndex];
-      chosenNameIndexes.push(nameIndex);
 
-      // Pick a second random name from the list and check if it has already been chosen
-      let nameIndex2 = Math.floor(Math.random() * names.length);
-      while (chosenNameIndexes.includes(nameIndex2)) {
-        nameIndex2 = Math.floor(Math.random() * names.length);
-      }
-      const name2 = names[nameIndex2];
-      chosenNameIndexes.push(nameIndex2);
+      // Get three unique random indexes
+      const chosenIndexes = getRandomIndexes(names, Math.min(3, names.length));
+      const [name, name2, name3] = chosenIndexes.map((index) => names[index]);
 
-      var name3 = null;
-
-      // Pick a third random name from the list and check if it has already been chosen
-      if (names.length >= 3) {
-        let nameIndex3 = Math.floor(Math.random() * names.length);
-        while (chosenNameIndexes.includes(nameIndex3)) {
-          nameIndex3 = Math.floor(Math.random() * names.length);
-        }
-        name3 = names[nameIndex3];
-        chosenNameIndexes.push(nameIndex3);
-      }
-
-      let currentVirusID = "";
-
-      // Check if the current prompt is a virus start
+      // Update virus prompt if necessary
       if (prompt.category === "VIRUS" && prompt.id.slice(-1) === "a") {
-        currentVirusID = prompt.id.slice(0, -1);
-        // Check if the current virus end exists in the remaining selectedPrompts array
+        const currentVirusID = prompt.id.slice(0, -1);
         for (let i = index + 1; i < selectedPrompts.length; i++) {
           if (selectedPrompts[i].id === currentVirusID + "b") {
-            // Update the "[Name]" with the corresponding virus name
-            // console.log("Virus end before replace:" + selectedPrompts[i].text);
-            selectedPrompts[i].text = selectedPrompts[i].text.replace(
-              "[Name]",
-              name
-            );
-            selectedPrompts[i].text = selectedPrompts[i].text.replace(
-              "[Name2]",
-              name2
-            );
+            selectedPrompts[i].text = selectedPrompts[i].text
+              .replace("[Name]", name)
+              .replace("[Name2]", name2);
             break;
           }
         }
@@ -204,70 +180,57 @@ export default function GameOneScreen({
       setRandomName(name);
 
       const color = categoryColors[category];
-
-      // Remove the displayed prompt from the list
       selectedPrompts.splice(index, 1);
 
       // Store the updated list of prompts in async storage
       await AsyncStorage.setItem(gameMode, JSON.stringify(selectedPrompts));
 
-      const namesToReplace = [
+      // Replace placeholders in the prompt text
+      const replacements = [
         { search: "[Name]", replace: name },
         { search: "[Name2]", replace: name2 },
       ];
+      if (name3) replacements.push({ search: "[Name3]", replace: name3 });
 
-      if (name3) {
-        namesToReplace.push({ search: "[Name3]", replace: name3 });
-      }
-
-      for (let i = 0; i < namesToReplace.length; i++) {
-        if (prompt.text.includes(namesToReplace[i].search)) {
-          prompt.text = prompt.text.replace(
-            namesToReplace[i].search,
-            namesToReplace[i].replace
-          );
+      replacements.forEach(({ search, replace }) => {
+        if (prompt.text.includes(search)) {
+          prompt.text = prompt.text.replace(search, replace);
         }
-      }
-      // Update the random prompt text
+      });
+
+      // Update the random prompt text and other states
       setRandomPrompt(prompt.text);
       setRandomCategory(category);
-      // Update the background color
       setBackgroundColor(color);
       setCurrentCategory(category);
-      //if there's a handle to credit, update handle
-      // console.log(prompt.handle);
-      setPromptHandle(handle);
-      // console.log("Before" + promptHandle);
+      setPromptHandle(prompt.handle || "");
       if (prompt.hasOwnProperty("handle")) {
-        // console.log("handle found");
         handle = prompt.handle;
         setPromptHandle(handle);
-        // console.log(promptHandle);
       }
 
       // Add the current name, prompt, and color to the previousPrompts array as an object
       setPreviousPrompts([
         ...previousPrompts,
         {
-          name: name,
+          name,
           prompt: prompt.text,
-          color: color,
-          category: category, // add the category field
-          handle: handle,
+          color,
+          category,
+          handle,
         },
       ]);
       arrayIndex.current = previousPrompts.length;
       index++;
     } else {
       // If there are no prompts left to display, navigate back to the TabTwoScreen
-      navigation.navigate("GameOver", {
-        language: language,
-      });
+      navigation.navigate("GameOver", { language });
     }
   };
+
   return (
     <TouchableOpacity
-      activeOpacity={0.9} // set activeOpacity to 1
+      activeOpacity={0.9}
       style={[
         gameOneScreenStyles.container as StyleProp<ViewStyle>,
         { backgroundColor },
@@ -276,16 +239,11 @@ export default function GameOneScreen({
         const { locationX } = event.nativeEvent;
         const screenWidth = Dimensions.get("window").width;
         if (!isEditVisible && !isOverlayVisible && !isPlayerOverlayVisible) {
-          // Check which side of the screen the user tapped on
           const side = locationX < screenWidth / 2 ? "left" : "right";
 
-          // Check if the user tapped on the left side of the screen
           if (side === "left") {
-            // Tap on the left side of the screen
             if (arrayIndex.current > 0) {
-              // If there are any previous prompts, go back to the last one
               const lastPrompt = previousPrompts[arrayIndex.current - 1];
-              // console.log("Last prompt in array: ", lastPrompt);
               setRandomName(lastPrompt.name);
               setRandomPrompt(lastPrompt.prompt);
               setRandomCategory(lastPrompt.category);
@@ -298,7 +256,6 @@ export default function GameOneScreen({
             }
           } else {
             if (arrayIndex.current == previousPrompts.length - 1) {
-              // Tap on the right side of the screen
               displayRandomPromptAndName();
             } else {
               const nextPrompt = previousPrompts[arrayIndex.current + 1];
@@ -311,9 +268,7 @@ export default function GameOneScreen({
               arrayIndex.current++;
             }
             if (shouldNavigate) {
-              navigation.navigate("GameOver", {
-                language: language,
-              });
+              navigation.navigate("GameOver", { language });
             }
           }
         } else {
@@ -473,17 +428,7 @@ export default function GameOneScreen({
 
         {randomCategory !== " " && (
           <Text
-            style={{
-              fontFamily: "Konstruktor",
-              color: "#fff",
-              fontSize: 45,
-              textAlign: "center",
-              // marginBottom: 20,
-              padding: 20,
-              textShadowColor: "#000",
-              textShadowOffset: { width: 4, height: 4 },
-              textShadowRadius: 0.1,
-            }}
+            style={gameOneScreenStyles.categoryText as StyleProp<ViewStyle>}
           >
             {randomCategory}
           </Text>
@@ -498,8 +443,6 @@ export default function GameOneScreen({
             marginBottom: 10,
             marginLeft: 30,
             marginRight: 30,
-            // fontWeight: "bold",
-            // fontStyle: "italic",
             textShadowColor: "#000",
             textShadowOffset: { width: 1, height: 1 },
             textShadowRadius: 10,

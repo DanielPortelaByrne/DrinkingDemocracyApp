@@ -272,6 +272,16 @@ const gameOneScreenStyles = {
     marginLeft: 20,
     marginRight: 20,
   },
+  categoryText: {
+    fontFamily: "Konstruktor",
+    color: "#fff",
+    fontSize: 45,
+    textAlign: "center",
+    padding: 20,
+    textShadowColor: "#000",
+    textShadowOffset: { width: 4, height: 4 },
+    textShadowRadius: 0.1,
+  },
   separator: {
     marginVertical: 30,
     height: 1,
