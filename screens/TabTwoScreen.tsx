@@ -19,11 +19,11 @@ import { useLanguage } from "../utils/language/useLanguage";
 import { selectRandomPrompts } from "../utils/selectRandomPrompts";
 import { getCategoryAssets } from "../utils/language/getCategoryAssets";
 
-// import {
-//   BannerAd,
-//   BannerAdSize,
-//   TestIds,
-// } from "react-native-google-mobile-ads";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 
 export default function TabTwoScreen({
   route,
@@ -52,9 +52,9 @@ export default function TabTwoScreen({
   if (!fontsLoaded) {
     return undefined;
   }
-  // const adUnitId = __DEV__
-  //   ? TestIds.BANNER
-  //   : "ca-app-pub-2156240493940672/1342308153";
+  const adUnitId = __DEV__
+    ? TestIds.BANNER
+    : "ca-app-pub-2156240493940672/1342308153";
 
   // const names = getNames(); // retrieve the names from the name store
   return (
@@ -115,13 +115,13 @@ export default function TabTwoScreen({
       </View>
       <View style={screen2Styles.gameModesContainer as StyleProp<ViewStyle>}>
         <View style={screen2Styles.adBannerContainer as StyleProp<ViewStyle>}>
-          {/* <BannerAd
+          <BannerAd
             unitId={adUnitId}
             size={BannerAdSize.LARGE_BANNER}
             requestOptions={{
               requestNonPersonalizedAdsOnly: true,
             }}
-          /> */}
+          />
         </View>
         <View
           style={screen2Styles.gameModeSectionContainer as StyleProp<ViewStyle>}
