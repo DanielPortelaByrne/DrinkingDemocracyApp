@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   TextInput,
   Image,
   TouchableOpacity,
-  ToastAndroid,
   Keyboard,
   TouchableWithoutFeedback,
   StyleProp,
@@ -13,23 +12,22 @@ import { Picker } from "@react-native-picker/picker";
 
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
-import { useFonts } from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
 import { sendEmail } from "../hooks/sendEmail";
 import { promptSubmitScreenStyles } from "../assets/styles/styles";
 import { useLanguage } from "../utils/language/useLanguage";
+import { showMessage } from "../utils/showMessage";
+import { formatSubmittedPrompt } from "../utils/formatSubmittedPrompt";
 
 export default function PromptSubmitScreen({
   route,
   navigation,
 }: RootTabScreenProps<"PromptSubmit">) {
   const { language } = route.params;
-  const [fontsLoaded] = useFonts({
-    Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
-  });
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedGameMode, setSelectedGameMode] = useState("");
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [prompt, setPrompt] = useState({
     text: "",
     category: "",
@@ -61,52 +59,55 @@ export default function PromptSubmitScreen({
     mode1,
     mode2,
     mode3,
-    setLanguage,
-  } = useLanguage();
-
-  useEffect(() => {
-    setLanguage(language);
-  }, []);
-
-  let jsonPrompt = "";
+  } = useLanguage(language);
 
   const handlePromptTextChange = (text: string) => {
     setPrompt((prevPrompt) => ({ ...prevPrompt, text: text }));
-    console.log("Prompt text set to: " + text);
   };
 
   const handlePromptHandleChange = (handle: string) => {
     setPrompt((prevPrompt) => ({ ...prevPrompt, handle: handle }));
-    console.log("Prompt handle set to: " + handle);
   };
 
   const handlePromptCategoryChange = (category: string) => {
     setSelectedCategory(category);
     setPrompt((prevPrompt) => ({ ...prevPrompt, category: category }));
-    console.log("Prompt category set to: " + category);
-    console.log(
-      "Prompt object: Text: " + prompt.text + " Category: " + prompt.category
-    );
   };
 
-  const setPromptObject = () => {
-    console.log(prompt.text);
-    if (prompt.text.includes("Name"))
-      prompt.text = prompt.text.replace("Name", "[Name]");
-    if (prompt.text.includes("Name2"))
-      prompt.text = prompt.text.replace("Name2", "[Name2]");
-    jsonPrompt = JSON.stringify(prompt);
-    console.log(jsonPrompt);
-    setPrompt((prevPrompt) => ({ ...prevPrompt, category: "" }));
-    setPrompt((prevPrompt) => ({ ...prevPrompt, text: "" }));
+  const submitPrompt = async () => {
+    if (!prompt.text.trim()) {
+      showMessage(toast1);
+      return;
+    }
+    if (!prompt.category) {
+      showMessage(toast2);
+      return;
+    }
+    if (!selectedGameMode) {
+      showMessage(toast3);
+      return;
+    }
 
-    setSelectedCategory("");
-    setSelectedGameMode("");
+    setIsSubmitting(true);
+    const jsonPrompt = formatSubmittedPrompt(prompt);
+    try {
+      await sendEmail(
+        "drinkingdemocracy@gmail.com",
+        `Prompt Submission from ${prompt.handle || "anonymous"}`,
+        `Game Mode: ${selectedGameMode}\nPrompt Json: ${jsonPrompt}\nHandle: ${prompt.handle}\n=========================================`
+      );
+      setPrompt({ text: "", category: "", handle: "" });
+      setSelectedCategory("");
+      setSelectedGameMode("");
+      showMessage(toast4);
+      navigation.navigate("TabTwo", { language });
+    } catch (error) {
+      console.error("Unable to open prompt submission email", error);
+      showMessage("No email app is available. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
-
-  if (!fontsLoaded) {
-    return undefined;
-  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -241,9 +242,11 @@ export default function PromptSubmitScreen({
             </Text>
             <TextInput
               placeholder={`${customPromptText}`}
+              placeholderTextColor="#666666"
               onChangeText={(text) => handlePromptTextChange(text)}
               style={promptSubmitScreenStyles.textInput as StyleProp<ViewStyle>}
               textAlign="center"
+              value={prompt.text}
             />
             <Text
               style={{
@@ -305,11 +308,14 @@ export default function PromptSubmitScreen({
             </Text>
             <TextInput
               placeholder={`@...`}
+              placeholderTextColor="#666666"
               onChangeText={(text) => handlePromptHandleChange(text)}
               style={promptSubmitScreenStyles.textInput as StyleProp<ViewStyle>}
               textAlign="center"
+              value={prompt.handle}
             />
             <TouchableOpacity
+              disabled={isSubmitting}
               style={{
                 alignItems: "center",
                 justifyContent: "center",
@@ -320,38 +326,9 @@ export default function PromptSubmitScreen({
                 borderWidth: 3,
                 borderColor: "white",
                 marginTop: 10,
+                opacity: isSubmitting ? 0.6 : 1,
               }}
-              onPress={() => {
-                if (prompt.text.length < 1) {
-                  ToastAndroid.show(toast1, ToastAndroid.SHORT);
-                } else if (prompt.category.length < 1) {
-                  ToastAndroid.show(toast2, ToastAndroid.SHORT);
-                } else if (selectedGameMode === "") {
-                  ToastAndroid.show(toast3, ToastAndroid.SHORT);
-                } else {
-                  setPromptObject();
-                  sendEmail(
-                    "drinkingdemocracy@gmail.com",
-                    "Prompt Submission from " + prompt.handle,
-                    "Game Mode: " +
-                      selectedGameMode +
-                      "\n" +
-                      "Prompt Json: " +
-                      jsonPrompt +
-                      "\n" +
-                      "Handle: " +
-                      prompt.handle +
-                      "\n" +
-                      "========================================="
-                  ).then(() => {
-                    console.log("Your message was successfully sent!");
-                  });
-                  ToastAndroid.show(toast4, ToastAndroid.SHORT);
-                  navigation.navigate("TabTwo", {
-                    language: language,
-                  });
-                }
-              }}
+              onPress={() => void submitPrompt()}
             >
               <Text
                 style={{

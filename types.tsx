@@ -1,14 +1,7 @@
-/**
- * Learn more about using TypeScript with React Navigation:
- * https://reactnavigation.org/docs/typescript/
- */
-
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import {
-  CompositeScreenProps,
-  NavigatorScreenParams,
-} from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { ImageSourcePropType } from "react-native";
+import { AppLanguage } from "./constants/Languages";
+import { GameMode } from "./utils/promptTypes";
 
 declare global {
   namespace ReactNavigation {
@@ -16,55 +9,25 @@ declare global {
   }
 }
 
-interface CategoryImages {
-  [category: string]: any; // Change 'any' to the actual type of image paths if known
-}
+export type CategoryImages = Record<string, ImageSourcePropType>;
 
 export type RootStackParamList = {
-  Root: NavigatorScreenParams<RootTabParamList> | undefined;
   TabOne: undefined;
-  TabTwo: {
-    language: string;
-  };
+  TabTwo: { language: AppLanguage };
   GameOne: {
-    gameMode: string;
-    language: string;
+    gameMode: GameMode;
+    language: AppLanguage;
+    categoryImages: CategoryImages;
   };
-  PromptSubmit: {
-    language: string;
-  };
-  PersonalisedGame: undefined;
-  GameOver: {
-    language: string;
-  };
-  Modal: undefined;
+  PromptSubmit: { language: AppLanguage };
+  PersonalisedGame: { language: AppLanguage };
+  GameOver: { language: AppLanguage };
   NotFound: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, Screen>;
 
-export type RootTabParamList = {
-  TabOne: undefined;
-  TabTwo: {
-    language: string;
-  };
-  GameOne: {
-    gameMode: string;
-    language: string;
-    categoryImages: CategoryImages;
-  };
-  PromptSubmit: {
-    language: string;
-  };
-  PersonalisedGame: undefined;
-  GameOver: {
-    language: string;
-  };
-};
-
-export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
-  CompositeScreenProps<
-    BottomTabScreenProps<RootTabParamList, Screen>,
-    NativeStackScreenProps<RootStackParamList>
-  >;
+// Retain the existing name while the app uses a single native-stack navigator.
+export type RootTabScreenProps<Screen extends keyof RootStackParamList> =
+  RootStackScreenProps<Screen>;

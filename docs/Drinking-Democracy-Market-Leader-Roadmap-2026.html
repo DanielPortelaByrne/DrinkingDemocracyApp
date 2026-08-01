@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Drinking Democracy — Market-Leader Product Roadmap</title>
+  <style>
+    :root {
+      --ink: #171717;
+      --muted: #5d5d66;
+      --paper: #ffffff;
+      --soft: #f5f3ef;
+      --red: #ed1e26;
+      --yellow: #f3ce06;
+      --orange: #ed6c1e;
+      --purple: #8e0045;
+      --teal: #008e72;
+      --blue: #00badc;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { background: #ddd; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.46;
+      margin: 0 auto;
+      max-width: 210mm;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    main { padding: 17mm 17mm 18mm; }
+
+    .cover {
+      align-items: flex-start;
+      background:
+        radial-gradient(circle at 85% 15%, rgba(243, 206, 6, .32), transparent 28%),
+        radial-gradient(circle at 15% 85%, rgba(142, 0, 69, .60), transparent 34%),
+        linear-gradient(145deg, #111 0%, #1c1c1c 60%, #29000d 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 297mm;
+      padding: 25mm 20mm 20mm;
+      page-break-after: always;
+    }
+
+    .cover .eyebrow {
+      color: var(--yellow);
+      font-size: 11pt;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+
+    .cover h1 {
+      font-size: 42pt;
+      letter-spacing: -1.8px;
+      line-height: .96;
+      margin: 30mm 0 8mm;
+      max-width: 160mm;
+    }
+
+    .cover h1 span { color: var(--red); }
+
+    .cover .subtitle {
+      color: #ececec;
+      font-size: 17pt;
+      line-height: 1.3;
+      max-width: 150mm;
+    }
+
+    .cover .thesis {
+      border-left: 5px solid var(--yellow);
+      font-size: 15pt;
+      font-weight: 650;
+      margin-top: 24mm;
+      max-width: 150mm;
+      padding: 4mm 0 4mm 7mm;
+    }
+
+    .cover .meta {
+      color: #cfcfcf;
+      font-size: 9.5pt;
+      letter-spacing: .35px;
+    }
+
+    h1, h2, h3 { page-break-after: avoid; }
+
+    h2 {
+      border-bottom: 3px solid var(--red);
+      font-size: 22pt;
+      letter-spacing: -.5px;
+      margin: 12mm 0 5mm;
+      padding-bottom: 2mm;
+    }
+
+    h3 {
+      color: var(--purple);
+      font-size: 14pt;
+      margin: 7mm 0 2.5mm;
+    }
+
+    h4 {
+      font-size: 11pt;
+      margin: 4mm 0 1.5mm;
+    }
+
+    p { margin: 0 0 3.5mm; }
+
+    ul, ol {
+      margin: 2mm 0 4mm;
+      padding-left: 6mm;
+    }
+
+    li { margin: 1.2mm 0; }
+
+    a { color: #005a83; text-decoration: none; }
+
+    .lead {
+      color: #303039;
+      font-size: 13pt;
+      line-height: 1.45;
+    }
+
+    .callout {
+      background: #fff7d1;
+      border-left: 5px solid var(--yellow);
+      border-radius: 0 5px 5px 0;
+      margin: 5mm 0;
+      padding: 4mm 5mm;
+      page-break-inside: avoid;
+    }
+
+    .callout strong { color: #6e3b00; }
+
+    .signature {
+      background: linear-gradient(120deg, #1a1a1a, #2b0712);
+      border-radius: 8px;
+      color: white;
+      margin: 5mm 0;
+      padding: 6mm;
+      page-break-inside: avoid;
+    }
+
+    .signature strong { color: var(--yellow); }
+
+    .grid {
+      display: grid;
+      gap: 4mm;
+      grid-template-columns: repeat(2, 1fr);
+      margin: 4mm 0 6mm;
+    }
+
+    .card {
+      background: var(--soft);
+      border-radius: 6px;
+      border-top: 4px solid var(--red);
+      padding: 4mm;
+      page-break-inside: avoid;
+    }
+
+    .card h3 { margin-top: 0; }
+
+    .tag {
+      background: var(--purple);
+      border-radius: 20px;
+      color: white;
+      display: inline-block;
+      font-size: 8pt;
+      font-weight: 700;
+      margin-right: 1mm;
+      padding: 1mm 2.5mm;
+      text-transform: uppercase;
+    }
+
+    table {
+      border-collapse: collapse;
+      font-size: 9.2pt;
+      margin: 4mm 0 6mm;
+      page-break-inside: avoid;
+      width: 100%;
+    }
+
+    th {
+      background: #1b1b1b;
+      color: white;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    th, td {
+      border: 1px solid #d3d3d3;
+      padding: 2.7mm;
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td { background: #f7f7f7; }
+
+    .priority {
+      align-items: center;
+      border-radius: 50%;
+      color: white;
+      display: inline-flex;
+      font-size: 8pt;
+      font-weight: 800;
+      height: 7mm;
+      justify-content: center;
+      width: 7mm;
+    }
+
+    .p0 { background: var(--red); }
+    .p1 { background: var(--orange); }
+    .p2 { background: var(--teal); }
+
+    .flow {
+      background: #171717;
+      border-radius: 6px;
+      color: white;
+      font-size: 12pt;
+      font-weight: 700;
+      letter-spacing: .25px;
+      margin: 4mm 0;
+      padding: 5mm;
+      text-align: center;
+    }
+
+    .flow span { color: var(--yellow); }
+
+    .page-break { page-break-before: always; }
+
+    .sources {
+      color: var(--muted);
+      font-size: 8.5pt;
+      overflow-wrap: anywhere;
+    }
+
+    .sources li { margin-bottom: 2mm; }
+
+    .footer-note {
+      border-top: 1px solid #ccc;
+      color: var(--muted);
+      font-size: 8.5pt;
+      margin-top: 10mm;
+      padding-top: 4mm;
+    }
+
+    @page { size: A4; margin: 0; }
+
+    @media print {
+      html, body { background: white; max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <section class="cover">
+    <div>
+      <div class="eyebrow">Product Strategy · 2026</div>
+      <h1>Drinking <span>Democracy</span></h1>
+      <div class="subtitle">Market-Leader Product Roadmap for a distinctive, replayable and responsible social party game</div>
+      <div class="thesis">Do not build another generic deck of drinking prompts. Build the party game where democracy itself creates the chaos.</div>
+    </div>
+    <div class="meta">Prepared 1 August 2026 · Based on the current Expo application, prompt system, Virus mechanics, personalization flow and competitive market</div>
+  </section>
+
+  <main>
+    <h2>Executive recommendation</h2>
+    <p class="lead">Drinking Democracy already has a strong foundation: rapid local setup, personalized player names, themed prompt packs, multilingual presentation, mixed sessions, offline fallback content and paired Virus rules. The opportunity is to evolve it from a randomized prompt deck into a recognizable game system with elections, persistent laws, power shifts, callbacks and a satisfying finale.</p>
+
+    <div class="signature"><strong>Winning position:</strong> the first party game in which players elect leaders, pass ridiculous laws, form coalitions, expose scandals and eventually bring the government crashing down.</div>
+
+    <p>Competitors already compete on content volume and breadth. Picolo demonstrates the reach of simple name-driven, one-device play. Drinkin’ advertises numerous formats, custom prompts, timers and roulette. Exposed and Nightly advertise room codes, remote play and thousands of prompts. Duckz advertises touchscreen minigames, custom lists and offline play. Drinking Democracy should meet the best table stakes, but win through a stronger core loop and clearer identity.</p>
+
+    <h3>Current-product diagnosis</h3>
+    <table>
+      <thead><tr><th>Current strength</th><th>Current limitation</th><th>Strategic opportunity</th></tr></thead>
+      <tbody>
+        <tr><td>Names personalize prompts immediately</td><td>Players do not develop an identity or status during a session</td><td>Avatars, roles, offices, teams and influence</td></tr>
+        <tr><td>Prinks, Messy and Flirty offer distinct tones</td><td>The modes primarily change content and color</td><td>Separate game format from tone and intensity</td></tr>
+        <tr><td>Virus start/end cards create persistence</td><td>Active rules are not treated as a first-class system</td><td>Turn Virus into Laws with reminders, owners and repeal votes</td></tr>
+        <tr><td>Prompt mixing provides basic customization</td><td>No weighting, boundaries, venue or duration controls</td><td>A full session composer</td></tr>
+        <tr><td>Offline and local-first play is dependable</td><td>No secret interactions or optional multi-device layer</td><td>Preserve one-phone play while adding QR/private voting later</td></tr>
+        <tr><td>Game Over completes the flow</td><td>There is no memorable payoff or replay hook</td><td>Winner, recap, stats, saved mixes and rematch</td></tr>
+      </tbody>
+    </table>
+
+    <h2>1. The signature Democracy mode</h2>
+    <p>This should become the flagship experience and the product’s defensible identity. A session should feel like a short story rather than a shuffled list.</p>
+
+    <div class="grid">
+      <div class="card"><h3>Act I · The Campaign</h3><p>Icebreakers, nominations, campaign speeches, quick votes and the first election.</p></div>
+      <div class="card"><h3>Act II · The Government</h3><p>Officeholders gain powers, the group passes Laws, coalitions form and players earn influence.</p></div>
+      <div class="card"><h3>Act III · The Collapse</h3><p>Scandals, betrayals, confidence votes, snap elections and escalating callbacks.</p></div>
+      <div class="card"><h3>The Finale</h3><p>A final referendum determines the winner from influence and decisions—not alcohol consumed.</p></div>
+    </div>
+
+    <h3>Core mechanics</h3>
+    <ul>
+      <li>Elect a President, Taoiseach, Minister for Chaos, Party Whip or similarly playful office.</li>
+      <li>Hold an election every six to eight cards, with pacing adapted to session length.</li>
+      <li>Award influence for votes, challenges, successful predictions and completed objectives.</li>
+      <li>Let players form temporary coalitions and break them when incentives change.</li>
+      <li>Give officeholders one-use powers such as veto, immunity, recount, appointment or pardon.</li>
+      <li>Trigger scandals that weaken or remove an officeholder.</li>
+      <li>End with a confidence vote or final referendum and a clear winner.</li>
+    </ul>
+
+    <h2>2. Evolve Virus cards into Laws</h2>
+    <p>Virus cards are the most distinctive mechanic already in the application. They should become visible, persistent and interactive.</p>
+    <ul>
+      <li>Rename Virus cards to <strong>Laws</strong> within Democracy mode while retaining legacy category support internally.</li>
+      <li>Display every active Law in a persistent tray accessible from the card screen.</li>
+      <li>Show who introduced each Law and how long it has survived.</li>
+      <li>Remind the group when a Law is relevant instead of relying on memory alone.</li>
+      <li>Allow repeal, amendment, transfer and conflicting Laws that require a vote.</li>
+      <li>Support global Laws, player-specific Laws, role Laws and team Laws.</li>
+      <li>Include “longest surviving Law” and “most Laws passed” in the recap.</li>
+    </ul>
+
+    <div class="callout"><strong>Example Laws:</strong> “All speeches must begin with ‘My fellow citizens…’” · “Nobody may use the word ‘drink’ until this Law is repealed.” · “Anyone who points must nominate a new Minister.”</div>
+
+    <h2>3. Separate format from tone</h2>
+    <p>Prinks, Messy and Flirty should become tones that can be layered over multiple game formats rather than functioning as the entire mode definition.</p>
+    <table>
+      <thead><tr><th>Game format</th><th>Available tone</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>Democracy</td><td>Prinks, Messy, Flirty or Mix</td><td>Political progression with a chosen content atmosphere</td></tr>
+        <tr><td>Quickfire</td><td>Any tone</td><td>Short, timer-driven rounds</td></tr>
+        <tr><td>Teams</td><td>Any tone</td><td>Coalition and rivalry prompts</td></tr>
+        <tr><td>Secret Ballot</td><td>Any tone</td><td>Private choices and public reveals</td></tr>
+        <tr><td>Date Night</td><td>Prinks or consent-filtered Flirty</td><td>Purpose-built two-player sessions</td></tr>
+      </tbody>
+    </table>
+
+    <p>The mix screen should support weighted percentages—such as 50% Prinks, 30% Messy and 20% Flirty—plus toggles for personal questions, physical challenges, spicy content, public-place suitability and required props.</p>
+
+    <h2>4. New modes with real mechanical differences</h2>
+    <div class="grid">
+      <div class="card"><h3>Coalition Chaos</h3><p>Teams negotiate, share objectives, compete for influence and can betray one another.</p></div>
+      <div class="card"><h3>Secret Ballot</h3><p>Players vote privately using pass-the-phone screens or optional connected devices.</p></div>
+      <div class="card"><h3>Five-Second Filibuster</h3><p>Give three answers before the timer expires.</p></div>
+      <div class="card"><h3>Scandal</h3><p>Answer, bluff or challenge another player’s story.</p></div>
+      <div class="card"><h3>Impostor in Government</h3><p>One hidden player secretly sabotages group challenges.</p></div>
+      <div class="card"><h3>Cabinet Shuffle</h3><p>Every player receives a role with a limited special ability.</p></div>
+      <div class="card"><h3>Referendum</h3><p>Rapid “would you rather” and “most likely to” voting rounds.</p></div>
+      <div class="card"><h3>Last Orders</h3><p>A high-energy ten-minute finale for the end of a party.</p></div>
+      <div class="card"><h3>Date Night</h3><p>A properly balanced two-player experience rather than a reduced group deck.</p></div>
+      <div class="card"><h3>Mocktail Mode</h3><p>All penalties become points, dares or water, widening the addressable audience.</p></div>
+      <div class="card"><h3>Pub Quiz</h3><p>Irish culture, music, local trivia and customizable group knowledge.</p></div>
+      <div class="card"><h3>Public Mode</h3><p>Removes shouting, movement and stranger-interaction prompts when playing at a venue.</p></div>
+    </div>
+
+    <h2>5. Build a session director</h2>
+    <p>Replace pure random selection with a deliberate pacing engine.</p>
+    <div class="flow">Icebreakers <span>→</span> Personalization <span>→</span> Competition <span>→</span> Chaos <span>→</span> Callback <span>→</span> Finale</div>
+    <ul>
+      <li>Target every player fairly and avoid repeatedly selecting the same person.</li>
+      <li>Adapt prompts to player count, selected relationships, venue and boundaries.</li>
+      <li>Avoid consecutive cards with the same structure or emotional intensity.</li>
+      <li>Introduce Laws early enough to affect the game and end them deliberately.</li>
+      <li>Increase intensity gradually rather than allowing an extreme first card.</li>
+      <li>Remember earlier votes and answers to generate callbacks later in the session.</li>
+      <li>Reserve a strong final sequence instead of ending when the array is exhausted.</li>
+    </ul>
+
+    <div class="callout"><strong>High-value callback:</strong> “Earlier, everyone voted that Alex was most likely to become famous. Alex must now deliver their acceptance speech.” These callbacks make the game appear attentive and create stories unique to each group.</div>
+
+    <h2>6. Fast touchscreen minigames</h2>
+    <p>Minigames should last less than twenty seconds and raise the room’s energy without turning the app into a collection of unrelated arcade games.</p>
+    <ul>
+      <li>Everyone places a finger on the screen; one player is selected.</li>
+      <li>Reaction-time duel and rapid-tap campaign.</li>
+      <li>Hold-the-button bomb timer.</li>
+      <li>Spin the policy wheel.</li>
+      <li>Five-second answer timer.</li>
+      <li>Dice, coin flip and random team generator.</li>
+      <li>Pass-the-phone secret mission.</li>
+      <li>Two-team buzzer and quick prediction rounds.</li>
+      <li>“Do not laugh” timer without recording or retaining video.</li>
+    </ul>
+
+    <h2>7. Deeper player personalization</h2>
+    <ul>
+      <li>Let players reroll or choose the new themed avatar assigned to them.</li>
+      <li>Support optional pronouns, nicknames and lightweight role preferences.</li>
+      <li>Remember frequent groups locally for one-tap setup.</li>
+      <li>Optionally identify couples or relationships to improve prompt suitability.</li>
+      <li>Support mobility and accessibility restrictions.</li>
+      <li>Track fair targeting during a session.</li>
+      <li>Attach temporary offices, powers, teams and influence to player avatars.</li>
+      <li>Allow late joining and graceful player removal without restarting.</li>
+    </ul>
+    <p>Do not create daily drinking streaks or permanent consumption leaderboards. Progression should reward game variety, hosting and fun—not alcohol frequency.</p>
+
+    <h2>8. Make customization genuinely powerful</h2>
+    <h3>Private custom cards</h3>
+    <p>Players should be able to create, edit, reorder, disable and test custom cards stored only on their device. This is faster and more useful than the current email-only contribution flow.</p>
+
+    <h3>Community packs</h3>
+    <p>A later release could share packs through a short code or QR code. Public community content must include filtering, reporting, moderation, age controls and published contact information.</p>
+
+    <h3>Prompt metadata</h3>
+    <ul>
+      <li>Card type, tone and intensity.</li>
+      <li>Minimum and maximum player count.</li>
+      <li>Number of targeted players.</li>
+      <li>Venue suitability and required props.</li>
+      <li>Physical-contact and sensitive-topic flags.</li>
+      <li>Estimated duration, cooldown and follow-up card identifiers.</li>
+      <li>Language, human-review status and translation completeness.</li>
+    </ul>
+
+    <h2>9. Safety as product quality</h2>
+    <p>Responsible design expands the audience, improves trust and protects store eligibility. Apple’s guidelines prohibit apps that encourage excessive alcohol consumption; a disclaimer alone is insufficient.</p>
+    <ul>
+      <li>Confirm legal age appropriate to the player’s region.</li>
+      <li>Let the group choose sips, points, water or dares as the consequence system.</li>
+      <li>Never require shots, chugging or fixed quantities of alcohol.</li>
+      <li>Provide a clearly visible, no-penalty skip control.</li>
+      <li>Collect consent and physical-contact boundaries during setup.</li>
+      <li>Insert occasional water, food and pause cards.</li>
+      <li>Display a “do not drink and drive” reminder at the end.</li>
+      <li>Remove dangerous, illegal, humiliating or coercive challenges.</li>
+      <li>Allow any player to privately disable spicy, personal or physical content.</li>
+      <li>Never punish someone for declining a card.</li>
+    </ul>
+
+    <h2>10. Moment-to-moment polish</h2>
+    <ul>
+      <li>Haptic feedback for votes, reveals, elections and major events.</li>
+      <li>Short optional sounds for scandals, victories and repealed Laws.</li>
+      <li>Category-specific card entrances and restrained celebratory animation.</li>
+      <li>Visible progress through the current act and estimated time remaining.</li>
+      <li>A pause screen showing active Laws, roles and session settings.</li>
+      <li>First-session gesture hints for tapping backward and forward.</li>
+      <li>Keep the display awake during a live session.</li>
+      <li>Sound, haptics, large-text and reduced-motion settings.</li>
+      <li>Landscape or tabletop display mode.</li>
+      <li>Resume an interrupted game and restart using the most recent group.</li>
+      <li>No advertisements or paywall interruptions during active play.</li>
+    </ul>
+
+    <h2>11. A rewarding Game Over experience</h2>
+    <p>Reaching the end should produce a payoff and an immediate reason to play again.</p>
+    <ul>
+      <li>Winner or elected Supreme Leader.</li>
+      <li>Most targeted player and most election victories.</li>
+      <li>Longest-surviving Law and most Laws passed.</li>
+      <li>Biggest scandal and most frequently nominated player.</li>
+      <li>Successful group challenges and coalition history.</li>
+      <li>A generated name for the group’s government.</li>
+      <li>Rematch with the same settings or save the current mix as a preset.</li>
+      <li>An optional shareable graphic containing nicknames and harmless statistics only.</li>
+    </ul>
+
+    <h2>12. Content and live-operations strategy</h2>
+    <ul>
+      <li>Fresh monthly prompt drops and visible pack versioning.</li>
+      <li>Seasonal packs for Halloween, Christmas, festivals, Eurovision and graduation.</li>
+      <li>Irish Night and regional culture packs.</li>
+      <li>Birthday, hen/stag, housewarming and university packs.</li>
+      <li>Human-reviewed Irish, Polish and Spanish prompt translations.</li>
+      <li>Post-game thumbs-up/down feedback rather than mid-game interruptions.</li>
+      <li>“Never show this card again” and session-level skip reasons.</li>
+      <li>Duplicate and near-duplicate detection in the content pipeline.</li>
+      <li>Use skip and dislike rates to prioritize editorial improvements.</li>
+    </ul>
+    <p>The quality target should be strong setup, fairness and callbacks—not an inflated prompt-count claim.</p>
+
+    <h2>13. Trustworthy monetization</h2>
+    <ul>
+      <li>Keep a complete, replayable Democracy experience free.</li>
+      <li>Sell optional themed packs or an honest one-time complete-pack unlock.</li>
+      <li>Add a seasonal membership only when the release cadence genuinely supports it.</li>
+      <li>Avoid weekly-trial dark patterns and clearly explain renewal terms.</li>
+      <li>Do not display advertisements between cards.</li>
+      <li>Clearly state what remains available after cancellation.</li>
+      <li>Ensure purchased packs remain playable offline.</li>
+    </ul>
+
+    <h2 class="page-break">Prioritized delivery roadmap</h2>
+    <table>
+      <thead><tr><th>Priority</th><th>Release objective</th><th>Deliverables</th><th>Why it matters</th></tr></thead>
+      <tbody>
+        <tr><td><span class="priority p0">P0</span></td><td>Strengthen every current session</td><td>Duration, intensity and boundary settings; active Laws tray; fair-targeting director; mocktail consequences; skip controls; recap; save mixes; haptics; screen wake lock.</td><td>Improves quality and safety without requiring networking or a new platform.</td></tr>
+        <tr><td><span class="priority p1">P1</span></td><td>Create the defensible game identity</td><td>Campaign structure; elections; offices; influence; coalitions; Filibuster; secret missions; pass-the-phone ballots; touchscreen minigames; private custom-card editor.</td><td>Transforms the product from a prompt deck into Drinking Democracy.</td></tr>
+        <tr><td><span class="priority p2">P2</span></td><td>Become a connected party platform</td><td>Room codes; QR joining; private multi-device voting; remote play; television display; moderated community packs; seasonal events; localization pipeline; cosmetic avatar unlocks.</td><td>Raises retention and breadth after the core loop has proven itself.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Recommended success metrics</h3>
+    <ul>
+      <li>Median time from launch to first card under fifteen seconds.</li>
+      <li>Session completion and rematch rates by selected duration.</li>
+      <li>Thirty-day “next party” return rate rather than daily-use pressure.</li>
+      <li>Per-card skip, dislike and report rates.</li>
+      <li>Fairness variance: how evenly players are targeted in each session.</li>
+      <li>Percentage of sessions using Laws, custom mixes and the finale.</li>
+      <li>Crash-free sessions and successful offline starts.</li>
+    </ul>
+
+    <div class="signature"><strong>The single most important decision:</strong> turn persistent Laws, elections and political chaos into the core loop. Competitors can add more prompts; they cannot easily copy a coherent identity, progression system and content engine built around democracy.</div>
+
+    <h2>Market and policy references</h2>
+    <ol class="sources">
+      <li>Picolo drinking game, Google Play: <a href="https://play.google.com/store/apps/details?id=com.picolo.android">https://play.google.com/store/apps/details?id=com.picolo.android</a></li>
+      <li>Picolo · Party game, Apple App Store: <a href="https://apps.apple.com/gb/app/picolo-party-game/id1001473964">https://apps.apple.com/gb/app/picolo-party-game/id1001473964</a></li>
+      <li>Drinkin’ — Drinking games, Google Play: <a href="https://play.google.com/store/apps/details?id=com.ultimatepartyapp.drinkinggameflat">https://play.google.com/store/apps/details?id=com.ultimatepartyapp.drinkinggameflat</a></li>
+      <li>Exposed — Play with friends, Google Play: <a href="https://play.google.com/store/apps/details?id=com.Vysgames.Exposed">https://play.google.com/store/apps/details?id=com.Vysgames.Exposed</a></li>
+      <li>Nightly: Party Games, Apple App Store: <a href="https://apps.apple.com/us/app/nightly-party-games/id6745452775">https://apps.apple.com/us/app/nightly-party-games/id6745452775</a></li>
+      <li>Duckz Party &amp; Drinking Games, Google Play: <a href="https://play.google.com/store/apps/details?id=com.goduckz.duckz">https://play.google.com/store/apps/details?id=com.goduckz.duckz</a></li>
+      <li>Ultimate Drinking Game, Google Play: <a href="https://play.google.com/store/apps/details?id=com.digitallytailored.ultimatedrinkinggame">https://play.google.com/store/apps/details?id=com.digitallytailored.ultimatedrinkinggame</a></li>
+      <li>Apple App Review Guidelines, especially sections 1.2 and 1.4.3: <a href="https://developer.apple.com/app-store/review/guidelines/">https://developer.apple.com/app-store/review/guidelines/</a></li>
+    </ol>
+
+    <div class="footer-note">This roadmap is a product-development reference, not an instruction to encourage alcohol consumption. Every mode should remain playable with non-alcoholic consequences and should respect consent, accessibility, local law and app-store policy.</div>
+  </main>
+</body>
+</html>

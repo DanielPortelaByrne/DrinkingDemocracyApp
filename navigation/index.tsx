@@ -10,8 +10,7 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { ColorSchemeName, Text } from "react-native";
-import ModalScreen from "../screens/ModalScreen";
+import { ColorSchemeName } from "react-native";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import TabOneScreen from "../screens/TabOneScreen";
 import GameOneScreen from "../screens/GameOneScreen";
@@ -21,15 +20,7 @@ import PromptSubmitScreen from "../screens/PromptSubmitScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
-
-interface TextWithDefaultProps extends Text {
-  defaultProps?: { allowFontScaling?: boolean };
-}
-
-(Text as unknown as TextWithDefaultProps).defaultProps =
-  (Text as unknown as TextWithDefaultProps).defaultProps || {};
-(Text as unknown as TextWithDefaultProps).defaultProps!.allowFontScaling =
-  false;
+import { DEFAULT_LANGUAGE } from "../constants/Languages";
 
 export default function Navigation({
   colorScheme,
@@ -65,7 +56,7 @@ function RootNavigator() {
         component={TabTwoScreen}
         options={{ headerShown: false }}
         initialParams={{
-          language: "", // Set the initial value of language here
+          language: DEFAULT_LANGUAGE,
         }}
       />
       <Stack.Screen
@@ -82,6 +73,7 @@ function RootNavigator() {
         name="PersonalisedGame"
         component={PersonalisedGameScreen}
         options={{ headerShown: false }}
+        initialParams={{ language: DEFAULT_LANGUAGE }}
       />
       <Stack.Screen
         name="GameOver"
@@ -93,9 +85,6 @@ function RootNavigator() {
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
       />
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
     </Stack.Navigator>
   );
 }

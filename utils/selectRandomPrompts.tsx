@@ -1,219 +1,194 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  GAME_MODE_PACKS,
+  PLAYED_PROMPT_KEYS,
+  Prompt,
+  PromptPackName,
+  StandardGameMode,
+} from "./promptTypes";
+import { PROMPT_PACK_STORAGE_KEYS, isPromptArray } from "./storePrompts";
 
-const selectRandomPrompts = async () => {
-  const playedPrinks = await retrievePrinksPlayed();
-  const playedCrazy = await retrieveCrazyPlayed();
-  const playedFlirty = await retrieveFlirtyPlayed();
-  const prompts = await retrievePrompts();
-  const crazy = await retrieveCrazy();
-  const flirty = await retrieveFlirty();
-  const virus = await retrieveVirus();
-  const virusend = await retrieveVirusEnd();
+const STANDARD_GAME_MODES = Object.keys(
+  GAME_MODE_PACKS
+) as StandardGameMode[];
+const SESSION_PROMPT_COUNT = 30;
+const SESSION_VIRUS_PAIR_COUNT = 4;
+const MIN_VIRUS_DISTANCE = 5;
 
-  const indices = [];
-  for (let i = 0; i < virus.length; i++) {
-    if (i % 2 === 0) {
-      indices.push(i);
+export type PersonalisedPack = Exclude<
+  PromptPackName,
+  "virus" | "virusend"
+>;
+
+export const shuffle = <T,>(items: readonly T[], random = Math.random): T[] => {
+  const shuffled = [...items];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [
+      shuffled[swapIndex],
+      shuffled[index],
+    ];
+  }
+  return shuffled;
+};
+
+const promptIdentity = (prompt: Prompt) =>
+  `${prompt.category.trim()}::${prompt.text.trim()}`;
+
+export const getUnplayedPrompts = (
+  prompts: readonly Prompt[],
+  playedPrompts: readonly Prompt[],
+  sessionSize = SESSION_PROMPT_COUNT
+) => {
+  const played = new Set(playedPrompts.map(promptIdentity));
+  const remaining = prompts.filter((prompt) => !played.has(promptIdentity(prompt)));
+  const minimumSessionSize = Math.min(sessionSize, prompts.length);
+
+  return {
+    prompts: remaining.length < minimumSessionSize ? [...prompts] : remaining,
+    resetHistory: remaining.length < minimumSessionSize,
+  };
+};
+
+const virusPairId = (prompt: Prompt) => prompt.id?.slice(0, -1);
+
+export const prepareGameSession = (
+  basePrompts: readonly Prompt[],
+  virusPrompts: readonly Prompt[],
+  virusEndPrompts: readonly Prompt[],
+  random = Math.random
+) => {
+  const session = shuffle(basePrompts, random).slice(0, SESSION_PROMPT_COUNT);
+  const endsById = new Map(
+    virusEndPrompts
+      .filter((prompt) => prompt.id)
+      .map((prompt) => [virusPairId(prompt), prompt])
+  );
+  const availablePairs = virusPrompts
+    .map((start, index) => ({
+      start,
+      end: endsById.get(virusPairId(start)) ?? virusEndPrompts[index],
+    }))
+    .filter((pair): pair is { start: Prompt; end: Prompt } => Boolean(pair.end));
+
+  const selectedPairs = shuffle(availablePairs, random).slice(
+    0,
+    SESSION_VIRUS_PAIR_COUNT
+  );
+
+  selectedPairs.forEach(({ start, end }) => {
+    const latestStartIndex = Math.max(0, session.length - MIN_VIRUS_DISTANCE);
+    const startIndex = Math.floor(random() * (latestStartIndex + 1));
+    session.splice(startIndex, 0, { ...start });
+
+    const firstEndIndex = Math.min(
+      session.length,
+      startIndex + MIN_VIRUS_DISTANCE + 1
+    );
+    const endIndex =
+      firstEndIndex +
+      Math.floor(random() * (session.length - firstEndIndex + 1));
+    session.splice(endIndex, 0, { ...end });
+  });
+
+  return session;
+};
+
+const parsePromptArray = (value: string | null) => {
+  if (!value) return [];
+  try {
+    const parsed: unknown = JSON.parse(value);
+    return isPromptArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+};
+
+const loadStoredPromptData = async () => {
+  const keys = [
+    ...Object.values(PROMPT_PACK_STORAGE_KEYS),
+    ...Object.values(PLAYED_PROMPT_KEYS),
+  ];
+  const stored = Object.fromEntries(await AsyncStorage.multiGet(keys));
+
+  return {
+    packs: Object.fromEntries(
+      Object.entries(PROMPT_PACK_STORAGE_KEYS).map(([pack, key]) => [
+        pack,
+        parsePromptArray(stored[key]),
+      ])
+    ) as Record<PromptPackName, Prompt[]>,
+    played: Object.fromEntries(
+      Object.entries(PLAYED_PROMPT_KEYS).map(([mode, key]) => [
+        mode,
+        parsePromptArray(stored[key]),
+      ])
+    ) as Record<keyof typeof PLAYED_PROMPT_KEYS, Prompt[]>,
+  };
+};
+
+export const selectRandomPrompts = async () => {
+  const { packs, played } = await loadStoredPromptData();
+  if (!packs.prompts.length || !packs.crazy.length || !packs.flirty.length) {
+    throw new Error("Prompt packs have not been loaded");
+  }
+
+  const writes: [string, string][] = [];
+  const historiesToReset: string[] = [];
+
+  STANDARD_GAME_MODES.forEach((mode) => {
+    const sourcePack = packs[GAME_MODE_PACKS[mode]];
+    const eligible = getUnplayedPrompts(sourcePack, played[mode]);
+    const session = prepareGameSession(
+      eligible.prompts,
+      packs.virus,
+      packs.virusend
+    );
+
+    writes.push([mode, JSON.stringify(session)]);
+    if (eligible.resetHistory) {
+      historiesToReset.push(PLAYED_PROMPT_KEYS[mode]);
     }
-  }
-  indices.sort(() => Math.random() - 0.5);
-
-  const shuffledVirus = [];
-  const shuffledVirusEnd = [];
-  for (let i = 0; i < indices.length; i++) {
-    if (indices[i] + 1 < virus.length) {
-      shuffledVirus.push(virus[indices[i]]);
-      shuffledVirusEnd.push(virusend[indices[i]]);
-      shuffledVirus.push(virus[indices[i] + 1]);
-      shuffledVirusEnd.push(virusend[indices[i] + 1]);
-    }
-  }
-  console.log("Retrieved played prompts: ");
-  for (let i = 0; i < playedPrinks.length; i++) {
-    console.log("[" + (i + 1) + "] " + playedPrinks[i].text);
-  }
-
-  // Filter out already played prompts
-  interface Prompt {
-    text: string;
-    category: string;
-  }
-  const filteredPrompts = prompts.filter((prompt: Prompt) => {
-    return !playedPrinks.some(
-      (playedPrompt: Prompt) => playedPrompt.text === prompt.text
-    );
   });
-  const promptsString = JSON.stringify(filteredPrompts);
-  await AsyncStorage.setItem("prompts", promptsString);
-  console.log("Prinks count after: " + filteredPrompts.length);
 
-  const filteredCrazy = crazy.filter((crazy: Prompt) => {
-    return !playedCrazy.some(
-      (playedPrompt: Prompt) => playedPrompt.text === crazy.text
-    );
-  });
-  const crazyString = JSON.stringify(filteredCrazy);
-  await AsyncStorage.setItem("crazy", crazyString);
-  console.log("Crazy count after: " + filteredCrazy.length);
-
-  const filteredFlirty = flirty.filter((flirty: Prompt) => {
-    return !playedFlirty.some(
-      (playedPrompt: Prompt) => playedPrompt.text === flirty.text
-    );
-  });
-  const flirtyString = JSON.stringify(filteredFlirty);
-  await AsyncStorage.setItem("flirty", flirtyString);
-  console.log("Flirty count after: " + filteredFlirty.length);
-
-  // If there are no new prompts to select, reset the played prompts array
-  if (filteredPrompts.length === 0 || filteredPrompts.length <= 30) {
-    await AsyncStorage.removeItem("playedPrinksPrompts");
-    console.log(
-      "No more new unique prompts left to choose from, removing prompts history from async and starting fresh"
-    );
+  await AsyncStorage.multiSet(writes);
+  if (historiesToReset.length) {
+    await AsyncStorage.multiRemove(historiesToReset);
   }
-  if (filteredCrazy.length === 0 || filteredCrazy.length <= 30) {
-    await AsyncStorage.removeItem("playedCrazyPrompts");
-    console.log(
-      "No more new unique prompts left to choose from, removing prompts history from async and starting fresh"
-    );
-  }
-  if (filteredFlirty.length === 0 || filteredFlirty.length <= 30) {
-    await AsyncStorage.removeItem("playedFlirtyPrompts");
-    console.log(
-      "No more new unique prompts left to choose from, removing prompts history from async and starting fresh"
-    );
+};
+
+export const selectPersonalisedPrompts = async (
+  selectedPacks: readonly PersonalisedPack[]
+) => {
+  if (!selectedPacks.length) {
+    throw new Error("At least one prompt pack must be selected");
   }
 
-  // Shuffle the filtered arrays
-  filteredPrompts.sort(() => Math.random() - 0.5);
-  filteredCrazy.sort(() => Math.random() - 0.5);
-  filteredFlirty.sort(() => Math.random() - 0.5);
-
-  // Select the first 30 prompts from the shuffled array
-  const selectedPrompts = filteredPrompts.slice(0, 30);
-  const selectedCrazyPrompts = filteredCrazy.slice(0, 30);
-  const selectedFlirtyPrompts = filteredFlirty.slice(0, 30);
-  const selectedVirusPrompts = shuffledVirus.slice(0, 4);
-  const selectedVirusEndPrompts = shuffledVirusEnd.slice(0, 4);
-
-  // Keep track of where virus prompts are inserted
-  let virusStartPositions = new Set();
-  let virusEndPositions = new Set();
-
-  for (let i = 0; i < selectedVirusPrompts.length; i++) {
-    const randomPosition = Math.floor(Math.random() * selectedPrompts.length);
-    selectedPrompts.splice(randomPosition, 0, selectedVirusPrompts[i]);
-    selectedCrazyPrompts.splice(randomPosition, 0, selectedVirusPrompts[i]);
-    selectedFlirtyPrompts.splice(randomPosition, 0, selectedVirusPrompts[i]);
-
-    const virusEndInsertionIndex =
-      5 +
-      Math.floor(
-        Math.random() * (selectedPrompts.length - (randomPosition + 1))
-      );
-    const virusEndPosition = randomPosition + virusEndInsertionIndex + 1;
-    selectedPrompts.splice(virusEndPosition, 0, selectedVirusEndPrompts[i]);
-    selectedCrazyPrompts.splice(
-      virusEndPosition,
-      0,
-      selectedVirusEndPrompts[i]
-    );
-    selectedFlirtyPrompts.splice(
-      virusEndPosition,
-      0,
-      selectedVirusEndPrompts[i]
-    );
-  }
-  // console.log("Prink Game Prompts: " + JSON.stringify(selectedPrompts));
-  await AsyncStorage.setItem(
-    "prinkGamePrompts",
-    JSON.stringify(selectedPrompts)
+  const { packs, played } = await loadStoredPromptData();
+  const uniquePrompts = Array.from(
+    new Map(
+      selectedPacks
+        .flatMap((pack) => packs[pack])
+        .map((prompt) => [promptIdentity(prompt), prompt])
+    ).values()
   );
-  // console.log("Crazy Game Prompts: " + JSON.stringify(selectedCrazyPrompts));
-  await AsyncStorage.setItem(
-    "crazyGamePrompts",
-    JSON.stringify(selectedCrazyPrompts)
+  const eligible = getUnplayedPrompts(
+    uniquePrompts,
+    played.personalisedGamePrompts
   );
-  // console.log("Flirty Game Prompts: " + JSON.stringify(selectedFlirtyPrompts));
-  await AsyncStorage.setItem(
-    "flirtyGamePrompts",
-    JSON.stringify(selectedFlirtyPrompts)
+  const session = prepareGameSession(
+    eligible.prompts,
+    packs.virus,
+    packs.virusend
   );
 
-  return { virusStartPositions, virusEndPositions };
+  await AsyncStorage.setItem(
+    "personalisedGamePrompts",
+    JSON.stringify(session)
+  );
+  if (eligible.resetHistory) {
+    await AsyncStorage.removeItem(
+      PLAYED_PROMPT_KEYS.personalisedGamePrompts
+    );
+  }
 };
-
-const retrievePrompts = async () => {
-  // Get the prompts from async storage
-  const promptsString = await AsyncStorage.getItem("promptsPack");
-  // Parse the string into an array of prompts
-  const prompts = promptsString ? JSON.parse(promptsString) : [];
-  // Return the array of prompts
-  return prompts;
-};
-
-const retrieveCrazy = async () => {
-  // Get the prompts from async storage
-  const crazyString = await AsyncStorage.getItem("crazyPack");
-  // Parse the string into an array of prompts
-  const crazy = crazyString ? JSON.parse(crazyString) : [];
-  // Return the array of prompts
-  return crazy;
-};
-
-const retrieveFlirty = async () => {
-  // Get the prompts from async storage
-  const flirtyString = await AsyncStorage.getItem("flirtyPack");
-  // Parse the string into an array of prompts
-  const flirty = flirtyString ? JSON.parse(flirtyString) : [];
-  // Return the array of prompts
-  return flirty;
-};
-
-const retrieveVirus = async () => {
-  // Get the prompts from async storage
-  const virusString = await AsyncStorage.getItem("virusPack");
-  // Parse the string into an array of promptsp
-  const virus = virusString ? JSON.parse(virusString) : [];
-  // Return the array of prompts
-  return virus;
-};
-
-const retrieveVirusEnd = async () => {
-  // Get the prompts from async storage
-  const virusEndString = await AsyncStorage.getItem("virusendPack");
-  // Parse the string into an array of prompts
-  const virusend = virusEndString ? JSON.parse(virusEndString) : [];
-  // Return the array of prompts
-  return virusend;
-};
-
-const retrievePrinksPlayed = async () => {
-  // Retrieve the array of already played prompts
-  const playedPrinksPrompts = await AsyncStorage.getItem("playedPrinksPrompts");
-  // Parse the string into an array of prompts
-  const played = playedPrinksPrompts ? JSON.parse(playedPrinksPrompts) : [];
-  // Return the array of prompts
-  return played;
-};
-
-const retrieveCrazyPlayed = async () => {
-  // Retrieve the array of already played prompts
-  const playedCrazyPrompts = await AsyncStorage.getItem("playedCrazyPrompts");
-  // Parse the string into an array of prompts
-  const played = playedCrazyPrompts ? JSON.parse(playedCrazyPrompts) : [];
-  // Return the array of prompts
-  return played;
-};
-
-const retrieveFlirtyPlayed = async () => {
-  // Retrieve the array of already played prompts
-  const playedFlirtyPrompts = await AsyncStorage.getItem("playedFlirtyPrompts");
-  // Parse the string into an array of prompts
-  const played = playedFlirtyPrompts ? JSON.parse(playedFlirtyPrompts) : [];
-  // Return the array of prompts
-  return played;
-};
-
-export { selectRandomPrompts };

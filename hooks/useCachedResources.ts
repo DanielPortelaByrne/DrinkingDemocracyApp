@@ -3,6 +3,8 @@ import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
 
+void SplashScreen.preventAutoHideAsync().catch(() => undefined);
+
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
@@ -10,19 +12,18 @@ export default function useCachedResources() {
   useEffect(() => {
     async function loadResourcesAndDataAsync() {
       try {
-        SplashScreen.preventAutoHideAsync();
-
-        // Load fonts
         await Font.loadAsync({
           ...FontAwesome.font,
           'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf'),
+          Konstruktor: require('../assets/fonts/Konstruktor-qZZRq.otf'),
+          Mosh: require('../assets/fonts/Mosherif-1GezZ.ttf'),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
       } finally {
         setLoadingComplete(true);
-        SplashScreen.hideAsync();
+        await SplashScreen.hideAsync();
       }
     }
 

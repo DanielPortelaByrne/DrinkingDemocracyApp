@@ -49,4 +49,10 @@ export interface LanguageData {
   mode1: string;
   mode2: string;
   mode3: string;
+  personalisedGameText: string;
+  personalisedTitle: string;
+  personalisedInstructions: string;
+  personalisedStartText: string;
+  personalisedValidationText: string;
+  contentLoadErrorText: string;
 }

@@ -47,5 +47,11 @@
   "cat6": "VIRUS",
   "mode1": "PRINKS",
   "mode2": "MESSY",
-  "mode3": "FLIRTY"
+  "mode3": "FLIRTY",
+  "personalisedGameText": "MIX YOUR OWN GAME",
+  "personalisedTitle": "MAKE IT YOURS",
+  "personalisedInstructions": "Choose at least one prompt pack for your custom mix.",
+  "personalisedStartText": "START CUSTOM GAME",
+  "personalisedValidationText": "Choose at least one game mode.",
+  "contentLoadErrorText": "Game content could not be prepared. Check your connection and try again."
 }

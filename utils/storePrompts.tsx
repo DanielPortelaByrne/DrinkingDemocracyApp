@@ -1,101 +1,165 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { prompts } from "../prompts";
-import { flirty } from "../flirty";
+import { AppLanguage, hasNativePromptContent } from "../constants/Languages";
 import { crazy } from "../crazy";
+import { flirty } from "../flirty";
+import { prompts } from "../prompts";
 import { virus } from "../virus";
 import { virusend } from "../virusend";
+import {
+  PROMPT_PACK_NAMES,
+  Prompt,
+  PromptPackName,
+} from "./promptTypes";
 
-// Store the prompts in async storage
-export const storePrompts = async (language: string) => {
+const REMOTE_CONTENT_BASE =
+  "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON";
+const CONTENT_LANGUAGE_KEY = "promptContentLanguage";
+const FETCH_TIMEOUT_MS = 8_000;
+
+export const PROMPT_PACK_STORAGE_KEYS: Record<PromptPackName, string> = {
+  prompts: "promptsPack",
+  crazy: "crazyPack",
+  flirty: "flirtyPack",
+  virus: "virusPack",
+  virusend: "virusendPack",
+};
+
+const bundledPacks: Record<PromptPackName, Prompt[]> = {
+  prompts: prompts as Prompt[],
+  crazy: crazy as Prompt[],
+  flirty: flirty as Prompt[],
+  virus: virus as Prompt[],
+  virusend: virusend as Prompt[],
+};
+
+export type PromptLoadResult = {
+  requestedLanguage: AppLanguage;
+  fallbackPacks: PromptPackName[];
+};
+
+export const isPromptArray = (value: unknown): value is Prompt[] =>
+  Array.isArray(value) &&
+  value.length > 0 &&
+  value.every(
+    (prompt) =>
+      typeof prompt === "object" &&
+      prompt !== null &&
+      typeof (prompt as Prompt).text === "string" &&
+      (prompt as Prompt).text.trim().length > 0 &&
+      typeof (prompt as Prompt).category === "string" &&
+      (prompt as Prompt).category.trim().length > 0
+  );
+
+const fetchPromptPack = async (
+  language: AppLanguage,
+  pack: PromptPackName
+): Promise<Prompt[]> => {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
   try {
-    // Convert the prompts array to a JSON string
-    // Save the prompts strings in async storage
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/" +
-          language +
-          "/prompts.json"
-      );
-      const data = await response.json();
-      const promptsString = JSON.stringify(data);
-      await AsyncStorage.setItem("promptsPack", promptsString);
-      console.log("Successfully fetched and stored data: " + promptsString);
-    } catch (error) {
-      console.error(error);
-      console.log("prinks");
-      const promptsString = JSON.stringify(prompts);
-      await AsyncStorage.setItem("promptsPack", promptsString);
+    const response = await fetch(
+      `${REMOTE_CONTENT_BASE}/${language}/${pack}.json`,
+      { signal: controller.signal }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Prompt request failed with ${response.status}`);
     }
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/" +
-          language +
-          "/crazy.json"
-      );
-      const data = await response.json();
-      const crazyString = JSON.stringify(data);
-      await AsyncStorage.setItem("crazyPack", crazyString);
-      console.log("Successfully fetched and stored data: " + crazyString);
-    } catch (error) {
-      console.error(error);
-      const crazyString = JSON.stringify(crazy);
-      await AsyncStorage.setItem("crazyPack", crazyString);
+
+    const data: unknown = await response.json();
+    if (!isPromptArray(data)) {
+      throw new Error(`Prompt pack ${language}/${pack} was empty or invalid`);
     }
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/" +
-          language +
-          "/flirty.json"
-      );
-      const data = await response.json();
-      const flirtyString = JSON.stringify(data);
-      await AsyncStorage.setItem("flirtyPack", flirtyString);
-      console.log("Successfully fetched and stored data: " + flirtyString);
-    } catch (error) {
-      console.error(error);
-      const flirtyString = JSON.stringify(flirty);
-      await AsyncStorage.setItem("flirtyPack", flirtyString);
-    }
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/" +
-          language +
-          "/virus.json"
-      );
-      const data = await response.json();
-      const virusString = JSON.stringify(data);
-      await AsyncStorage.setItem("virusPack", virusString);
-      console.log("Successfully fetched and stored data: " + virusString);
-    } catch (error) {
-      console.error(error);
-      const virusString = JSON.stringify(virus);
-      await AsyncStorage.setItem("virusPack", virusString);
-    }
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/DanielPortelaByrne/DrinkingDemocracyApp/json-data/JSON/" +
-          language +
-          "/virusend.json"
-      );
-      const data = await response.json();
-      const virusEndString = JSON.stringify(data);
-      await AsyncStorage.setItem("virusendPack", virusEndString);
-      console.log("Successfully fetched and stored data: " + virusEndString);
-    } catch (error) {
-      console.error(error);
-      const virusEndString = JSON.stringify(virusend);
-      await AsyncStorage.setItem("virusendPack", virusEndString);
-    }
-  } catch (error) {
-    console.error(error);
+
+    return data;
+  } finally {
+    clearTimeout(timeout);
   }
 };
 
-export const resetPrompts = () => {
-  console.log("Resetting prompts");
-  AsyncStorage.removeItem("playedPrinksPrompts");
-  AsyncStorage.removeItem("playedCrazyPrompts");
-  AsyncStorage.removeItem("playedFlirtyPrompts");
-  AsyncStorage.removeItem("virusPack");
-  AsyncStorage.removeItem("virusendPack");
+const loadPromptPack = async (
+  requestedLanguage: AppLanguage,
+  pack: PromptPackName
+): Promise<{ prompts: Prompt[]; usedFallback: boolean }> => {
+  const candidates: AppLanguage[] = hasNativePromptContent(requestedLanguage)
+    ? requestedLanguage === "English"
+      ? ["English"]
+      : [requestedLanguage, "English"]
+    : ["English"];
+
+  for (const candidate of candidates) {
+    try {
+      return {
+        prompts: await fetchPromptPack(candidate, pack),
+        usedFallback: candidate !== requestedLanguage,
+      };
+    } catch (error) {
+      if (__DEV__) {
+        console.warn(`Unable to load ${candidate}/${pack}`, error);
+      }
+    }
+  }
+
+  return { prompts: bundledPacks[pack], usedFallback: true };
+};
+
+export const storePrompts = async (
+  language: AppLanguage
+): Promise<PromptLoadResult> => {
+  const loadedPacks = await Promise.all(
+    PROMPT_PACK_NAMES.map(async (pack) => ({
+      pack,
+      ...(await loadPromptPack(language, pack)),
+    }))
+  );
+
+  await AsyncStorage.multiSet([
+    ...loadedPacks.map(({ pack, prompts: loadedPrompts }) => [
+      PROMPT_PACK_STORAGE_KEYS[pack],
+      JSON.stringify(loadedPrompts),
+    ] as [string, string]),
+    [CONTENT_LANGUAGE_KEY, language],
+  ]);
+
+  return {
+    requestedLanguage: language,
+    fallbackPacks: loadedPacks
+      .filter(({ usedFallback }) => usedFallback)
+      .map(({ pack }) => pack),
+  };
+};
+
+export const ensurePromptPacks = async (language: AppLanguage) => {
+  const storedValues = await AsyncStorage.multiGet([
+    CONTENT_LANGUAGE_KEY,
+    ...PROMPT_PACK_NAMES.map((pack) => PROMPT_PACK_STORAGE_KEYS[pack]),
+  ]);
+  const storedMap = Object.fromEntries(storedValues);
+
+  const cacheIsValid =
+    storedMap[CONTENT_LANGUAGE_KEY] === language &&
+    PROMPT_PACK_NAMES.every((pack) => {
+      const value = storedMap[PROMPT_PACK_STORAGE_KEYS[pack]];
+      if (!value) return false;
+
+      try {
+        return isPromptArray(JSON.parse(value));
+      } catch {
+        return false;
+      }
+    });
+
+  return cacheIsValid
+    ? { requestedLanguage: language, fallbackPacks: [] }
+    : storePrompts(language);
+};
+
+export const resetPromptHistory = async () => {
+  await AsyncStorage.multiRemove([
+    "playedPrinksPrompts",
+    "playedCrazyPrompts",
+    "playedFlirtyPrompts",
+    "playedPersonalisedPrompts",
+  ]);
 };

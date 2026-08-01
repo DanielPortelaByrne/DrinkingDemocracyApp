@@ -1,154 +1,177 @@
+import { Ionicons } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  ScrollView,
+  ActivityIndicator,
   Image,
-  TouchableOpacity,
-  ToastAndroid,
-  StyleProp,
   ImageStyle,
+  ScrollView,
+  StyleProp,
   TextStyle,
+  TouchableOpacity,
   ViewStyle,
 } from "react-native";
 import { screen1Styles } from "../assets/styles/styles";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Ionicons } from "@expo/vector-icons";
-
-import { Text, View } from "../components/Themed";
-import { RootTabScreenProps } from "../types";
-import { getNames } from "../components/nameStore";
-import { useFonts } from "expo-font";
 import { NameInput } from "../components/NameInput";
-import { resetPrompts, storePrompts } from "../utils/storePrompts";
-import { useLanguage } from "../utils/language/useLanguage";
-var language = "English";
+import { getNames } from "../components/nameStore";
+import { Text, View } from "../components/Themed";
+import {
+  AppLanguage,
+  DEFAULT_LANGUAGE,
+} from "../constants/Languages";
+import { RootTabScreenProps } from "../types";
+import {
+  loadLanguagePreference,
+  saveLanguagePreference,
+} from "../utils/language/languagePreferences";
+import {
+  getLanguageData,
+  useLanguage,
+} from "../utils/language/useLanguage";
+import { showMessage } from "../utils/showMessage";
+import {
+  ensurePromptPacks,
+  resetPromptHistory,
+  storePrompts,
+} from "../utils/storePrompts";
+
+const languageOptions: {
+  language: AppLanguage;
+  image: number;
+  accessibilityLabel: string;
+}[] = [
+  {
+    language: "English",
+    image: require("../assets/images/flags/uk.png"),
+    accessibilityLabel: "Use English",
+  },
+  {
+    language: "Irish",
+    image: require("../assets/images/flags/ireland.png"),
+    accessibilityLabel: "Úsáid Gaeilge",
+  },
+  {
+    language: "Polish",
+    image: require("../assets/images/flags/poland.png"),
+    accessibilityLabel: "Użyj polskiego",
+  },
+  {
+    language: "Spanish",
+    image: require("../assets/images/flags/spain.png"),
+    accessibilityLabel: "Usar español",
+  },
+];
 
 export default function TabOneScreen({
   navigation,
 }: RootTabScreenProps<"TabOne">) {
-  const [fontsLoaded] = useFonts({
-    Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
-  });
+  const [language, setLanguage] = useState<AppLanguage>(DEFAULT_LANGUAGE);
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [isPreparing, setIsPreparing] = useState(true);
+  const [imageSource, setImageSource] = useState(
+    require("../assets/images/transparent_logo_glow_new_2.png")
+  );
+  const scrollViewRef = useRef<ScrollView>(null);
+  const { subTitle: subtitle, toast, player, contentLoadErrorText } =
+    useLanguage(language);
 
-  const { subtitle, toast, player, setLanguage } = useLanguage();
+  const glowDefault = require("../assets/images/transparent_logo_glow_new_2.png");
+  const glowPressed = require("../assets/images/transparent_logo_glow_new_5.png");
 
-  const glow1 = require("../assets/images/transparent_logo_glow_new_2.png");
-  const glow2 = require("../assets/images/transparent_logo_glow_new_5.png");
-
-  // Store the prompts in async storage when the component is mounted
   useEffect(() => {
-    resetPrompts();
-    storePrompts("English");
-    Promise.all([Image.prefetch(glow1.uri), Image.prefetch(glow2.uri)])
-      .then(() => {
-        setImageSource(glow1);
-      })
-      .catch((error) => {
-        console.log("Error preloading image", error);
-      });
+    let isActive = true;
+
+    const prepareInitialContent = async () => {
+      try {
+        const savedLanguage = await loadLanguagePreference();
+        if (isActive) setLanguage(savedLanguage);
+        await ensurePromptPacks(savedLanguage);
+      } catch (error) {
+        console.error("Unable to prepare game content", error);
+        if (isActive) {
+          showMessage(getLanguageData(DEFAULT_LANGUAGE).contentLoadErrorText);
+        }
+      } finally {
+        if (isActive) setIsPreparing(false);
+      }
+    };
+
+    void prepareInitialContent();
+    return () => {
+      isActive = false;
+    };
   }, []);
 
-  const handlePressIn = () => {
-    setImageSource(glow2);
+  const selectLanguage = async (nextLanguage: AppLanguage) => {
+    setDropdownVisible(false);
+    if (nextLanguage === language) return;
+
+    setIsPreparing(true);
+    setLanguage(nextLanguage);
+    try {
+      await Promise.all([
+        saveLanguagePreference(nextLanguage),
+        resetPromptHistory(),
+      ]);
+      await storePrompts(nextLanguage);
+    } catch (error) {
+      console.error("Unable to change language", error);
+      showMessage(getLanguageData(nextLanguage).contentLoadErrorText);
+    } finally {
+      setIsPreparing(false);
+    }
   };
-  const handlePressOut = () => {
-    setImageSource(glow1);
+
+  const startGame = async () => {
+    const validNames = getNames().filter(Boolean);
+    if (validNames.length < 2) {
+      showMessage(toast);
+      return;
+    }
+
+    setIsPreparing(true);
+    try {
+      await ensurePromptPacks(language);
+      navigation.navigate("TabTwo", { language });
+    } catch (error) {
+      console.error("Unable to start game", error);
+      showMessage(contentLoadErrorText);
+    } finally {
+      setIsPreparing(false);
+    }
   };
-
-  const [imageSource, setImageSource] = useState(glow1);
-
-  const scrollViewRef = useRef<ScrollView>(null);
-
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const handleDropdownToggle = () => {
-    setDropdownVisible(!isDropdownVisible);
-  };
-
-  if (!fontsLoaded) {
-    return undefined;
-  }
 
   return (
     <View style={screen1Styles.container as StyleProp<ImageStyle>}>
       <View style={screen1Styles.innerContainer as StyleProp<ImageStyle>}>
-        <TouchableOpacity onPress={handleDropdownToggle}>
+        <TouchableOpacity
+          accessibilityLabel="Choose language"
+          disabled={isPreparing}
+          onPress={() => setDropdownVisible((visible) => !visible)}
+        >
           <Ionicons name="language" size={32} color="#ed1e26" />
         </TouchableOpacity>
         {isDropdownVisible && (
           <View style={screen1Styles.dropdownContainer as StyleProp<ViewStyle>}>
-            <TouchableOpacity
-              style={screen1Styles.flagButton}
-              onPress={() => {
-                setDropdownVisible(false);
-                language = "English";
-                resetPrompts();
-                AsyncStorage.setItem("language", language);
-                storePrompts(language);
-                setLanguage(language);
-                console.log("Language set to: " + language);
-              }}
-            >
-              <Image
-                style={screen1Styles.flagImage}
-                source={require("../assets/images/flags/uk.png")}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={screen1Styles.flagButton}
-              onPress={() => {
-                setDropdownVisible(false);
-                language = "Irish";
-                AsyncStorage.setItem("language", language);
-                resetPrompts();
-                storePrompts(language);
-                setLanguage(language);
-                console.log("Language set to: " + language);
-              }}
-            >
-              <Image
-                style={screen1Styles.flagImage}
-                source={require("../assets/images/flags/ireland.png")}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={screen1Styles.flagButton}
-              onPress={() => {
-                setDropdownVisible(false);
-                language = "Polish";
-                AsyncStorage.setItem("language", language);
-                resetPrompts();
-                storePrompts(language);
-                setLanguage(language);
-                console.log("Language set to: " + language);
-              }}
-            >
-              <Image
-                style={screen1Styles.flagImage}
-                source={require("../assets/images/flags/poland.png")}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={screen1Styles.flagButton}
-              onPress={() => {
-                setDropdownVisible(false);
-                language = "Spanish";
-                AsyncStorage.setItem("language", language);
-                resetPrompts();
-                storePrompts(language);
-                setLanguage(language);
-                console.log("Language set to: " + language);
-              }}
-            >
-              <Image
-                style={screen1Styles.flagImage}
-                source={require("../assets/images/flags/spain.png")}
-              />
-            </TouchableOpacity>
+            {languageOptions.map((option) => (
+              <TouchableOpacity
+                accessibilityLabel={option.accessibilityLabel}
+                key={option.language}
+                onPress={() => void selectLanguage(option.language)}
+                style={screen1Styles.flagButton}
+              >
+                <Image
+                  source={option.image}
+                  style={screen1Styles.flagImage}
+                />
+              </TouchableOpacity>
+            ))}
           </View>
         )}
       </View>
+
       <Image
-        style={screen1Styles.logo as StyleProp<ImageStyle>}
         source={require("../assets/images/title_logo.png")}
+        style={screen1Styles.logo as StyleProp<ImageStyle>}
       />
       <Image
         source={require("../assets/images/halo.png")}
@@ -160,11 +183,11 @@ export default function TabOneScreen({
         }
       >
         <ScrollView
-          ref={scrollViewRef}
-          keyboardShouldPersistTaps="handled"
           contentContainerStyle={
             screen1Styles.scrollViewContentContainer as StyleProp<ViewStyle>
           }
+          keyboardShouldPersistTaps="handled"
+          ref={scrollViewRef}
         >
           <View
             style={screen1Styles.subtitleTextContainer as StyleProp<ViewStyle>}
@@ -177,19 +200,14 @@ export default function TabOneScreen({
         </ScrollView>
       </View>
 
+      {isPreparing && <ActivityIndicator color="#ed1e26" size="large" />}
       <TouchableOpacity
+        accessibilityLabel="Continue to game selection"
+        disabled={isPreparing}
+        onPress={() => void startGame()}
+        onPressIn={() => setImageSource(glowPressed)}
+        onPressOut={() => setImageSource(glowDefault)}
         style={screen1Styles.imageButton as StyleProp<ViewStyle>}
-        onPress={() => {
-          if (getNames().length > 1 && getNames()[0].length > 0) {
-            navigation.navigate("TabTwo", {
-              language: language,
-            });
-          } else {
-            ToastAndroid.show(toast, ToastAndroid.SHORT);
-          }
-        }}
-        onPressIn={handlePressIn}
-        onPressOut={handlePressOut}
       >
         <Image
           source={imageSource}

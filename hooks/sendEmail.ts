@@ -1,4 +1,3 @@
-import qs from "qs";
 import { Linking } from "react-native";
 
 interface EmailOptions {
@@ -17,27 +16,19 @@ export async function sendEmail(
   let url = `mailto:${to}`;
 
   // Create email link query
-  const query = qs.stringify({
-    subject: subject,
-    body: body,
-    cc: cc,
-    bcc: bcc,
-  });
+  const query = Object.entries({ subject, body, cc, bcc })
+    .filter((entry): entry is [string, string] => Boolean(entry[1]))
+    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+    .join("&");
 
   if (query.length) {
     url += `?${query}`;
   }
 
-  // check if we can use this link
-  // const canOpen = await Linking.canOpenURL(url);
-
-  // if (!canOpen) {
-  //   throw new Error("Provided URL can not be handled");
-  // }
-
-  try {
-    return Linking.openURL(url);
-  } catch {
+  const canOpen = await Linking.canOpenURL(url);
+  if (!canOpen) {
     throw new Error("Provided URL can not be handled");
   }
+
+  await Linking.openURL(url);
 }

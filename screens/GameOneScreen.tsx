@@ -1,45 +1,67 @@
+import { MaterialIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  TextInput,
-  View,
-  TouchableOpacity,
-  Dimensions,
   Alert,
-  ToastAndroid,
   Animated,
+  Dimensions,
+  GestureResponderEvent,
   ImageBackground,
-  ViewStyle,
   StyleProp,
+  TextInput,
+  TextStyle,
+  TouchableOpacity,
+  View,
+  ViewStyle,
 } from "react-native";
-import { useEffect, useRef, useState } from "react";
+import { gameOneScreenStyles } from "../assets/styles/styles";
+import { getNames } from "../components/nameStore";
 import { Text } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
-import { getNames, updateNames } from "../components/nameStore";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { MaterialIcons } from "@expo/vector-icons";
-import { useFonts } from "expo-font";
-import { gameOneScreenStyles } from "../assets/styles/styles";
-import { useLanguage } from "../utils/language/useLanguage";
-import { retrievePrompts, retrievePlayed } from "../utils/retrievePrompts";
 import { addPlayer } from "../utils/addPlayer";
-import React from "react";
-import { getGameModeAssets } from "../utils/language/getCategoryAssets";
+import {
+  getGameModeAssets,
+  normalizeCategory,
+} from "../utils/language/getCategoryAssets";
+import { useLanguage } from "../utils/language/useLanguage";
+import { Prompt } from "../utils/promptTypes";
+import { retrievePlayed, retrievePrompts } from "../utils/retrievePrompts";
+import { shuffle } from "../utils/selectRandomPrompts";
+import {
+  SHORT_MESSAGE_DURATION_MS,
+  showMessage,
+} from "../utils/showMessage";
+
+type DisplayedPrompt = {
+  name: string;
+  prompt: string;
+  color: string;
+  category: string;
+  handle: string;
+};
+
+const replacePlayerNames = (
+  text: string,
+  names: [string, string, string]
+) =>
+  text
+    .replace(/\[Name3\]/g, names[2])
+    .replace(/\[Name2\]/g, names[1])
+    .replace(/\[Name\]/g, names[0]);
 
 export default function GameOneScreen({
   route,
   navigation,
 }: RootTabScreenProps<"GameOne">) {
   const { gameMode, language, categoryImages } = route.params;
-  const { categoryColors, playedArray } = getGameModeAssets(gameMode);
-  const [fontsLoaded] = useFonts({
-    Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
-    Mosh: require("../assets/fonts/Mosherif-1GezZ.ttf"),
-  });
-
+  const { categoryColors, playedArray } = useMemo(
+    () => getGameModeAssets(gameMode),
+    [gameMode]
+  );
   const {
     addRuleButtonText,
     addRuleFieldText,
     addRuleButton2Text,
-    newRuleTitle,
     addRuleToastText,
     addPlayerButtonText,
     addPlayerFieldText,
@@ -50,243 +72,235 @@ export default function GameOneScreen({
     quitGameText,
     quitGameOpt1,
     quitGameOpt2,
-    setLanguage,
-  } = useLanguage();
+  } = useLanguage(language);
 
-  useEffect(() => {
-    setLanguage(language);
-    if (!fontsLoaded) {
-      return undefined;
-    }
-  });
+  const shakeAnim = useRef(new Animated.Value(0)).current;
+  const history = useRef<DisplayedPrompt[]>([]);
+  const historyIndex = useRef(-1);
+  const isLoadingPrompt = useRef(false);
+  const lastFirstCardMessageAt = useRef(0);
 
-  // Initialize the shake animation value
-  const shakeAnim = new Animated.Value(0);
-
-  // Set up the shake animation
-  let shakeIteration = 0;
-  const shake = () => {
-    shakeAnim.setValue(0);
-    Animated.timing(shakeAnim, {
-      toValue: 1,
-      duration: 100,
-      useNativeDriver: true,
-    }).start(({ finished }) => {
-      if (finished) {
-        shakeIteration++;
-        if (shakeIteration < 1) {
-          shake();
-        } else {
-          shakeIteration = 0;
-          shakeAnim.setValue(0);
-        }
-      }
-    });
-  };
-
-  useEffect(() => {
-    shake();
-    displayRandomPromptAndName();
-  }, []);
-
-  const names = getNames(); // retrieve the names from the name store
-  const [randomName, setRandomName] = useState("");
   const [randomPrompt, setRandomPrompt] = useState("");
-  let handle = "";
   const [promptHandle, setPromptHandle] = useState("");
   const [randomCategory, setRandomCategory] = useState("");
-  const [backgroundColor, setBackgroundColor] = useState("#fff"); // Add a state to store the background color
-  const [shouldNavigate] = useState(false);
-  const [previousPrompts, setPreviousPrompts] = useState<
-    {
-      name: string;
-      prompt: string;
-      color: string;
-      category: string;
-      handle: string;
-    }[]
-  >([]);
+  const [backgroundColor, setBackgroundColor] = useState("#131313");
+  const [currentCategory, setCurrentCategory] = useState("");
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [isPlayerOverlayVisible, setIsPlayerOverlayVisible] = useState(false);
   const [isEditVisible, setIsEditVisible] = useState(false);
   const [newRule, setNewRule] = useState("");
-  const [isQuitOverlayVisible, setIsQuitOverlayVisible] = useState(false);
   const [newPlayerName, setNewPlayerName] = useState("");
 
-  const arrayIndex = useRef(0);
-  var index = 0;
-  // Define a new state variable to store the background image
-  const [currentCategory, setCurrentCategory] = useState("");
+  const shake = useCallback(() => {
+    shakeAnim.stopAnimation();
+    shakeAnim.setValue(0);
+    Animated.sequence([
+      Animated.timing(shakeAnim, {
+        duration: 60,
+        toValue: 1,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnim, {
+        duration: 60,
+        toValue: 0,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, [shakeAnim]);
 
-  useEffect(() => {
-    shake();
-  }, [randomName, randomPrompt]);
+  const displayHistoryItem = useCallback(
+    (item: DisplayedPrompt) => {
+      setRandomPrompt(item.prompt);
+      setRandomCategory(item.category);
+      setBackgroundColor(item.color);
+      setCurrentCategory(item.category);
+      setPromptHandle(item.handle);
+      shake();
+    },
+    [shake]
+  );
 
-  const getRandomIndexes = (names: string[], count: number) => {
-    const chosenIndexes = new Set<number>();
-    while (chosenIndexes.size < count) {
-      chosenIndexes.add(Math.floor(Math.random() * names.length));
-    }
-    return Array.from(chosenIndexes);
-  };
+  const displayRandomPromptAndName = useCallback(async () => {
+    if (isLoadingPrompt.current) return;
+    isLoadingPrompt.current = true;
 
-  const displayRandomPromptAndName = async () => {
-    // Retrieve the prompts from async storage
-    const [selectedPrompts, playedPrompts] = await Promise.all([
-      retrievePrompts(gameMode),
-      retrievePlayed(playedArray),
-    ]);
+    try {
+      const [selectedPrompts, playedPrompts] = await Promise.all([
+        retrievePrompts(gameMode),
+        retrievePlayed(playedArray),
+      ]);
 
-    // Start the shake animation
-    shake();
+      if (!selectedPrompts.length) {
+        navigation.navigate("GameOver", { language });
+        return;
+      }
 
-    // Check if there are any prompts left to display
-    if (selectedPrompts.length > 0) {
-      const prompt = selectedPrompts[index];
-      const newlyPlayedPrompt = {
-        text: prompt.text,
+      const availableNames = getNames().filter(Boolean);
+      if (!availableNames.length) {
+        navigation.navigate("TabOne");
+        return;
+      }
+
+      const chosenNames = shuffle(availableNames).slice(0, 3);
+      const names: [string, string, string] = [
+        chosenNames[0],
+        chosenNames[1] ?? chosenNames[0],
+        chosenNames[2] ?? chosenNames[0],
+      ];
+      const prompt: Prompt = { ...selectedPrompts[0] };
+      const remainingPrompts = selectedPrompts.slice(1).map((item) => ({
+        ...item,
+      }));
+      const canonicalCategory = normalizeCategory(prompt.category);
+
+      if (
+        canonicalCategory === "VIRUS" &&
+        prompt.id?.endsWith("a")
+      ) {
+        const matchingEndId = `${prompt.id.slice(0, -1)}b`;
+        const matchingEnd = remainingPrompts.find(
+          (candidate) => candidate.id === matchingEndId
+        );
+        if (matchingEnd) {
+          matchingEnd.text = replacePlayerNames(matchingEnd.text, names);
+        }
+      }
+
+      await Promise.all([
+        AsyncStorage.setItem(
+          playedArray,
+          JSON.stringify([
+            ...playedPrompts,
+            { text: prompt.text, category: prompt.category },
+          ])
+        ),
+        AsyncStorage.setItem(gameMode, JSON.stringify(remainingPrompts)),
+      ]);
+
+      const displayedPrompt: DisplayedPrompt = {
+        name: names[0],
+        prompt: replacePlayerNames(prompt.text, names),
+        color: categoryColors[canonicalCategory] ?? "#131313",
         category: prompt.category,
+        handle: (prompt.handle ?? "").replace(/^@/, ""),
       };
 
-      // Add the new prompt to the existing array of played prompts
-      const updatedPlayedPrompts = [...playedPrompts, newlyPlayedPrompt];
-      await AsyncStorage.setItem(
-        playedArray,
-        JSON.stringify(updatedPlayedPrompts)
-      );
-
-      // Save the category of the prompt
-      const { category }: { category: keyof typeof categoryColors } = prompt;
-      setCurrentCategory(category);
-
-      // Get three unique random indexes
-      const chosenIndexes = getRandomIndexes(names, Math.min(3, names.length));
-      const [name, name2, name3] = chosenIndexes.map((index) => names[index]);
-
-      // Update virus prompt if necessary
-      if (prompt.category === "VIRUS" && prompt.id.slice(-1) === "a") {
-        const currentVirusID = prompt.id.slice(0, -1);
-        for (let i = index + 1; i < selectedPrompts.length; i++) {
-          if (selectedPrompts[i].id === currentVirusID + "b") {
-            selectedPrompts[i].text = selectedPrompts[i].text
-              .replace("[Name]", name)
-              .replace("[Name2]", name2);
-            break;
-          }
-        }
-      }
-
-      // Update the random name text
-      setRandomName(name);
-
-      const color = categoryColors[category];
-      selectedPrompts.splice(index, 1);
-
-      // Store the updated list of prompts in async storage
-      await AsyncStorage.setItem(gameMode, JSON.stringify(selectedPrompts));
-
-      // Replace placeholders in the prompt text
-      const replacements = [
-        { search: "[Name]", replace: name },
-        { search: "[Name2]", replace: name2 },
-      ];
-      if (name3) replacements.push({ search: "[Name3]", replace: name3 });
-
-      replacements.forEach(({ search, replace }) => {
-        if (prompt.text.includes(search)) {
-          prompt.text = prompt.text.replace(search, replace);
-        }
-      });
-
-      // Update the random prompt text and other states
-      setRandomPrompt(prompt.text);
-      setRandomCategory(category);
-      setBackgroundColor(color);
-      setCurrentCategory(category);
-      setPromptHandle(prompt.handle || "");
-      if (prompt.hasOwnProperty("handle")) {
-        handle = prompt.handle;
-        setPromptHandle(handle);
-      }
-
-      // Add the current name, prompt, and color to the previousPrompts array as an object
-      setPreviousPrompts([
-        ...previousPrompts,
-        {
-          name,
-          prompt: prompt.text,
-          color,
-          category,
-          handle,
-        },
-      ]);
-      arrayIndex.current = previousPrompts.length;
-      index++;
-    } else {
-      // If there are no prompts left to display, navigate back to the TabTwoScreen
+      history.current = [...history.current, displayedPrompt];
+      historyIndex.current = history.current.length - 1;
+      displayHistoryItem(displayedPrompt);
+    } catch (error) {
+      console.error("Unable to display prompt", error);
       navigation.navigate("GameOver", { language });
+    } finally {
+      isLoadingPrompt.current = false;
     }
+  }, [
+    categoryColors,
+    displayHistoryItem,
+    gameMode,
+    language,
+    navigation,
+    playedArray,
+  ]);
+
+  useEffect(() => {
+    void displayRandomPromptAndName();
+  }, [displayRandomPromptAndName]);
+
+  const showPreviousPrompt = () => {
+    if (historyIndex.current <= 0) {
+      const now = Date.now();
+      if (
+        now - lastFirstCardMessageAt.current <
+        SHORT_MESSAGE_DURATION_MS
+      ) {
+        return;
+      }
+
+      lastFirstCardMessageAt.current = now;
+      showMessage(firstCardText);
+      return;
+    }
+
+    historyIndex.current -= 1;
+    displayHistoryItem(history.current[historyIndex.current]);
+  };
+
+  const showNextPrompt = () => {
+    if (historyIndex.current < history.current.length - 1) {
+      historyIndex.current += 1;
+      displayHistoryItem(history.current[historyIndex.current]);
+      return;
+    }
+
+    void displayRandomPromptAndName();
+  };
+
+  const handleCardPress = (event: GestureResponderEvent) => {
+    if (isEditVisible || isOverlayVisible || isPlayerOverlayVisible) {
+      setIsOverlayVisible(false);
+      setIsPlayerOverlayVisible(false);
+      setIsEditVisible(false);
+      return;
+    }
+
+    const side =
+      event.nativeEvent.locationX < Dimensions.get("window").width / 2
+        ? "left"
+        : "right";
+    if (side === "left") showPreviousPrompt();
+    else showNextPrompt();
+  };
+
+  const addCustomRule = async () => {
+    const rule = newRule.trim();
+    if (!rule) {
+      showMessage(addRuleFieldText);
+      return;
+    }
+
+    const storedPrompts = await retrievePrompts(gameMode);
+    const randomIndex = Math.floor(Math.random() * (storedPrompts.length + 1));
+    storedPrompts.splice(randomIndex, 0, { text: rule, category: "RULE" });
+    await AsyncStorage.setItem(gameMode, JSON.stringify(storedPrompts));
+    setNewRule("");
+    showMessage(addRuleToastText);
+    setIsOverlayVisible(false);
+    setIsEditVisible(false);
+  };
+
+  const addNewPlayer = async () => {
+    const playerName = newPlayerName.trim();
+    if (!playerName) {
+      showMessage(addPlayerFieldText);
+      return;
+    }
+
+    await addPlayer(playerName);
+    setNewPlayerName("");
+    showMessage(addPlayerToastText);
+    setIsPlayerOverlayVisible(false);
+    setIsEditVisible(false);
   };
 
   return (
     <TouchableOpacity
       activeOpacity={0.9}
+      onPress={handleCardPress}
       style={[
         gameOneScreenStyles.container as StyleProp<ViewStyle>,
         { backgroundColor },
       ]}
-      onPress={(event: { nativeEvent: { locationX: any } }) => {
-        const { locationX } = event.nativeEvent;
-        const screenWidth = Dimensions.get("window").width;
-        if (!isEditVisible && !isOverlayVisible && !isPlayerOverlayVisible) {
-          const side = locationX < screenWidth / 2 ? "left" : "right";
-
-          if (side === "left") {
-            if (arrayIndex.current > 0) {
-              const lastPrompt = previousPrompts[arrayIndex.current - 1];
-              setRandomName(lastPrompt.name);
-              setRandomPrompt(lastPrompt.prompt);
-              setRandomCategory(lastPrompt.category);
-              setBackgroundColor(lastPrompt.color);
-              setCurrentCategory(lastPrompt.category);
-              setPromptHandle(lastPrompt.handle);
-              arrayIndex.current--;
-            } else {
-              ToastAndroid.show(firstCardText, ToastAndroid.SHORT);
-            }
-          } else {
-            if (arrayIndex.current == previousPrompts.length - 1) {
-              displayRandomPromptAndName();
-            } else {
-              const nextPrompt = previousPrompts[arrayIndex.current + 1];
-              setRandomName(nextPrompt.name);
-              setRandomPrompt(nextPrompt.prompt);
-              setRandomCategory(nextPrompt.category);
-              setBackgroundColor(nextPrompt.color);
-              setCurrentCategory(nextPrompt.category);
-              setPromptHandle(nextPrompt.handle);
-              arrayIndex.current++;
-            }
-            if (shouldNavigate) {
-              navigation.navigate("GameOver", { language });
-            }
-          }
-        } else {
-          setIsOverlayVisible(false);
-          setIsPlayerOverlayVisible(false);
-          setIsEditVisible(false);
-        }
-      }}
     >
       <ImageBackground
+        source={categoryImages[normalizeCategory(currentCategory)]}
         style={gameOneScreenStyles.image as StyleProp<ViewStyle>}
-        source={categoryImages[currentCategory]}
       >
         {isEditVisible && (
           <>
             <TouchableOpacity
+              onPress={() => setIsOverlayVisible((visible) => !visible)}
               style={gameOneScreenStyles.ruleButton as StyleProp<ViewStyle>}
-              onPress={() => setIsOverlayVisible(!isOverlayVisible)}
             >
               <Text style={gameOneScreenStyles.veryBoldText}>
                 {addRuleButtonText}
@@ -295,44 +309,17 @@ export default function GameOneScreen({
             {isOverlayVisible && (
               <View style={gameOneScreenStyles.overlay as StyleProp<ViewStyle>}>
                 <TextInput
-                  style={gameOneScreenStyles.textInput as StyleProp<ViewStyle>}
+                  onChangeText={setNewRule}
                   placeholder={addRuleFieldText}
-                  onChangeText={(text: any) => setNewRule(text)}
+                  placeholderTextColor="#666666"
+                  style={gameOneScreenStyles.textInput as StyleProp<ViewStyle>}
                   value={newRule}
                 />
                 <TouchableOpacity
+                  onPress={() => void addCustomRule()}
                   style={
                     gameOneScreenStyles.submitButton as StyleProp<ViewStyle>
                   }
-                  onPress={async () => {
-                    // Retrieve the selected prompts from async storage
-                    const selectedPrompts = await AsyncStorage.getItem(
-                      gameMode
-                    );
-                    // Convert the selected prompts string back to an array
-                    const promptsArray = selectedPrompts
-                      ? JSON.parse(selectedPrompts)
-                      : [];
-                    // Generate a random index between 0 and the length of the array
-                    const randomIndex = Math.floor(
-                      Math.random() * (promptsArray.length + 1)
-                    );
-                    // Use the splice method to insert the new rule at the random index
-                    promptsArray.splice(randomIndex, 0, {
-                      text: newRule,
-                      category: newRuleTitle,
-                    });
-                    await AsyncStorage.setItem(
-                      gameMode,
-                      JSON.stringify(promptsArray)
-                    );
-                    // Reset the new rule input and close the overlay
-                    setNewRule("");
-                    // Display a message to the user to confirm that the new rule has been added
-                    ToastAndroid.show(addRuleToastText, ToastAndroid.SHORT);
-                    setIsOverlayVisible(false);
-                    setIsEditVisible(false);
-                  }}
                 >
                   <Text style={gameOneScreenStyles.submitButtonText}>
                     {addRuleButton2Text}
@@ -342,8 +329,10 @@ export default function GameOneScreen({
             )}
 
             <TouchableOpacity
+              onPress={() =>
+                setIsPlayerOverlayVisible((visible) => !visible)
+              }
               style={gameOneScreenStyles.playerButton as StyleProp<ViewStyle>}
-              onPress={() => setIsPlayerOverlayVisible(!isPlayerOverlayVisible)}
             >
               <Text style={gameOneScreenStyles.veryBoldText}>
                 {addPlayerButtonText}
@@ -352,25 +341,17 @@ export default function GameOneScreen({
             {isPlayerOverlayVisible && (
               <View style={gameOneScreenStyles.overlay as StyleProp<ViewStyle>}>
                 <TextInput
-                  style={gameOneScreenStyles.textInput as StyleProp<ViewStyle>}
+                  onChangeText={setNewPlayerName}
                   placeholder={addPlayerFieldText}
-                  onChangeText={(text: any) => setNewPlayerName(text)}
+                  placeholderTextColor="#666666"
+                  style={gameOneScreenStyles.textInput as StyleProp<ViewStyle>}
                   value={newPlayerName}
                 />
                 <TouchableOpacity
+                  onPress={() => void addNewPlayer()}
                   style={
                     gameOneScreenStyles.submitButton as StyleProp<ViewStyle>
                   }
-                  onPress={() => {
-                    // Add the new player's name to the name store and update it
-                    addPlayer(newPlayerName);
-                    // Reset the new player name input and close the overlay
-                    setNewPlayerName("");
-                    // Display a message to the user to confirm that the new player has been added
-                    ToastAndroid.show(addPlayerToastText, ToastAndroid.SHORT);
-                    setIsPlayerOverlayVisible(false);
-                    setIsEditVisible(false);
-                  }}
                 >
                   <Text style={gameOneScreenStyles.submitButtonText}>
                     {addPlayerButton2Text}
@@ -387,27 +368,16 @@ export default function GameOneScreen({
           }
         >
           <TouchableOpacity
+            onPress={() =>
+              Alert.alert(quitGameTitle, quitGameText, [
+                {
+                  text: quitGameOpt1,
+                  onPress: () => navigation.navigate("TabTwo", { language }),
+                },
+                { text: quitGameOpt2, style: "cancel" },
+              ])
+            }
             style={gameOneScreenStyles.topLeftButton as StyleProp<ViewStyle>}
-            onPress={() => {
-              Alert.alert(
-                quitGameTitle,
-                quitGameText,
-                [
-                  {
-                    text: quitGameOpt1,
-                    onPress: () =>
-                      navigation.navigate("TabTwo", {
-                        language: language,
-                      }),
-                  },
-                  {
-                    text: quitGameOpt2,
-                    onPress: () => setIsQuitOverlayVisible(false),
-                  },
-                ],
-                { cancelable: true }
-              );
-            }}
           >
             <MaterialIcons name="close" size={24} color="#fff" />
           </TouchableOpacity>
@@ -419,16 +389,16 @@ export default function GameOneScreen({
           }
         >
           <TouchableOpacity
+            onPress={() => setIsEditVisible((visible) => !visible)}
             style={gameOneScreenStyles.topRightButton as StyleProp<ViewStyle>}
-            onPress={() => setIsEditVisible(!isEditVisible)}
           >
             <MaterialIcons name="add" size={26} color="#fff" />
           </TouchableOpacity>
         </View>
 
-        {randomCategory !== " " && (
+        {!!randomCategory.trim() && (
           <Text
-            style={gameOneScreenStyles.categoryText as StyleProp<ViewStyle>}
+            style={gameOneScreenStyles.categoryText as StyleProp<TextStyle>}
           >
             {randomCategory}
           </Text>
@@ -436,13 +406,13 @@ export default function GameOneScreen({
 
         <Animated.Text
           style={{
+            color: "#fff",
             fontFamily: "Mosh",
             fontSize: 35,
-            color: "#fff",
-            textAlign: "center",
             marginBottom: 10,
             marginLeft: 30,
             marginRight: 30,
+            textAlign: "center",
             textShadowColor: "#000",
             textShadowOffset: { width: 1, height: 1 },
             textShadowRadius: 10,
@@ -459,14 +429,14 @@ export default function GameOneScreen({
           {randomPrompt}
         </Animated.Text>
 
-        {promptHandle && (
+        {!!promptHandle && (
           <Animated.Text
             style={{
-              fontSize: 14,
-              color: "#fff",
-              fontWeight: "bold",
-              fontStyle: "italic",
               bottom: 50,
+              color: "#fff",
+              fontSize: 14,
+              fontStyle: "italic",
+              fontWeight: "bold",
               position: "absolute",
               transform: [
                 {

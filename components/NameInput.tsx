@@ -11,14 +11,14 @@ import {
   ViewStyle,
   TextStyle,
 } from "react-native";
-import { getNames, updateNames } from "./nameStore";
+import { getNames, hydrateNames, updateNames } from "./nameStore";
 import {
   nameInputComponentStyles,
   screen1Styles,
 } from "../assets/styles/styles";
 
 export interface NameInputProps {
-  scrollViewRef: React.RefObject<ScrollView>;
+  scrollViewRef: React.RefObject<ScrollView | null>;
   player: string;
 }
 
@@ -29,16 +29,24 @@ export const NameInput: React.FC<NameInputProps> = ({
   const [names, setNames] = useState(getNames());
   useFocusEffect(
     React.useCallback(() => {
-      setNames(getNames());
+      let isActive = true;
+      void hydrateNames().then((storedNames) => {
+        if (isActive) setNames(storedNames);
+      });
+
+      return () => {
+        isActive = false;
+      };
     }, [])
   );
 
   const handleNameChange = (text: string, index: number) => {
-    // If the input text is not empty, add it to the list of names
     const newNames = [...names];
     newNames[index] = text;
     setNames(newNames);
-    updateNames(newNames); // update the names in the name store
+    void updateNames(newNames).catch((error) =>
+      console.error("Unable to save player names", error)
+    );
     if (scrollViewRef.current) {
       scrollViewRef.current.scrollToEnd({ animated: true });
     }
@@ -49,13 +57,16 @@ export const NameInput: React.FC<NameInputProps> = ({
     if (scrollViewRef.current) {
       scrollViewRef.current.scrollToEnd({ animated: true });
     }
-    const newNames = [...names];
-    updateNames(newNames); // update the names in the name store
   };
   const handleRemoveName = () => {
     if (names.length > 1) {
-      setNames(names.filter((_, index) => index !== names.length - 1));
-      updateNames(names.filter((_, index) => index !== names.length - 1)); // update the names in the name store
+      const remainingNames = names.filter(
+        (_, index) => index !== names.length - 1
+      );
+      setNames(remainingNames);
+      void updateNames(remainingNames).catch((error) =>
+        console.error("Unable to save player names", error)
+      );
     }
   };
 
@@ -65,6 +76,7 @@ export const NameInput: React.FC<NameInputProps> = ({
         <View style={nameInputComponentStyles.nameItem} key={index}>
           <TextInput
             placeholder={`${player} ${index + 1}`}
+            placeholderTextColor="#666666"
             value={name}
             onChangeText={(text) => handleNameChange(text, index)}
             style={screen1Styles.textInput as StyleProp<ImageStyle>}

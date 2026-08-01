@@ -2,28 +2,15 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
-import React, { useEffect } from "react";
-import { useFonts } from "expo-font";
+import React from "react";
 import { useLanguage } from "../utils/language/useLanguage";
-var language = "English";
 
 export default function GameOverScreen({
   route,
   navigation,
 }: RootTabScreenProps<"GameOver">) {
   const { language } = route.params;
-  const [fontsLoaded] = useFonts({
-    Konstruktor: require("../assets/fonts/Konstruktor-qZZRq.otf"),
-  });
-
-  const { gameOverText, moreGamesText, setLanguage } = useLanguage();
-
-  useEffect(() => {
-    setLanguage(language);
-    if (!fontsLoaded) {
-      return undefined;
-    }
-  });
+  const { gameOverText, moreGamesText } = useLanguage(language);
 
   return (
     <View style={styles.container}>
